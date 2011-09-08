@@ -3,11 +3,11 @@
   留言本管理
   admin权限.
  */
-class Guestbook extends Controller {
+class Guestbook extends CI_Controller {
 
-	function Guestbook()
+	function __construct()
 	{
-		parent::Controller();
+		parent::__construct();
 		$this->load->library('session');
 		$this->load->model('Guestbook_model');
 		$this->load->helper('admin');
@@ -16,13 +16,6 @@ class Guestbook extends Controller {
 		if (!has_login())
 		{
 			goto_login();
-		}
-		
-		$this->staff_info = get_staff_info();
-		//检查权限.
-		if(!check_role(array(GROUP_ADMIN), $this->staff_info['group_id']))
-		{
-			show_access_deny_page();
 		}
 	}
 	
@@ -73,7 +66,7 @@ class Guestbook extends Controller {
 		
 		$data['header']['meta_title'] = '留言管理 - 留言详情';
 		$data['main']['message_info'] = $message_info;
-		_load_viewer($this->staff_info['group_id'], 'guestbook_one', $data);
+		_load_viewer('guestbook_one', $data);
 	}	
 	
 	function unavailable($message_id = 0)
@@ -143,11 +136,9 @@ class Guestbook extends Controller {
 				break;
 		}
 		$data['header']['meta_title'] = '留言管理 - '.$page_name;
-		$data['header']['js_file'][] = '../ajax.js';
-		$data['header']['js_file'][] = 'guestbook.js';
 		$data['main']['page_name'] = $page_name;
 		$data['main']['messages'] = $messages;
-		_load_viewer($this->staff_info['group_id'], 'guestbook', $data);
+		_load_viewer('guestbook', $data);
 	}
 
 	function _parse_filter($filter_string, $filter)

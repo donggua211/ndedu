@@ -3,11 +3,11 @@
   文章分类管理
   admin权限.
  */
-class ArticleCat extends Controller {
+class ArticleCat extends CI_Controller {
 
-	function ArticleCat()
+	function __construct()
 	{
-		parent::Controller();
+		parent::__construct();
 		$this->load->library('session');
 		$this->load->model('ArticleCat_model');
 		$this->load->helper('admin');
@@ -16,13 +16,6 @@ class ArticleCat extends Controller {
 		if (!has_login())
 		{
 			goto_login();
-		}
-		
-		$this->staff_info = get_staff_info();
-		//检查权限.
-		if(!check_role(array(GROUP_ADMIN), $this->staff_info['group_id']))
-		{
-			show_access_deny_page();
 		}
 	}
 
@@ -35,7 +28,7 @@ class ArticleCat extends Controller {
 	{
 		$data['header']['meta_title'] = '所有分类 - 咨询系统管理';
 		$data['main']['categories'] = $this->ArticleCat_model->get_all_category();
-		_load_viewer($this->staff_info['group_id'], 'article_cat', $data);
+		_load_viewer('article_cat', $data);
 	}
 	
 	function add()
@@ -173,7 +166,7 @@ class ArticleCat extends Controller {
 		$data['main']['notification'] = $notify;
 		$data['main']['categories'] = $this->ArticleCat_model->get_all_category();
 		$data['main']['category'] = $category;
-		_load_viewer($this->staff_info['group_id'], 'article_cat_edit', $data);
+		_load_viewer('article_cat_edit', $data);
 	}
 	
 	function _load_category_add_view($notify = '', $category = array())
@@ -182,7 +175,7 @@ class ArticleCat extends Controller {
 		$data['main']['notification'] = $notify;
 		$data['main']['categories'] = $this->ArticleCat_model->get_all_category();
 		$data['main']['category'] = $category;
-		_load_viewer($this->staff_info['group_id'], 'article_cat_add', $data);
+		_load_viewer('article_cat_add', $data);
 	}
 }
 

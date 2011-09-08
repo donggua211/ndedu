@@ -22,8 +22,12 @@
 				<td><?php echo (isset($message_info['phone'])) ? $message_info['phone'] :'';?></td>
 			</tr>
 			<tr>
-				<td class="label" valign="top">年级: </td>
-				<td><?php echo (isset($message_info['grade_name'])) ? $message_info['grade_name'] :''; ?></td>
+				<td class="label" valign="top">emial: </td>
+				<td><?php echo (isset($message_info['email'])) ? $message_info['email'] :''; ?></td>
+			</tr>
+			<tr>
+				<td class="label" valign="top">类型: </td>
+				<td><?php echo (isset($message_info['type'])) ? $message_info['type'] :''; ?></td>
 			</tr>
 			<tr>
 				<td class="label" valign="top">留言时间: </td>
@@ -32,10 +36,6 @@
 			<tr>
 				<td class="label" valign="top">ip: </td>
 				<td><?php echo (isset($message_info['ip_address'])) ? $message_info['ip_address'] : ''; ?></td>
-			</tr>
-			<tr>
-				<td class="label" valign="top">来源页: </td>
-				<td><?php echo (isset($message_info['from_page'])) ? $message_info['from_page'] :''; ?></td>
 			</tr>
 			<tr>
 				<td class="label" valign="top">内容: </td>

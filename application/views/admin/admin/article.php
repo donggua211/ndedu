@@ -9,7 +9,7 @@
 <body>
 
 <div id="navigation" class="navigation">
-	<a href="<?php echo site_url().'/admin/entry/info'?>">admin</a> &nbsp;»&nbsp; <a href="<?php echo site_url().'/admin/article/index'?>">文章管理</a> &nbsp;»&nbsp; 
+	<a href="<?php echo site_url().'/admin/welcome/info'?>">admin</a> &nbsp;»&nbsp; <a href="<?php echo site_url().'/admin/article/index'?>">文章管理</a> &nbsp;»&nbsp; 
 	<?php
 		if($article['is_open'] == '1')
 			echo '<a href="'.site_url().'/admin/article">查看文章</a>';

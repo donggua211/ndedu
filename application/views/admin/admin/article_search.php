@@ -9,7 +9,7 @@
 <body>
 
 <div id="navigation" class="navigation">
-	<a href="<?php echo site_url().'/admin/entry/info'?>">admin</a> &nbsp;»&nbsp; <a href="<?php echo site_url().'/admin/article/index'?>">文章管理</a> &nbsp;»&nbsp; 文章搜索
+	<a href="<?php echo site_url().'/admin/welcome/info'?>">admin</a> &nbsp;»&nbsp; <a href="<?php echo site_url().'/admin/article/index'?>">文章管理</a> &nbsp;»&nbsp; 文章搜索
 </div>
 <div>
 	<FORM action="<?php echo site_url("admin/article/search"); ?>" method="post" >

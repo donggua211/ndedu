@@ -1,9 +1,9 @@
 <?php
-class ArticleCat_model extends Model {
+class ArticleCat_model extends CI_Model {
 
-	function ArticleCat_model()
+	function __construct()
 	{
-		parent::Model();
+		parent::__construct();	
 	}
 	
 	function get_all_category()

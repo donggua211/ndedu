@@ -8,7 +8,7 @@
 </head>
 <body>
 <div id="navigation" class="navigation">
-	<a href="<?php echo site_url().'/admin/entry/info'?>">admin</a> &nbsp;»&nbsp; 后台首页
+	<a href="<?php echo site_url().'/admin/welcome/info'?>">admin</a> &nbsp;»&nbsp; 后台首页
 </div>
 <?php
 if(!empty($new_messages)):

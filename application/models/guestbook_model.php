@@ -1,20 +1,20 @@
 <?php
-class Guestbook_model extends Model {
+class Guestbook_model extends CI_Model {
 
-	function Guestbook_model()
+	function __construct()
 	{
-		parent::Model();
+		parent::__construct();	
 	}
 	
 	function intertGuestbook($message)
 	{
 		$data['user_name'] = $message['username'];
 		$data['phone'] = $message['phone'];
-		$data['grade'] = $message['grade'];
+		$data['email'] = $message['email'];
+		$data['type'] = $message['type'];
 		$data['message'] = $message['message'];
 		$data['add_time'] = $message['add_time'];
 		$data['ip_address'] = $message['ip_address'];
-		$data['from_page'] = $message['from_page'] ;
 		$data['is_new'] = 1;
 		
 		if($this->db->insert('guestbook', $data))
@@ -61,27 +61,6 @@ class Guestbook_model extends Model {
 		{
 			foreach ($query->result_array() as $row)
 			{
-				$row['add_time'] = date('Y-m-d H:i', $row['add_time']);
-				
-				switch($row['grade'])
-				{
-					case 'preschool':
-						$row['grade_name'] = '学前班';
-						break;
-					case 'primary_school':
-						$row['grade_name'] = '小学';
-						break;
-					case 'junior_middle_school':
-						$row['grade_name'] = '初中';
-						break;
-					case 'high_school':
-						$row['grade_name'] = '高中';
-						break;
-					default:
-						$row['grade_name'] = '';
-						break;
-				}
-				
 				$result[$row['msg_id']] = $row;
 			}
 			return $result;
@@ -125,25 +104,6 @@ class Guestbook_model extends Model {
 		if ($query->num_rows() > 0)
 		{
 			$row = $query->row_array();
-			$row['add_time'] = date('Y-m-d H:i', $row['add_time']);
-			switch($row['grade'])
-			{
-				case 'preschool':
-					$row['grade_name'] = '学前班';
-					break;
-				case 'primary_school':
-					$row['grade_name'] = '小学';
-					break;
-				case 'junior_middle_school':
-					$row['grade_name'] = '初中';
-					break;
-				case 'high_school':
-					$row['grade_name'] = '高中';
-					break;
-				default:
-					$row['grade_name'] = '';
-					break;
-			}
 			return $row;
 		}
 		else

@@ -3,11 +3,11 @@
   用户登录, 退出等功能.
   公共权限
  */
-class Admin extends Controller {
+class Admin extends CI_Controller {
 
-	function Admin()
+	function __construct()
 	{
-		parent::Controller();
+		parent::__construct();
 		$this->load->library('session');
 		$this->load->model('CRM_Staff_model');
 		$this->load->helper('admin');

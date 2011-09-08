@@ -1,11 +1,11 @@
 <?php
-class Article_model extends Model {
+class Article_model extends CI_Model {
 
-	function Article_model()
+	function __construct()
 	{
-		parent::Model();
+		parent::__construct();	
 	}
-
+	
 	function getCategoriesList()
 	{
 		$this->db->select('cat_id, cat_name, parent_id');
@@ -53,11 +53,6 @@ class Article_model extends Model {
 		$data['title'] = $article['title'];
 		$data['content'] = $article['content'];
 		$data['keywords'] = $article['keywords'];
-		$data['short_description'] = $article['short_description'];
-		$data['short_description_img'] = $article['short_description_img'];
-		
-		$data['image_align'] = $article['image_align'];
-		$data['image_url'] = $article['image_url'];
 		
 		$data['is_open'] = $article['is_open'];
 		
@@ -155,30 +150,18 @@ class Article_model extends Model {
 	
 	function updateArticle($article_id, $article)
 	{
-		if(!is_array($article)) 
-			return false;
+		if(empty($update_field))
+			return true;
 		
-		if(!is_array($article_id))
-			$article_ids[] = $article_id;
-		else
-			$article_ids = $article_id;
+		//¸üÐÂstudent±í
+		foreach($update_field as $key => $val)
+		{
+				$data[$key] = $val;
+		}
+		$data['modified_time'] = date('Y-m-d H:i:s');
 		
-		$data['cat_id'] = $article['catagory'];
-		$data['title'] = $article['title'];
-		$data['content'] = $article['content'];
-		$data['keywords'] = $article['keywords'];
-		$data['is_open'] = $article['is_open'];
-		$data['modified_time'] = $article['modified_time'];
-		$data['short_description'] = $article['short_description'];
-		$data['short_description_img'] = $article['short_description_img'];
-
-		if(isset($article['image_align'])) $data['image_align'] = $article['image_align'];
-		if(isset($article['image_url'])) $data['image_url'] = $article['image_url'];
-		
-		$this->db->where_in('article_id', $article_ids);
-		$result = $this->db->update('article', $data);
-
-		return $result;
+		$this->db->where('article_id', $article_id);
+		return $this->db->update('article', $data);
 	}
 	
 	function deleteMessage($article_id)
@@ -232,7 +215,7 @@ class Article_model extends Model {
 
 		$this->db->where('is_open', '1');		
 		$this->db->where('cat_id', $cat);	
-		$this->db->select('article_id, title, add_time, count, content');
+		$this->db->select('article_id, title, add_time, count');
 		
 		if($order_by == 'time')	
 			$this->db->order_by("add_time", 'DESC');

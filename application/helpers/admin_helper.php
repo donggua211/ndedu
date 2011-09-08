@@ -36,12 +36,7 @@
 		$staff_group_if = $CI->session->userdata('group_id');
 		return ($staff_group_if == GROUP_SUPERVISOR) ? true : false;
 	}
-	function is_cs()
-	{
-		$CI =& get_instance();
-		$staff_group_if = $CI->session->userdata('group_id');
-		return ($staff_group_if == GROUP_CS) ? true : false;
-	}
+	
 	/* 
 		检查员工是否有权限查看该Controller.
 	 */
@@ -152,9 +147,7 @@
 	{
 		$status = intval($status);
 		$status_text = array(
-			STUDENT_STATUS_NOT_APPOINTMENT => '未约访',
-			STUDENT_STATUS_APPOINTMENT => '正在约',
-			STUDENT_STATUS_HAS_APPOINTMENT => '已约访',
+			STUDENT_STATUS_NOT_SIGNUP => '未报名',
 			STUDENT_STATUS_SIGNUP => '已报名',
 			STUDENT_STATUS_LEARNING => '正在学',
 			STUDENT_STATUS_FINISHED => '已学完',
@@ -175,8 +168,7 @@
 			GROUP_SCHOOLADMIN => '校区管理员',
 			GROUP_CONSULTANT => '咨询师',
 			GROUP_SUPERVISOR => '班主任',
-			GROUP_TEACHER_PARTTIME => '任课老师(兼职)',
-			GROUP_TEACHER_FULL => '任课老师(全职)',
+			GROUP_TEACHER => '任课老师',
 		);
 		
 		if(!array_key_exists($group_id, $groups_text))
@@ -185,7 +177,7 @@
 			return $groups_text[$group_id];
 	}
 	
-	function _load_viewer($group_id, $template, $data = array())
+	function _load_viewer($template, $data = array())
 	{
 		//处理 template EXT后缀.
 		if(!strpos($template, '.php'))
@@ -201,40 +193,7 @@
 		if( !isset($data['main']) )
 			$data['main'] = array();
 		
-		//如果在views/admin/common存在的话, 就载入, 否则在权限的文件夹下超找.
-		switch($group_id)
-		{
-			case GROUP_ADMIN: 
-				$template_full = 'admin/admin/'.$template;
-				break;
-			case GROUP_SCHOOLADMIN:
-				$template_full = 'admin/schooladmin/'.$template;
-				break;
-			case GROUP_CONSULTANT:
-				$template_full = 'admin/consultant/'.$template;
-				break;
-			case GROUP_SUPERVISOR:
-				$template_full = 'admin/supervisor/'.$template;
-				break;
-			case GROUP_CS:
-				$template_full = 'admin/cs/'.$template;
-				break;
-		}
-		
-		if(!file_exists(APPPATH.'views/'.$template_full))
-		{
-			if(file_exists(APPPATH.'views/admin/common/'.$template))
-			{
-				$template_full = 'admin/common/'.$template;
-			}
-			else
-			{
-				show_error_page('您没有权限访问该页面!');
-			}
-		}
-		
-		
-		$CI->load->view($template_full, $data['main']);
+		$CI->load->view('admin/admin/'.$template, $data['main']);
 		
 		//加载footer
 		if( !isset($data['footer']) )
