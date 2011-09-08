@@ -1,56 +1,146 @@
-﻿<div id="nav">
-	<span class="action-span"><a href="<?php echo site_url('admin') ?>"  target="_top">管理系统</a></span>
-	<span class="action-span"> » <a href="<?php echo site_url('admin/articleCat') ?>"  target="main-frame">分类管理 </a></span>
-	 » 查看分类
-	<div style="clear:both"></div>
+﻿<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<base href="<?php echo base_url() ?>" />
+	<link href="css/admin/admin.css" rel="stylesheet" type="text/css" />
+	<title>administrator's control panel</title>
+</head>
+<body>
+<div id="navigation" class="navigation">
+	<a href="<?php echo site_url().'/admin/entry/info'?>">admin</a> &nbsp;»&nbsp; 分类管理
 </div>
-<div id="main">
-	<div id="main_body">
-		<?php if(isset($notification) && !empty($notification)): ?>
-		<div style="backgroud:#fff;padding:5px;border:1px solid #FF8080;text-align:center">
-			<img style="vertical-align: middle;" src="images/icon/warning.gif"> <span style="color:red;font-size:20px;line-height:22px"><?php echo $notification;?></span>
+
+<?php 
+	if(!empty($notification))
+	{
+?>
+		<div>
+			<b><?php echo get_language('article_category', 'cn', $notification) ?></b>
 		</div>
-		<?php endif;?>
-		
-		<div id="listDiv" class="list-div">
-			<table cellspacing='1' id="list-table">
-				<tr>
-					<th>分类名称</th>
-					<th>分类描述</th>
-					<th>添加时间</th>
-					<th>最后修改时间</th>
-					<th>操作</th>
-				</tr>
-				<?php 
-				function show_category_list($category)
-				{
-					foreach($category as $value)
-					{
-						echo '<tr><td class="first-cell" align="left">';
-						
-						for($i = 0; $i < $value['level']; $i++)
-							echo '&nbsp;&nbsp;&nbsp;&nbsp;';
-						
-						if($value['level'] > 0)
-							echo '└─';
-						
-						echo '<img src="images/admin/menu_arrow.gif" width="9" height="9" border="0" style="margin-left:2px;margin-right:2px" />'.$value['cat_name'].'</td>
-								<td>'.$value['cat_desc'].'</td>
-								<td align="center">'.$value['add_time'].'</td>
-								<td align="center">'.$value['modified_time'].'</td>
-								<td align="center">
-									<a href="'.site_url('admin/ArticleCat/edit/'.$value['cat_id']).'">编辑</a>
-									<a onclick="return confirm(\'确定要删除\');" href="'.site_url('admin/ArticleCat/unavailable/'.$value['cat_id']).'">删除</a>
-								</td>
-							<tr>';
-						
-						if(isset($value['sub_cat']) && !empty($value['sub_cat']))
-							show_category_list($value['sub_cat']);
-					}
-				}
-				show_category_list($categories);
-				?>
-			</table>
-		</div>
+<?php
+	}
+
+if(isset($catetories['parrent_cat']) && is_array($catetories['parrent_cat'])):
+?>
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<tr align="center" bgcolor="#FF6600">
+		<td>ID</td>
+		<td>分类</td>
+		<td>描述</td>
+		<td>添加时间</td>
+		<td>最后修改时间</td>
+		<td>管理</td>
+	</tr>
+<?php
+	foreach($catetories['parrent_cat'] as $parrent_id => $parrent_cat):
+?>
+	<tr align="center" bgcolor="#0099FF">
+		<td><?php echo $parrent_cat['cat_id']?></td>
+		<td align="left"><?php echo $parrent_cat['cat_name']?></td>
+		<td align="left"><?php echo $parrent_cat['cat_desc']?></td>
+		<td><?php echo $parrent_cat['add_time']?></td>
+		<td><?php echo $parrent_cat['modified_time']?></td>
+		<td>
+			<a href="<?php echo site_url().'/admin/articleCat/edit/'.$parrent_cat['cat_id'] ?>">编辑</a> / 
+			<?php 
+				if($parrent_cat['is_deleted'] == 1):
+			?>
+			<a href="<?php echo site_url().'/admin/articleCat/available/'.$parrent_cat['cat_id'] ?>">取消删除</a> / 
+			<a href="<?php echo site_url().'/admin/articleCat/delete/'.$parrent_cat['cat_id'] ?>">彻底删除</a>
+			<?php
+				else:
+			?>
+			<a href="<?php echo site_url().'/admin/articleCat/unavailable/'.$parrent_cat['cat_id'] ?>">删除</a>
+			<?php 
+				endif;
+			?>
+		</td>
+	</tr>
+	
+	<?php
+		if(isset($catetories['sub_cat'][$parrent_id]) && is_array($catetories['sub_cat'][$parrent_id])):
+			foreach($catetories['sub_cat'][$parrent_id] as $key => $sub_cat):
+		?>
+			<tr align="center">
+				<td><?php echo $sub_cat['cat_id']?></td>
+				<td align="left"><?php echo $sub_cat['cat_name']?></td>
+				<td align="left"><?php echo $sub_cat['cat_desc']?></td>
+				<td><?php echo $sub_cat['add_time']?></td>
+				<td><?php echo $sub_cat['modified_time']?></td>
+				<td>
+					<a href="<?php echo site_url().'/admin/articleCat/edit/'.$sub_cat['cat_id'] ?>">编辑</a> / 
+					<?php 
+						if($sub_cat['is_deleted'] == 1):
+					?>
+					<a href="<?php echo site_url().'/admin/articleCat/available/'.$sub_cat['cat_id'] ?>">取消删除</a> / 
+					<a href="<?php echo site_url().'/admin/articleCat/delete/'.$sub_cat['cat_id'] ?>">彻底删除</a>
+					<?php
+						else:
+					?>
+					<a href="<?php echo site_url().'/admin/articleCat/unavailable/'.$sub_cat['cat_id'] ?>">删除</a>
+					<?php 
+						endif;
+					?>
+				</td>
+			</tr>
+		<?php
+			endforeach;
+		endif;
+	?>
+	<tr><td><br/></td></tr>
+<?php
+	endforeach;
+?>
+</table>
+<?php
+else:
+?>
+<div>
+	<b>尚无分类，请创建</b>
+</div>
+<hr/>
+<?php
+
+endif;
+
+if(!empty($message))
+{
+?>
+	<div>
+		<b><?php echo $message?></b>
 	</div>
+<?php
+}
+?>
+<div>
+	<span style="color:#FF0000;font-size:20px">添加分类</span>
+	<form action="<?php echo site_url().'/admin/articleCat/add'?>" method="post">
+		分类名称: <input id="name" name="name" type="text" value="" />&nbsp;*<br/>
+		关键字: <input id="keywords" name="keywords" type="text" value="" />&nbsp;*<br/>
+		分类描述: <input id="description" name="description" type="text" value="" />&nbsp;*<br/>
+		<input type="radio" id="type" name="type" value="super" />添加新的大分类 &nbsp;*<br/>
+		<?php
+			if(isset($parrent_cat) && is_array($parrent_cat)):
+		?>
+		<input type="radio" id="type" name="type" value="sub" />添加新的子分类 &nbsp;* <br/>
+		<select name="parent">
+			<?php
+				foreach($catetories['parrent_cat'] as $parrent_id => $parrent_cat):
+			?>
+			<option value="<?php echo $parrent_id ?>"><?php echo $parrent_cat['cat_name'] ?></option>
+			<?php
+				endforeach;
+			?>
+		</select><br/>
+		<?php
+			endif;
+		?>
+
+		<input type="submit" value="添加分类" name="submit"><br/>
+		<input type="reset" value="重写" name="reset"><br/>
+	</form>
 </div>
+
+</body>
+</html>

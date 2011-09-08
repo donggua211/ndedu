@@ -61,7 +61,6 @@
 			<tr>
 				<td class="label" valign="top">校区: </td>
 				<td>
-					<?php if(is_admin()): //权限: 只有超级管理员可以管理网站内容?>
 					<select name="branch_id">
 						<option value='0'>请选择...</option>
 						<?php
@@ -69,10 +68,6 @@
 								echo '<option value="'.$branch['branch_id'].'" '.((isset($staff['branch_id'])) ? ( ($branch['branch_id'] == $staff['branch_id']) ? 'SELECTED' : '' ) : '').'>'.$branch['branch_name'].'</option>';
 						?>
 					</select>
-					<?php else: ?>
-						<input name="branch_id" type="hidden" value="<?php echo $branches['branch']['branch_id'];?>" />
-						<?php echo $branches['branch']['branch_name']; ?>
-					<?php endif; ?>
 				</td>
 			</tr>
 			<tr>
@@ -97,7 +92,7 @@
 			</tr>
 			<tr>
 				<td class="label" valign="top">备注: </td>
-				<td><textarea name="remark" cols="40" rows="5"><?php echo (isset($staff['remark'])) ? $staff['remark'] :''; ?></textarea></td>
+				<td><textarea name="remark" cols="40" rows="5"></textarea></td>
 			</tr>			
 		</table>
 		<div class="button-div">

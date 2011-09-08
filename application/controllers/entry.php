@@ -20,7 +20,7 @@ class Entry extends Controller {
 		
 		//尼德学堂文章
 		$data['school_articles_num'] = 12;
-		$data['school_articles'] = $this->Article_model->getArticleByCat(9, 'time', $data['school_articles_num']);
+		$data['school_articles'] = $this->Article_model->getArticleByCat(9, 'count', $data['school_articles_num']);
 		
 		//精品图书
 		$data['school_dangdang_num'] = 6;
@@ -33,6 +33,27 @@ class Entry extends Controller {
 		$this->load->view('footer');
 	}
 	
+	function contactus()
+	{
+		$data_header['nav_menu_id'] = 7;
+		$data_header['meta_title'] = 'contactus';
+		$data_header['meta_title'] = '联系我们';
+		$data_header['load_google_map'] = TRUE;
+		
+		$this->load->view('header', $data_header);
+		$this->load->view('contactus');
+		$this->load->view('footer');
+	}
+	
+	function siteMap()
+	{
+		$data_header['meta_title'] = '网站地图';
+		$data_header['no_header'] = TRUE;
+		$this->load->view('header', $data_header);
+		$this->load->view('sitemap');
+		$this->load->view('footer');
+	}
+	
 	function oo1()
 	{
 		$data_header['css_file'] = 'promo0901.css';
@@ -42,7 +63,6 @@ class Entry extends Controller {
 		$this->load->view('promo0901');
 		$this->load->view('footer');
 	}
-	
 }
 
 /* End of file admin.php */

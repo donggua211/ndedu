@@ -14,7 +14,7 @@
 		<p>
 			<span class="navbar-front"><a href="<?php echo site_url('admin/student/one/'.$student['student_id']) ?>">基本信息</a></span>
 			<span class="navbar-back"><a href="<?php echo site_url('admin/student/one/'.$student['student_id'].'/history') ?>">详细信息</a></span>
-			<?php if(is_admin() || is_school_admin() || is_consultant() || is_supervisor()): //权限: 超级管理员, 校区管理员, 咨询师可以查看/编辑合同信息?>
+			<?php if(is_admin() || is_school_admin() || is_consultant()): //权限: 超级管理员, 校区管理员, 咨询师可以查看/编辑合同信息?>
 			<span class="navbar-back"><a href="<?php echo site_url('admin/student/one/'.$student['student_id'].'/contract') ?>">合同信息</a></span>
 			<?php endif; ?>
 		</p>
@@ -30,18 +30,6 @@
 			<tr>
 				<td class="label" valign="top">姓名: </td>
 				<td><?php echo $student['name'] ?></td>
-			</tr>
-			<tr>
-				<td class="label" valign="top">性别: </td>
-				<td>
-					<?php
-						echo !(empty($student['gender'])) ? ( $student['gender'] == 'm' ? '男' : '女' ) : '无';
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td class="label" valign="top">生日: </td>
-				<td><?php echo $student['dob']?></td>
 			</tr>
 			<tr>
 				<td class="label" valign="top">年级: </td>
@@ -64,13 +52,8 @@
 				<td><?php echo (isset($student['email'])) ? $student['email'] :''; ?></td>
 			</tr>
 			<tr>
-				<td class="label" valign="top">地址: </td>
-				<td>
-					<span class="notice-highlight">省份: </span><?php echo (isset($student['province_name'])) ? $student['province_name'] :''; ?><span class="notice-highlight"> --> </span>
-					<span class="notice-highlight">城市: </span><?php echo (isset($student['city_name'])) ? $student['city_name'] :''; ?><span class="notice-highlight"> --> </span>
-					<span class="notice-highlight">区: </span><?php echo (isset($student['district_name'])) ? $student['district_name'] :''; ?><br/>
-					<span class="notice-highlight">详细地址: </span><?php echo (isset($student['address'])) ? $student['address'] :''; ?>
-				</td>
+				<td class="label" valign="top">详细地址: </td>
+				<td><?php echo (isset($student['address'])) ? $student['address'] :''; ?></td>
 			</tr>
 			<tr>
 				<td class="label" valign="top">学员状态: </td>
@@ -110,12 +93,6 @@
 				<td class="label" valign="top">班主任: </td>
 				<td><?php echo (isset($student['supervisor']['name'])) ? $student['supervisor']['name'] :'未分配'; ?></td>
 			</tr>
-			
-			<tr>
-				<td class="label" valign="top">添加时间: </td>
-				<td><?php echo (isset($student['add_time'])) ? $student['add_time'] :''; ?></td>
-			</tr>
-			
 			<tr>
 				<td class="label" valign="top">
 			<?php
@@ -139,9 +116,5 @@
 				<td><?php echo (isset($student['remark'])) ? $student['remark'] :''; ?></td>
 			</tr>			
 		</table>
-		<div class="button-link-div">
-			<a href="<?php echo site_url('admin/student/edit/'.$student['student_id']) ?>">编辑</a>
-			<a href="javascript:void();" onclick="history.back(-1)">返回</a>
-		</div>
 	</div>
 </div>

@@ -52,19 +52,6 @@
 				<td><input name="name" type="text" value="<?php echo (isset($staff['name'])) ? $staff['name'] :''; ?>" size="30" /></td>
 			</tr>
 			<tr>
-				<td class="label" valign="top"><span class="notice-star"> * </span>性别: </td>
-				<td>
-					<input name="gender" type="radio" value="m" CHECKED="CHECKED" />男
-					<input name="gender" type="radio" value="f"/>女
-				</td>
-			</tr>
-			<tr>
-				<td class="label" valign="top"><span class="notice-star"> * </span>生日: </td>
-				<td>
-					<input type="text" name="dob" maxlength="60" size="10" value="<?php echo (isset($student['dob'])) ? $student['dob'] :''; ?>" readonly="readonly" id="date" />
-				</td>
-			</tr>
-			<tr>
 				<td class="label" valign="top">称谓: </td>
 				<td><input name="title" type="text" value="<?php echo (isset($staff['title'])) ? $staff['title'] :''; ?>" size="30" /></td>
 			</tr>
@@ -91,23 +78,6 @@
 						?>
 					</select><br/>					
 					<span class="notice-span" style="display:block"  id="noticeskype">员工所在的学阶</span>
-				</td>
-			</tr>
-			<tr>
-				<td class="label" valign="top"><span class="notice-star"> * </span>星级: </td>
-				<td>
-					<select name="level">
-						<option value='0'>请选择</option>
-						<option value='1'>A级</option>
-						<option value='3'>3A级</option>
-						<option value='5'>5A级</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td class="label" valign="top"><span class="notice-star"> * </span>试用期: </td>
-				<td>
-					<input type="checkbox" name="trial" value="1"> 选择说明员工还在试用期。
 				</td>
 			</tr>
 			<tr>
@@ -142,11 +112,6 @@
 		</form>
 	</div>
 </div>
-<script type="text/javascript">
-	$(document).ready(function(){
-		//日期选择的事件
-		$("#date").click(function(){
-			showCalendar('date', '%Y-%m-%d', false, false, 'date');
-		});
-	});
-</script>
+
+</body>
+</html>

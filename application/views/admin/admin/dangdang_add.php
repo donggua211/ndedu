@@ -1,45 +1,41 @@
-﻿<div id="nav">
-	<span class="action-span"><a href="<?php echo site_url('admin') ?>"  target="_top">管理系统</a></span>
-	<span class="action-span"> » <a href="<?php echo site_url('admin/dangdang') ?>"  target="main-frame">当当网内容管理</a></span>
-	 » 添加
-	<div style="clear:both"></div>
+﻿<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<TITLE>Administrator's Control Panel</TITLE>
+<base href="<?php echo base_url() ?>" />
+<script type="text/javascript" src="<?php echo base_url() ?>js/ckeditor/ckeditor.js"></script>
+<link href="css/admin/admin.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<body>
+<div id="navigation" class="navigation">
+	<a href="<?php echo site_url().'/admin/entry/info'?>">admin</a> &nbsp;»&nbsp; <a href="<?php echo site_url().'/admin/dangdang'?>">当当网内容挂历</a> &nbsp;»&nbsp; 添加文章
 </div>
-<div id="main">
-	<div id="main_body">
-		<?php if(isset($notification) && !empty($notification)): ?>
-		<div style="backgroud:#fff;padding:5px;border:1px solid #FF8080;text-align:center">
-			<img style="vertical-align: middle;" src="images/icon/warning.gif"> <span style="color:red;font-size:20px;line-height:22px"><?php echo $notification;?></span>
+<?php
+	if(!empty($notification))
+	{
+?>
+		<div>
+			<b><?php echo $notification ?></b>
 		</div>
-		<?php endif;?>
-		<form action="<?php echo site_url('admin/dangdang/add') ?>" method="post">
-		<table width="90%" id="shop_info-table">
-			<tr>
-				<td class="narrow-label"><span class="notice-star"> * </span>当当网单品PID: </td>
-				<td><input id="name" name="pid" type="text" value="" /></td>
-			</tr>
-			<tr>
-				<td class="narrow-label"><span class="notice-star"> * </span>所在分类: </td>
-				<td>
-					<select name="cat_id">
-						<option value="<?php echo DANGDANG_BOOK_CAT_ID ?>">精品图书</option>
-						<option value="<?php echo DANGDANG_VIDEO_CAT_ID ?>">教育影视</option>
-						<option value="<?php echo DANGDANG_SOFTWARE_CAT_ID ?>">教育软件</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td class="narrow-label"><span class="notice-star"> * </span>标签: </td>
-				<td>
-				<?php foreach($tags as $tag): ?>
-					<input type="checkbox" name="tags[]" value="<?php echo $tag['tag_id'] ?>"><?php echo $tag['tag_name'] ?>
-				<?php endforeach;?>
-				</td>
-			</tr>
-		</table>
-		<div class="button-div">
-			<input type="submit" class="button" value=" 确定 " name="submit">
-			<input type="reset" class="button" value=" 重置 " name="reset">
-		</div>
-		</form>
-	</div>
+<?php
+	}
+?>
+<div>
+	<span style="color:#FF0000;font-size:20px">添加当当网内容</span>
+	<form action="<?php echo site_url().'/admin/dangdang/add'?>" method="post">
+		当当网单品PID: <input id="name" name="pid" type="text" value="" />&nbsp;*<br/>
+		所在分类: <select name="cat">
+			<option value="10">精品图书</option>
+			<option value="11">教育影视</option>
+			<option value="12">教育软件</option>
+		</select>&nbsp;*<br/>
+		标签:
+		<?php foreach($tags as $tag): ?>
+			<input type="checkbox" name="tags[]" value="<?php echo $tag['tag_id'] ?>"><?php echo $tag['tag_name'] ?>
+		<?php endforeach;?>
+		<br/>
+		<input type="submit" value="添加" name="submit"><input type="reset" value="重写" name="reset"><br/>
+	</form>
 </div>
+</body>
+</html>

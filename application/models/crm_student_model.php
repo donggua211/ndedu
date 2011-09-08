@@ -16,13 +16,12 @@ class CRM_Student_model extends Model {
 		*/
 		//必填项
 		$data['name'] = $student['name'];
-		$data['gender'] = $student['gender'];
 		$data['branch_id'] = $student['branch_id'];
 		$data['grade_id'] = $student['grade_id'];
 		$data['province_id'] = $student['province_id'];
 		$data['city_id'] = $student['city_id'];
 		$data['district_id'] = $student['district_id'];
-		$data['cservice_id'] = $staff_id;
+		$data['consultant_id'] = $staff_id;
 		//选填信息.
 		$data['father_phone'] = $student['father_phone'];
 		$data['mother_phone'] = $student['mother_phone'];
@@ -31,15 +30,11 @@ class CRM_Student_model extends Model {
 		$data['address'] = $student['address'];
 		$data['remark'] = $student['remark'];
 		//状态字段
-		$data['consultant_id'] = 0;
 		$data['supervisor_id'] = 0;
-		$data['status'] = STUDENT_STATUS_NOT_APPOINTMENT;
+		$data['status'] = STUDENT_STATUS_NOT_SIGNUP;
 		$data['is_delete'] = 0;
 		$data['add_time'] = date('Y-m-d H:i:s');
 		$data['update_time'] = date('Y-m-d H:i:s');
-		//ndedu1.2.2 新加字段： dob
-		$data['dob'] = $student['dob'];
-		
 		if($this->db->insert('crm_student', $data))
 		{
 			$student_id = $this->db->insert_id();
@@ -81,14 +76,10 @@ class CRM_Student_model extends Model {
 	{
 		//@TODO: 优化sql
 		//student基本信息
-		$sql = "SELECT student.*, grade.grade_name, branch.branch_name, province.region_name as province_name, city.region_name as city_name, district.region_name as district_name 
-				FROM " . $this->db->dbprefix('crm_student') . " as student 
-				LEFT JOIN ".$this->db->dbprefix('crm_grade')." as grade ON grade.grade_id =  student.grade_id
-				LEFT JOIN ".$this->db->dbprefix('crm_branch')." as branch ON branch.branch_id =  student.branch_id
-				LEFT JOIN ".$this->db->dbprefix('crm_region')." as province ON province.region_id = student.province_id
-				LEFT JOIN ".$this->db->dbprefix('crm_region')." as city ON city.region_id = student.city_id
-				LEFT JOIN ".$this->db->dbprefix('crm_region')." as district ON district.region_id = student.district_id
-				WHERE student_id = $student_id";
+		$sql = "SELECT student.*, grade.grade_name, branch.branch_name FROM " . $this->db->dbprefix('crm_student') . " as student, " . $this->db->dbprefix('crm_grade') . " as grade, " . $this->db->dbprefix('crm_branch') . " as branch
+				WHERE student_id = $student_id
+				AND student.grade_id = grade.grade_id
+				AND student.branch_id = branch.branch_id";
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
@@ -154,99 +145,69 @@ class CRM_Student_model extends Model {
 		}
 	}
 	
-	function getAll($filter, $offset = 0, $row_count = 0, $order_by = '', $order = 'ASC')
+	function getAll($filter, $offset = 0, $row_count = 0)
 	{
 		//添加的时间段: 开始时间
 		$where = '';
-		
-		if (!isset($filter['is_delete']))
-        {
-            $filter['is_delete'] = 0;
-        }
 		$where .= " AND student.is_delete = '{$filter['is_delete']}' ";
-        if (isset($filter['start_time']) && $filter['start_time'])
+        if ($filter['start_time'])
         {
             $where .= " AND student.add_time >= '{$filter['start_time']}' ";
         }
 		//添加的时间段: 结束时间
-		if (isset($filter['end_time']) && $filter['end_time'])
+		if ($filter['end_time'])
         {
             $where .= " AND student.add_time <= '{$filter['end_time']}' ";
         }
 		//分校区
-		if (isset($filter['branch_id']) && $filter['branch_id'])
+		if ($filter['branch_id'])
         {
             $where .= " AND student.branch_id = {$filter['branch_id']} ";
         }
 		//学阶
-		if (isset($filter['grade_id']) && $filter['grade_id'])
+		if ($filter['grade_id'])
         {
             $where .= " AND student.grade_id = {$filter['grade_id']} ";
         }
 		//学员状态
-		if (isset($filter['status']) && $filter['status'])
+		if ($filter['status'] !== FALSE)
         {
-			if(is_array($filter['status']))
-			{
-				foreach($filter['status'] as $val)
-					$where_status[] = " student.status = {$val} ";
-				
-				$where .= " AND ( ".implode(' OR ', $where_status)." )";
-			}
-			else
-				$where .= " AND student.status = {$filter['status']} ";
+            $where .= " AND student.status = {$filter['status']} ";
         }
 		//所在省
-		if (isset($filter['province_id']) && $filter['province_id'])
+		if ($filter['province_id'])
         {
             $where .= " AND student.province_id = {$filter['province_id']} ";
         }
 		//所在市
-		if (isset($filter['city_id']) && $filter['city_id'])
+		if ($filter['city_id'])
         {
             $where .= " AND student.city_id = {$filter['city_id']} ";
         }
 		//咨询师
-		if (isset($filter['consultant_id']) && $filter['consultant_id'])
+		if ($filter['consultant_id'])
         {
             $where .= " AND student.consultant_id = {$filter['consultant_id']} ";
         }
 		//班主任
-		if (isset($filter['supervisor_id']) && $filter['supervisor_id'])
+		if ($filter['supervisor_id'])
         {
             $where .= " AND student.supervisor_id = {$filter['supervisor_id']} ";
         }
-		//客服
-		if (isset($filter['cservice_id']) && $filter['cservice_id'])
-        {
-            $where .= " AND student.cservice_id = {$filter['cservice_id']} ";
-        }
 		//学员姓名
-		if (isset($filter['name']) && $filter['name'])
+		if ($filter['name'])
         {
             $where .= " AND student.name LIKE '%{$filter['name']}%' ";
         }
-		
-		//student基本信息
-		$sql = "SELECT DISTINCT student.*, grade.grade_name, contract.finished_hours, contract.total_hours FROM ".$this->db->dbprefix('crm_student')." as student
-				LEFT JOIN ".$this->db->dbprefix('crm_contract')." as contract ON contract.student_id = student.student_id 
-				LEFT JOIN ".$this->db->dbprefix('crm_grade')." as grade ON grade.grade_id = student.grade_id";
-		
-		if(!empty($where))
-			$sql .= substr_replace($where, ' WHERE ', 0, strpos($where, 'AND') + 3);
 				
-		//ORDER BY
-		if (!empty($order_by))
-        {
-            $sql .= " ORDER BY $order_by $order ";
-        }
-		
+		//student基本信息
+		$sql = "SELECT DISTINCT student.*, grade.grade_name FROM ".$this->db->dbprefix('crm_student')." as student, ".$this->db->dbprefix('crm_grade')." as grade
+				WHERE grade.grade_id = student.grade_id ".$where;
 		//LIMIT
 		if (!empty($row_count))
         {
             $sql .= " LIMIT $offset, $row_count";
         }
-		
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
@@ -262,12 +223,10 @@ class CRM_Student_model extends Model {
 		}
 		
 		$student_string = implode(",", $student_ids);
-		/*
 		//获取合同课时
 		$sql = "SELECT student_id, sum(total_hours) as total_hours FROM " . $this->db->dbprefix('crm_contract') . "
 				WHERE student_id IN ( " . $student_string . " )
 				GROUP BY student_id";
-		
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
@@ -283,34 +242,6 @@ class CRM_Student_model extends Model {
 			if(!isset($value['total_hours']) || empty($value['total_hours']))
 				$students[$student_id]['total_hours'] = 0;
 		}
-		*/
-		
-		//获取最后联系时间
-		$sql = "SELECT student_id, max(`add_time`) as last_contact_time
-				FROM " . $this->db->dbprefix('crm_history_contact') . "
-				WHERE student_id IN ( " . $student_string . " )
-				AND is_delete = 0
-				GROUP BY student_id";
-		
-		$query = $this->db->query($sql);
-		if ($query->num_rows() > 0)
-		{
-			foreach ($query->result_array() as $row)
-			{
-				$students[$row['student_id']]['last_contact_time'] = $row['last_contact_time'];
-			}
-		}
-		
-		//处理空的: last_contact_time
-		foreach($students as $student_id => $value)
-		{
-			if(!isset($value['last_contact_time']) || empty($value['last_contact_time']))
-				$students[$student_id]['last_contact_time'] = 0;
-		}
-		
-		
-		
-		
 		return $students;
 	}
 	
@@ -341,15 +272,7 @@ class CRM_Student_model extends Model {
 		//学员状态
 		if ($filter['status'] !== FALSE)
         {
-            if(is_array($filter['status']))
-			{
-				foreach($filter['status'] as $val)
-					$where_status[] = " student.status = {$val} ";
-				
-				$where .= " AND ( ".implode(' OR ', $where_status)." )";
-			}
-			else
-				$where .= " AND student.status = {$filter['status']} ";
+            $where .= " AND student.status = {$filter['status']} ";
         }
 		//所在省
 		if ($filter['province_id'])
@@ -371,11 +294,6 @@ class CRM_Student_model extends Model {
         {
             $where .= " AND supervisor_id = {$filter['supervisor_id']} ";
         }
-		//客服
-		if (isset($filter['cservice_id']) && $filter['cservice_id'])
-        {
-            $where .= " AND student.cservice_id = {$filter['cservice_id']} ";
-        }
 		//学员姓名
 		if ($filter['name'])
         {
@@ -385,13 +303,12 @@ class CRM_Student_model extends Model {
 		//student基本信息
 		$sql = "SELECT count(DISTINCT student.student_id) as total FROM ".$this->db->dbprefix('crm_student')." as student, ".$this->db->dbprefix('crm_grade')." as grade
 				WHERE student.grade_id = grade.grade_id ".$where;
-		
 		$query = $this->db->query($sql);
 		$row = $query->row_array();
 		return $row['total'];
 	}
 	
-	function update($student_id, $update_field = array(), $no_update_time = true)
+	function update($student_id, $update_field = array())
 	{
 		if(empty($update_field))
 			return true;
@@ -402,9 +319,7 @@ class CRM_Student_model extends Model {
 			if($val != 'consultant' || $val != 'supervisor')
 				$data[$key] = $val;
 		}
-		
-		if($no_update_time)
-			$data['update_time'] = date('Y-m-d H:i:s');
+		$data['update_time'] = date('Y-m-d H:i:s');
 		
 		$this->db->where('student_id', $student_id);
 		if(!$this->db->update('crm_student', $data))
@@ -427,6 +342,7 @@ class CRM_Student_model extends Model {
 		{
 			return false;
 		}
+	
 	}
 	
 	function update_contact_history($contact_history)
@@ -468,6 +384,7 @@ class CRM_Student_model extends Model {
 				return false;
 			}
 		}
+	
 	}
 	
 	function update_study_history($study_history)
@@ -588,28 +505,6 @@ class CRM_Student_model extends Model {
 		if ($query->num_rows() > 0)
 		{
 			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
-	function check_mobile_exist($mobile)
-	{
-		//student基本信息
-		$sql = "SELECT * FROM " . $this->db->dbprefix('crm_student') . " WHERE ";
-		
-		foreach($mobile as $val)
-			if(!empty($val))
-				$where[] = " (`father_phone` LIKE '%$val%' OR `mother_phone` LIKE '%$val%') ";
-		
-		$sql .= implode(' OR ', $where);
-		
-		$query = $this->db->query($sql);
-		if ($query->num_rows() > 0)
-		{
-			return $query->result_array();
 		}
 		else
 		{

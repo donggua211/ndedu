@@ -70,14 +70,5 @@ if (document.getElementById("listDiv"))
       }
     }
   }
-}
 
-function collapse_switch( id )
-{
-	var student = document.getElementById( id );
-	if(student.style.display == 'none') {
-		student.style.display = '';
-	} else {
-		student.style.display = 'none';
-	}
 }

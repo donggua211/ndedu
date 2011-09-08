@@ -23,10 +23,9 @@ input, textarea, select {
   font: 12px "courier new";
 }
 
-a {
-	color:#444;
-    text-decoration:none
-}
+a{color:#444;
+        text-decoration:none
+		}
 a:hover{
 	color:#FF6600;
 	text-decoration:underline;
@@ -212,13 +211,6 @@ a:hover{
   padding: 5px 1em;
   width: 30%;
 }
-.narrow-label {
-  text-align: right;
-  vertical-align: top;
-  font-weight: bold;
-  padding: 5px 1em;
-  width: 20%;
-}
 .notice-span {
   color: #666;
 }
@@ -226,19 +218,9 @@ a:hover{
   color: red;
   font-weight:bold;
 }
-.notice-highlight {
-  color: #666;
-}
 .button-div {
   text-align: center;
   padding: 3px 0;
-}
-.button-link-div {
-  text-align: center;
-}
-.button-link-div  a{
-  font-size:15px;
-  padding-right: 10px;
 }
 .hand {
 	cursor: hand;

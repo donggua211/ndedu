@@ -55,29 +55,54 @@
 					<th>上课老师</th>
 					<th>班主任</th>
 					<th>课时</th>
-					<th>科目</th>
-					<th>时间</th>
+					<th>添加时间</th>
 				</tr>
 				<?php foreach($contract['finished'] as $finished): ?>
 				<tr>
 					<td align="center"><?php echo $finished['teacher_name'] ?></td>
 					<td align="center"><?php echo $finished['supervisor_name'] ?></td>
-					<td align="center"><?php echo $finished['finished_hours'] ?>小时</td>
-					<td align="center"><?php echo $finished['subject_name'] ?></td>
-					<td align="center">
-						<?php 
-							list($start_date, $start_time) = explode(' ', $finished['start_time']);
-							list($end_date, $end_time) = explode(' ', $finished['end_time']);
-							
-							if($start_date == $end_date)
-								echo '<b>'.$start_date.'</b> '.$start_time.' 至 '.$end_time;
-							else
-								echo $start_date.' '.$start_time.' 至 '.$end_date.' '.$end_time;
-						?>
-					</td>
+					<td align="center"><?php echo $finished['finished_hours'] ?></td>
+					<td align="center"><?php echo $finished['add_time'] ?></td>
 				<?php endforeach; ?>
 				</tr>
 			</table>
 		</div>
+		<div class="title margin_top">
+			<span>添加已完成课时</span>
+		</div>
+		<form action="<?php echo site_url('admin/contract/finished_add')?>" method="post">
+		<table width="90%">
+			<tr>
+				<td class="label" valign="top"><span class="notice-star"> * </span>课时数: </td>
+				<td>
+					<input name="finished_hours" type="text" value="<?php echo (!empty($new_finished['finished_hours'])) ? $new_finished['finished_hours'] :''; ?>" size="20" /> 小时
+				</td>
+			</tr>
+			<tr>
+				<td class="label" valign="top"><span class="notice-star"> * </span>班主任: </td>
+				<td>
+					<?php echo $student['supervisor']['name'];?>
+					<input type="hidden" name="supervisor_id" value="<?php echo $student['supervisor']['staff_id'];?>">
+				</td>
+			</tr>
+			<tr>
+				<td class="label" valign="top"><span class="notice-star"> * </span>上课老师: </td>
+				<td>
+					<select name="teacher_id">
+						<option value='0'>请选择...</option>
+						<?php
+							foreach($staffs as $staff)
+								echo '<option value="'.$staff['staff_id'].'" '.((isset($new_finished['teacher_id'])) ? ( ($staff['staff_id'] == $new_finished['teacher_id']) ? 'SELECTED' : '' ) : '').'>'.$staff['name'].'</option>';
+						?>
+					</select>
+				</td>
+			</tr>
+		</table>
+		<div class="button-div">
+			<input type="hidden" value="<?php echo $contract['contract_id']; ?>" name="contract_id">
+			<input type="submit" class="button" value=" 确定 " name="submit">
+			<input type="reset" class="button" value=" 重置 " name="reset">
+		</div>
+		</form>
 	</div>
 </div>

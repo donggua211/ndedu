@@ -1,30 +1,40 @@
-﻿<div id="nav">
-	<span class="action-span"><a href="<?php echo site_url('admin') ?>"  target="_top">管理系统</a></span>
-	<span class="action-span"> » <a href="<?php echo site_url('admin/status') ?>"  target="main-frame">统计</a></span>
-	 » 查看tag
-	<div style="clear:both"></div>
+﻿<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<base href="<?php echo base_url() ?>" />
+	<link href="css/admin/admin.css" rel="stylesheet" type="text/css" />
+	<title>administrator's control panel</title>
+</head>
+<body>
+<div id="navigation" class="navigation">
+	<a href="<?php echo site_url().'/admin/entry/info'?>">admin</a> &nbsp;»&nbsp; 查看搜索关键字
 </div>
-<div id="main">
-	<div id="main_body">
-		<?php if(isset($notification) && !empty($notification)): ?>
-		<div style="backgroud:#fff;padding:5px;border:1px solid #FF8080;text-align:center">
-			<img style="vertical-align: middle;" src="images/icon/warning.gif"> <span style="color:red;font-size:20px;line-height:22px"><?php echo $notification;?></span>
-		</div>
-		<?php endif;?>
-		
-		<div id="listDiv" class="list-div">
-			<table cellspacing='1' id="list-table">
-				<tr>
-					<th>关键字</th>
-					<th>点击次数</th>
-				</tr>
-				<?php foreach($keyword_stats as $keyword_stat): ?>
-					<tr>
-						<td class="first-cell" align="left"><?php echo $keyword_stat['keyword'] ?></td>
-						<td align="center"><?php echo $keyword_stat['counter'] ?></td>
-					</tr>
-				<?php endforeach;?>
-			</table>
-		</div>
-	</div>
+<?php
+if(!empty($keyword_stats)):
+?>
+<table border="0" width="60%" cellspacing="0" cellpadding="0">
+	<tr align="center" bgcolor="#FF6600">
+		<td><b>Keyword</b></td>
+		<td><b>点击次数</b></td>
+	</tr>
+	<?php
+	foreach($keyword_stats as $keyword_stat):
+		echo '<tr align="center">';
+		echo '<td>'.$keyword_stat['keyword'].'</td>';
+		echo '<td>'.$keyword_stat['counter'].'</td>';
+		echo '</tr>';
+	endforeach;
+	?>
+</table>
+<?php
+else:
+?>
+<div>
+	<b>尚无记录</b>
 </div>
+<?php
+endif;
+?>
+</body>
+</html>
