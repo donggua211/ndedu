@@ -1,0 +1,63 @@
+body{font-family: Arial, Helvetica, sans-serif;margin:0 auto;font-size:12px;color:#343434;}
+table{font-size:12px}
+table thead tr td{font-weight:bold;text-align:center}
+table tr td{padding:3px;}
+td{font-family: Arial, Helvetica, sans-serif;}
+h1{text-align:center;}
+h3{text-align:center;}
+a{color:#444;text-decoration:none}
+a:hover{color:#FF6600;text-decoration:underline}
+
+.nav{
+	margin:10px auto;
+	width:950px;
+}
+.nav ul{
+	list-style-type: none;	
+}
+.nav ul li{
+	float:left;
+	margin-right:30px;
+}
+
+
+.wrap{
+	width:950px;
+	padding:0 30px;
+}
+
+
+.error, .result {
+	margin: 10px auto;
+	padding:30px;
+	width:50%;
+	text-align:left;
+}
+.result_link{
+	text-align:right;
+}
+.error{border:2px solid red}
+.error h1{color:red}
+.result{border:2px solid green}
+.result h1{color:green}
+
+
+/*** common class ***/
+.color_g{color:green}
+.color_r{color:red}
+.color_y{color:goldenrod}
+
+/****** clearfix ******/
+.clearfix:after {
+content:".";
+display:block;
+height:0;
+clear:both;
+visibility:hidden;
+}
+.clearfix {
+display:inline-block;
+}
+/* Hide from IE Mac \*/
+.clearfix {display:block;}
+/* End hide from IE Mac */	
