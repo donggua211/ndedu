@@ -18,7 +18,7 @@
 			<img style="vertical-align: middle;" src="images/icon/warning.gif"> <span style="color:red;font-size:20px;line-height:22px"><?php echo $notification;?></span>
 		</div>
 		<?php endif;?>
-		<form action="<?php if($type == 'contact'){echo site_url('admin/history/edit_contact');} elseif($type == 'learning'){ echo site_url('admin/history/edit_learning'); } else { echo site_url('admin/history/edit_callback'); } ?>" method="post">
+		<form action="<?php if($type == 'contact'){echo site_url('admin/history/edit_contact');} else{ echo site_url('admin/history/edit_learning'); } ?>" method="post">
 			<textarea name="history_text" cols="80" rows="5"><?php echo $history_info['history_text'] ?></textarea><br/>
 			<input type="hidden" name="type" value="<?php echo $type?>">
 			<input type="hidden" name="history_id" value="<?php echo$history_info['history_id'] ?>">

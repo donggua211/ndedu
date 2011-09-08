@@ -50,7 +50,7 @@
 		</div>
 		
 		<div id="listDiv" class="list-div">
-		  <form action="<?php echo site_url('admin/student/sms_batch')?>" method="POST" id="sms_batch" target="_blank">
+		  <form action="<?php echo site_url('admin/student/sms_batch')?>" method="POST" id="sms_batch">
 			<table cellspacing='1' id="list-table">
 				<tr>
 					<th></th>

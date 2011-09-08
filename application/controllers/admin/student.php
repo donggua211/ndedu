@@ -535,9 +535,6 @@ class Student extends Controller {
 					case 'learning':
 						$notify = '学习历史内容不能为空';
 						break;
-					case 'callback':
-						$notify = '回访历史内容不能为空';
-						break;
 					default:
 						$notify = '历史内容不能为空';
 						break;
@@ -562,14 +559,10 @@ class Student extends Controller {
 				switch($history['history_type'])
 				{
 					case 'contact':
-						$allowed_group[] = GROUP_CS;
 						$allowed_group[] = GROUP_CONSULTANT;
 						break;
 					case 'learning':
 						$allowed_group[] = GROUP_SUPERVISOR;
-						break;
-					case 'callback':
-						$allowed_group[] = GROUP_CS;
 						break;
 					default:
 						break;
@@ -678,9 +671,8 @@ class Student extends Controller {
 			
 			//ndedu1.2.2 新加： date of birth
 			$new_student['dob'] = $this->input->post('dob');
-			$new_student['dob'] = !empty( $new_student['dob'] ) ? $new_student['dob'] : '0000-00-00 00:00:00';
 			
-			if(empty($new_student['name']) || empty($new_student['gender']) || empty($new_student['branch_id']) || empty($new_student['grade_id']) || empty($new_student['province_id']) || empty($new_student['city_id']) || empty($new_student['district_id']))
+			if(empty($new_student['name']) || empty($new_student['gender']) || empty($new_student['branch_id']) || empty($new_student['grade_id']) || empty($new_student['province_id']) || empty($new_student['city_id']) || empty($new_student['district_id']) || empty($new_student['dob']))
 			{
 				$notify = '请填写完整的学生信息';
 				$this->_load_student_add_view($notify, $new_student);

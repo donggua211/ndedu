@@ -371,11 +371,6 @@ class CRM_Student_model extends Model {
         {
             $where .= " AND supervisor_id = {$filter['supervisor_id']} ";
         }
-		//客服
-		if (isset($filter['cservice_id']) && $filter['cservice_id'])
-        {
-            $where .= " AND student.cservice_id = {$filter['cservice_id']} ";
-        }
 		//学员姓名
 		if ($filter['name'])
         {
@@ -385,7 +380,6 @@ class CRM_Student_model extends Model {
 		//student基本信息
 		$sql = "SELECT count(DISTINCT student.student_id) as total FROM ".$this->db->dbprefix('crm_student')." as student, ".$this->db->dbprefix('crm_grade')." as grade
 				WHERE student.grade_id = grade.grade_id ".$where;
-		
 		$query = $this->db->query($sql);
 		$row = $query->row_array();
 		return $row['total'];

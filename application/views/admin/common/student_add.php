@@ -51,7 +51,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="label" valign="top">生日: </td>
+				<td class="label" valign="top"><span class="notice-star"> * </span>生日: </td>
 				<td>
 					<input type="text" name="dob" maxlength="60" size="10" value="<?php echo (isset($student['dob'])) ? $student['dob'] :''; ?>" readonly="readonly" id="date" />
 				</td>

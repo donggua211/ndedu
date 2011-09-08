@@ -13,8 +13,6 @@ class CRM_History_model extends Model {
 			$table = 'crm_history_learning';
 		elseif($history_type == 'contact')
 			$table = 'crm_history_contact';
-		elseif($history_type == 'callback')
-			$table = 'crm_history_callback';
 		else
 			return false;
 		
@@ -26,8 +24,6 @@ class CRM_History_model extends Model {
 			$data['history_learning'] = $history['history'];
 		elseif($history_type == 'contact')
 			$data['history_contact'] = $history['history'];
-		elseif($history_type == 'callback')
-			$data['history_callback'] = $history['history'];
 		
 		$data['is_delete'] = 0;
 		$data['add_time'] = date('Y-m-d H:i:s');
@@ -48,7 +44,6 @@ class CRM_History_model extends Model {
 	{
 		$result['history_learning'] = $this->_get_history($student_id, 'learning');
 		$result['history_contact'] = $this->_get_history($student_id, 'contact');
-		$result['history_callback'] = $this->_get_history($student_id, 'callback');
 		return $result;
 	}
 	
@@ -68,8 +63,6 @@ class CRM_History_model extends Model {
 			$table = 'crm_history_learning';
 		elseif($history_type == 'contact')
 			$table = 'crm_history_contact';
-		elseif($history_type == 'callback')
-			$table = 'crm_history_callback';
 		
 		$sql = "SELECT history.*, staff.name FROM " . $this->db->dbprefix($table) . " as history, " . $this->db->dbprefix('crm_staff') . " as staff
 				WHERE student_id = $student_id	
@@ -112,12 +105,6 @@ class CRM_History_model extends Model {
 			$history_text = 'history_contact';
 			$table = 'crm_history_contact';
 		}
-		elseif($history_type == 'callback')
-		{
-			$primary_key = 'history_callback_id';
-			$history_text = 'history_callback';
-			$table = 'crm_history_callback';
-		}
 		
 		$sql = "SELECT $primary_key as history_id, student_id, staff_id, $history_text as history_text FROM " . $this->db->dbprefix($table) . " as history
 				WHERE $primary_key = $history_id	
@@ -148,11 +135,6 @@ class CRM_History_model extends Model {
 		{
 			$primary_key = 'history_contact_id 	';
 			$table = 'crm_history_contact';
-		}
-		elseif($history_type == 'callback')
-		{
-			$primary_key = 'history_callback_id 	';
-			$table = 'crm_history_callback';
 		}
 		
 		//¸üÐÂstudent±í

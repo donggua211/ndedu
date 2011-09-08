@@ -1,15 +1,15 @@
 <script language="javascript" type="text/javascript">
 function ContentChange(){
 	var len=document.getElementById("content").value.length;
-	var ts=parseInt(len/64);
-	var ys=parseInt(len%64);
+	var ts=parseInt(len/70);
+	var ys=parseInt(len%70);
 	
 	if (ys>0){
 		ts+=1;
 	}
 	
-	var tsx=parseInt(len/63);
-	var ysx=parseInt(len%63);
+	var tsx=parseInt(len/67);
+	var ysx=parseInt(len%67);
 	
 	if (ysx>0){
 		tsx+=1;
@@ -45,10 +45,9 @@ function ContentChange(){
 				</td>
 			</tr>
 			<tr>
-				<td class="label" valign="top">短信内容(请保持在64字以内): </td>
+				<td class="label" valign="top">短信内容(请保持在70字以内): </td>
 				<td>
 					<textarea onkeyup="javascript:ContentChange()" onpaste="javascript:ContentChange()" id="content" name="content" cols="40" rows="5"><?php echo (isset($content) ? $content : ''); ?></textarea>
-					<br/>请保持在64字以内
 					<div id="content_Info"></div>
 				</td>
 			</tr>

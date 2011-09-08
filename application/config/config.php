@@ -12,7 +12,7 @@ define('IS_ONLINE', FALSE);
 |	http://example.com/
 |
 */
-$config['base_url']	= "http://localhost/project/ndedu.org/trunk";
+$config['base_url']	= "http://localhost/project/ndedu.org/branch/ndedu1.2.2/";
 
 /*
 |--------------------------------------------------------------------------

@@ -41,8 +41,6 @@
 			<select name="status">
 				<option value='0'>所有状态</option>
 				<option value='<?php echo STUDENT_STATUS_NOT_APPOINTMENT ?>' <?php echo ( (STUDENT_STATUS_NOT_APPOINTMENT == $filter['status']) ? 'SELECTED' : '' ) ?>><?php echo get_student_status_text(STUDENT_STATUS_NOT_APPOINTMENT)?></option>
-				<option value='<?php echo STUDENT_STATUS_APPOINTMENT ?>' <?php echo ( (STUDENT_STATUS_APPOINTMENT == $filter['status']) ? 'SELECTED' : '' ) ?>><?php echo get_student_status_text(STUDENT_STATUS_APPOINTMENT)?></option>
-				<option value='<?php echo STUDENT_STATUS_HAS_APPOINTMENT ?>' <?php echo ( (STUDENT_STATUS_HAS_APPOINTMENT == $filter['status']) ? 'SELECTED' : '' ) ?>><?php echo get_student_status_text(STUDENT_STATUS_HAS_APPOINTMENT)?></option>
 				<option value='<?php echo STUDENT_STATUS_SIGNUP ?>' <?php echo ( (STUDENT_STATUS_SIGNUP == $filter['status']) ? 'SELECTED' : '' ) ?>><?php echo get_student_status_text(STUDENT_STATUS_SIGNUP)?></option>
 				<option value='<?php echo STUDENT_STATUS_LEARNING ?>' <?php echo ( (STUDENT_STATUS_LEARNING == $filter['status']) ? 'SELECTED' : '' ) ?>><?php echo get_student_status_text(STUDENT_STATUS_LEARNING)?></option>
 				<option value='<?php echo STUDENT_STATUS_FINISHED ?>' <?php echo ( (STUDENT_STATUS_FINISHED == $filter['status']) ? 'SELECTED' : '' ) ?>><?php echo get_student_status_text(STUDENT_STATUS_FINISHED)?></option>
@@ -72,7 +70,6 @@
 		</div>
 		
 		<div id="listDiv" class="list-div">
-		  <form action="<?php echo site_url('admin/student/sms_batch')?>" method="POST" id="sms_batch">
 			<table cellspacing='1' id="list-table">
 				<tr>
 					<th></th>
@@ -81,9 +78,8 @@
 					<th>性别</th>
 					<th>年级</th>
 					<th>父母电话</th>
-					<th>住址</th>
-					<th>状态</th>
-					<th>最新联系时间</th>
+					<th>生日</th>
+					<th>剩余课时</th>
 					<th>操作</th>
 				</tr>
 				<?php foreach($students as $student): ?>
@@ -120,9 +116,17 @@
 							echo !(empty($student['mother_phone'])) ? '<b>母亲电话:</b> '.$student['mother_phone'] : '';
 						?>
 					</td>
-					<td><?php echo $student['address'] ?></td>
-					<td align="center"><?php echo get_student_status_text($student['status']) ?></td>
-					<td align="center"><?php echo $student['last_contact_time'] ?></td>
+					<td>
+					<?php
+						echo $student['dob'];
+						//如果今天是生日的话，输入图标。
+						list($dob_y, $dob_m, $dob_d) = explode( '-', $student['dob']);
+						if($dob_m == date('m') && $dob_d = date('d'))
+							echo ' <img src="images/icon/birthday.gif" border="0">';
+						
+					?>
+					</td>
+					<td><?php echo $student['total_hours'] - $student['finished_hours'] ?></td>
 					<td align="center">
 						<a href="<?php echo site_url('admin/student/one/'.$student['student_id']) ?>">查看</a>
 						<a href="<?php echo site_url('admin/student/sms/'.$student['student_id']) ?>" target="_blank">发短信</a>
@@ -145,12 +149,12 @@
 				</tr>
 				</tfoot>
 			</table>
-		  </form>
 		</div>
 		<!-- 分页 -->
 		<?php echo $page_nav; ?>
 	</div>
 </div>
+
 
 <script type="text/javascript">
 	//ready function

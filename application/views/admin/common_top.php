@@ -26,7 +26,7 @@
 			if(data > 0)
 			{
 				$("#supervisor_warn").css("display","");
-				$("#supervisor_warn").html("<a href='" + site_url + "admin/student' target='main-frame'><font color='red'>（"+data+"）位学员剩余课时不足10</font></a>");
+				$("#supervisor_warn").html("<a href='" + site_url + "admin/student'><font color='red'>（"+data+"）位学员剩余课时不足10</font></a>");
 			}
 		}, "text");
 </script>
