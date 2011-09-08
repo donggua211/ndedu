@@ -14,7 +14,7 @@
 		<p>
 			<span class="navbar-back"><a href="<?php echo site_url('admin/student/one/'.$student['student_id']) ?>">基本信息</a></span>
 			<span class="navbar-back"><a href="<?php echo site_url('admin/student/one/'.$student['student_id'].'/history') ?>">详细信息</a></span>
-			<?php if(is_admin() || is_school_admin() || is_consultant() || is_supervisor()): //权限: 超级管理员, 校区管理员, 咨询师可以查看/编辑合同信息?>
+			<?php if(is_admin() || is_school_admin() || is_consultant()): //权限: 超级管理员, 校区管理员, 咨询师可以查看/编辑合同信息?>
 			<span class="navbar-front"><a href="<?php echo site_url('admin/student/one/'.$student['student_id'].'/contract') ?>">合同信息</a></span>
 			<?php endif; ?>
 		</p>
@@ -48,45 +48,40 @@
 						<a href="<?php echo site_url('admin/contract/one/'.$contract['contract_id']) ?>">查看详情</a>
 						<a href="<?php echo site_url('admin/contract/edit/'.$contract['contract_id']) ?>">编辑</a><br/>
 						<a href="<?php echo site_url('admin/contract/one/'.$contract['contract_id'].'/refund/') ?>">添加退费</a>
-						<a href="<?php echo site_url('admin/student/add_finished_hour/') ?>">添加完成课时</a>
+						<a href="<?php echo site_url('admin/contract/one/'.$contract['contract_id'].'/finished/') ?>">添加完成课时</a>
 						<?php endif; ?>
 					</td>
 				<?php endforeach; ?>
 				</tr>
 			</table>
 		</div>
-		<!-- 添加框 -->
-		<div class="margin_top">
-			<input type="button" value="添加新纪录" onclick="add_form_switch(this, 'add_contract')">
+		<div class="title margin_top">
+			<span>添加合同</span>
 		</div>
-		<div id="add_contract" style="display:none">
-			<div class="title margin_top">
-				<span>添加合同</span>
-			</div>
-			<form action="<?php echo site_url('admin/student/contract_add')?>" method="post">
-			<table width="90%">
-				<tr>
-					<td class="label" valign="top"><span class="notice-star"> * </span>合同时间: </td>
-					<td>
-						从 <input type="text" name="start_time" maxlength="60" size="20" value="<?php echo (isset($new_contract['start_time'])) ? $new_contract['start_time'] :''; ?>" readonly="readonly" id="start_time_id" onclick="return showCalendar('start_time_id', '%Y-%m-%d', false, false, 'start_time_id');"/> 到 <input type="text" name="end_time" maxlength="60" size="20" value="<?php echo (isset($new_contract['end_time'])) ? $new_contract['end_time'] :''; ?>" readonly="readonly" id="end_time_id" onclick="return showCalendar('end_time_id', '%Y-%m-%d', false, false, 'end_time_id');" />
+		<form action="<?php echo site_url('admin/student/contract_add')?>" method="post">
+		<table width="90%">
+			<tr>
+				<td class="label" valign="top"><span class="notice-star"> * </span>合同时间: </td>
+				<td>
+					从 <input type="text" name="start_time" maxlength="60" size="20" value="<?php echo (isset($new_contract['start_time'])) ? $new_contract['start_time'] :''; ?>" readonly="readonly" id="start_time_id" /> 
+					<input name="selbtn1" type="button" id="selbtn1" onclick="return showCalendar('start_time_id', '%Y-%m-%d', '24', false, 'selbtn1');" value="选择" class="button"/> 到 <input type="text" name="end_time" maxlength="60" size="20" value="<?php echo (isset($new_contract['end_time'])) ? $new_contract['end_time'] :''; ?>" readonly="readonly" id="end_time_id" /> <input name="selbtn1" type="button" id="selbtn2" onclick="return showCalendar('end_time_id', '%Y-%m-%d', '24', false, 'selbtn2');" value="选择" class="button"/> 
 
-					</td>
-				</tr>
-				<tr>
-					<td class="label" valign="top"><span class="notice-star"> * </span>详细信息: </td>
-					<td>
-						总时间为: <input name="total_hours" type="text" value="<?php echo (isset($new_contract['total_hours'])) ? $new_contract['total_hours'] :''; ?>" size="20" /> 小时<br/>
-						总金额为: <input name="contact_value" type="text" value="<?php echo (isset($new_contract['contact_value'])) ? $new_contract['contact_value'] :''; ?>" size="20" /> 元. 其中押金: <input name="deposit" type="text" value="<?php echo (isset($new_contract['deposit'])) ? $new_contract['deposit'] :''; ?>" size="20" /> 元<br/>
-						
-					</td>
-				</tr>	
-			</table>
-			<div class="button-div">
-				<input type="hidden" value="<?php echo $student['student_id']; ?>" name="student_id">
-				<input type="submit" class="button" value=" 确定 " name="submit">
-				<input type="reset" class="button" value=" 重置 " name="reset">
-			</div>
-			</form>
+				</td>
+			</tr>
+			<tr>
+				<td class="label" valign="top"><span class="notice-star"> * </span>详细信息: </td>
+				<td>
+					总时间为: <input name="total_hours" type="text" value="<?php echo (isset($new_contract['total_hours'])) ? $new_contract['total_hours'] :''; ?>" size="20" /> 小时<br/>
+					总金额为: <input name="contact_value" type="text" value="<?php echo (isset($new_contract['contact_value'])) ? $new_contract['contact_value'] :''; ?>" size="20" /> 元. 其中押金: <input name="deposit" type="text" value="<?php echo (isset($new_contract['deposit'])) ? $new_contract['deposit'] :''; ?>" size="20" /> 元<br/>
+					
+				</td>
+			</tr>	
+		</table>
+		<div class="button-div">
+			<input type="hidden" value="<?php echo $student['student_id']; ?>" name="student_id">
+			<input type="submit" class="button" value=" 确定 " name="submit">
+			<input type="reset" class="button" value=" 重置 " name="reset">
 		</div>
+		</form>
 	</div>
 </div>

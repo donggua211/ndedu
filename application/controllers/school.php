@@ -17,7 +17,7 @@ class School extends Controller {
 		$this->load->model('Dangdang_model');
 		$this->load->model('Tags_model');
 		
-		//$this->output->enable_profiler(TRUE);
+		$this->output->enable_profiler(TRUE);
 	}
 	
 	function article($cat_id, $tags = '0-0', $page = 1)

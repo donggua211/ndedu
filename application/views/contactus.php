@@ -19,93 +19,34 @@
           </table>
           <table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
               <tr>
-                <td height="36" align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;"><span class="font_14black">统一咨询电话：</span><span class="font_16_orange">010-59790750</span><br />
-                  <span class="font_14black">家长投诉：</span>tousu@ndedu.org<br />
-                  <span class="font_14black">业务洽谈：</span>biz@ndedu.org<br />
-                  <span class="font_14black">总部地址：</span> 海淀区远大路姜杰文化艺术大厦B座16A（金源购物中心对面）</td>
+                <td height="36" align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;"><span class="font_14black">家长咨询：</span> 010-59790750    <br />
+                  <span class="font_14black">家长投诉：</span>yourgrow@gmail.com<br />
+                  <span class="font_14black">业务洽谈：</span>yourgrow@gmail.com<br />
+                  <span class="font_14black">传　　真：</span> 010-59715968<br />
+                  <span class="font_14black">总部地址：</span> 北京市海淀区苏州街29号维亚大厦12层</td>
               </tr>
             </table>
 	        <table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
               <tr>
-                <td height="32" align="left" class="font_16_orange" style="padding-left:15px;">尼德教育校区分布与乘车路线</td>
+                <td height="36" align="left" class="font_14_orange" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;">教学区分布图与乘车路线</td>
               </tr>
             </table>
-			
-			<table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
+	        <table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td height="36" align="left" class="font_14_orange" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;">世纪城校区：</td>
-			  </tr>
-			  <tr>
-                <td align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;">海淀区远大路姜杰文化艺术大厦B座16A（金源购物中心对面）</td>
+                <td align="center"><div id="map_canvas" style="width:574px; height:459px"></div></td>
               </tr>
             </table>
 	        <table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
               <tr>
-                <td height="36" align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;"><span class="font_12_orange" style="font-weight:normal;font-size:12px">公交地铁：</span><br />
-公交线路有：33, 79, 355, 360, 365, 425, 425高峰快车, 539, 611, 664, 992, 996, 运通101, 运通109, 运通114, 运通118远. 大路东口站下<br />
-地铁10号线：巴沟站A口出，往南3公里，公交可乘664，611，运通109，539，运通114，481，996，992，三站到远大路东口下<br />
-                  <span class="font_12_orange" style="font-weight:normal;font-size:12px">自驾车：</span><br />
-				  北三环苏州桥往西经过长椿桥到金源购物中心对面即是；西四环从远大路口出，上远大路（由西向东）到姜杰文化艺术大厦（对面金源购物中心）</td>
+                <td height="36" align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;"><span class="font_14_orange">公交地铁：</span><br />
+公交线路有: 运通118路,运通114路,运通109路,运通110路 ,26路,944支路,394路,302路,374路单行线<br />
+北京市地震局站、海淀南路西口站<br />
+地铁十号线--苏州街站，苏州街站 A口出站东边十字路口向北100米。<br />
+                  <span class="font_14_orange">自驾车：</span>北四环海淀桥往南1100米左右、北三环苏州桥往北2000米左右，经过与海淀南路十字路口，路西维亚大厦12层，紧邻八一中学。<br />
+                  <span class="font_14_orange">在线留言咨询：</span></td>
               </tr>
             </table>
 			
-			<table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
-              <tr>
-                <td height="36" align="left" class="font_14_orange" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;">苏州街校区：</td>
-			  </tr>
-			  <tr>
-                <td align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;">北京市海淀区苏州街29号维亚大厦1201</td>
-              </tr>
-            </table>
-	        <table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
-              <tr>
-                <td height="36" align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;"><span class="font_12_orange" style="font-weight:normal;font-size:12px">公交地铁：</span><br />
-公交线路有：运通118路,运通114路,运通109路,运通110路 ,26路,944支路,394路,302路,374路单行线. 北京市地震局站、海淀南路西口站<br />
-地铁10号线--苏州街站，苏州街站 A口出站东边十字路口向北100米。<br />
-                  <span class="font_12_orange" style="font-weight:normal;font-size:12px">自驾车：</span><br />
-				  北四环海淀桥往南1100米左右、北三环苏州桥往北2000米左右，经过与海淀南路十字路口，路西维亚大厦12层，紧邻八一中学。</td>
-              </tr>
-            </table>
-			
-			<table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
-              <tr>
-                <td height="36" align="left" class="font_14_orange" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;">朝外校区：</td>
-			  </tr>
-			  <tr>
-                <td align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;">北京朝阳区朝外大街甲6号万通中心A-401</td>
-              </tr>
-            </table>
-	        <table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
-              <tr>
-                <td height="36" align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;"><span class="font_12_orange" style="font-weight:normal;font-size:12px">公交地铁：</span><br />
-公交线路有：619，686，671，126，呼家楼北站下车<br />
-地铁10号线--金台夕照站下车，往西1.2公里即是<br />
-                </td>
-              </tr>
-            </table>
-			
-			<table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
-              <tr>
-                <td height="36" align="left" class="font_14_orange" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;">朝阳门校区：</td>
-			  </tr>
-			  <tr>
-                <td align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;">北京朝阳区东三环中路55号富力双子座B座18层</td>
-              </tr>
-            </table>
-	        <table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
-              <tr>
-                <td height="36" align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;"><span class="font_12_orange" style="font-weight:normal;font-size:12px">公交地铁：</span><br />
-公交线路有: 707，686，运通107，特三，601，双井桥北站下车<br />
-地铁10号线--双井站下车，往北0.5公里即是<br />
-                </td>
-              </tr>
-            </table>
-			
-			<table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
-              <tr><td height="36" align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;">
-				<span class="font_14_orange">在线留言咨询：</span>
-			  </td></tr>
-            </table>
 			<table width="580" border="0" cellspacing="0" cellpadding="0">
 			<form name="guestbook" action="<?php echo site_url().'/guestbook/submit/'?>" method="post" onSubmit="return checkTable(this);">
               <tr>
@@ -311,12 +252,7 @@
       </table>
       <table width="247" border="0" cellspacing="0" cellpadding="0">
         <tr>
-          <td height="90" align="center" valign="bottom"><a href="<?php echo site_url('contactUs') ?>"><img src="images/index_94.jpg" width="237" height="93" border="0" /></a></td>
-        </tr>
-      </table>
-	  <table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
-        <tr>
-          <td align="center" valign="bottom"><a href="<?php echo site_url('entry/oo1') ?>" target="_blank"><img src="images/9d.gif" width="247" height="70" border="0" /></a></td>
+          <td height="90" align="center" valign="bottom"><img src="images/index_94.jpg" width="237" height="93" /></td>
         </tr>
       </table></td>
   </tr>

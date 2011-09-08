@@ -45,7 +45,7 @@ class Admin extends Controller {
 				*/
 				if (!empty($staff_info))
 				{
-					$session_data = array('staff_id' => $staff_info['staff_id'], 'group_id'=>$staff_info['group_id'], 'branch_id'=>$staff_info['branch_id'], 'username'=>$staff_info['username']);
+					$session_data = array('staff_id' => $staff_info['staff_id'], 'group_id'=>$staff_info['group_id'], 'branch_id'=>$staff_info['branch_id']);
 					$this->session->set_userdata($session_data);
 					redirect('admin');
 				}

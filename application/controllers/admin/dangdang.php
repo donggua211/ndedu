@@ -3,17 +3,18 @@
   当当网内容管理
   admin权限.
  */
-class dangdang extends Controller {
+class Dangdang extends Controller {
 
-	function dangdang()
+	function Dangdang()
 	{
 		parent::Controller();
 		$this->load->library('session');
-		$this->load->library('dd');
-		$this->load->model('ArticleCat_model');
 		$this->load->model('Dangdang_model');
 		$this->load->model('Tags_model');
+		$this->load->library('my_dangdang');
 		$this->load->helper('admin');
+		
+		$this->allowed_group = array(1);
 		
 		//如果没有经登录, 就跳转到admin/login登陆页
 		if (!has_login())
@@ -31,82 +32,65 @@ class dangdang extends Controller {
 
 	function index()
 	{
-		$data['header']['meta_title'] = '查看当当网内容 - 当当网内容管理';
-		$data['main']['dangdangs'] = $this->Dangdang_model->get_all();
-		_load_viewer($this->staff_info['group_id'], 'dangdang', $data);
+		$tags = $this->Tags_model->getAllTags();
+		$data['tags'] = $tags;
+		$this->load->view('admin/admin/dangdang_add', $data);
 	}
 	
 	function add()
 	{
 		if(isset($_POST['submit']) && !empty($_POST['submit']))
 		{
-			$new_dangdang['pid'] = intval($this->input->post('pid'));
-			$new_dangdang['cat_id'] = $this->input->post('cat_id');
+			$new_dangdang['pid'] = $this->input->post('pid');
+			$new_dangdang['cat'] = $this->input->post('cat');
 
-			if($new_dangdang['pid'] == FAlSE || $new_dangdang['cat_id'] == FAlSE)
+			if($new_dangdang['pid'] == FAlSE)
 			{
-				$notify = '当当PID或者分类不能为空';
-				$this->_load_dangdang_add_view($notify, $new_dangdang);
+				$data['notification'] = 'pid不能为空';
+				$tags = $this->Tags_model->getAllTags();
+				$data['tags'] = $tags;
+				$this->load->view('admin/admin/dangdang_add', $data);
+			}
+			elseif($new_dangdang['cat'] == FAlSE)
+			{
+				$data['notification'] = '分类不能为空';
+				$tags = $this->Tags_model->getAllTags();
+				$data['tags'] = $tags;
+				$this->load->view('admin/admin/dangdang_add', $data);
 			}
 			else
 			{
-				$product_info = $this->dd->getInfo($new_dangdang['pid']);
+				$product_info = $this->my_dangdang->getInfo($new_dangdang['pid']);
 				
 				if(empty($product_info))
 				{
-					$notify = '添加失败, 请重试!';
-					$this->_load_dangdang_add_view($notify, $new_dangdang);
+					$data['notification'] = '添加失败, 请重试!';
+					$tags = $this->Tags_model->getAllTags();
+					$data['tags'] = $tags;
+					$this->load->view('admin/admin/dangdang_add', $data);
 				}
 				
-				$new_dangdang = array_merge($product_info ,$new_dangdang);
-				if($this->Dangdang_model->addDangdang($new_dangdang) !== FALSE)
+				$product_info['cat'] = $new_dangdang['cat'];
+				if($this->Dangdang_model->addDangdang($product_info) !== FALSE)
 				{
-					//添加标签
 					$tags = $this->input->post('tags');
 					$this->Tags_model->addDangdangTag($new_dangdang['pid'], $tags);
-					show_result_page('添加成功! ', 'admin/dangdang');
+					$data['notification'] = 'tag添加成功';
 				}
 				else
 				{
-					$notify = '添加失败, 请稍后再试';
-					$this->_load_dangdang_add_view($notify, $new_dangdang);
+					$data['notification'] = 'tag添加失败, 请稍后再试';
 				}
+
+				$data['page'] = 'admin/dangdang';
+				$this->load->view('admin/admin/result', $data);
 			}
 		}
 		else
 		{
-			$this->_load_dangdang_add_view();
-		}
-	}
-	
-	function _load_dangdang_add_view($notify = '', $dangdang = array())
-	{
-		$data['header']['meta_title'] = '添加 - 当当网内容管理';
-		$data['main']['notify'] = $notify;
-		$data['main']['tags'] = $this->Tags_model->getAllTags();
-		$data['main']['dangdang'] = $dangdang;
-		_load_viewer($this->staff_info['group_id'], 'dangdang_add', $data);
-	}
-	
-	function delete($pid)
-	{
-		//判断pid是否合法.
-		$pid = intval($pid);
-		
-		if($pid <= 0)
-		{
-			echo 'a';
-			show_error_page('您输入的pid不合法, 请返回重试.', 'admin/dangdang');
-			return false;
-		}
-		
-		if($this->Dangdang_model->delete($pid))
-		{
-			show_result_page('该pid已经添加删除! ', 'admin/dangdang');
-		}
-		else
-		{
-			show_error_page('删除失败或者该PID不存在, 请重试.', 'admin/dangdang');
+			$tags = $this->Tags_model->getAllTags();
+			$data['tags'] = $tags;
+			$this->load->view('admin/admin/dangdang_add', $data);
 		}
 	}
 }

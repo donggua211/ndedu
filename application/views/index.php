@@ -9,9 +9,9 @@
    var s1 = new SWFObject("<?php echo base_url() ?>images/flash/focusFlash_fp.swf", "mymovie1", "658", "201", "5", "#ffffff");
    s1.addParam("wmode", "transparent");
    s1.addParam("AllowscriptAccess", "sameDomain");
-   s1.addVariable("bigSrc", "images/07.jpg|images/06.jpg|images/02.jpg|images/03.jpg|images/04.jpg|images/05.jpg");
+   s1.addVariable("bigSrc", "images/06.jpg|images/02.jpg|images/03.jpg|images/04.jpg|images/05.jpg");
    s1.addVariable("smallSrc", "|||||");
-   s1.addVariable("href", "<?php echo site_url('cp/detail/1') ?>|<?php echo site_url('topGrowth') ?>|<?php echo site_url('goldenLearningPlan') ?>|<?php echo site_url('1v1interview') ?>|<?php echo site_url('personalFiles') ?>|<?php echo site_url('multiSubjectTutorial') ?>");
+   s1.addVariable("href", "<?php echo site_url('topGrowth') ?>|<?php echo site_url('goldenLearningPlan') ?>|<?php echo site_url('1v1interview') ?>|<?php echo site_url('personalFiles') ?>|<?php echo site_url('multiSubjectTutorial') ?>");
    s1.addVariable("txt", "||||");
    s1.addVariable("width", "658");
    s1.addVariable("height", "201");
@@ -546,7 +546,7 @@
       </table>
 	  <table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
         <tr>
-          <td align="center" valign="bottom"><a href="<?php echo site_url('cp/detail/1') ?>" target="_blank"><img src="images/banner_evaluate.gif" width="247" height="72" border="0" /></a></td>
+          <td align="center" valign="bottom"><a href="<?php echo site_url('evaluate') ?>" target="_blank"><img src="images/banner_evaluate.gif" width="247" height="72" border="0" /></a></td>
         </tr>
       </table>
 	  <table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">

@@ -222,18 +222,6 @@ function checkPhone(str)
 	}
 }
 
-function check_email(str)
-{
-	var check_email = /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-	return check_email.test(str); 
-}
-
-function check_postcode(str)
-{
-	var pattern =/^[0-9]{6}$/;
-	return pattern.test(str); 
-}
-
 function reloadcode()
 {
 	var verify=document.getElementById('safecode');
@@ -344,14 +332,4 @@ function checkEvaluate(count){
 		return true;
 	else
 		return false;
-}
-
-function switch_tag(ul_id, index)
-{
-	var lis_objs = document.getElementById(ul_id).getElementsByTagName("li");
-	
-	for(var i=0,l=lis_objs.length;i<l;i++){
-		lis_objs[i].className = '';
-	}
-	lis_objs[index].className = 'cover';
 }

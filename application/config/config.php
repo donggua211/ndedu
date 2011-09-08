@@ -1,6 +1,5 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-//if site is in Oline Env.
-define('IS_ONLINE', FALSE);
+
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -12,7 +11,7 @@ define('IS_ONLINE', FALSE);
 |	http://example.com/
 |
 */
-$config['base_url']	= "http://localhost/project/ndedu.org/trunk";
+$config['base_url']	= "http://localhost/project/ndedu.org/branch/ndedu1.2/";
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +23,7 @@ $config['base_url']	= "http://localhost/project/ndedu.org/trunk";
 | variable so that it is blank.
 |
 */
-$config['index_page'] = "";
+$config['index_page'] = "index.php";
 
 /*
 |--------------------------------------------------------------------------
@@ -42,10 +41,7 @@ $config['index_page'] = "";
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
 */
-
-//fix url query string problem.
-$config['uri_protocol']	= "PATH_INFO";
-//$config['uri_protocol']	= "ORIG_PATH_INFO"; for ONline env
+$config['uri_protocol']	= "AUTO";
 
 /*
 |--------------------------------------------------------------------------
@@ -129,7 +125,6 @@ $config['subclass_prefix'] = 'MY_';
 */
 $config['permitted_uri_chars'] = '';
 
-
 /*
 |--------------------------------------------------------------------------
 | Enable Query Strings
@@ -152,7 +147,7 @@ $config['permitted_uri_chars'] = '';
 | use segment based URLs.
 |
 */
-$config['enable_query_strings'] = TRUE;
+$config['enable_query_strings'] = FALSE;
 $config['controller_trigger'] 	= 'c';
 $config['function_trigger'] 	= 'm';
 $config['directory_trigger'] 	= 'd'; // experimental not currently in use
@@ -238,7 +233,7 @@ $config['encryption_key'] = "";
 $config['sess_cookie_name']		= 'ci_session';
 $config['sess_expiration']		= 3600 * 24 * 3;
 $config['sess_encrypt_cookie']	= FALSE;
-$config['sess_use_database']	= TRUE;
+$config['sess_use_database']	= FALSE;
 $config['sess_table_name']		= 'ci_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= TRUE;

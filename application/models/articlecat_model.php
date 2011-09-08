@@ -5,26 +5,31 @@ class ArticleCat_model extends Model {
 	{
 		parent::Model();
 	}
-	
-	function get_all_category()
+		
+	function getAllCategories()
 	{
-		$sql = "SELECT *
-				FROM " . $this->db->dbprefix('article_cat') . "
-				WHERE is_deleted = 0
-				ORDER BY parent_id ASC";
-		
-		$query = $this->db->query($sql);
-		
+		$query = $this->db->get('article_cat');
 		if ($query->num_rows() > 0)
 		{
-			$categories = array();
+			$result['parrent_cat'] = array();
+			$result['sub_cat'] = array();
+			
 			foreach ($query->result_array() as $row)
 			{
-				$row['add_time'] = date('Y-m-d H:i', $row['add_time']);
-				$row['modified_time'] = date('Y-m-d H:i', $row['modified_time']);
-				$categories[$row['cat_id']] = $row;
+				
+				$row['add_time'] = date('Y-m-d h:i:s', $row['add_time']);
+				$row['modified_time'] = date('Y-m-d h:i:s', $row['modified_time']);
+						
+				if($row['parent_id'] == 0)
+				{
+					$result['parrent_cat'][$row['cat_id']] = $row;
+				}
+				else
+				{
+					$result['sub_cat'][$row['parent_id']][] = $row;
+				}
 			}
-			return $this->array_sort($this->format_category($categories));
+			return $result;
 		}
 		else
 		{
@@ -80,7 +85,7 @@ class ArticleCat_model extends Model {
 		else
 		{
 			return false;
-		}
+		}	
 	}
 	
 	function getSubCategoris($cat_id)
@@ -88,7 +93,13 @@ class ArticleCat_model extends Model {
 		$query = $this->db->get_where('article_cat', array('parent_id ' => $cat_id));
 		if ($query->num_rows() > 0)
 		{
-			return $query->result_array();
+			$result = array();
+			foreach ($query->result_array() as $row)
+			{
+				
+				$result[] = $row['cat_id'];
+			}
+			return $result;
 		}
 		else
 		{
@@ -117,84 +128,32 @@ class ArticleCat_model extends Model {
 		}
 	}
 
-	function updataCategory($category_id, $update_field = array())
+	function updataCategory($cat_id, $data)
 	{
-		if(empty($update_field))
-			return true;
+		if(!is_array($data)) 
+			return false;
+
+		if(!is_array($cat_id))
+			$cat_ids[] = $cat_id;
+		else
+			$cat_ids = $cat_id;
 		
-		//更新student表
-		foreach($update_field as $key => $val)
-		{
-				$data[$key] = $val;
-		}
-		$data['modified_time'] = date('Y-m-d H:i:s');
-		
-		$this->db->where('cat_id', $category_id);
-		return $this->db->update('article_cat', $data);
+		$this->db->where_in('cat_id', $cat_ids);
+		$result = $this->db->update('article_cat', $data);
+
+		return $result;
 	}
 	
-	function format_category($category)
+	function deleteCategory($cat_id)
 	{
-		//过结果按照level进行分组处理.
-		$level_index = 0;
-		$levels = array();
-		$last_level_cid_array = array(0);
+		if(!is_array($cat_id))
+			$cat_ids[] = $cat_id;
+		else
+			$cat_ids = $cat_id;
 		
-		$break_point= 1000;
-		$point = 0;
-		while (!empty($category))
-		{
-			$this_level_cid_array = array();
-			foreach ($category AS $key => $value)
-			{
-				$cat_id = $value['cat_id'];
-				if (in_array($value['parent_id'], $last_level_cid_array))
-				{
-					$levels[$level_index][$cat_id] = $value;
-					$levels[$level_index][$cat_id]['level'] = $level_index;
-					$this_level_cid_array[] = $cat_id;
-					unset($category[$key]);
-				}
-			}
-			$last_level_cid_array = $this_level_cid_array;
-			$level_index++;
-			
-			//@todo. 优化.
-			$point++;
-			if($point == $break_point)
-				break;
-		}
-		
-		//从level数组, 组成分类的结果.
-		krsort($levels);
-		
-		foreach($levels as $level => &$value)
-		{
-			if($level == 0)
-				break;
-			
-			foreach($value as $one)
-			{
-				if(!isset($levels[($level-1)][$one['parent_id']]))
-					continue;
-				
-				$levels[($level-1)][$one['parent_id']]['sub_cat'][$one['cat_id']] = $one;
-			}
-		}
-		
-		return end($levels);
-	}
-	
-	function array_sort($array)
-	{
-		ksort($array);
-		
-		foreach($array as $key => $val)
-		{
-			if(isset($val['sub_cat']))
-				$array[$key]['sub_cat'] = $this->array_sort($val['sub_cat']);
-		}
-		return $array;
+		$this->db->where_in('cat_id', $cat_ids);
+		$result = $this->db->delete('article_cat');
+		return $result;
 	}
 }
 ?>

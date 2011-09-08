@@ -40,18 +40,6 @@
 |
 */
 
-/* compatible for both the upper and lower case of controller's name*/
-$route['topgrowth'] = "topGrowth";
-$route['topgrowth/(:any)'] = "topGrowth/$1";
-$route['usergrowth'] = "userGrowth";
-$route['usergrowth/(:any)'] = "userGrowth/$1";
-$route['articlecat/(:num)'] = "articleCat/index/$1";
-$route['articlecat/(:num)/(:num)'] = "articleCat/index/$1/$2";
-$route['growthglan'] = "growthPlan";
-$route['growthglan/(:any)'] = "growthPlan/index/$1";
-$route['tutorplan'] = "tutorPlan";
-$route['tutorplan/(:any)'] = "tutorPlan/index/$1";
-
 $route['default_controller'] = "entry";
 $route['scaffolding_trigger'] = "scaffolding";
 
@@ -83,16 +71,6 @@ $route['primaryEdu16/(:any)'] = "short_article/primaryEdu16/index/$1";
 $route['primaryEdu17/(:any)'] = "short_article/primaryEdu17/index/$1";
 $route['primaryEdu18/(:any)'] = "short_article/primaryEdu18/index/$1";
 $route['primaryEdu19/(:any)'] = "short_article/primaryEdu19/index/$1";
-$route['primaryEdu20/(:any)'] = "short_article/primaryEdu20/index/$1";
-$route['primaryEdu21/(:any)'] = "short_article/primaryEdu21/index/$1";
-$route['primaryEdu22/(:any)'] = "short_article/primaryEdu22/index/$1";
-$route['primaryEdu23/(:any)'] = "short_article/primaryEdu23/index/$1";
-$route['primaryEdu24/(:any)'] = "short_article/primaryEdu24/index/$1";
-$route['primaryEdu25/(:any)'] = "short_article/primaryEdu25/index/$1";
-$route['primaryEdu26/(:any)'] = "short_article/primaryEdu26/index/$1";
-$route['primaryEdu27/(:any)'] = "short_article/primaryEdu27/index/$1";
-$route['primaryEdu28/(:any)'] = "short_article/primaryEdu28/index/$1";
-$route['primaryEdu29/(:any)'] = "short_article/primaryEdu29/index/$1";
 $route['middleEdu/(:any)'] = "short_article/middleEdu/index/$1";
 $route['middleEdu2/(:any)'] = "short_article/middleEdu2/index/$1";
 $route['middleEdu3/(:any)'] = "short_article/middleEdu3/index/$1";
@@ -153,19 +131,5 @@ $route['evaluate/(:num)'] = "evaluate/doEvaluate/$1";
 
 $route['register'] = "user/register";
 $route['register/(:any)'] = "user/register/$1";
-
-$route['cp_order/(:num)/(:num)'] = "cp_order/index/$1/$2";
-$route['cp_login/(:num)'] = "cp_login/index/$1";
-$route['cp_login/(:num)/(:num)'] = "cp_login/index/$1/$2";
-$route['media'] = "articleCat/index/13";
-$route['cp1'] = "cp_login/index/1";
-$route['cp2'] = "cp_login/index/2";
-$route['cp3'] = "cp_login/index/3";
-$route['cp4'] = "cp_login/index/4";
-$route['cp5'] = "cp_login/index/5";
-$route['promo'] = "cp_promo";
-
-
-
 /* End of file routes.php */
 /* Location: ./system/application/config/routes.php */

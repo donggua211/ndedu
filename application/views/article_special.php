@@ -79,13 +79,6 @@
           <td><img src="images/hjxxgh_42.jpg" width="247" height="10" /></td>
         </tr>
     </table>
-	
-	<table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
-		<tr>
-		  <td align="center" valign="bottom"><a href="<?php echo site_url('topGrowth') ?>" target="_blank"><img src="images/jyczjh.gif" width="247" height="70" border="0" /></a></td>
-		</tr>
-	</table>
-	
     <table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
         <tr>
           <td align="center" valign="bottom"><a href="javascript:viod(0);" onclick="collapse_switch('guestbook_table')"><img src="images/hjxxgh_44.jpg" width="247" height="63" border="0" /></a></td>
@@ -161,22 +154,11 @@
 	  </form>	
       </table>
 	
-	  <table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
-        <tr>
-          <td align="center" valign="bottom"><a href="<?php echo site_url('cp/detail/1') ?>" target="_blank"><img src="images/banner_evaluate.gif" width="247" height="72" border="0" /></a></td>
-        </tr>
-      </table>
-	
     <table width="247" border="0" cellspacing="0" cellpadding="0">
         <tr>
           <td height="90" align="center" valign="bottom"><a href="<?php echo site_url('contactUs') ?>"><img src="images/index_94.jpg" width="237" height="93" border="0" /></a></td>
         </tr>
     </table>
-	<table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
-		<tr>
-			<td align="center" valign="bottom"><a href="<?php echo site_url('entry/oo1') ?>" target="_blank"><img src="images/9d.gif" width="247" height="70" border="0" /></a></td>
-		</tr>
-	</table>
 	</td>
   </tr>
 </table>

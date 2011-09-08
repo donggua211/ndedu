@@ -9,5 +9,6 @@
 	<?php endif;?>
 	<script type="text/javascript" src="js/admin/common.js"></script>
 	<script type="text/javascript" src="js/admin/utils.js"></script>
+	<script type="text/javascript" src="js/admin/transport.js"></script>
 </body>
 </html>

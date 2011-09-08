@@ -68,11 +68,11 @@
 						<?php echo $staff['name']; ?>
 					</td>
 					<td align="center"><?php echo get_group_name($staff['group_id'])?></td>
-					<td align="center"><?php echo (!empty($staff['not_signup'])) ? $staff['not_signup'].'位' : '';?></td>
-					<td align="center"><?php echo (!empty($staff['signup'])) ? $staff['signup'].'位' : '';?></td>
-					<td align="center"><?php echo (!empty($staff['learning'])) ? $staff['learning'].'位' : '';?></td>
-					<td align="center"><?php echo (!empty($staff['total_hours'])) ? $staff['total_hours'].'小时' : '';?></td>
-					<td align="center"><?php echo (!empty($staff['finished_hours'])) ? $staff['finished_hours'].'小时' : '';?></td>
+					<td align="center"><?php echo ($staff['group_id'] == GROUP_CONSULTANT) ? $staff['not_signup'].'位' : 'N/A';?></td>
+					<td align="center"><?php echo ($staff['group_id'] == GROUP_CONSULTANT) ? $staff['signup'].'位' : 'N/A';?></td>
+					<td align="center"><?php echo ($staff['group_id'] == GROUP_SUPERVISOR) ? $staff['learning'].'位' : 'N/A';?></td>
+					<td align="center"><?php echo ($staff['group_id'] == GROUP_CONSULTANT) ? $staff['total_hours'].'小时' : 'N/A';?></td>
+					<td align="center"><?php echo ($staff['group_id'] == GROUP_SUPERVISOR || $staff['group_id'] == GROUP_TEACHER) ? $staff['finished_hours'].'小时' : 'N/A';?></td>
 					<td align="center"><?php echo $staff['refund_hours'] ?>小时</td>
 					<td align="center">
 					<?php

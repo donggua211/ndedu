@@ -6,39 +6,12 @@ class Dangdang_model extends Model {
 		parent::Model();
 	}
 	
-	function get_all()
-	{
-		$sql = "SELECT dangdang.*, category.cat_name
-				FROM " . $this->db->dbprefix('dangdang') . " as dangdang
-				LEFT JOIN ".$this->db->dbprefix('article_cat')." as category ON category.cat_id =  dangdang.cat_id
-				WHERE is_deleted = 0
-				ORDER BY dangdang.cat_id, dangdang.rank ";
-		
-		$query = $this->db->query($sql);
-		
-		if ($query->num_rows() > 0)
-		{
-			$dangdangs = array();
-			foreach ($query->result_array() as $row)
-			{
-				$row['add_time'] = date('Y-m-d H:i', $row['add_time']);
-				$row['image_url'] = $this->get_imageurl($row['pid'],'p');
-				$dangdangs[$row['pid']] = $row;
-			}
-			return $dangdangs;
-		}
-		else
-		{
-			return array();
-		}
-	}
-	
 	function addDangdang($product_info)
 	{
-		$data['pid'] = $product_info['pid'];
-		$data['cat_id'] = $product_info['cat_id'];
-		$data['product_name'] = $product_info['product_name'];
-		$data['author'] = $product_info['author'];
+		$data['pid'] = $product_info['bookid'];
+		$data['cat_id'] = $product_info['cat'];
+		$data['product_name'] = $product_info['name'];
+		$data['author'] = empty($product_info['author'])?'':$product_info['author'];
 		$data['add_time'] = time();
 		$data['count'] = 0;
 				
@@ -133,12 +106,12 @@ class Dangdang_model extends Model {
 	}
 	function get_imageurl( $pid, $size_id )
 	{
-		//$size : { '出版品(图书+音像)' : {54x54=>x; 70x70=>s; 90x90=>m; 200x200=>b; 原图=>o}, 
-		//          '百货'              : {54x54=>x; 100x100=>s; 120x120=>m; 150x150=>l; 200x200=>b, 原图=>o},
-		//          '虚拟商品'          : {90x90=>m; 200x200=>b}
+		//$size : { '����Ʒ(ͼ��+����)' : {54x54=>x; 70x70=>s; 90x90=>m; 200x200=>b; ԭͼ=>o}, 
+		//          '�ٻ�'              : {54x54=>x; 100x100=>s; 120x120=>m; 150x150=>l; 200x200=>b, ԭͼ=>o},
+		//          '������Ʒ'          : {90x90=>m; 200x200=>b}
 		//        }
 		$size_array = array( 'x', 'p', 'l' );
-		$size_id = in_array( $size_id, $size_array ) ? $size_id : 'x';	//默认给小图
+		$size_id = in_array( $size_id, $size_array ) ? $size_id : 'x';	//Ĭ�ϸ�Сͼ
 		return "http://img3".($pid%10).".dangdang.com/".($pid%99)."/".($pid%37)."/{$pid}-1_{$size_id}.jpg";
 
 	}
@@ -169,42 +142,6 @@ class Dangdang_model extends Model {
 		else
 		{
 			return array();
-		}
-	}
-	
-	function update($tag_id, $update_field)
-	{
-		if(empty($update_field))
-			return true;
-		
-		//更新student表
-		foreach($update_field as $key => $val)
-		{
-				$data[$key] = $val;
-		}
-		
-		$this->db->where('tag_id', $tag_id);
-		return $this->db->update('tags', $data);
-	}
-	
-	function delete($pid)
-	{
-		//从dangdang表删除.
-		$this->db->where('pid', $pid);
-		$this->db->delete('dangdang'); 
-			
-		if($this->db->affected_rows() > 0 )
-		{
-			//从dangdang, tag关系表中删除.
-			$this->db->where('dangdang_pid', $pid);
-			$this->db->delete('tag_dangdang');
-			
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		
 		}
 	}
 }
