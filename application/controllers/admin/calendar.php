@@ -163,18 +163,8 @@ class Calendar extends Controller {
 		if(isset($_POST['submit']) && !empty($_POST['submit']))
 		{
 			//必填信息.
-			//开始时间.
-			$start_date = $this->input->post('start_date');
-			$start_hour = $this->input->post('start_hour');
-			$start_mins = $this->input->post('start_mins');
-			$edit_calendar['start_time'] = $start_date.' '.$start_hour.':'.$start_mins.':00';
-			
-			//结束时间.
-			$end_date = $this->input->post('end_date');
-			$end_hour = $this->input->post('end_hour');
-			$end_mins = $this->input->post('end_mins');
-			$edit_calendar['end_time'] = $end_date.' '.$end_hour.':'.$end_mins.':00';
-			
+			$edit_calendar['start_time'] = $this->input->post('start_time');
+			$edit_calendar['end_time'] = $this->input->post('end_time');
 			$edit_calendar['calendar_content'] = $this->input->post('calendar_content');
 			
 			if($edit_calendar['end_time'] < $edit_calendar['start_time'])
@@ -204,7 +194,7 @@ class Calendar extends Controller {
 			if($this->CRM_Calendar_model->update($calendar_id, $update_field))
 			{
 				$start_ts = strtotime($edit_calendar['start_time']);
-				show_result_page('日程已经更新成功! ', 'admin/calendar/day/'.date('Y/m/d', $start_ts));
+				show_result_page('学员已经更新成功! ', 'admin/calendar/day/'.date('Y/m/d', $start_ts));
 			}
 			else
 			{
@@ -218,25 +208,16 @@ class Calendar extends Controller {
 		}
 	}
 	
-	function add($year = '', $month = '', $day = '')
+	function add()
 	{
 		if(isset($_POST['submit']) && !empty($_POST['submit']))
 		{
-			//开始时间.
-			$new_calendar['start_date'] = $this->input->post('start_date');
-			$new_calendar['start_hour'] = $this->input->post('start_hour');
-			$new_calendar['start_mins'] = $this->input->post('start_mins');
-			$new_calendar['start_time'] = $new_calendar['start_date'].' '.$new_calendar['start_hour'].':'.$new_calendar['start_mins'].':00';
-			
-			//结束时间.
-			$new_calendar['end_date'] = $this->input->post('end_date');
-			$new_calendar['end_hour'] = $this->input->post('end_hour');
-			$new_calendar['end_mins'] = $this->input->post('end_mins');
-			$new_calendar['end_time'] = $new_calendar['end_date'].' '.$new_calendar['end_hour'].':'.$new_calendar['end_mins'].':00';
-			
+			//必填信息.
+			$new_calendar['start_time'] = $this->input->post('start_time');
+			$new_calendar['end_time'] = $this->input->post('end_time');
 			$new_calendar['calendar_content'] = $this->input->post('calendar_content');
 			
-			if(empty($new_calendar['start_date']) || empty($new_calendar['end_date']) || empty($new_calendar['calendar_content']))
+			if(empty($new_calendar['start_time']) || empty($new_calendar['end_time']) || empty($new_calendar['calendar_content']))
 			{
 				$notify = '请填写完整的日程信息';
 				$this->_load_calendar_add_view($notify, $new_calendar);
@@ -262,18 +243,7 @@ class Calendar extends Controller {
 		}
 		else
 		{
-			/*添加日历的默认时间. */
-			//开始时间
-			$time_stamp = mktime(date('H'), date('i'), 0, (!empty($month)?$month:date('m')), (!empty($day)?$day:date('d')), (!empty($year)?$year:date('y')));
-			$new_calendar['start_date'] = date('Y-m-d', $time_stamp);
-			$new_calendar['start_hour'] = date('H');
-			$new_calendar['start_mins'] = floor(date('i')/10) * 10;
-			//结束时间.
-			$time_stamp = $time_stamp + 60 * 60; //一小时后
-			$new_calendar['end_date'] = date('Y-m-d', $time_stamp);
-			$new_calendar['end_hour'] = date('H', $time_stamp);
-			$new_calendar['end_mins'] = floor(date('i')/10) * 10;
-			$this->_load_calendar_add_view('', $new_calendar);
+			$this->_load_calendar_add_view();
 		}
 	}
 	
@@ -337,23 +307,11 @@ class Calendar extends Controller {
 	
 	function _load_calendar_edit_view($notify = '', $calendar = array())
 	{
-		$data['header']['meta_title'] = '编辑日程 - 日程管理';
+		$data['header']['meta_title'] = '添加日程 - 日程管理';
 		$data['main']['notification'] = $notify;
 		$data['header']['css_file'] = '../calendar.css';
 		$data['footer']['js_file'] = '../calendar.js';
 		$data['main']['calendar'] = $calendar;
-		
-		//开始时间
-		$time_stamp = strtotime($calendar['start_time']);
-		$data['main']['calendar']['start_date'] = date('Y-m-d', $time_stamp);
-		$data['main']['calendar']['start_hour'] = date('H', $time_stamp);
-		$data['main']['calendar']['start_mins'] = floor(date('i', $time_stamp)/10) * 10;
-		//结束时间.
-		$time_stamp = strtotime($calendar['end_time']);
-		$data['main']['calendar']['end_date'] = date('Y-m-d', $time_stamp);
-		$data['main']['calendar']['end_hour'] = date('H', $time_stamp);
-		$data['main']['calendar']['end_mins'] = floor(date('i', $time_stamp)/10) * 10;
-		
 		_load_viewer($this->staff_info['group_id'], 'calendar_edit', $data);
 	}
 	

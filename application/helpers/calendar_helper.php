@@ -132,23 +132,3 @@
 			return site_url($url.'/'.$staff_id);
 	
 	}
-	
-	function show_hour_options($name, $selected = '')
-	{
-		$str = '<select name="'.$name.'">';
-		for($i = 0; $i < 24; $i++)
-			$str .= '<option value="'.str_pad($i, 2, '0', STR_PAD_LEFT).'" '.($selected == $i ? 'SELECTED' : '').'>'.str_pad($i, 2, 0, STR_PAD_LEFT);
-		
-		$str .= '</select>';
-		return $str;
-	}
-	
-	function show_mins_options($name, $selected = '')
-	{
-		$str = '<select name="'.$name.'">';
-		for($i = 0; $i < 60; $i += 10)
-			$str .= '<option value="'.str_pad($i, 2, '0', STR_PAD_LEFT).'" '.($selected == $i ? 'SELECTED' : '').'>'.str_pad($i, 2, 0, STR_PAD_LEFT);
-		
-		$str .= '</select>';
-		return $str;
-	}

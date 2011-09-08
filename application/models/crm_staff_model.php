@@ -12,18 +12,13 @@ class CRM_Staff_model extends Model {
         $where .= " WHERE staff.is_active = {$filter['is_active']} ";//是否注销
         $where .= " AND staff.is_delete = {$filter['is_delete']} ";//是否删除
 		
-		//是否在试用期
-        if (isset($filter['in_trial']))
-        {
-            $where .= " AND staff.in_trial = {$filter['in_trial']} ";
-        }
 		//添加的时间段: 开始时间
-        if (isset($filter['start_time']) && $filter['start_time'])
+        if ($filter['start_time'])
         {
             $where .= " AND staff.add_time >= {$filter['start_time']} ";
         }
 		//添加的时间段: 结束时间
-		if (isset($filter['end_time']) && $filter['end_time'])
+		if ($filter['end_time'])
         {
             $where .= " AND staff.add_time <= {$filter['end_time']} ";
         }
@@ -82,19 +77,13 @@ class CRM_Staff_model extends Model {
 		$where = '';
 		$where .= " WHERE staff.is_active = {$filter['is_active']} ";//是否注销
         $where .= " AND staff.is_delete = {$filter['is_delete']} ";//是否删除
-		
-		//是否在试用期
-        if (isset($filter['in_trial']))
-        {
-            $where .= " AND staff.in_trial = {$filter['in_trial']} ";
-        }
 		//添加的时间段: 开始时间
-        if (isset($filter['start_time']) && $filter['start_time'])
+        if ($filter['start_time'])
         {
             $where .= " AND staff.add_time >= {$filter['start_time']} ";
         }
 		//添加的时间段: 结束时间
-		if (isset($filter['end_time']) && $filter['end_time'])
+		if ($filter['end_time'])
         {
             $where .= " AND staff.add_time <= {$filter['end_time']} ";
         }
@@ -134,12 +123,28 @@ class CRM_Staff_model extends Model {
 	{
 		//获取所有员工.
 		$staffs = $this->getAll($filter, $offset, $row_count);
+		$consultants = array();
+		$supervisors = array();
+		$teachers = array();
 		
-		//如果员工为空
-		if(empty($staffs))
-			return array();
-		
-		$staff_string = implode(',',array_keys($staffs));
+		foreach($staffs as $staff)
+		{
+			switch($staff['group_id'])
+			{
+				case GROUP_CONSULTANT:
+					$consultants[$staff['staff_id']] = $staff;
+					break;
+				case GROUP_SUPERVISOR:
+					$supervisors[$staff['staff_id']] = $staff;
+					break;
+				case GROUP_TEACHER:
+					$teachers[$staff['staff_id']] = $staff;
+					break;
+				default:
+					$admins[$staff['staff_id']] = $staff;
+					break;
+			}
+		}
 		
 		//添加的时间段: 开始时间
 		$where = '';
@@ -153,100 +158,158 @@ class CRM_Staff_model extends Model {
             $where .= " AND add_time <= {$filter['perf_end_time']} ";
         }
 		
-		//未报名
-		$sql = "SELECT consultant_id, count(status_history_id) as not_signup
-				FROM ".$this->db->dbprefix('crm_student_status_history')."
-				WHERE consultant_id IN ($staff_string)
-				AND status = ".STUDENT_STATUS_NOT_APPOINTMENT.' '.$where.
-				" GROUP BY consultant_id";
-		$query = $this->db->query($sql);
-		if ($query->num_rows() > 0)
+		/*
+		 * Consultant 绩效
+		 */
+		if(!empty($consultants))
 		{
-			foreach ($query->result_array() as $row)
+			$consultants_string = implode(',',array_keys($consultants));
+			//consultant: 已报名
+			$sql = "SELECT consultant_id, count(status_history_id) as not_signup
+					FROM ".$this->db->dbprefix('crm_student_status_history')."
+					WHERE consultant_id IN ($consultants_string)
+					AND status = ".STUDENT_STATUS_NOT_SIGNUP.' '.$where.
+					" GROUP BY consultant_id";
+			$query = $this->db->query($sql);
+			if ($query->num_rows() > 0)
 			{
-				$staffs[$row['consultant_id']]['not_signup'] = $row['not_signup'];
+				foreach ($query->result_array() as $row)
+				{
+					$staffs[$row['consultant_id']]['not_signup'] = $row['not_signup'];
+				}
+			}
+		
+			//consultant: 已报名
+			$sql = "SELECT consultant_id, count(status_history_id) as not_signup
+					FROM ".$this->db->dbprefix('crm_student_status_history')."
+					WHERE consultant_id IN ($consultants_string)
+					AND status = ".STUDENT_STATUS_SIGNUP.' '.$where.
+					" GROUP BY consultant_id";
+			$query = $this->db->query($sql);
+			if ($query->num_rows() > 0)
+			{
+				foreach ($query->result_array() as $row)
+				{
+					$staffs[$row['consultant_id']]['signup'] = $row['not_signup'];
+				}
+			}
+			
+			//consultant: 总课时
+			$sql = "SELECT staff_id, SUM(total_hours) as total_hours
+					FROM ".$this->db->dbprefix('crm_contract')."
+					WHERE staff_id IN ($consultants_string) ".$where." GROUP BY staff_id";
+			$query = $this->db->query($sql);
+			if ($query->num_rows() > 0)
+			{
+				foreach ($query->result_array() as $row)
+				{
+					$staffs[$row['staff_id']]['total_hours'] = $row['total_hours'];
+				}
+			}
+			
+			//consultant: 退费
+			$sql = "SELECT consultant_id, SUM(refund_hours) as refund_hours
+					FROM ".$this->db->dbprefix('crm_contract_refund')."
+					WHERE consultant_id IN ($consultants_string) ".$where." GROUP BY consultant_id";
+			$query = $this->db->query($sql);
+			if ($query->num_rows() > 0)
+			{
+				foreach ($query->result_array() as $row)
+				{
+					$staffs[$row['consultant_id']]['refund_hours'] = $row['refund_hours'];
+				}
 			}
 		}
 		
-		//consultant: 已报名
-		$sql = "SELECT consultant_id, count(status_history_id) as not_signup
-				FROM ".$this->db->dbprefix('crm_student_status_history')."
-				WHERE consultant_id IN ($staff_string)
-				AND status = ".STUDENT_STATUS_SIGNUP.' '.$where.
-				" GROUP BY consultant_id";
-		$query = $this->db->query($sql);
-		if ($query->num_rows() > 0)
+		if(!empty($supervisors))
 		{
-			foreach ($query->result_array() as $row)
+			$supervisors_string = implode(',',array_keys($supervisors));
+			//supervisor: 正在学
+			$sql = "SELECT supervisor_id, count(status_history_id) as learning
+					FROM ".$this->db->dbprefix('crm_student_status_history')."
+					WHERE supervisor_id IN ($supervisors_string)
+					AND status = ".STUDENT_STATUS_LEARNING.' '.$where.
+					" GROUP BY supervisor_id";
+			$query = $this->db->query($sql);
+			if ($query->num_rows() > 0)
 			{
-				$staffs[$row['consultant_id']]['signup'] = $row['not_signup'];
+				foreach ($query->result_array() as $row)
+				{
+					$staffs[$row['supervisor_id']]['learning'] = $row['learning'];
+				}
+			}
+			
+			//supervisor: 已完成课时
+			$sql = "SELECT supervisor_id, SUM(finished_hours) as finished_hours
+				FROM ".$this->db->dbprefix('crm_contract_finished')."
+				WHERE supervisor_id IN ($supervisors_string) ".$where." GROUP BY supervisor_id";
+			$query = $this->db->query($sql);
+			if ($query->num_rows() > 0)
+			{
+				foreach ($query->result_array() as $row)
+				{
+					$staffs[$row['supervisor_id']]['finished_hours'] = $row['finished_hours'];
+				}
+			}
+						
+			//supervisor: 退费.
+			$sql = "SELECT supervisor_id, SUM(refund_hours) as refund_hours
+					FROM ".$this->db->dbprefix('crm_contract_refund')."
+					WHERE supervisor_id IN ($supervisors_string) ".$where." GROUP BY supervisor_id";
+			$query = $this->db->query($sql);
+			if ($query->num_rows() > 0)
+			{
+				foreach ($query->result_array() as $row)
+				{
+					$staffs[$row['supervisor_id']]['refund_hours'] = $row['refund_hours'];
+				}
 			}
 		}
 		
-		//consultant: 总课时
-		$sql = "SELECT staff_id, SUM(total_hours) as total_hours
-				FROM ".$this->db->dbprefix('crm_contract')."
-				WHERE staff_id IN ($staff_string) ".$where." GROUP BY staff_id";
-		$query = $this->db->query($sql);
-		if ($query->num_rows() > 0)
+		if(!empty($teachers))
 		{
-			foreach ($query->result_array() as $row)
+			$teachers_string = implode(',',array_keys($teachers));
+			//teacher: 已完成课时
+			$sql = "SELECT teacher_id, SUM(finished_hours) as finished_hours
+				FROM ".$this->db->dbprefix('crm_contract_finished')."
+				WHERE teacher_id IN ($teachers_string) ".$where." GROUP BY teacher_id";
+			$query = $this->db->query($sql);
+			if ($query->num_rows() > 0)
 			{
-				$staffs[$row['staff_id']]['total_hours'] = $row['total_hours'];
+				foreach ($query->result_array() as $row)
+				{
+					$staffs[$row['teacher_id']]['finished_hours'] = $row['finished_hours'];
+				}
 			}
-		}
-		
-		//supervisor: 正在学
-		$sql = "SELECT supervisor_id, count(status_history_id) as learning
-				FROM ".$this->db->dbprefix('crm_student_status_history')."
-				WHERE supervisor_id IN ($staff_string)
-				AND status = ".STUDENT_STATUS_LEARNING.' '.$where.
-				" GROUP BY supervisor_id";
-		$query = $this->db->query($sql);
-		if ($query->num_rows() > 0)
-		{
-			foreach ($query->result_array() as $row)
+			
+			//teacher: 退费.
+			$sql = "SELECT teacher_id, SUM(refund_hours) as refund_hours
+					FROM ".$this->db->dbprefix('crm_contract_refund')."
+					WHERE teacher_id IN ($teachers_string) ".$where." GROUP BY teacher_id";
+			$query = $this->db->query($sql);
+			if ($query->num_rows() > 0)
 			{
-				$staffs[$row['supervisor_id']]['learning'] = $row['learning'];
-			}
-		}
-		
-		//supervisor: 已完成课时
-		$sql = "SELECT supervisor_id, SUM(finished_hours) as finished_hours
-			FROM ".$this->db->dbprefix('crm_contract_finished')."
-			WHERE supervisor_id IN ($staff_string) ".$where." GROUP BY supervisor_id";
-		$query = $this->db->query($sql);
-		if ($query->num_rows() > 0)
-		{
-			foreach ($query->result_array() as $row)
-			{
-				$staffs[$row['supervisor_id']]['finished_hours'] = $row['finished_hours'];
-			}
-		}
-		
-		//consultant: 退费
-		$sql = "SELECT consultant_id, SUM(refund_hours) as refund_hours
-				FROM ".$this->db->dbprefix('crm_contract_refund')."
-				WHERE consultant_id IN ($staff_string) ".$where." GROUP BY consultant_id";
-		$query = $this->db->query($sql);
-		if ($query->num_rows() > 0)
-		{
-			foreach ($query->result_array() as $row)
-			{
-				$staffs[$row['consultant_id']]['refund_hours'] = $row['refund_hours'];
+				foreach ($query->result_array() as $row)
+				{
+					$staffs[$row['teacher_id']]['refund_hours'] = $row['refund_hours'];
+				}
 			}
 		}
 		
 		//投诉.
-		$sql = "SELECT staff_id, COUNT(complain_id) as complain
-				FROM ".$this->db->dbprefix('crm_complain')."
-				WHERE staff_id IN ($staff_string)".$where."GROUP BY staff_id";
-		$query = $this->db->query($sql);
-		if ($query->num_rows() > 0)
+		if(!empty($staffs))
 		{
-			foreach ($query->result_array() as $row)
+			$all_staffid_string = implode(',', array_keys($staffs));
+			$sql = "SELECT staff_id, COUNT(complain_id) as complain
+					FROM ".$this->db->dbprefix('crm_complain')."
+					WHERE staff_id IN ($all_staffid_string)".$where."GROUP BY staff_id";
+			$query = $this->db->query($sql);
+			if ($query->num_rows() > 0)
 			{
-				$staffs[$row['staff_id']]['complain'] = $row['complain'];
+				foreach ($query->result_array() as $row)
+				{
+					$staffs[$row['staff_id']]['complain'] = $row['complain'];
+				}
 			}
 		}
 		
@@ -344,13 +407,6 @@ class CRM_Staff_model extends Model {
 		$data['is_active'] = 1;
 		$data['add_time'] = date('Y-m-d H:i:s');
 		$data['update_time'] = date('Y-m-d H:i:s');
-		
-		//ndedu1.2.2 新加： 性别，生日，星级，是否是试用期
-		$data['dob'] = $staff['dob'];
-		$data['gender'] = $staff['gender'];
-		$data['level'] = $staff['level'];
-		$data['in_trial'] = $staff['in_trial'];
-			
 		
 		if($this->db->insert('crm_staff', $data))
 		{

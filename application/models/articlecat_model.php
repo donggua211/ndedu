@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 class ArticleCat_model extends Model {
 
 	function ArticleCat_model()
@@ -20,8 +20,8 @@ class ArticleCat_model extends Model {
 			$categories = array();
 			foreach ($query->result_array() as $row)
 			{
-				$row['add_time'] = date('Y-m-d H:i', $row['add_time']);
-				$row['modified_time'] = date('Y-m-d H:i', $row['modified_time']);
+				$row['add_time'] = date('Y-m-d h:i', $row['add_time']);
+				$row['modified_time'] = date('Y-m-d h:i', $row['modified_time']);
 				$categories[$row['cat_id']] = $row;
 			}
 			return $this->array_sort($this->format_category($categories));

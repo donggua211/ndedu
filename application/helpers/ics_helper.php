@@ -22,13 +22,13 @@
 	{
 		foreach($category as $value)
 		{
-			echo '<tr><td align="left">';
+			echo '<tr><td class="first-cell" align="left">';
 			
 			for($i = 0; $i < $value['level']; $i++)
-				echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+				echo '&nbsp;&nbsp;&nbsp;&nbsp;';
 			
 			if($value['level'] > 0)
-				echo '└──';
+				echo '└─';
 			
 			echo '<img src="images/admin/menu_arrow.gif" width="9" height="9" border="0" style="margin-left:2px;margin-right:2px" />'.$value['category_name'].'</td>
 					<td align="center">'.$value['order'].'</td>
@@ -43,24 +43,20 @@
 		}
 	}
 	
-	function show_category_mune($category, $staff_info = array())
+	function show_category_mune($category)
 	{
 		echo '<ul>';
 		foreach($category as $value)
 		{
-			//为 staff id = 5 , 定制. @tobe
-			if($staff_info['staff_id'] == 6 && in_array($value['category_id'], array(594, 271, 272, 372, 479)))
-				echo '<li style="display:none">';
-			else
-				echo '<li class="'.((isset($value['sub_cat']) && !empty($value['sub_cat']))?'explode':'menu-item').'" name="menu">';
+			echo '<li class="'.((isset($value['sub_cat']) && !empty($value['sub_cat']))?'explode':'menu-item').'" name="menu">';
 			
 			if(isset($value['sub_cat']) && !empty($value['sub_cat']))
 				echo $value['category_name'];
 			else
-				echo '<a onclick="return markurl(this);" href="'.site_url('ics/ics/category/'.$value['category_id']).'" target="main-ics">'.$value['category_name'].'</a>';
+				echo '<a onclick="return markurl(this);" href="'.site_url('ics/ics/category/'.$value['category_id']).'" target="main-frame">'.$value['category_name'].'</a>';
 			
 			if(isset($value['sub_cat']) && !empty($value['sub_cat']))
-				show_category_mune($value['sub_cat'], $staff_info);
+				show_category_mune($value['sub_cat']);
 			
 			echo '</li>';
 		}

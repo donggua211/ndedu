@@ -29,7 +29,7 @@ class ICS_Document_model extends Model {
 	
 	}
 	
-	function search($keyword, $grade_id = 0, $category = array(), $offset = 0, $row_count = 0)
+	function search($keyword, $grade_id = 0, $offset = 0, $row_count = 0)
 	{
 		//student基本信息
 		$sql = "SELECT document.*, provider.name, grade.grade_name, category.category_name FROM ".$this->db->dbprefix('ics_document')." as document
@@ -40,19 +40,13 @@ class ICS_Document_model extends Model {
 		//LIMIT
 		if (!empty($grade_id))
         {
-            $sql .= " AND document.grade_id = $grade_id ";
-        }
-		//LIMIT
-		if (!empty($category))
-        {
-            $sql .= " AND document.category_id IN (".implode(',',  $category).") ";
+            $sql .= " AND document.grade_id = $grade_id";
         }
 		//LIMIT
 		if (!empty($row_count))
         {
             $sql .= " LIMIT $offset, $row_count";
         }
-		
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{

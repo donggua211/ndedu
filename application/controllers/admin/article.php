@@ -136,7 +136,10 @@ class Article extends Controller {
 				{
 					$data['notification'] = '分类添加失败！请重试';
 				}
-				show_result_page($data['notification'], 'admin/article');
+
+				$data['page'] = 'admin/article';
+				$this->load->view('admin/admin/result', $data);
+				
 			}
 		}
 		else
@@ -215,7 +218,9 @@ class Article extends Controller {
 				{
 					$data['notification'] = 'category_failed';
 				}
-				show_result_page($data['notification'], 'admin/article');
+
+				$data['page'] = 'admin/article';
+				$this->load->view('admin/admin/result', $data);
 				
 			}
 		}

@@ -40,18 +40,6 @@
 |
 */
 
-/* compatible for both the upper and lower case of controller's name*/
-$route['topgrowth'] = "topGrowth";
-$route['topgrowth/(:any)'] = "topGrowth/$1";
-$route['usergrowth'] = "userGrowth";
-$route['usergrowth/(:any)'] = "userGrowth/$1";
-$route['articlecat/(:num)'] = "articleCat/index/$1";
-$route['articlecat/(:num)/(:num)'] = "articleCat/index/$1/$2";
-$route['growthglan'] = "growthPlan";
-$route['growthglan/(:any)'] = "growthPlan/index/$1";
-$route['tutorplan'] = "tutorPlan";
-$route['tutorplan/(:any)'] = "tutorPlan/index/$1";
-
 $route['default_controller'] = "entry";
 $route['scaffolding_trigger'] = "scaffolding";
 
@@ -153,19 +141,5 @@ $route['evaluate/(:num)'] = "evaluate/doEvaluate/$1";
 
 $route['register'] = "user/register";
 $route['register/(:any)'] = "user/register/$1";
-
-$route['cp_order/(:num)/(:num)'] = "cp_order/index/$1/$2";
-$route['cp_login/(:num)'] = "cp_login/index/$1";
-$route['cp_login/(:num)/(:num)'] = "cp_login/index/$1/$2";
-$route['media'] = "articleCat/index/13";
-$route['cp1'] = "cp_login/index/1";
-$route['cp2'] = "cp_login/index/2";
-$route['cp3'] = "cp_login/index/3";
-$route['cp4'] = "cp_login/index/4";
-$route['cp5'] = "cp_login/index/5";
-$route['promo'] = "cp_promo";
-
-
-
 /* End of file routes.php */
 /* Location: ./system/application/config/routes.php */

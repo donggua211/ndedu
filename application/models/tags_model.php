@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 class Tags_model extends Model {
 
 	function Tags_model()

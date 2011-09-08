@@ -8,11 +8,8 @@ class Ajax extends Controller {
 		$this->load->library('session');
 		$this->load->plugin('captcha');
 		$this->load->model('Guestbook_model');
-		$this->load->model('CP_comment_model');
-		$this->load->model('CP_quan_model');
 		$this->load->model('User_model');
 		$this->load->helper('ip');
-		$this->load->helper('common');
 	}
 	
 	function captcha()
@@ -95,39 +92,6 @@ class Ajax extends Controller {
 		}
 	}
 	
-	function add_comment()
-	{
-		$captcha = $this->input->myPost('captcha');
-		
-		if($captcha == FAlSE || strtolower($captcha) != strtolower($this->session->userdata("captcha_word")))
-		{
-			echo 'captcha wrong';
-		}
-		else
-		{
-			$comment['name'] = trim($this->input->Post('name'));
-			$comment['comment'] = trim($this->input->Post('comment'));
-			$comment['cat_id'] = $this->input->Post('cat_id');
-			
-			if($comment['name'] == FAlSE || $comment['comment'] == FAlSE)
-			{
-				echo 'field empty';
-			}
-			else
-			{
-				if($this->CP_comment_model->add($comment))
-				{
-					echo 'ok';
-				}
-				else
-				{
-					echo 'ng';
-				}
-			
-			}
-		}
-	}
-	
 	function checkUserExist()
 	{
 		$username = $this->input->myPost('username');
@@ -146,33 +110,6 @@ class Ajax extends Controller {
 				echo 'no';
 			}
 		}
-	}
-	
-	function get_ship_value($province_id = 0)
-	{
-		$ship_fee = get_ship_fee($province_id);
-		echo implode(',', $ship_fee);
-	}
-	
-	function check_quan($quan_id = '')
-	{
-		if(empty($quan_id) )
-		{
-			echo 'ng';
-		}
-		else
-		{
-			$quan_info = $this->CP_quan_model->get_one_quan($quan_id, true);
-			if(!empty($quan_info))
-			{
-				echo $quan_info['value'];
-			}
-			else
-			{
-				echo 'ng';
-			}
-		}
-	
 	}
 }
 

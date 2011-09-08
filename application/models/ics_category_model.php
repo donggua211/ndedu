@@ -61,31 +61,6 @@ class ICS_Category_model extends Model {
 		return $path_info;
 	}
 	
-	function get_sub_cat($category_id)
-	{
-		$categories = $this->_all_category_array();
-		$result[] = $categories[$category_id]['category_id'];
-		
-		$this_cat_array = $current_cat_arr = array($category_id);
-		
-		do{
-			$current_cat_arr = $this_cat_array;
-			$this_cat_array = array();
-			foreach($categories as $value)
-			{
-				if(in_array($value['parent_id'], $current_cat_arr))
-				{
-					$result[] = $value['category_id'];
-					$this_cat_array[] = $value['category_id'];
-				}
-			}
-		
-		}
-		while(count($this_cat_array) > 0);
-		
-		return $result;
-	}
-	
 	function add($category)
 	{
 		$data['category_name'] = $category['name'];
@@ -130,25 +105,25 @@ class ICS_Category_model extends Model {
 	
 	function _all_category_array()
 	{
-		static $all_categories;
+		$sql = "SELECT *
+				FROM " . $this->db->dbprefix('ics_category') . "
+				ORDER BY parent_id, `order` ASC";
 		
-		if (!isset($all_categories))
+		$query = $this->db->query($sql);
+		
+		if ($query->num_rows() > 0)
 		{
-			$sql = "SELECT *
-					FROM " . $this->db->dbprefix('ics_category') . "
-					ORDER BY parent_id, `order` ASC";
-			$query = $this->db->query($sql);
-			
-			if ($query->num_rows() > 0)
+			$categories = array();
+			foreach ($query->result_array() as $row)
 			{
-				$all_categories = array();
-				foreach ($query->result_array() as $row)
-				{
-					$all_categories[$row['category_id']] = $row;
-				}
+				$categories[$row['category_id']] = $row;
 			}
+			return $categories;
 		}
-		return $all_categories;
+		else
+		{
+			return array();
+		}
 	}
 	
 	function format_category($category)
@@ -203,17 +178,9 @@ class ICS_Category_model extends Model {
 		return end($levels);
 	}
 	
-	function array_cmp($a, $b)
-	{
-		if ($a['order'] == $b['order']) {
-			return ($a['category_id'] < $b['category_id']) ? -1 : 1;
-		}
-		return ($a['order'] < $b['order']) ? -1 : 1;
-	}
-
 	function array_sort($array)
 	{
-		usort($array, array($this, 'array_cmp'));
+		ksort($array);
 		
 		foreach($array as $key => $val)
 		{
@@ -223,6 +190,4 @@ class ICS_Category_model extends Model {
 		return $array;
 	}
 }
-
-
 ?>

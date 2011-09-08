@@ -46,11 +46,6 @@ class History extends Controller {
 		$history_id = (empty($history_id))? $this->input->post('history_id') : intval($history_id);
 		$this->_edit('learning', $history_id);
 	}
-	function edit_callback($history_id = 0)
-	{
-		$history_id = (empty($history_id))? $this->input->post('history_id') : intval($history_id);
-		$this->_edit('callback', $history_id);
-	}
 	
 	function _edit($type, $history_id)
 	{
@@ -65,7 +60,7 @@ class History extends Controller {
 		
 		$history_info = $this->CRM_History_model->_get_one_history($history_id, $this->type);
 		$student_info = $this->CRM_Student_model->getOne($history_info['student_id']);
-		print_r($history_info);
+		
 		//检查权限.
 		if(empty($history_info) || empty($history_info))
 		{
@@ -79,7 +74,6 @@ class History extends Controller {
 				break;
 			case GROUP_CONSULTANT:
 			case GROUP_SUPERVISOR:
-			case GROUP_CS:
 				if($history_info['staff_id'] != $this->staff_info['staff_id'])
 				{
 					show_error_page('您没有权限修改别人的历史记录: 这条记录不是您添加的!', 'admin/student');
@@ -113,9 +107,6 @@ class History extends Controller {
 						break;
 					case 'learning':
 						$update_field['history_learning'] = $history_text;
-						break;
-					case 'callback':
-						$update_field['history_callback'] = $history_text;
 						break;
 					default:
 						break;
@@ -157,10 +148,6 @@ class History extends Controller {
 	{
 		$this->_delete('learning', $history_id);
 	}
-	function delete_history($history_id)
-	{
-		$this->_delete('history', $history_id);
-	}
 	
 	function _delete($type, $history_id)
 	{
@@ -188,7 +175,6 @@ class History extends Controller {
 				break;
 			case GROUP_CONSULTANT:
 			case GROUP_SUPERVISOR:
-			case GROUP_CS:
 				if($history_info['staff_id'] != $this->staff_info['staff_id'])
 				{
 					show_error_page('您没有权限修改别人的历史记录: 这条记录不是您添加的!', 'admin/student');
