@@ -1,0 +1,282 @@
+body {
+margin: 0px; font: 12px arial, helvetica, sans-serif; text-align: left
+}
+td {
+margin: 0px; font: 12px arial, helvetica, sans-serif; text-align: left
+}
+.smalltxt {
+font: 11px arial, helvetica, sans-serif
+}
+html {
+scrollbar-face-color: #15a3d9; background: #dae6f3; scrollbar-highlight-color: #555555; scrollbar-shadow-color: #555555; scrollbar-3dlight-color: #555555; scrollbar-arrow-color: #ffffff; scrollbar-track-color: #a4d6ea; scrollbar-darkshadow-color: #60b7de
+}
+body {
+scrollbar-face-color: #15a3d9; background: #dae6f3; scrollbar-highlight-color: #555555; scrollbar-shadow-color: #555555; scrollbar-3dlight-color: #555555; scrollbar-arrow-color: #ffffff; scrollbar-track-color: #a4d6ea; scrollbar-darkshadow-color: #60b7de
+}
+input {
+border-right: #6699cc 1px solid; border-top: #6699cc 1px solid; background: #ffffff; margin: 5px 0px; font: 12px/1.3em arial, helvetica, sans-serif; border-left: #6699cc 1px solid; color: #006699; border-bottom: #6699cc 1px solid
+}
+textarea {
+border-right: #6699cc 1px solid; border-top: #6699cc 1px solid; background: #ffffff; margin: 5px 0px; font: 12px/1.3em arial, helvetica, sans-serif; border-left: #6699cc 1px solid; color: #006699; border-bottom: #6699cc 1px solid
+}
+select {
+border-right: #6699cc 1px solid; border-top: #6699cc 1px solid; background: #ffffff; margin: 5px 0px; font: 12px/1.3em arial, helvetica, sans-serif; border-left: #6699cc 1px solid; color: #006699; border-bottom: #6699cc 1px solid
+}
+form {
+margin: 0px
+}
+textarea {
+overflow: auto
+}
+.checkbox {
+border-top-width: 0px; border-left-width: 0px; background: none transparent scroll repeat 0% 0%; border-bottom-width: 0px; margin-bottom: 0px; vertical-align: baseline; height: 16px; border-right-width: 0px
+}
+.radio {
+border-top-width: 0px; border-left-width: 0px; background: none transparent scroll repeat 0% 0%; border-bottom-width: 0px; margin-bottom: 0px; vertical-align: baseline; height: 16px; border-right-width: 0px
+}
+a {
+color: #555555; text-decoration: none
+}
+a:hover {
+text-decoration: underline
+}
+.logo {
+padding-left: 5px; width: 250px; padding-top: 10px; height: 50px
+}
+.logoimg {
+padding-right: 8px; display: block; float: left; width: 33px; height: 33px
+}
+.editiontext {
+font-weight: bold; color: #ffffff; padding-top: 4px; text-decoration: none
+}
+.topmenubg {
+background: url(admin/bg_header.gif) repeat-x
+}
+.topmenu {
+margin-top: 24px; font-weight: bold; font-size: 14px; float: left; width: 680px; color: #555555; height: 38px; min-width: 600px
+}
+.topmenu ul {
+padding-right: 0px; padding-left: 0px; padding-bottom: 0px; margin: 0px; padding-top: 0px
+}
+.topmenu li {
+border-right: #43809c 1px solid; border-top: #43809c 1px solid; margin-top: 2px; float: left; border-left: #43809c 1px solid; margin-right: 1px; border-bottom: #43809c 1px; list-style-type: none
+}
+.topmenu span {
+border-right: #ffffff 1px solid; padding-right: 10px; border-top: #ffffff 1px solid; display: block; padding-left: 10px; background: url(admin/bg_menu2.gif); float: left; padding-bottom: 0px; border-left: #ffffff 1px solid; color: #555555; line-height: 25px; padding-top: 0px; border-bottom: #ffffff 1px; height: 25px
+}
+#menuon {
+border-right: #525c3d 1px solid; border-top: #525c3d 1px solid; margin-top: 0px; background: url(admin/bg_menu.gif); border-left: #525c3d 1px solid; line-height: 30px; border-bottom: #525c3d 1px; height: 30px
+}
+#menuon span {
+border-right: #ffffff 1px solid; border-top: #ffffff 1px solid; background: url(admin/bg_menu.gif); border-left: #ffffff 1px solid; padding-top: 1px; border-bottom: #ffffff 1px; height: 27px
+}
+#menuon span a {
+color: #003366
+}
+.leftmenulist {
+border-right: #525c3d 1px solid; border-top: #525c3d 1px solid; margin: 2px; border-left: #525c3d 1px solid; width: 134px; border-bottom: #525c3d 1px solid
+}
+.leftmenutext td {
+padding-left: 4px; font-weight: bold; background: url(admin/bg_list.gif) repeat-x; color: #ffffff; line-height: 16px; border-bottom: #bbdcf1 1px solid; height: 30px
+}
+.leftmenutext a {
+font-weight: bold; font-size: 13px; color: #ffffff
+}
+.leftmenutd td {
+background: #ffffff
+}
+.leftmenuinfo {
+margin-bottom: 10px; margin-left: 8px; width: 116px
+}
+.leftmenuinfo td {
+text-indent: 8px; line-height: 1.6em; border-bottom: #a3ceeb 1px solid; height: 1.8em
+}
+.guide td {
+border-right: #1598cb 1px solid; border-top: #1598cb 1px solid; border-left: #1598cb 1px solid; color: #ff6600; text-indent: 20px; line-height: 1.2em; border-bottom: #1598cb 1px solid; height: 28px; background-color: #fbffe1
+}
+.tableborder {
+border-right: #525c3d 1px solid; border-top: #525c3d 1px solid; border-left: #525c3d 1px solid; border-bottom: #525c3d 1px solid; border-collapse: collapse; outline: 1px solid #525c3d; empty-cells: show
+}
+.tableborder td {
+padding-right: 4px; padding-left: 4px; background: #ffffff; padding-bottom: 4px; line-height: 1.5em; padding-top: 4px; border-bottom: #bbdcf1 1px solid; height: 2em
+}
+.tableborder td ul {
+margin-top: 0px; margin-bottom: 0px; line-height: 22px
+}
+.tableborder td ul li {
+margin-top: 0px; margin-bottom: 0px; line-height: 22px
+}
+.tableborder td img {
+margin-top: 8px
+}
+.tableborder td .smalltxt {
+line-height: 20px
+}
+.sub td.altbg1 {
+padding-left: 1.5em
+}
+.category td {
+color: #333333; background-color: #f0f0f0
+}
+td.altbg1 {
+background: #f1f5f8
+}
+.altbg1 td {
+background: #f1f5f8
+}
+td.altbg2 {
+background: #ffffff
+}
+.altbg2 td {
+background: #ffffff
+}
+.header td {
+padding-right: 8px; padding-left: 8px; font-weight: bold; background: url(admin/bg_list.gif) repeat-x; padding-bottom: 0px; color: #ffffff; line-height: 16px; padding-top: 0px; border-bottom: #525c3d 1px solid; height: 30px
+}
+.jswizard tr {
+border-top: #bbdcf1 1px solid; border-left: #bbdcf1 1px solid
+}
+.jswizard td {
+border-right: #bbdcf1 1px solid; padding-right: 2px; border-top: #bbdcf1 1px solid; padding-left: 2px; padding-bottom: 2px; border-left: #bbdcf1 1px solid; padding-top: 2px; border-bottom: #bbdcf1 1px solid
+}
+.header a {
+color: #ffffff
+}
+.button {
+border-right: #1590be 1px solid; padding-right: 6px; border-top: #1590be 1px solid; padding-left: 6px; background: url(admin/bg_button.gif) repeat-x; padding-bottom: 0px; font: 12px/20px arial, helvetica, sans-serif; border-left: #1590be 1px solid; color: #000; padding-top: 0px; border-bottom: #1590be 1px solid; height: 26px; outline: 1px solid #1590be
+}
+.footer {
+margin: 20px; height: 20px; text-align: center
+}
+
+#calendar {
+border-right: #9db3c5 1px solid; border-top: #9db3c5 1px solid; background: url(../../images/default/headbox.gif) #f5fafe repeat-x 0px 0px; margin-bottom: 0.8em; border-left: #9db3c5 1px solid; border-bottom: #9db3c5 1px solid
+}
+#calendar td {
+padding-right: 2px; padding-left: 2px; font-weight: bold; padding-bottom: 2px; padding-top: 2px
+}
+#calendar_week td {
+line-height: 2em; border-bottom: #ddd 1px solid; height: 2em
+}
+#hourminute td {
+padding-right: 2px; border-top: #ddd 1px solid; padding-left: 2px; padding-bottom: 4px; padding-top: 4px
+}
+.calendar_expire {
+font-weight: normal; color: #666
+}
+.calendar_expire a:link {
+font-weight: normal; color: #666
+}
+.calendar_expire a:visited {
+font-weight: normal; color: #666
+}
+.calendar_default {
+color: #069
+}
+.calendar_default a:link {
+color: #069
+}
+.calendar_default a:visited {
+color: #069
+}
+.calendar_checked {
+font-weight: bold; color: #090
+}
+.calendar_checked a:link {
+font-weight: bold; color: #090
+}
+.calendar_checked a:visited {
+font-weight: bold; color: #090
+}
+td.calendar_checked {
+background: #ddd
+}
+span.calendar_checked {
+background: #ddd
+}
+.calendar_today {
+font-weight: bold; color: #000
+}
+.calendar_today a:link {
+font-weight: bold; color: #000
+}
+.calendar_today a:visited {
+font-weight: bold; color: #000
+}
+#calendar_header td {
+font-weight: normal; width: 30px; border-bottom: #ddd 1px solid; height: 20px
+}
+#calendar_year {
+display: none; z-index: 10; background: #f5fafe; line-height: 130%; position: absolute
+}
+#calendar_year .col {
+border-right: #ddd 1px solid; padding-right: 4px; border-top: #ddd 1px solid; padding-left: 4px; background: #f5fafe; float: left; padding-bottom: 4px; margin-left: 1px; border-left: #ddd 1px solid; padding-top: 4px; border-bottom: #ddd 1px solid
+}
+#calendar_month {
+border-right: #ddd 1px solid; padding-right: 4px; border-top: #ddd 1px solid; display: none; padding-left: 4px; z-index: 11; background: #f5fafe; padding-bottom: 4px; border-left: #ddd 1px solid; line-height: 130%; padding-top: 4px; border-bottom: #ddd 1px solid; position: absolute
+}
+.formulaeditor {
+border-right: #6699cc 1px solid; border-top: #6699cc 1px solid; margin: 5px 0px; border-left: #6699cc 1px solid; width: 90%; border-bottom: #6699cc 1px solid
+}
+.formulaeditor div {
+padding-right: 2px; padding-left: 2px; padding-bottom: 2px; padding-top: 2px
+}
+.formulaeditor textarea {
+padding-right: 0px; border-top: #6699cc 1px solid; padding-left: 0px; border-left-width: 0px; border-bottom-width: 0px; padding-bottom: 0px; margin: 0px; padding-top: 0px; border-right-width: 0px
+}
+.formulaeditor a {
+border-right: #6699cc 1px solid; padding-right: 2px; border-top: #6699cc 1px solid; padding-left: 2px; background: #ffffff; padding-bottom: 2px; border-left: #6699cc 1px solid; line-height: 25px; padding-top: 2px; border-bottom: #6699cc 1px solid
+}
+.process {
+border-right: #000000 1px solid; border-top: #000000 1px solid; background: url(process.gif) repeat-x; border-left: #000000 1px solid; width: 400px; border-bottom: #000000 1px solid; height: 40px; text-align: left
+}
+.processbg {
+background: url(processbg.gif) no-repeat 0% 0px; width: 402px; color: #fff; line-height: 40px; height: 40px; text-align: center
+}
+
+
+div.pagination {
+	padding: 3px;
+	margin: 3px;
+	text-align:center;
+}
+
+div.pagination a {
+	border: 1px solid #dedfde;
+	margin-right:3px;
+	padding:2px 6px;
+
+	background-position:bottom;
+	text-decoration: none;
+
+	color: #99210b;
+}
+div.pagination a:hover, div.pagination a:active {
+	border: 1px solid #000;
+	background-image:none;
+	background-color:#777777;
+	color: #fff;
+}
+div.pagination span.current {
+	margin-right:3px;
+	padding:2px 6px;
+	
+	font-weight: bold;
+	color: #99210b;
+}
+div.pagination span.disabled {
+	margin-right:3px;
+	padding:2px 6px;
+
+	color: #adaaad;
+}
+
+.navigation{
+	border: #1598cb 1px solid; 
+	color: #ff6600; 
+	text-indent: 20px; 
+	line-height: 1.2em; 
+	background-color: #fbffe1;
+	margin-bottom:5px;
+	padding:2px;
+}

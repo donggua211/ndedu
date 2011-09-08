@@ -1,0 +1,213 @@
+body {
+	color:#000000;
+	line-height:1.7;
+}
+img {
+	vertical-align:middle;
+}
+#join_wrap {
+	margin:30px auto;
+	width:720px;
+	height:auto:
+}
+#join_header{
+	width:100%;
+	height:30px;
+	line-height:30px;
+	border-bottom:2px solid #FF7B19;
+}
+#join_header ul {
+	margin:0 auto;
+	width:720px;
+	list-style:none;
+}
+#join_header ul .current {
+	color:#FF9900;
+	font-weight:bold;
+}
+#join_header ul li {
+	float:left;
+	font-size:14px;
+	margin-left:20px;
+	margin-right:10px;
+}
+#join_header ul li img{
+	padding-bottom:2px;
+	padding-right:2px;
+}
+
+.join_agreement {
+	padding:20px;
+	font-size:14px;
+}
+.join_agreement .title {
+	line-height:30px;
+	font-weight:bold;
+}
+.join_agreement .content {
+	padding-left:30px;
+	padding-right:30px;
+}
+.join_agreement .content .align-right{
+	text-align:right;
+}
+.join_agreement .content .font-bold-red{
+	color:#FF0000;
+}
+.join_agreement .button {
+	text-align:center;
+}
+
+.join_personal {
+	padding:20px;
+	font-size:14px;
+}
+.join_personal .button {
+	margin-top:20px;
+	text-align:center;
+}
+.join_personal .input {
+	margin-bottom:5px;
+	line-height:26px;
+}
+.join_personal .input label {
+    float: left;
+    font-size: 14px;
+    text-align: right;
+    width: 155px;
+}
+.join_personal .input input,textarea{
+    margin: 0 5px 0 5px;
+    padding: 2px;
+	font-size: 14px;
+	background-color:#FFFDF0;
+	border: 1px solid #FF9600;
+	vertical-align:middle;
+}
+.join_personal .input select {
+	background-color:#FFFDF0;
+	border: 1px solid #FF9600;
+    margin: 0 5px 0 5px;
+    padding: 2px;
+}
+.join_personal .input span {
+	margin-left:5px;
+    padding: 2px;
+	border:0;
+}
+
+
+.join_survey {
+	padding:20px;
+	font-size:14px;
+}
+.join_survey .button {
+	margin-top:20px;
+	text-align:center;
+}
+.join_survey .input {
+	margin-bottom:5px;
+	line-height:26px;
+}
+.join_survey .input label {
+    float: left;
+    font-size: 14px;
+    text-align: right;
+    width: 60px;
+}
+.join_survey .input div {
+    float:right;
+	line-height:26px;
+	width:600px;
+}
+.join_survey .input input.line{
+	-moz-border-bottom-colors: none;
+	-moz-border-image: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	border-color: -moz-use-text-color -moz-use-text-color #999999;
+	border-style: none none solid;
+	border-width: medium medium 1px;
+	height: 15px;
+	line-height: 15px;
+	padding: 3px;
+	width: 500px;
+}
+.join_survey .input input.short_line{
+	-moz-border-bottom-colors: none;
+	-moz-border-image: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	border-color: -moz-use-text-color -moz-use-text-color #999999;
+	border-style: none none solid;
+	border-width: medium medium 1px;
+	height: 15px;
+	line-height: 15px;
+	padding: 3px;
+}
+.join_survey .input span {
+	margin-left:5px;
+    padding: 2px;
+	border:0;
+}
+
+.join_cv{
+	margin:20px auto;
+	width:663px;
+	height:970px;
+	font-size:14px;
+	background:url(../images/join/cv_bg.jpg) no-repeat;
+}
+.join_cv b{ color:#FF7B19; font-size:16px;}
+.join_cv .item{
+	background:url(../images/join/cv_title_bg.gif) repeat-x;
+	color:#FF6600;
+	font-weight:bold;
+	text-indent:20px;
+}
+
+.join_cv  input,textarea{
+    margin: 0 5px 0 5px;
+	font-size: 14px;
+	background-color:#FFFDF0;
+	border: 1px solid #FF9600;
+	vertical-align:middle;
+}
+.join_cv textarea{width:450px; height:70px;padding:4px;}
+.join_cv select {
+	background-color:#FFFDF0;
+	border: 1px solid #FF9600;
+    margin: 0 5px 0 5px;
+    padding: 2px;
+}
+
+.join_finish {
+	padding:20px;
+	font-size:14px;
+}
+.join_finish .title {
+	padding:100px 0 20px 0;
+	text-align:center;
+	line-height:30px;
+	font-size:16px;
+	font-weight:bold;
+}
+.join_finish .content {
+	padding-left:30px;
+	padding-right:30px;
+}
+
+
+
+.input_button{
+	padding:0 15px 0 15px;
+	height:34px;
+	line-height:34px;
+	font-size:16px;
+	font-weight:bold;
+	color:#FFFFFF;
+	background:url(../images/join/button_bg.jpg) repeat-x top;
+
+}

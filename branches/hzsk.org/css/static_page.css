@@ -1,0 +1,80 @@
+.product_content{
+	margin-top:10px;
+}
+.product_content .left{
+	float:left;
+	padding-left:7px;
+	width:135px;
+	display:block;
+}
+.product_content .left ul{
+	margin-top:5px;
+	list-style-type:none;
+}
+.product_content .left ul li{
+	padding-left:10px;
+	height:25px;
+	line-height:25px;
+	color:#7C7C7C;
+}
+.product_content .left ul .cover{
+	background:url(../images/icon/light_green_right_triangle.gif) #FBFFD9 no-repeat 90% center;
+}
+.product_content .left ul .cover a{color:#74B600;}
+.product_content .left .title{
+	height:25px;
+	line-height:25px;
+	font-size:16px;
+	font-weight:bold;
+	color:#01743B;
+}
+.product_content .right{
+	padding-left:30px;
+	float:right;
+	width:770px;
+	background:url(../images/product_center_bg.jpg) no-repeat center left;
+}
+.product_content .right .img{
+	text-align:center;
+}
+.product_content .right .text{
+	margin-top:10px;
+	margin-bottom:10px;
+	color:#01743B;
+	font-size:14px;
+}
+.product_content .right .text .sub_text{
+	margin-left:15px;
+}
+.product_content .right .service{
+	margin-right:20px;
+	background:url(../images/service_bg.gif) no-repeat top right;
+}
+.product_content .right .contactus{
+	margin-top:10px;
+	margin-right:20px;
+	height:370px;
+	background:url(../images/contactus_img.jpg) no-repeat top right;
+}
+.product_content .right .contactus .mail{
+	margin-left:15px;
+	padding:15px 0 15px 85px;
+	color:#6B6C6C;
+	background:url(../images/mail.gif) no-repeat center left;
+	font-size:14px;
+}
+.product_content .right .contactus .boys{
+	margin-left:15px;
+	padding:15px 0 15px 85px;
+	color:#6B6C6C;
+	background:url(../images/2boys.gif) no-repeat center left;
+	font-size:14px;
+}
+
+
+
+
+.font_16_bold{font-size:16px;font-weight:bold}
+.color_lg{color:#74B600}
+.color_o{color:#FF7800}
+.color_lb{color:#34C0EB
