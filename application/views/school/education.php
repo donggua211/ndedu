@@ -49,7 +49,7 @@
                 <tr class="font_12_20">
 					<?php 
 						$star = ( $article_nav['star'] +1 );
-						$end = ( $article_nav['current_page'] == $article_nav['totle_page'] ) ? $article_nav['totle_articles'] : $star+$article_nav['limit'];
+						$end = ( $article_nav['current_page'] == $article_nav['totle_page'] ) ? $article_nav['totle_articles'] : $article_nav['limit'];
 						if($end == 0) $star= 0;
 					?>
                   <td width="500" height="27" align="left" style="padding-left:10px">显示<?php echo $star.'-'.$end;?>条 共<?php echo $article_nav['totle_articles'] ?>条</td>
@@ -101,52 +101,16 @@
 		    <table width="519" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px; background-color:#EEEEEE">
               <tr>
                 <td height="24" align="center" valign="middle">
-				<?php
-				//首页 + 上一页
-				if($article_nav['current_page'] == 1)
-				{
-					echo ' 首页 ';
-					echo ' 上一页 &lt;&lt; ';
-				}
-				else
-				{
-					echo '<a href="'.site_url('school/article/'.$left_tag.'-'.$right_tag.'/1') .'">首页</a>';
-					echo ' <a href="'.site_url('school/article/'.$left_tag.'-'.$right_tag.($article_nav['current_page']-1)).'">上一页 &lt;&lt; </a> ';
-				}
-				
-				//循环数字
-				$page_index = 1;
-				if($article_nav['current_page'] > 5)
-					$page_index = $article_nav['current_page'] - 4;
-				
-				if($article_nav['totle_page'] > 9 && ($article_nav['totle_page'] - $article_nav['current_page']) < 5)
-					$page_index = $article_nav['current_page'] - 8 + ($article_nav['totle_page'] - $article_nav['current_page']);
-				
-				for($i = 0; $i < 9; $i++, $page_index++)
-				{
-					if($page_index > $article_nav['totle_page'])
-						break;
+				<?php 
+					for($i = 1; $i <= $article_nav['totle_page']; $i++)
+					{
+						if($article_nav['current_page'] == $i)
+							echo ' '.$i.' ';
+						else
+							echo '<a href="'.site_url('school/article/'.$left_tag.'-'.$right_tag.'/'.$i) .'"> '.$i.' </a>';
 					
-					if($page_index == $article_nav['current_page'])
-						echo ' [<font color="#ff0000"> '.$page_index.' </font>] ';
-					else
-						echo  ' <a href="'.site_url('school/article/'.$left_tag.'-'.$right_tag.'/'.$page_index).'">'.$page_index.'</a> ';
-				
-				}
-				
-				
-				//末页 + 下一页
-				if($article_nav['current_page'] == $article_nav['totle_page'])
-				{
-					echo ' 下一页 &gt;&gt; ';
-					echo ' 末页 ';
-				}
-				else
-				{
-					echo ' <a href="'.site_url('school/article/'.$left_tag.'-'.$right_tag.'/'.($article_nav['current_page']+1)).'">下一页 &gt;&gt; </a> ';
-					echo ' <a href="'.site_url('school/article/'.$left_tag.'-'.$right_tag.'/'.$article_nav['totle_page']).'">末页</a> ';
-				}
-				?>
+					}
+					?>
 				</td>
               </tr>
             </table></td>

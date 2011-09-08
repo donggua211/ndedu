@@ -68,7 +68,6 @@ class Tags_model extends Model {
 			return false;
 		}
 	}
-	
 	function getNumByTags($cat_id, $table)
 	{
 		$sql = "SELECT tag_id, count(*) as num
@@ -94,41 +93,8 @@ class Tags_model extends Model {
 		{
 			return array();
 		}
-	}
 	
-	function update($tag_id, $update_field)
-	{
-		if(empty($update_field))
-			return true;
-		
-		//更新student表
-		foreach($update_field as $key => $val)
-		{
-				$data[$key] = $val;
-		}
-		
-		$this->db->where('tag_id', $tag_id);
-		return $this->db->update('tags', $data);
-	}
 	
-	function delete($tag_id)
-	{
-		$this->db->where('tag_id', $tag_id);
-		$this->db->delete('tags'); 
-		return ($this->db->affected_rows() > 0 ) ? TRUE : FALSE;
-	}
-	
-	function get_one($tag_id)
-	{
-		$query = $this->db->get_where('tags', array('tag_id ' => $tag_id));
-		if ($query->num_rows() > 0)
-		{
-			return $query->row_array();
-		}
-		else
-		{
-			return false;
-		}
 	}
 }
 ?>

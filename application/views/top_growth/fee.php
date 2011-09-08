@@ -17,26 +17,26 @@
           </tr>
           <tr align="center">
             <td width="125" valign="top" align="left">精英成长III级 </td>
-            <td width="145" valign="top">24</td>
-            <td width="138" valign="top">24</td>
-            <td width="137" valign="top">24</td>
-            <td width="166" valign="top">8</td>
+            <td width="145" valign="top">12</td>
+            <td width="138" valign="top">12</td>
+            <td width="137" valign="top">12</td>
+            <td width="166" valign="top">4</td>
             <td width="135" valign="top">9000</td>
           </tr>
           <tr align="center">
             <td width="125" valign="top" align="left">精英成长II级 </td>
-            <td width="145" valign="top">8</td>
-            <td width="138" valign="top">8</td>
-            <td width="137" valign="top">8</td>
-            <td width="166" valign="top">4</td>
-            <td width="135" valign="top">5800</td>
-          </tr>
-          <tr align="center">
-            <td width="125" valign="top" align="left">精英成长I级 </td>
             <td width="145" valign="top">4</td>
             <td width="138" valign="top">4</td>
             <td width="137" valign="top">4</td>
             <td width="166" valign="top">2</td>
+            <td width="135" valign="top">5800</td>
+          </tr>
+          <tr align="center">
+            <td width="125" valign="top" align="left">精英成长I级 </td>
+            <td width="145" valign="top">2</td>
+            <td width="138" valign="top">2</td>
+            <td width="137" valign="top">2</td>
+            <td width="166" valign="top">1</td>
             <td width="135" valign="top">3600</td>
           </tr>
       </table>

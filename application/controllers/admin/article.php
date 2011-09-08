@@ -1,50 +1,38 @@
-﻿<?php
-/* 
-  文章管理
-  admin权限.
- */
+<?php
+
 class Article extends Controller {
 
 	function Article()
 	{
 		parent::Controller();
+
 		$this->load->library('session');
+		
+		if (!$this->session->userdata("adminuser"))
+		{
+			redirect("admin/admin/login");
+		}
+		
 		$this->load->model('Article_model');
 		$this->load->model('Tags_model');
-		$this->load->helper('admin');
+
+		$this->load->helper('language');
 		
-		//如果没有经登录, 就跳转到admin/login登陆页
-		if (!has_login())
-		{
-			goto_login();
-		}
-		
-		$this->staff_info = get_staff_info();
-		//检查权限.
-		if(!check_role(array(GROUP_ADMIN), $this->staff_info['group_id']))
-		{
-			show_access_deny_page();
-		}
+		//$this->output->enable_profiler(TRUE);
 	}
 	
 	function index()
 	{
 		$articles = $this->Article_model->getArticle('public');
-		
-		$data['header']['meta_title'] = '所有分类 - 咨询系统管理';
-		$data['main']['articles'] = $articles;
-		$data['main']['page_name'] = '查看文章';
-		_load_viewer($this->staff_info['group_id'], 'articles', $data);
+		$data["articles"] = $articles;				
+		$this->load->view('admin/articles', $data);
 	}
 	
 	function draft()
 	{
 		$articles = $this->Article_model->getArticle('draft');
-		
-		$data['header']['meta_title'] = '草稿箱 - 咨询系统管理';
-		$data['main']['articles'] = $articles;
-		$data['main']['page_name'] = '草稿箱';
-		_load_viewer($this->staff_info['group_id'], 'articles', $data);
+		$data["articles"] = $articles;				
+		$this->load->view('admin/articles', $data);
 	}
 	
 	
@@ -82,10 +70,10 @@ class Article extends Controller {
 			
 			if($new_article['title'] == FAlSE || $new_article['catagory'] === FAlSE || $new_article['content'] == FAlSE)
 			{
-				$data['notification'] = '请填写：';
-				$data['notification'] .= $new_article['title']? '' : '标题, '. '';
-				$data['notification'] .= $new_article['catagory']? '' : '分类, '. ',';
-				$data['notification'] .= $new_article['content']? '' : '内容, '. ',';
+				$data['notification'] = 'article_field_empty,';
+				$data['notification'] .= $new_article['title']? '' : 'title'. ',';
+				$data['notification'] .= $new_article['catagory']? '' : 'catagory'. ',';
+				$data['notification'] .= $new_article['content']? '' : 'content'. ',';
 				$data['notification'] = trim($data['notification'], ' ,');
 				
 				$tags = $this->Tags_model->getAllTags();
@@ -93,7 +81,7 @@ class Article extends Controller {
 				$categories_list = $this->Article_model->getCategoriesList();
 				$data['categories_list'] = $categories_list;
 				$data["article"] = $new_article;				
-				$this->load->view('admin/admin/article_add', $data);
+				$this->load->view('admin/article_add', $data);
 			}
 			else
 			{
@@ -115,7 +103,7 @@ class Article extends Controller {
 					if ( ! $this->upload->do_upload('image'))
 					{
 						$error = array('error' => $this->upload->display_errors());
-						$data['notification'] = '<font color="red">上传图片失败</font>';
+						$data['notification'][] = 'upload_file_failed';
 					}
 					else
 					{
@@ -130,13 +118,16 @@ class Article extends Controller {
 				{
 					$tags = $this->input->post('tags');
 					$this->Tags_model->addArtileTag($article_id, $tags);
-					$data['notification'] = '分类添加成功!';
+					$data['notification'] = 'category_successful';
 				}
 				else
 				{
-					$data['notification'] = '分类添加失败！请重试';
+					$data['notification'] = 'category_failed';
 				}
-				show_result_page($data['notification'], 'admin/article');
+
+				$data['page'] = 'admin/article';
+				$this->load->view('admin/result', $data);
+				
 			}
 		}
 		else
@@ -146,7 +137,7 @@ class Article extends Controller {
 			$categories_list = $this->Article_model->getCategoriesList();
 			$data['categories_list'] = $categories_list;
 			
-			$this->load->view('admin/admin/article_add', $data);		
+			$this->load->view('admin/article_add', $data);		
 		}
 	}
 	
@@ -163,16 +154,16 @@ class Article extends Controller {
 					
 			if($edit_article['title'] == FAlSE || $edit_article['catagory'] === FAlSE || $edit_article['content'] == FAlSE)
 			{
-				$data['notification'] = '请填写：';
-				$data['notification'] .= $edit_article['title']? '' : '标题, '. '';
-				$data['notification'] .= $edit_article['catagory']? '' : '分类, '. ',';
-				$data['notification'] .= $edit_article['content']? '' : '内容, '. ',';
+				$data['notification'] = 'article_field_empty,';
+				$data['notification'] .= $edit_article['title']? '' : 'title'. ',';
+				$data['notification'] .= $edit_article['catagory']? '' : 'catagory'. ',';
+				$data['notification'] .= $edit_article['content']? '' : 'content'. ',';
 				$data['notification'] = trim($data['notification'], ' ,');
 				
 				$categories_list = $this->Article_model->getCategoriesList();
 				$data['categories_list'] = $categories_list;
 				$data["article"] = $edit_article;				
-				$this->load->view('admin/admin/article_add', $data);
+				$this->load->view('admin/article_add', $data);
 			}
 			else
 			{
@@ -194,7 +185,7 @@ class Article extends Controller {
 					if ( ! $this->upload->do_upload('image'))
 					{
 						$error = array('error' => $this->upload->display_errors());
-						$data['notification'][] = '<font color="red">上传图片失败</font>';
+						$data['notification'][] = 'upload_file_failed';
 					}
 					else
 					{
@@ -215,7 +206,9 @@ class Article extends Controller {
 				{
 					$data['notification'] = 'category_failed';
 				}
-				show_result_page($data['notification'], 'admin/article');
+
+				$data['page'] = 'admin/article';
+				$this->load->view('admin/result', $data);
 				
 			}
 		}
@@ -227,7 +220,7 @@ class Article extends Controller {
 			$artcle_info = $this->Article_model->getOneArticle($article_id);
 			$data['artcle_info'] = $artcle_info;
 			
-			$this->load->view('admin/admin/article_edit', $data);		
+			$this->load->view('admin/article_edit', $data);		
 		}
 	
 	}
@@ -235,7 +228,7 @@ class Article extends Controller {
 	function one($article_id)
 	{
 		$data['article'] = $this->Article_model->getOneArticle($article_id);
-		$this->load->view('admin/admin/article', $data);			
+		$this->load->view('admin/article', $data);			
 	}
 }
 

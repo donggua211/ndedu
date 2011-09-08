@@ -6,7 +6,6 @@ class User extends Controller {
 	{
 		parent::Controller();
 		$this->load->model('User_model');
-		$this->load->model('User_Student_model');
 		$this->load->library('session');
 		$this->load->library('email');
 		
@@ -107,7 +106,6 @@ http://www.ndedu.org";
 			$user['province'] = $this->input->myPost('User_Shen');
 			$user['city'] = $this->input->myPost('User_Town');
 			$user['district'] = $this->input->myPost('User_City');
-			$user['vipcode'] = $this->input->myPost('vipcode');
 			$user['captcha'] = $this->input->myPost('captcha');
 			$user['backurl'] = $this->input->myPost('backurl');
 
@@ -135,12 +133,6 @@ http://www.ndedu.org";
 				$data['notification'] = '您输入的验证码有误， 请重新输入。';
 				$this->loadRegisterView(array() , $data);
 			}
-			elseif($user['vipcode'] && !$this->User_Student_model->check_vipcode_exist($user['vipcode']))
-			{
-				$data = $user;
-				$data['notification'] = '您输入的VIP验证码有误， 请重新输入。';
-				$this->loadRegisterView(array() , $data);
-			}
 			else
 			{
 				$result = $this->User_model->register($user);
@@ -152,11 +144,6 @@ http://www.ndedu.org";
 				}
 				else
 				{
-					//更新user_student表
-					if($user['vipcode'])
-					{
-						$this->User_Student_model->update_vip_code($result, $user['vipcode']);
-					}
 					//成功!
 					$subject = '尼德教育注册账号激活';
 					$validkey = substr(md5($user['password']), 0, 12).$result;

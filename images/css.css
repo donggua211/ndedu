@@ -82,17 +82,16 @@ a:hover{color:#FF6600;
            color:#CC0000;
 		   text-decoration:none
 		   }		   		   
-.input_serch{
-	margin-left:7px;
-	border:0;
-	width:60px;
-	height:13px;
-	line-height:13px;
-	background-color:#FFFBE2;
-	font-size:12px;
-	line-height:15px;
-	color:#666666
-}
+.input_serch{width:100px;
+             height:13px;
+			 margin-left:8px;
+			 line-height:13px;
+			 border:0px;
+			 background-color:#ececec;
+			 font-size:12px;
+			 line-height:15px;
+			 color:#666666
+			 }
 .hotpic{ width:658px;
          height:201px;
 		 border:3px solid #b60900;
@@ -166,33 +165,11 @@ a:hover{color:#FF6600;
 			font-size:14px;
 			 color:#ffffff;
 			 line-height:24px;
-			 }		
-.font_16_orange{
-			 color:#ff6600;
-			 font-size:16px;
-			 line-height:32px;
-			 font-weight:bold
 			 }			 
 .font_14_orange{
 			 color:#ff6600;
 			 font-size:14px;
 			 line-height:24px;
-			 font-weight:bold
-			 }
-.font_14_gray{
-			 color:#717171;
-			 font-size:14px;
-			 line-height:24px;
-			 font-weight:bold
-			 }
-.font_30_orange{
-			 color:#FF6C00;
-			 font-size:30px;
-			 font-weight:bold
-			 }
-.font_30_red{
-			 color:#BE3145;
-			 font-size:30px;
 			 font-weight:bold
 			 }
 .font_143_orange{
@@ -335,13 +312,14 @@ padding-top:8px;
 h4,div,ul,li,span{ padding:0px; margin:0px}
 /* 最外面DIV的样式 */
 #slidingBlock {
-width:860px;
+width:800px;
+over-flow:hidden;
 margin:auto;
 height:60px;
 }
 #nav_box{
 height:36px;
-width:860px;
+width:800px;
 text-align:center;
 margin-left: 2px;
 }
@@ -356,7 +334,7 @@ margin-left: 2px;
 }
 #slidingBlock h4 {
 float:left;
-width:100px;
+width:107px;
 height:36px;
 color:#FFFFFF; 
 line-height:36px;
@@ -538,7 +516,7 @@ OL LI {
 			float:left;
 			list-style:inside; 
 			margin-left:30px;
-			text-align:left;
+			text-align:left
 			}			
 .font_12_orange{color:#ff6600;
 			}
@@ -614,15 +592,15 @@ DIV.quotes SPAN.disabled {
 	background-repeat: no-repeat;
 }
 #mini_nav{
-	margin:0, auto;
-	padding-right:80px;
 	text-align:right;
 	border-bottom:1px solid #FFC600;
 	background-color: #fdfcea;
 }
 #mini_nav div{
+	margin:0, auto;
 	padding-top:2px;
 	padding-bottom:2px;
+	width: 960px;
 }
 #mini_nav span{
 	float:left;
@@ -647,18 +625,3 @@ DIV.quotes SPAN.disabled {
 	line-height:35px;
 	
 }
-
-/****** clearfix ******/
-.clearfix:after {
-content:".";
-display:block;
-height:0;
-clear:both;
-visibility:hidden;
-}
-.clearfix {
-display:inline-block;
-}
-/* Hide from IE Mac \*/
-.clearfix {display:block;}
-/* End hide from IE Mac */	

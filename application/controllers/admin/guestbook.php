@@ -1,182 +1,206 @@
 <?php
-/* 
-  留言本管理
-  admin权限.
- */
+
 class Guestbook extends Controller {
 
 	function Guestbook()
 	{
 		parent::Controller();
+		
 		$this->load->library('session');
+		
+		if (!$this->session->userdata("adminuser"))
+		{
+			redirect("admin/admin/login");
+		}
+		
+		$this->num_message_per_page = 20;
+		
 		$this->load->model('Guestbook_model');
-		$this->load->helper('admin');
 		
-		//如果没有经登录, 就跳转到admin/login登陆页
-		if (!has_login())
-		{
-			goto_login();
-		}
+		$this->load->helper('language');
 		
-		$this->staff_info = get_staff_info();
-		//检查权限.
-		if(!check_role(array(GROUP_ADMIN), $this->staff_info['group_id']))
-		{
-			show_access_deny_page();
-		}
+		//$this->output->enable_profiler(TRUE);
 	}
-	
+
 	function index()
 	{
-		$this->inbox("page=1&is_deleted=0");
+		$this->inbox();
 	}
 	
-	function inbox($filter_string = "page=1&is_deleted=0")
+	function inbox($page = 1)
 	{
-		$this->_get_messages($filter_string, 'inbox');
-	}
-	
-	function trash($filter_string = "page=1&is_deleted=1")
-	{
-		$this->_get_messages($filter_string, 'trash');
-	}
-	
-	function all($filter_string = "page=1")
-	{
-		$this->_get_messages($filter_string, 'all');
-	}
+		//Get all available messages
+		$data["messages"] = $this->Guestbook_model->getMessages($page, $this->num_message_per_page, 'available');
 		
+		$data["current_page"] = $page;
+		$data["count_message"] = $this->Guestbook_model->countMessage('available');
+		$data["num_message_per_page"] = $this->num_message_per_page;
+		
+		$this->load->view('admin/guestbook', $data);
+	}
+	
+	function trash($page = 1)
+	{
+		//Get all unavailable messages
+		$data["messages"] = $this->Guestbook_model->getMessages($page, $this->num_message_per_page, 'unavailable');
+		
+		$data["current_page"] = $page;
+		$data["count_message"] = $this->Guestbook_model->countMessage('unavailable');
+		$data["num_message_per_page"] = $this->num_message_per_page;
+		
+		$this->load->view('admin/guestbook', $data);
+	}
+	
+	function all($page = 1)
+	{
+		//Get all messages
+		$data["messages"] = $this->Guestbook_model->getMessages($page, $this->num_message_per_page, 'all');
+		
+		$data["current_page"] = $page;
+		$data["count_message"] = $this->Guestbook_model->countMessage('all');
+		$data["num_message_per_page"] = $this->num_message_per_page;
+		
+		$this->load->view('admin/guestbook', $data);
+	}
+	
 	function one($message_id)
 	{
-		$message_id = intval($message_id);
-		if($message_id <= 0)
-		{
-			show_error_page('您输入的留言ID不合法, 请返回重试.', 'admin/guestbook');
-			return false;
-		}
+		$data["message"] = $this->Guestbook_model->getOneMessage($message_id);
 		
-		$message_info = $this->Guestbook_model->getOneMessage($message_id);
-		
-		if(empty($message_info))
-		{
-			show_error_page('您所查询的留言簿存在, 请返回重试.', 'admin/guestbook');
-			return false;
-		}
-		
-		//更新信息状态
-		if($message_info['is_new'] == 1)
+		if($data["message"]['is_new'] == 1)
 		{
 			//Update message to old
 			$set = array('is_new' => 0);
 			$this->Guestbook_model->updataMessage($message_id, $set);
 		}
 		
-		$data['header']['meta_title'] = '留言管理 - 留言详情';
-		$data['main']['message_info'] = $message_info;
-		_load_viewer($this->staff_info['group_id'], 'guestbook_one', $data);
+		$this->load->view('admin/message_page', $data);
+	
 	}	
 	
 	function unavailable($message_id = 0)
 	{
-		$this->_update_available($message_id, 1);
+		$set = array('is_deleted' => 1);
+		$this->Guestbook_model->updataMessage($message_id, $set);
+		
+		$page = $this->uri->segment(5);
+		if ($page === FALSE)
+		{
+			$page = 'inbox';
+		}
+		
+		 redirect('/admin/guestbook/'.$page, 'refresh');
 	}
 	
 	function available($message_id = 0)
 	{
-		$this->_update_available($message_id, 0);
+		$set = array('is_deleted' => 0);
+		$this->Guestbook_model->updataMessage($message_id, $set);
+		
+		$page = $this->uri->segment(5);
+		if ($page === FALSE)
+		{
+			$page = 'inbox';
+		}
+		
+		 redirect('/admin/guestbook/'.$page, 'refresh');
 	}
 	
-	function _update_available($message_id, $to_available)
+	function delete($message_id = 0)
 	{
-		$message_id = intval($message_id);
-		if($message_id <= 0)
+		$this->Guestbook_model->deleteMessage($message_id);	
+		
+		$page = $this->uri->segment(5);
+		if ($page === FALSE)
 		{
-			show_error_page('您输入的留言ID不合法, 请返回重试.', 'admin/guestbook');
-			return false;
+			$page = 'inbox';
 		}
 		
-		$set = array('is_deleted' => $to_available);
-		if($this->Guestbook_model->updataMessage($message_id, $set))
-		{
-			$notify = '操作已成功!';
-			show_result_page($notify, '');
-		}
-		else
-		{
-			$notify = '操作失败, 请重试.';
-			show_error_page($notify, '');
-		}
-	}
-	
-	function _get_messages($filter_string = '', $base_url_method = 'inbox')
-	{
-		//默认值
-		$filter['page'] = 1;
-		$filter['is_new'] = 2;
-		$filter['is_deleted'] = 2;
-		
-		$filter = $this->_parse_filter($filter_string, $filter);
-		
-		//Page Nav
-		$total = $this->Guestbook_model->getAll_count($filter);
-		$page_nav = page_nav($total, GUESTBOOK_MESSAGE_PER_PAGE, $filter['page']);
-		$page_nav['base_url'] = 'admin/guestbook/'.$base_url_method;
-		$page_nav['filter'] = $filter;
-		$data['main']['page_nav'] = $this->load->view('admin/common_page_nav', $page_nav, true);
-		
-		//Get all available messages
-		$messages = $this->Guestbook_model->getAll($filter, $page_nav['start'], GUESTBOOK_MESSAGE_PER_PAGE);
-		
-		switch($base_url_method)
-		{
-			case 'inbox':
-				$page_name = '查看留言';
-				break;
-			case 'trash':
-				$page_name= '废件箱';
-				break;
-			case 'all':
-				$page_name= '查看全部留言';
-				break;
-			default:
-				$page_name = '';
-				break;
-		}
-		$data['header']['meta_title'] = '留言管理 - '.$page_name;
-		$data['header']['js_file'][] = '../ajax.js';
-		$data['header']['js_file'][] = 'guestbook.js';
-		$data['main']['page_name'] = $page_name;
-		$data['main']['messages'] = $messages;
-		_load_viewer($this->staff_info['group_id'], 'guestbook', $data);
+		 redirect('/admin/guestbook/'.$page, 'refresh');
 	}
 
-	function _parse_filter($filter_string, $filter)
+	function batch()
 	{
-		$input_filter = parse_filter($filter_string);
-		foreach($filter as $key => $value)
+		if(isset($_POST['doAction']) && !empty($_POST['doAction']))
 		{
-			if(!isset($input_filter[$key]))
-				continue;
+			$msg_ids = $this->input->post('msg_ids');
+			$action = $this->input->post('action');
 			
-			switch($key)
+			if(empty($msg_ids))
 			{
-				case 'page':
-				case 'is_new':
-				case 'is_deleted':
-					$input_filter[$key] = intval($input_filter[$key]);
-					break;
-				case 'name':
-				default:
-					break;
+				$data["notification"] ='non_msssage_selected';
 			}
-			
-			if(empty($input_filter[$key]) && $input_filter[$key] !== 0)
-				continue;
-			
-			$filter[$key] = $input_filter[$key];
+			else
+			{
+				switch($action)
+				{
+					case 'read':
+						$set = array('is_new' => 0);
+						$this->Guestbook_model->updataMessage($msg_ids, $set);
+						$data["notification"] ='success_change_msssage_to_read';
+						break;
+					case 'available':
+						$set = array('is_deleted' => 0);
+						$this->Guestbook_model->updataMessage($msg_ids, $set);
+						$data["notification"] ='success_change_msssage_to_available';
+						break;
+					case 'unavailable':
+						$set = array('is_deleted' => 1);
+						$this->Guestbook_model->updataMessage($msg_ids, $set);
+						$data["notification"] ='success_change_msssage_to_unavailable';
+						break;
+					case 'delete':
+						$this->Guestbook_model->deleteMessage($msg_ids);
+						$data["notification"] ='success_change_msssage_to_delete';
+						break;
+					default:
+						break;
+				}
+			}
 		}
-		return $filter;
+		elseif(isset($_POST['readAll']) && !empty($_POST['readAll']))
+		{
+			$all_msg_ids = $pieces = explode(",", $this->input->post('all_msg_ids'));
+			$set = array('is_new' => 0);
+			$this->Guestbook_model->updataMessage($all_msg_ids, $set);
+			
+			$data["notification"] ='success_change_all_msssage_to_read';
+		}
+		elseif(isset($_POST['availableAll']) && !empty($_POST['availableAll']))
+		{
+			$all_msg_ids = $pieces = explode(",", $this->input->post('all_msg_ids'));
+			$set = array('is_deleted' => 0);
+			$this->Guestbook_model->updataMessage($all_msg_ids, $set);
+			
+			$data["notification"] ='success_change_all_msssage_to_available';
+		}
+		elseif(isset($_POST['unavailableAll']) && !empty($_POST['unavailableAll']))
+		{
+			$all_msg_ids = $pieces = explode(",", $this->input->post('all_msg_ids'));
+			$set = array('is_deleted' => 1);
+			$this->Guestbook_model->updataMessage($all_msg_ids, $set);
+			
+			$data["notification"] ='success_change_all_msssage_to_unavailable';
+		}
+		elseif(isset($_POST['deleteAll']) && !empty($_POST['deleteAll']))
+		{
+			$all_msg_ids = $pieces = explode(",", $this->input->post('all_msg_ids'));
+			$this->Guestbook_model->deleteMessage($all_msg_ids);
+			
+			$data["notification"] ='success_change_all_msssage_to_delete';
+		}
+		
+		$page = $this->input->post('page');		
+		if ($page === FALSE)
+		{
+			$page = 'inbox';
+		}
+		
+		$data['page'] = '/admin/guestbook/'.$page;
+		$this->load->view('admin/result', $data);
 	}
+
+	
 }
 
 /* End of file admin.php */

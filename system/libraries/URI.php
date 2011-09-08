@@ -89,7 +89,7 @@ class CI_URI {
 			}
 
 			// No QUERY_STRING?... Maybe the ORIG_PATH_INFO variable exists?
-			$path = str_replace((isset($_SERVER['ORIG_SCRIPT_NAME'])) ? $_SERVER['ORIG_SCRIPT_NAME'] : @getenv('ORIG_SCRIPT_NAME'), '', (isset($_SERVER['ORIG_PATH_INFO'])) ? $_SERVER['ORIG_PATH_INFO'] : @getenv('ORIG_PATH_INFO'));
+			$path = str_replace($_SERVER['SCRIPT_NAME'], '', (isset($_SERVER['ORIG_PATH_INFO'])) ? $_SERVER['ORIG_PATH_INFO'] : @getenv('ORIG_PATH_INFO'));
 			if (trim($path, '/') != '' && $path != "/".SELF)
 			{
 				// remove path and script information so we have good URI data
