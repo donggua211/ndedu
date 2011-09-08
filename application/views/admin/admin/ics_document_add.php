@@ -36,9 +36,7 @@
 				<td>
 					<select name="category_id">
 						<option value="0">请选择分类</option>
-						<?php 
-						$category_id = isset($document['category_id']) ? $document['category_id'] : 0;
-						show_category_options($categories, $category_id); ?>
+						<?php show_category_options($categories, $document['category_id']); ?>
 					</select>
 				</td>
 			</tr>
@@ -49,7 +47,7 @@
 						<option value="0">请选择年级</option>
 					<?php
 					foreach($grades as $grade)
-						echo '<option value="'.$grade['grade_id'].'" '.((isset($document['grade_id']) && $grade['grade_id'] == $document['grade_id']) ? 'SELECTED' : '').'>'.$grade['grade_name'].'</option>';
+						echo '<option value="'.$grade['grade_id'].'" '.(($grade['grade_id'] == $document['grade_id']) ? 'SELECTED' : '').'>'.$grade['grade_name'].'</option>';
 					?>
 					</select>
 				</td>
@@ -61,7 +59,7 @@
 						<option value="0">请选择来源</option>
 					<?php
 					foreach($sources as $source)
-						echo '<option value="'.$source['source_id'].'" '.((isset($document['source_id']) && $source['source_id'] == $document['source_id']) ? 'SELECTED' : '').'>'.$source['source_desc'].'</option>';
+						echo '<option value="'.$source['source_id'].'" '.(($source['source_id'] == $document['source_id']) ? 'SELECTED' : '').'>'.$source['source_desc'].'</option>';
 					?>
 					</select>
 					<span class="notice-span">或者添加新的来源: </span><input type="text" name="source" value="<?php echo (isset($document['source'])) ? $document['source'] : '';?>">
@@ -73,7 +71,7 @@
 					<select name="staff_id">
 					<?php
 					foreach($staffs as $staff)
-						echo '<option value="'.$staff['staff_id'].'" '.(isset($document['provider_id']) && ($staff['staff_id'] == $document['provider_id']) ? 'SELECTED' : '').'>'.$staff['name'].'</option>';
+						echo '<option value="'.$staff['staff_id'].'" '.(($staff['staff_id'] == $document['provider_id']) ? 'SELECTED' : '').'>'.$staff['name'].'</option>';
 					?>
 					</select>
 				</td>

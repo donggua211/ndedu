@@ -30,7 +30,7 @@
 						<option value='0'>请选择...</option>
 						<?php
 							foreach($branches['branch'] as $branch)
-								echo '<option value="'.$branch['branch_id'].'" '.((isset($student['branch_id'])) ? ( ($branch['branch_id'] == $student['branch_id']) ? 'SELECTED' : '' ) : '').'>'.$branch['branch_name'].'</option>';
+								echo '<option value="'.$branch['branch_id'].'" '.((isset($student['branch'])) ? ( ($branch['branch_id'] == $student['branch']) ? 'SELECTED' : '' ) : '').'>'.$branch['branch_name'].'</option>';
 						?>
 					</select>
 					<?php else: ?>
@@ -44,22 +44,10 @@
 				<td><input name="name" type="text" value="<?php echo (isset($student['name'])) ? $student['name'] :''; ?>" size="40" /></td>
 			</tr>
 			<tr>
-				<td class="label" valign="top"><span class="notice-star"> * </span>性别: </td>
-				<td>
-					<input name="gender" type="radio" value="m" CHECKED="CHECKED" />男
-					<input name="gender" type="radio" value="f"/>女
-				</td>
-			</tr>
-			<tr>
-				<td class="label" valign="top">生日: </td>
-				<td>
-					<input type="text" name="dob" maxlength="60" size="10" value="<?php echo (isset($student['dob'])) ? $student['dob'] :''; ?>" readonly="readonly" id="date" />
-				</td>
-			</tr>
-			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>年级: </td>
 				<td>
 					<select name="grade_id">
+						<option value='0'>请选择...</option>
 						<?php 
 							foreach($grades as $grade)
 								echo '<option value="'.$grade['grade_id'].'" '.((isset($student['grade_id'])) ? ( ($grade['grade_id'] == $student['grade_id']) ? 'SELECTED' : '' ) : '').'>'.$grade['grade_name'].'</option>';
@@ -97,6 +85,7 @@
 				<td class="label" valign="top"><span class="notice-star"> * </span>所在省份: </td>
 				<td>
 					<select name="province_id" id="selProvinces" onchange="region.changed(this, 2, 'selCities')">
+						<option value='0' selected>请选择...</option>
 						<?php 
 							foreach($provinces as $province)
 								echo '<option value="'.$province['region_id'].'">'.$province['region_name'].'</option>';
@@ -109,10 +98,6 @@
 				<td>
 					<select onchange="region.changed(this, 3, 'selDistrict')" id="selCities" name="city_id">
 						<option value="0" selected>请选择...</option>
-						<?php 
-							foreach($cities as $city)
-								echo '<option value="'.$city['region_id'].'" '.((isset($student['city_id']) && $city['region_id'] == $student['city_id']) ? 'SELECTED' : '' ).'>'.$city['region_name'].'</option>';
-						?>
 					</select>
 				</td>
 			</tr>
@@ -121,10 +106,6 @@
 				<td>
 					<select id="selDistrict" name="district_id">
 						<option value="0" selected>请选择...</option>
-						<?php 
-							foreach($districts as $district)
-								echo '<option value="'.$district['region_id'].'" '.((isset($student['district_id']) && $district['region_id'] == $student['district_id']) ? 'SELECTED' : '' ).'>'.$district['region_name'].'</option>';
-						?>
 					</select>
 				</td>
 			</tr>
@@ -144,11 +125,6 @@
 		</form>
 	</div>
 </div>
-<script type="text/javascript">
-	$(document).ready(function(){
-		//日期选择的事件
-		$("#date").click(function(){
-			showCalendar('date', '%Y-%m-%d', false, false, 'date');
-		});
-	});
-</script>
+
+</body>
+</html>

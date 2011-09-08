@@ -1,40 +1,71 @@
-﻿<div id="nav">
-	<span class="action-span"><a href="<?php echo site_url('admin') ?>"  target="_top">管理系统</a></span>
-	<span class="action-span"> » <a href="<?php echo site_url('admin/article') ?>"  target="main-frame">文章管理 </a></span>
-	 » <?php echo $page_name ?>
-	<div style="clear:both"></div>
+﻿<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<base href="<?php echo base_url() ?>" />
+	<link href="css/admin/admin.css" rel="stylesheet" type="text/css" />
+	<title>administrator's control panel</title>
+</head>
+<body>
+<?php
+
+	$CI =& get_instance();
+	$page = $CI->uri->segment(3);
+	if ($page === FALSE || !in_array($page, array('inbox', 'draft', 'search')))
+	{
+		$page = 'inbox';
+	}
+?>
+<div id="navigation" class="navigation">
+	<a href="<?php echo site_url().'/admin/entry/info'?>">admin</a> &nbsp;»&nbsp; <a href="<?php echo site_url().'/admin/article/index'?>">文章管理</a> &nbsp;»&nbsp; 
+	<?php
+		if($page == 'inbox')
+			echo '查看文章';
+		elseif($page == 'draft')
+			echo '草稿箱';
+		elseif($page == 'search')
+			echo '搜索';
+	?>
 </div>
-<div id="main">
-	<div id="main_body">
-		<?php if(isset($notification) && !empty($notification)): ?>
-		<div style="backgroud:#fff;padding:5px;border:1px solid #FF8080;text-align:center">
-			<img style="vertical-align: middle;" src="images/icon/warning.gif"> <span style="color:red;font-size:20px;line-height:22px"><?php echo $notification;?></span>
-		</div>
-		<?php endif;?>
-		
-		<div id="listDiv" class="list-div">
-			<table cellspacing='1' id="list-table">
-				<tr>
-					<th>标题</th>
-					<th>分类</th>
-					<th width="120px">添加时间</th>
-					<th width="120px">最后修改时间</th>
-					<th width="60px">操作</th>
-				</tr>
-				
-				<?php foreach($articles as $article):?>
-				<tr>
-					<td align="left"><a href="<?php echo site_url('/article/'.$article['article_id']) ?>"><?php echo $article['title']?></a></td>
-					<td align="left"><?php echo $article['cat_name']?></td>
-					<td><?php echo $article['add_time']?></td>
-					<td><?php echo $article['modified_time']?></td>
-					<td align="center">
-						<a href="<?php echo site_url('admin/article/edit/'.$article['article_id'])?>">编辑</a>
-						<a onclick="return confirm('确定要删除');" href="<?php echo site_url('admin/article/delete/'.$article['article_id'])?>">删除</a>
-					</td>
-				</tr>
-				<?php endforeach;?>
-			</table>
-		</div>
-	</div>
-</div>
+<?php
+if(!empty($articles)):
+?>
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<tr align="center" bgcolor="#FF6600">
+		<td>ID</td>
+		<td>标题</td>
+		<td>分类</td>
+		<td>添加时间</td>
+		<td>最后修改时间</td>
+		<td>管理</td>
+	</tr>
+<?php
+	foreach($articles as $article_id => $article_info):
+?>
+	<tr align="center">
+		<td><?php echo $article_info['article_id']?></td>
+		<td align="left"><a href="<?php echo site_url().'/article/'.$article_info['article_id'] ?>"><span style="color:blue;text-decoration:underline"><?php echo $article_info['title']?></font></a></td>
+		<td align="left"><?php echo $article_info['cat_name']?></td>
+		<td><?php echo $article_info['add_time']?></td>
+		<td><?php echo $article_info['modified_time']?></td>
+		<td>
+			<a href="<?php echo site_url().'/admin/article/edit/'.$article_info['article_id'] ?>">编辑</a> / 
+			<a href="<?php echo site_url().'/admin/article/delete/'.$article_info['article_id'] ?>">删除</a>
+		</td>
+	</tr>
+<?php
+	endforeach;
+?>
+</table>
+<?php
+else:
+	if($page == 'inbox')
+		echo '<span style="color:red; font-size:25px">还没有文章，请先添加文章: <a href="'.site_url().'/admin/article/add">添加文章</a></span>';
+	elseif($page == 'draft')
+		echo '<span style="color:red; font-size:25px">暂没有草稿</span>';
+	
+
+endif;
+?>
+</body>
+</html>

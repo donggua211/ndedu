@@ -13,10 +13,8 @@ class Contract extends Controller {
 		$this->load->model('CRM_Student_model');
 		$this->load->model('CRM_Contract_model');
 		$this->load->model('CRM_Staff_model');
-		$this->load->model('CRM_Subject_model');
 		
 		$this->load->helper('admin');
-		$this->load->helper('calendar');
 			
 		//如果没有经登录, 就跳转到admin/login登陆页
 		if (!has_login())
@@ -30,7 +28,7 @@ class Contract extends Controller {
 		$this->allowed_group = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
 		if(!check_role($this->allowed_group, $this->staff_info['group_id']))
 		{
-			//show_access_deny_page();
+			show_access_deny_page();
 		}
 		
 		//$this->output->enable_profiler(TRUE);
@@ -89,40 +87,16 @@ class Contract extends Controller {
 			$finished['teacher_id'] = $this->input->post('teacher_id');
 			$finished['finished_hours'] = intval($this->input->post('finished_hours'));
 			
-			//ndedu后台1.2.2新加信息
-			$finished['start_time'] = $this->input->post('date').' '.$this->input->post('start_hour').':'.$this->input->post('start_mins').':00';
-			$finished['end_time'] = $this->input->post('date').' '.$this->input->post('end_hour').':'.$this->input->post('end_mins').':00';
-			$finished['subject_id'] = $this->input->post('subject_id');
-			
 			if(empty($finished['contract_id']) || empty($finished['supervisor_id']) || empty($finished['teacher_id'])|| empty($finished['finished_hours']))
-			{
-				$notify = '请填写完整完成课程信息';
-				$this->_load_contract_finished_view($notify, $finished);
-			}
-			elseif(empty($finished['start_time']) || empty($finished['end_time']) || empty($finished['subject_id']))
 			{
 				$notify = '请填写完整完成课程信息';
 				$this->_load_contract_finished_view($notify, $finished);
 			}
 			else
 			{
-				//获取contract信息.
-				$contract_info = $this->CRM_Contract_model->get_one_contract($finished['contract_id']);
-				
-				if($finished['finished_hours'] > ($contract_info['total_hours'] - $contract_info['finished_hours']))
-				{
-					$notify = '您填写的剩余课时数大于总剩余课时数！';
-					$this->_load_contract_finished_view($notify, $finished);
-					return false;
-				}
-				
-				
 				//add into DB
 				if($this->CRM_Contract_model->add_finished($finished))
 				{
-					//更新contract finished_hour 字段
-					$this->CRM_Contract_model->update_finished_hour($finished['contract_id'], $finished['finished_hours']);
-					
 					//@TODO: 单个学员页.
 					show_result_page('新完成课程已经添加成功! ', 'admin/contract/one/'.$finished['contract_id'].'/finished');
 				}
@@ -173,13 +147,6 @@ class Contract extends Controller {
 						return false;
 					}
 					break;
-				case GROUP_SUPERVISOR: //shooladmin只有查看本校区学员的合同
-					if($student_info['supervisor_id'] != $this->staff_info['staff_id'])
-					{
-						show_error_page('您没有权限查看该学员: 他/她不是您的学生!', 'admin/student');
-						return false;
-					}
-					break;
 				default:
 					show_error_page('您没有权限查看该合同: 请重新登录或者联系管理员!', 'admin/student');
 					return false;
@@ -191,14 +158,14 @@ class Contract extends Controller {
 		{
 			case 'refund':
 				$contract_info['refund'] = $this->CRM_Contract_model->get_one_all_refund($contract_id);
-				$data['main']['teachers'] = $this->CRM_Staff_model->get_all_by_group(GROUP_TEACHER_PARTTIME);
+				$data['main']['teachers'] = $this->CRM_Staff_model->get_all_by_group(GROUP_TEACHER);
 				$meta_title = '退费信息';
 				$template = 'contract_one_refund';
 				break;
 			case 'finished':
 			default:
 				$contract_info['finished'] = $this->CRM_Contract_model->get_one_all_finished($contract_id);
-				$data['main']['staffs'] = $this->CRM_Staff_model->get_all_by_group();
+				$data['main']['staffs'] = $this->CRM_Staff_model->get_all_by_group(GROUP_TEACHER);
 				$meta_title = '已学完课程';
 				$template = 'contract_one_finished';
 				break;
@@ -305,19 +272,12 @@ class Contract extends Controller {
 	{
 		$data['header']['meta_title'] = '已学完课程 - 合同信息 - 管理学员';
 		$data['main']['new_finished'] =$finished;
-		//$data['main']['contract'] =$this->CRM_Contract_model->get_one_contract($finished['contract_id']);
-		//$data['main']['contract']['finished'] = $this->CRM_Contract_model->get_one_all_finished($finished['contract_id']);
-		//$data['main']['student'] = $this->CRM_Student_model->getOne($data['main']['contract']['student_id']);
-		//$data['main']['staffs'] = $this->CRM_Staff_model->get_all_by_group();
-		
-		$data['header']['css_file'] = '../calendar.css';
-		$data['footer']['js_file'] = '../calendar.js';
-		$data['header']['meta_title'] = '添加已完成课时 - 管理学员';
-		$data['main']['student'] = $this->CRM_Student_model->getAll(array('status' => STUDENT_STATUS_LEARNING));
-		$data['main']['staffs'] = $this->CRM_Staff_model->get_all_by_group();
-		$data['main']['subjects'] = $this->CRM_Subject_model->getAll();
+		$data['main']['contract'] =$this->CRM_Contract_model->get_one_contract($finished['contract_id']);
+		$data['main']['contract']['finished'] = $this->CRM_Contract_model->get_one_all_finished($finished['contract_id']);
+		$data['main']['student'] = $this->CRM_Student_model->getOne($data['main']['contract']['student_id']);
+		$data['main']['staffs'] = $this->CRM_Staff_model->get_all_by_group(GROUP_TEACHER);
 		$data['main']['notification'] = $notify;
-		_load_viewer($this->staff_info['group_id'], 'student_add_finished_hour', $data);
+		_load_viewer($this->staff_info['group_id'], 'contract_one_finished', $data);
 	}
 	
 	function _load_contract_refund_view($notify='', $refund)
@@ -327,9 +287,9 @@ class Contract extends Controller {
 		$data['main']['contract'] =$this->CRM_Contract_model->get_one_contract($refund['contract_id']);
 		$data['main']['contract']['refund'] = $this->CRM_Contract_model->get_one_all_refund($refund['contract_id']);
 		$data['main']['student'] = $this->CRM_Student_model->getOne($data['main']['contract']['student_id']);
-		$data['main']['teachers'] = $this->CRM_Staff_model->get_all_by_group(GROUP_TEACHER_PARTTIME);
+		$data['main']['teachers'] = $this->CRM_Staff_model->get_all_by_group(GROUP_TEACHER);
 		$data['main']['notification'] = $notify;
-		_load_viewer($this->staff_info['group_id'], 'student_add_finished_hour', $data);
+		_load_viewer($this->staff_info['group_id'], 'contract_one_refund', $data);
 	}
 	
 }

@@ -1,28 +1,32 @@
-<div id="nav">
-	<span class="action-span"><a href="<?php echo site_url('admin') ?>"  target="_top">管理系统</a></span>
-	<span class="action-span"> » <a href="<?php echo site_url('admin/tags') ?>"  target="main-frame">tag管理</a></span>
-	 » 添加tag
-	<div style="clear:both"></div>
+﻿<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<TITLE>Administrator's Control Panel</TITLE>
+<base href="<?php echo base_url() ?>" />
+<script type="text/javascript" src="<?php echo base_url() ?>js/ckeditor/ckeditor.js"></script>
+<link href="css/admin/admin.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<body>
+<div id="navigation" class="navigation">
+	<a href="<?php echo site_url().'/admin/entry/info'?>">admin</a> &nbsp;»&nbsp; <a href="<?php echo site_url().'/admin/tags'?>">tag管理</a> &nbsp;»&nbsp; 添加tag
 </div>
-<div id="main">
-	<div id="main_body">
-		<?php if(isset($notification) && !empty($notification)): ?>
-		<div style="backgroud:#fff;padding:5px;border:1px solid #FF8080;text-align:center">
-			<img style="vertical-align: middle;" src="images/icon/warning.gif"> <span style="color:red;font-size:20px;line-height:22px"><?php echo $notification;?></span>
+<?php
+	if(!empty($notification))
+	{
+?>
+		<div>
+			<b><?php echo $notification ?></b>
 		</div>
-		<?php endif;?>
-		
-		<form action="<?php echo site_url('admin/tags/add') ?>" method="post">
-		<table width="100%" id="shop_info-table">
-			<tr>
-				<td class="narrow-label"><span class="notice-star"> * </span>tag名称: </td>
-				<td><input id="name" name="name" type="text" value="<?php echo (isset($tag['tag_name'])) ? $tag['tag_name'] : '';?>" /></td>
-			</tr>
-		</table>
-		<div class="button-div">
-			<input type="submit" class="button" value=" 确定 " name="submit">
-			<input type="reset" class="button" value=" 重置 " name="reset">
-		</div>
-		</form>
-	</div>
+<?php
+	}
+?>
+<div>
+	<span style="color:#FF0000;font-size:20px">添加tag</span>
+	<form action="<?php echo site_url().'/admin/tags/add'?>" method="post">
+		tag名称: <input id="name" name="name" type="text" value="" />&nbsp;*<br/>
+		<input type="submit" value="添加tag" name="submit"><br/>
+		<input type="reset" value="重写" name="reset"><br/>
+	</form>
 </div>
+</body>
+</html>

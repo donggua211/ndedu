@@ -3,8 +3,8 @@
 	<span class="tab-front" id="menu-tab">菜单</span>
 </div>
 <div id="main-div">
-	<div id="menu-list" style="font-size:13px;">
-		<?php  show_category_mune($categories, $staff_info); ?>
+	<div id="menu-list">
+		<?php show_category_mune($categories); ?>
 	</div>
 </div>
 <script type="text/javascript" src="js/admin/global.js"></script>
@@ -256,6 +256,6 @@ Object.extend(ToggleHanlder ,{
 ToggleHanlder.CookieName += "_1";
 //初始化菜单状态
 ToggleHanlder.Load();
-toggleCollapse()
+
 //-->
 </script>

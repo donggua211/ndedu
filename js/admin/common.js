@@ -81,15 +81,3 @@ function collapse_switch( id )
 		student.style.display = 'none';
 	}
 }
-
-function add_form_switch( button_object, form_id )
-{
-	var form_object = document.getElementById( form_id );
-	if(form_object.style.display == 'none') {
-		form_object.style.display = '';
-		button_object.value = '隐藏表单';
-	} else {
-		form_object.style.display = 'none';
-		button_object.value = '添加新纪录';
-	}
-}

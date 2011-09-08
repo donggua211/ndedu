@@ -72,7 +72,7 @@
 		?>
 			<table width="220" border="0" cellspacing="0" cellpadding="0" >
               <tr>
-                <td width="178" align="left" class="right_content_li"><a href="<?php echo site_url('article/'.$article['article_id']); ?>" title="<?php echo $article['title'] ?>"><?php echo utf_substr($article['title'], 24) ?></a></td>
+                <td width="178" align="left" class="right_content_li"><a href="<?php echo site_url('article/'.$article['article_id']); ?>" title="<?php echo $article['title'] ?>"><?php echo utf_substr($article['title'], 27) ?></a></td>
                 <td width="42" align="center" class="date" ><?php echo $article['count'] ?></td>
               </tr>
             </table>
@@ -163,13 +163,8 @@
       </table>
       <table width="247" border="0" cellspacing="0" cellpadding="0">
         <tr>
-          <td height="90" align="center" valign="bottom"><a href="<?php echo site_url('contactUs') ?>"><img src="images/index_94.jpg" width="237" height="93" border="0" /></a></td>
+          <td height="90" align="center" valign="bottom"><img src="images/index_94.jpg" width="237" height="93" /></td>
         </tr>
-      </table>
-	  <table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
-		<tr>
-			<td align="center" valign="bottom"><a href="<?php echo site_url('entry/oo1') ?>" target="_blank"><img src="images/9d.gif" width="247" height="70" border="0" /></a></td>
-		</tr>
-	</table></td>
+      </table></td>
   </tr>
 </table>

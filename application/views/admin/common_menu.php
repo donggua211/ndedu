@@ -16,7 +16,7 @@
 			<li class="explode" key="03_student" name="menu">
 				学员管理
 				<ul>
-					<?php if(is_admin() || is_school_admin() || is_consultant() || is_cs()): //权限: 超级管理员, 校区管理员, 咨询师可以添加员工?>
+					<?php if(is_admin() || is_school_admin() || is_consultant()): //权限: 超级管理员, 校区管理员, 咨询师可以添加员工?>
 					<li class="menu-item"><a href="<?php echo site_url("admin/student/add"); ?>" target="main-frame">添加学员</a></li>
 					<?php endif; ?>
 					<li class="menu-item"><a href="<?php echo site_url("admin/student"); ?>" target="main-frame">查看学员</a></li>
@@ -25,10 +25,6 @@
 					<li class="menu-item"><a href="<?php echo site_url("admin/student/finished"); ?>" target="main-frame">已学完的学员</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/student/inactive"); ?>" target="main-frame">注销的学员</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/student/delete_student"); ?>" target="main-frame">删除的学员</a></li>
-					<li class="menu-item"><a href="<?php echo site_url("admin/student/extra_not_signup_student_phone"); ?>" target="main-frame">导出未报名学员家长电话</a></li>
-					<?php endif; ?>
-					<?php if(is_admin() || is_school_admin()): //权限: 超级管理员, 校区管理员 可以添加已完成课时?>
-					<li class="menu-item"><a href="<?php echo site_url("admin/student/add_finished_hour"); ?>" target="main-frame">添加完成课时</a></li>
 					<?php endif; ?>
 				</ul>
 			</li>
@@ -38,23 +34,12 @@
 				<ul>
 					<li class="menu-item"><a href="<?php echo site_url("admin/staff/add"); ?>" target="main-frame">添加员工</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/staff"); ?>" target="main-frame">员工列表</a></li>
-					<li class="menu-item"><a href="<?php echo site_url("admin/staff/trial_staff"); ?>" target="main-frame">试用期员工列表</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/staff/performance"); ?>" target="main-frame">员工绩效</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/staff/inactive_staff"); ?>" target="main-frame">注销的员工</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/staff/delete_staff"); ?>" target="main-frame">删除的员工</a></li>
 				</ul>
 			</li>
 			<?php endif; ?>
-			
-			<?php if(is_admin()): //权限: 只有超级管理员可以查看员工的工资?>
-			<li class="explode" key="02_staff" name="menu">
-				工资管理系统
-				<ul>
-					<li class="menu-item"><a href="<?php echo site_url("admin/pms"); ?>" target="main-frame">员工工资管理系统</a></li>
-				</ul>
-			</li>
-			<?php endif; ?>
-						
 			<?php if(is_admin()): //权限: 只有超级管理员可以管理网站内容?>
 			<li class="explode" key="04_guestbook" name="menu">
 				留言本
@@ -65,27 +50,32 @@
 				</ul>
 			</li>
 			<li class="explode" key="05_articleCat" name="menu">
-				文章管理
+				分类管理
 				<ul>
-					<li class="menu-item"><a href="<?php echo site_url("admin/article"); ?>" target="main-frame">查看文章</a></li>
-					<li class="menu-item"><a href="<?php echo site_url("admin/article/add"); ?>" target="main-frame">添加文章</a></li>
-					<li class="menu-item"><a href="<?php echo site_url("admin/article/draft"); ?>" target="main-frame">草稿箱</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/articleCat"); ?>" target="main-frame">查看分类</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/articleCat/add"); ?>" target="main-frame">添加分类</a></li>
 				</ul>
 			</li>
-			<li class="explode" key="06_tags" name="menu">
+			<li class="explode" key="06_dangdang" name="menu">
+				当当网内容管理
+				<ul>
+					<li class="menu-item"><a href="<?php echo site_url("admin/dangdang"); ?>" target="main-frame">查看当当网内容</a></li>
+					<li class="menu-item"><a href="<?php echo site_url("admin/dangdang/add"); ?>" target="main-frame">添加当当网内容</a></li>
+				</ul>
+			</li>
+			<li class="explode" key="07_tags" name="menu">
 				tag管理
 				<ul>
 					<li class="menu-item"><a href="<?php echo site_url("admin/tags"); ?>" target="main-frame">查看tag</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/tags/add"); ?>" target="main-frame">添加tag</a></li>
 				</ul>
 			</li>
-			<li class="explode" key="07_dangdang" name="menu">
-				当当网内容管理
+			<li class="explode" key="08_tags" name="menu">
+				文章管理
 				<ul>
-					<li class="menu-item"><a href="<?php echo site_url("admin/dangdang"); ?>" target="main-frame">查看当当网内容</a></li>
-					<li class="menu-item"><a href="<?php echo site_url("admin/dangdang/add"); ?>" target="main-frame">添加当当网内容</a></li>
+					<li class="menu-item"><a href="<?php echo site_url("admin/article"); ?>" target="main-frame">查看文章</a></li>
+					<li class="menu-item"><a href="<?php echo site_url("admin/article/add"); ?>" target="main-frame">添加文章</a></li>
+					<li class="menu-item"><a href="<?php echo site_url("admin/article/draft"); ?>" target="main-frame">草稿箱</a></li>
 				</ul>
 			</li>
 			<li class="explode" key="09_tags" name="menu">
@@ -98,48 +88,9 @@
 				内部咨询系统
 				<ul>
 					<li class="menu-item"><a href="<?php echo site_url("admin/ics/"); ?>" target="main-frame">查看文档</a></li>
-					<li class="menu-item"><a href="<?php echo site_url("admin/ics/document_add"); ?>" target="main-frame">添加文档</a></li>
+					<li class="menu-item"><a href="<?php echo site_url("admin/ics/document_add"); ?>" target="main-frame">增加文档</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/ics/category"); ?>" target="main-frame">查看分类</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/ics/category_add"); ?>" target="main-frame">添加分类</a></li>
-				</ul>
-			</li>
-			<li class="explode" key="11_cp" name="menu">
-				测评系统
-				<ul>
-					<li class="menu-item"><a href="<?php echo site_url("admin/cp/category"); ?>" target="main-frame">测评分类</a></li>
-					<li class="menu-item"><a href="<?php echo site_url("admin/cp/category_add"); ?>" target="main-frame">添加测评分类</a></li>
-					<li class="menu-item"><a href="<?php echo site_url("admin/cp/ceping"); ?>" target="main-frame">查看测评</a></li>
-					<li class="menu-item"><a href="<?php echo site_url("admin/cp/ceping_add"); ?>" target="main-frame">添加测评</a></li>
-					<li class="menu-item"><a href="<?php echo site_url("admin/cp/comments"); ?>" target="main-frame">评论</a></li>
-				</ul>
-			</li>
-			<li class="explode" key="11_cp" name="menu">
-				测评卡
-				<ul>
-					<li class="menu-item"><a href="<?php echo site_url("admin/cp_card/"); ?>" target="main-frame">测评密码卡</a></li>
-					<li class="menu-item"><a href="<?php echo site_url("admin/cp_card/generate"); ?>" target="main-frame">生成测评密码卡</a></li>
-					<li class="menu-item"><a href="<?php echo site_url("admin/cp_card/status"); ?>" target="main-frame">密码卡统计</a></li>
-				</ul>
-			</li>
-			<li class="explode" key="12_cp" name="menu">
-				测评优惠券
-				<ul>
-					<li class="menu-item"><a href="<?php echo site_url("admin/cp_quan/"); ?>" target="main-frame">测评优惠券</a></li>
-					<li class="menu-item"><a href="<?php echo site_url("admin/cp_quan/generate"); ?>" target="main-frame">生成测评优惠券</a></li>
-					<li class="menu-item"><a href="<?php echo site_url("admin/cp_quan/status"); ?>" target="main-frame">测评优惠券统计</a></li>
-				</ul>
-			</li>
-			<li class="explode" key="13_cp" name="menu">
-				测评订单
-				<ul>
-					<li class="menu-item"><a href="<?php echo site_url("admin/cp_order"); ?>" target="main-frame">订单</a></li>
-				</ul>
-			</li>
-			<li class="explode" key="14_join" name="menu">
-				加入尼德
-				<ul>
-					<li class="menu-item"><a href="<?php echo site_url("admin/join"); ?>" target="main-frame">加入尼德列表</a></li>
-					<li class="menu-item"><a href="<?php echo site_url("admin/join/clear"); ?>" target="main-frame">清除</a></li>
 				</ul>
 			</li>
 			<?php endif; ?>

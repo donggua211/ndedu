@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 class Options_model extends Model {
 
 	function Options_model()

@@ -1,7 +1,7 @@
 <?php
 /* 
-  ç•™è¨€æœ¬ç®¡ç†
-  adminæƒé™.
+  ÁôÑÔ±¾¹ÜÀí
+  adminÈ¨ÏŞ.
  */
 class Guestbook extends Controller {
 
@@ -11,172 +11,204 @@ class Guestbook extends Controller {
 		$this->load->library('session');
 		$this->load->model('Guestbook_model');
 		$this->load->helper('admin');
+		$this->load->helper('language');
 		
-		//å¦‚æœæ²¡æœ‰ç»ç™»å½•, å°±è·³è½¬åˆ°admin/loginç™»é™†é¡µ
+		$this->num_message_per_page = 20;
+		$this->allowed_group = array(1);
+		
+		//Èç¹ûÃ»ÓĞ¾­µÇÂ¼, ¾ÍÌø×ªµ½admin/loginµÇÂ½Ò³
 		if (!has_login())
 		{
 			goto_login();
 		}
 		
 		$this->staff_info = get_staff_info();
-		//æ£€æŸ¥æƒé™.
+		//¼ì²éÈ¨ÏŞ.
 		if(!check_role(array(GROUP_ADMIN), $this->staff_info['group_id']))
 		{
 			show_access_deny_page();
 		}
 	}
-	
+
 	function index()
 	{
-		$this->inbox("page=1&is_deleted=0");
+		$this->inbox();
 	}
 	
-	function inbox($filter_string = "page=1&is_deleted=0")
+	function inbox($page = 1)
 	{
-		$this->_get_messages($filter_string, 'inbox');
-	}
-	
-	function trash($filter_string = "page=1&is_deleted=1")
-	{
-		$this->_get_messages($filter_string, 'trash');
-	}
-	
-	function all($filter_string = "page=1")
-	{
-		$this->_get_messages($filter_string, 'all');
-	}
+		//Get all available messages
+		$data["messages"] = $this->Guestbook_model->getMessages($page, $this->num_message_per_page, 'available');
 		
+		$data["current_page"] = $page;
+		$data["count_message"] = $this->Guestbook_model->countMessage('available');
+		$data["num_message_per_page"] = $this->num_message_per_page;
+		
+		$this->load->view('admin/admin/guestbook', $data);
+	}
+	
+	function trash($page = 1)
+	{
+		//Get all unavailable messages
+		$data["messages"] = $this->Guestbook_model->getMessages($page, $this->num_message_per_page, 'unavailable');
+		
+		$data["current_page"] = $page;
+		$data["count_message"] = $this->Guestbook_model->countMessage('unavailable');
+		$data["num_message_per_page"] = $this->num_message_per_page;
+		
+		$this->load->view('admin/admin/guestbook', $data);
+	}
+	
+	function all($page = 1)
+	{
+		//Get all messages
+		$data["messages"] = $this->Guestbook_model->getMessages($page, $this->num_message_per_page, 'all');
+		
+		$data["current_page"] = $page;
+		$data["count_message"] = $this->Guestbook_model->countMessage('all');
+		$data["num_message_per_page"] = $this->num_message_per_page;
+		
+		$this->load->view('admin/admin/guestbook', $data);
+	}
+	
 	function one($message_id)
 	{
-		$message_id = intval($message_id);
-		if($message_id <= 0)
-		{
-			show_error_page('æ‚¨è¾“å…¥çš„ç•™è¨€IDä¸åˆæ³•, è¯·è¿”å›é‡è¯•.', 'admin/guestbook');
-			return false;
-		}
+		$data["message"] = $this->Guestbook_model->getOneMessage($message_id);
 		
-		$message_info = $this->Guestbook_model->getOneMessage($message_id);
-		
-		if(empty($message_info))
-		{
-			show_error_page('æ‚¨æ‰€æŸ¥è¯¢çš„ç•™è¨€ç°¿å­˜åœ¨, è¯·è¿”å›é‡è¯•.', 'admin/guestbook');
-			return false;
-		}
-		
-		//æ›´æ–°ä¿¡æ¯çŠ¶æ€
-		if($message_info['is_new'] == 1)
+		if($data["message"]['is_new'] == 1)
 		{
 			//Update message to old
 			$set = array('is_new' => 0);
 			$this->Guestbook_model->updataMessage($message_id, $set);
 		}
 		
-		$data['header']['meta_title'] = 'ç•™è¨€ç®¡ç† - ç•™è¨€è¯¦æƒ…';
-		$data['main']['message_info'] = $message_info;
-		_load_viewer($this->staff_info['group_id'], 'guestbook_one', $data);
+		$this->load->view('admin/admin/message_page', $data);
+	
 	}	
 	
 	function unavailable($message_id = 0)
 	{
-		$this->_update_available($message_id, 1);
+		$set = array('is_deleted' => 1);
+		$this->Guestbook_model->updataMessage($message_id, $set);
+		
+		$page = $this->uri->segment(5);
+		if ($page === FALSE)
+		{
+			$page = 'inbox';
+		}
+		
+		 redirect('/admin/guestbook/'.$page, 'refresh');
 	}
 	
 	function available($message_id = 0)
 	{
-		$this->_update_available($message_id, 0);
+		$set = array('is_deleted' => 0);
+		$this->Guestbook_model->updataMessage($message_id, $set);
+		
+		$page = $this->uri->segment(5);
+		if ($page === FALSE)
+		{
+			$page = 'inbox';
+		}
+		
+		 redirect('/admin/guestbook/'.$page, 'refresh');
 	}
 	
-	function _update_available($message_id, $to_available)
+	function delete($message_id = 0)
 	{
-		$message_id = intval($message_id);
-		if($message_id <= 0)
+		$this->Guestbook_model->deleteMessage($message_id);	
+		
+		$page = $this->uri->segment(5);
+		if ($page === FALSE)
 		{
-			show_error_page('æ‚¨è¾“å…¥çš„ç•™è¨€IDä¸åˆæ³•, è¯·è¿”å›é‡è¯•.', 'admin/guestbook');
-			return false;
+			$page = 'inbox';
 		}
 		
-		$set = array('is_deleted' => $to_available);
-		if($this->Guestbook_model->updataMessage($message_id, $set))
-		{
-			$notify = 'æ“ä½œå·²æˆåŠŸ!';
-			show_result_page($notify, '');
-		}
-		else
-		{
-			$notify = 'æ“ä½œå¤±è´¥, è¯·é‡è¯•.';
-			show_error_page($notify, '');
-		}
-	}
-	
-	function _get_messages($filter_string = '', $base_url_method = 'inbox')
-	{
-		//é»˜è®¤å€¼
-		$filter['page'] = 1;
-		$filter['is_new'] = 2;
-		$filter['is_deleted'] = 2;
-		
-		$filter = $this->_parse_filter($filter_string, $filter);
-		
-		//Page Nav
-		$total = $this->Guestbook_model->getAll_count($filter);
-		$page_nav = page_nav($total, GUESTBOOK_MESSAGE_PER_PAGE, $filter['page']);
-		$page_nav['base_url'] = 'admin/guestbook/'.$base_url_method;
-		$page_nav['filter'] = $filter;
-		$data['main']['page_nav'] = $this->load->view('admin/common_page_nav', $page_nav, true);
-		
-		//Get all available messages
-		$messages = $this->Guestbook_model->getAll($filter, $page_nav['start'], GUESTBOOK_MESSAGE_PER_PAGE);
-		
-		switch($base_url_method)
-		{
-			case 'inbox':
-				$page_name = 'æŸ¥çœ‹ç•™è¨€';
-				break;
-			case 'trash':
-				$page_name= 'åºŸä»¶ç®±';
-				break;
-			case 'all':
-				$page_name= 'æŸ¥çœ‹å…¨éƒ¨ç•™è¨€';
-				break;
-			default:
-				$page_name = '';
-				break;
-		}
-		$data['header']['meta_title'] = 'ç•™è¨€ç®¡ç† - '.$page_name;
-		$data['header']['js_file'][] = '../ajax.js';
-		$data['header']['js_file'][] = 'guestbook.js';
-		$data['main']['page_name'] = $page_name;
-		$data['main']['messages'] = $messages;
-		_load_viewer($this->staff_info['group_id'], 'guestbook', $data);
+		 redirect('/admin/guestbook/'.$page, 'refresh');
 	}
 
-	function _parse_filter($filter_string, $filter)
+	function batch()
 	{
-		$input_filter = parse_filter($filter_string);
-		foreach($filter as $key => $value)
+		if(isset($_POST['doAction']) && !empty($_POST['doAction']))
 		{
-			if(!isset($input_filter[$key]))
-				continue;
+			$msg_ids = $this->input->post('msg_ids');
+			$action = $this->input->post('action');
 			
-			switch($key)
+			if(empty($msg_ids))
 			{
-				case 'page':
-				case 'is_new':
-				case 'is_deleted':
-					$input_filter[$key] = intval($input_filter[$key]);
-					break;
-				case 'name':
-				default:
-					break;
+				$data["notification"] ='<font color="red">ËùÑ¡ÁôÑÔ²»ÄÜÎª¿Õ</font>';
 			}
-			
-			if(empty($input_filter[$key]) && $input_filter[$key] !== 0)
-				continue;
-			
-			$filter[$key] = $input_filter[$key];
+			else
+			{
+				switch($action)
+				{
+					case 'read':
+						$set = array('is_new' => 0);
+						$this->Guestbook_model->updataMessage($msg_ids, $set);
+						$data["notification"] ='ËùÑ¡ÁôÑÔÒÑ¾­ÉèÖÃÎªÒÑ¶Á';
+						break;
+					case 'available':
+						$set = array('is_deleted' => 0);
+						$this->Guestbook_model->updataMessage($msg_ids, $set);
+						$data["notification"] ='ËùÑ¡ÁôÑÔÒÑ¾­·Å»ØÊÕ¼şÏä';
+						break;
+					case 'unavailable':
+						$set = array('is_deleted' => 1);
+						$this->Guestbook_model->updataMessage($msg_ids, $set);
+						$data["notification"] ='ËùÑ¡ÁôÑÔÒÑ¾­É¾³ı£¬Äã¿ÉÒÔÔÚ·Ï¼şÏäÄÚ²é¿´';
+						break;
+					case 'delete':
+						$this->Guestbook_model->deleteMessage($msg_ids);
+						$data["notification"] ='ËùÑ¡ÁôÑÔÒÑ¾­³¹µ×É¾³ı';
+						break;
+					default:
+						break;
+				}
+			}
 		}
-		return $filter;
+		elseif(isset($_POST['readAll']) && !empty($_POST['readAll']))
+		{
+			$all_msg_ids = $pieces = explode(",", $this->input->post('all_msg_ids'));
+			$set = array('is_new' => 0);
+			$this->Guestbook_model->updataMessage($all_msg_ids, $set);
+			
+			$data["notification"] ='±¾Ò³ÁôÑÔÒÑ¾­È«²¿ÉèÖÃÎªÒÑ¶Á';
+		}
+		elseif(isset($_POST['availableAll']) && !empty($_POST['availableAll']))
+		{
+			$all_msg_ids = $pieces = explode(",", $this->input->post('all_msg_ids'));
+			$set = array('is_deleted' => 0);
+			$this->Guestbook_model->updataMessage($all_msg_ids, $set);
+			
+			$data["notification"] ='±¾Ò³ÁôÑÔÒÑ¾­È«²¿·Å»ØÊÕ¼şÏä';
+		}
+		elseif(isset($_POST['unavailableAll']) && !empty($_POST['unavailableAll']))
+		{
+			$all_msg_ids = $pieces = explode(",", $this->input->post('all_msg_ids'));
+			$set = array('is_deleted' => 1);
+			$this->Guestbook_model->updataMessage($all_msg_ids, $set);
+			
+			$data["notification"] ='±¾Ò³ÁôÑÔÒÑ¾­È«²¿É¾³ı£¬Äã¿ÉÒÔÔÚ·Ï¼şÏäÄÚ²é¿´';
+		}
+		elseif(isset($_POST['deleteAll']) && !empty($_POST['deleteAll']))
+		{
+			$all_msg_ids = $pieces = explode(",", $this->input->post('all_msg_ids'));
+			$this->Guestbook_model->deleteMessage($all_msg_ids);
+			
+			$data["notification"] ='±¾Ò³ÁôÑÔÒÑ¾­È«²¿³¹µ×É¾³ı';
+		}
+		
+		$page = $this->input->post('page');		
+		if ($page === FALSE)
+		{
+			$page = 'inbox';
+		}
+		
+		$data['page'] = '/admin/guestbook/'.$page;
+		$this->load->view('admin/admin/result', $data);
 	}
+
+	
 }
 
 /* End of file admin.php */

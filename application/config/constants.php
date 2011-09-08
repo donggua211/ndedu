@@ -17,7 +17,7 @@ define('FILE_READ_MODE', 0644);
 define('FILE_WRITE_MODE', 0666);
 define('DIR_READ_MODE', 0755);
 define('DIR_WRITE_MODE', 0777);
-define('SITE_NAME', 'image');
+define('SITE_NAME', 'Â∞ºÂæ∑ÊïôËÇ≤');
 /*
 |--------------------------------------------------------------------------
 | File Stream Modes
@@ -36,21 +36,21 @@ define('FOPEN_READ_WRITE_CREATE', 				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT', 			'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+define('IS_ONLINE', FALSE);
+
 /*
  * Constans for Admin Panel
  */
-define('STUDENT_PER_PAGE', 15); //√ø“≥œ‘ æ15∏ˆ—ß‘±
-define('STAFF_PER_PAGE', 15); //√ø“≥œ‘ æ15∏ˆ‘±π§
-define('DOCUMENT_PER_PAGE', 10); //√ø“≥œ‘ æ15∏ˆ—ß‘±
-
+ define('STUDENT_PER_PAGE', 15); //ÊØèÈ°µÊòæÁ§∫15‰∏™Â≠¶Âëò
+ define('STAFF_PER_PAGE', 15); //ÊØèÈ°µÊòæÁ§∫15‰∏™ÂëòÂ∑•
+ define('DOCUMENT_PER_PAGE', 10); //ÊØèÈ°µÊòæÁ§∫15‰∏™Â≠¶Âëò
+ 
 /*student status*/
-define('STUDENT_STATUS_NOT_APPOINTMENT', 1); //Œ¥‘º∑√(0)
-define('STUDENT_STATUS_APPOINTMENT', 6); //’˝‘⁄‘º(0)
-define('STUDENT_STATUS_HAS_APPOINTMENT', 7); //“—‘º∑√(0)
-define('STUDENT_STATUS_SIGNUP', 2); //“—±®√˚(1)
-define('STUDENT_STATUS_LEARNING', 3); //’˝‘⁄—ß(2)
-define('STUDENT_STATUS_FINISHED', 4); //“——ßÕÍ(3)
-define('STUDENT_STATUS_INACTIVE', 5); //◊¢œ˙(4)
+define('STUDENT_STATUS_NOT_SIGNUP', 1); //Êú™Êä•Âêç(0)
+define('STUDENT_STATUS_SIGNUP', 2); //Â∑≤Êä•Âêç(1)
+define('STUDENT_STATUS_LEARNING', 3); //Ê≠£Âú®Â≠¶(2)
+define('STUDENT_STATUS_FINISHED', 4); //Â∑≤Â≠¶ÂÆå(3)
+define('STUDENT_STATUS_INACTIVE', 5); //Ê≥®ÈîÄ(4)
 
 
 /*GROUP ID for admin panel */
@@ -58,9 +58,7 @@ define('GROUP_ADMIN', 1);
 define('GROUP_SCHOOLADMIN', 2);
 define('GROUP_CONSULTANT', 3);
 define('GROUP_SUPERVISOR', 4);
-define('GROUP_TEACHER_PARTTIME', 5);
-define('GROUP_TEACHER_FULL', 6);
-define('GROUP_CS', 7);
+define('GROUP_TEACHER', 5);
 
 /*region ID*/
 define('REGION_PROVINCE', 1);
@@ -77,67 +75,6 @@ define('CONTRACT_STATUS_EXPIRED', 2);
 define('CONTRACT_STATUS_FINISHED', 3);
 
 /* Calendar */
-define('DAY_OF_WEEK_START', 1); //  ”⁄÷‹“ª
-
-/* Guestbook */
-define('GUESTBOOK_MESSAGE_PER_PAGE', 20);
-
-/* Dangdang */
-define('DANGDANG_BOOK_CAT_ID', 10);
-define('DANGDANG_VIDEO_CAT_ID', 11);
-define('DANGDANG_SOFTWARE_CAT_ID', 12);
-
-/* ceping */
-define('CP_COMMENTS_PER_CAT', 5);
-define('CP_CARD_PER_PAGE', 20);
-define('CP_COMMENTS_PER_PAGE', 20);
-define('CP_GEN_CARD_MAX', 5000);
-//ceping card status
-define('CP_CARD_STATUS_UNUSED', 1);
-define('CP_CARD_STATUS_AGREED', 2);
-define('CP_CARD_STATUS_STARTED', 3);
-define('CP_CARD_STATUS_FINISHED', 4);
-//ceping level
-define('CP_LEVEL_ADVANCED', 1);
-define('CP_LEVEL_LUXURY', 2);
-//ceping comment status
-define('CP_COMMENT_STATUS_NEW', 1); //–¬∆¿¬€
-define('CP_COMMENT_STATUS_REVIEWED', 2); //∆¿¬€, “——È÷§
-//ceping order status
-define('CP_ORDER_STATUS_NEW', 1); //–¬∂©µ•
-define('CP_ORDER_STATUS_CONFIRMED', 2); //∂©µ•“‘»∑»œ
-define('CP_ORDER_STATUS_SHIPPED', 3); //∂©µ•“—∑¢ªı
-//ceping order delivery type
-define('CP_ORDER_DELIVERY_TYPE_PINGYOU', 1); //∆Ω” 
-define('CP_ORDER_DELIVERY_TYPE_KUAIDI', 2); //øÏµ›π´Àæ
-define('CP_ORDER_DELIVERY_TYPE_EMS', 3); //EMS
-define('CP_ORDER_DELIVERY_TYPE_HUODAO', 4); //ªıµΩ∏∂øÓ
-//ceping order type
-define('CP_ORDER_TYPE_NORMAL', 1); //∆’Õ®π∫¬Úø®
-define('CP_ORDER_TYPE_PROMO', 2); //¥Ÿœ˙
-define('CP_ORDER_TYPE_UPDATE', 3); //…˝º∂
-//ceping quan
-define('CP_QUAN_STATUS_NEW', 1);
-define('CP_QUAN_STATUS_USED', 2);
-define('CP_QUAN_USED_AT_NDEDU', 1);
-define('CP_QUAN_USED_AT_TAOBAO', 2);
-//ceping cat type
-define('CP_CAT_TYPE_NORMAL', 1);
-define('CP_CAT_TYPE_PROMO', 2);
-//join us
-define('JOIN_STATUS_START', 1);
-define('JOIN_STATUS_SURVEY', 2);
-define('JOIN_STATUS_FINISHED', 3);
-define('JOIN_PER_PAGE', 20);
-
-//∏¯—ßπ‹¿œ ¶±®æØµƒ £”‡øŒ ˝ ˝
-define('WARNING_REMAIN_HOURS', 10);
-
-//‘±π§◊™’˝µƒøŒ ± ˝
-define('STAFF_BECOME_FULL_HOURS', 5);
-
-//ø∆ƒø
-define('SUBJECT_SUYANG', 2);
-
+define('DAY_OF_WEEK_START', 1); //ÈÄÇ‰∫éÂë®‰∏Ä
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

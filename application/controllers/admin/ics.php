@@ -358,7 +358,7 @@ class Ics extends Controller {
 	function _load_document_add_view($notify = '', $document = array())
 	{
 		$data['header']['meta_title'] = '增加文档 - 咨询系统管理';
-		$data['header']['js_file_header'] = '../ckeditor/ckeditor.js';
+		$data['header']['js_file'] = '../ckeditor/ckeditor.js';
 		$data['main']['notification'] = $notify;
 		$data['main']['categories'] = $this->ICS_Category_model->get_all_category();
 		$data['main']['sources'] = $this->ICS_Source_model->get_all_source();
@@ -371,7 +371,7 @@ class Ics extends Controller {
 	function _load_document_edit_view($notify = '', $document = array())
 	{
 		$data['header']['meta_title'] = '编辑文档 - 咨询系统管理';
-		$data['header']['js_file_header'] = '../ckeditor/ckeditor.js';
+		$data['header']['js_file'] = '../ckeditor/ckeditor.js';
 		$data['main']['notification'] = $notify;
 		$data['main']['categories'] = $this->ICS_Category_model->get_all_category();
 		$data['main']['sources'] = $this->ICS_Source_model->get_all_source();

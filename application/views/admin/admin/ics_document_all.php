@@ -25,7 +25,7 @@
 				</tr>
 				<?php foreach($documents as $document): ?>
 				<tr>
-					<td><?php echo utf_substr( strip_tags($document['document']), 150); ?></td>
+					<td><?php echo utf_substr( $document['document'], 150); ?></td>
 					<td><?php echo $document['category_name'] ?></td>
 					<td><?php echo $document['tags'] ?></td>
 					<td><?php echo $document['grade_name'] ?></td>

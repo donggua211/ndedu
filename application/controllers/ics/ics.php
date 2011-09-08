@@ -37,8 +37,6 @@ class Ics extends Controller {
 	{
 		$data_header['css_file'] = 'common_menu.css';
 		$data['categories'] = $this->ICS_Category_model->get_all_category();
-		$data['staff_info'] = $this->staff_info;
-		
 		$this->load->view('admin/header', $data_header);
 		$this->load->view('ics/common_menu', $data);
 		$this->load->view('admin/footer');
@@ -46,37 +44,25 @@ class Ics extends Controller {
 	
 	function index()
 	{
-		$this->category(621);
+		$this->category(3);
 	}
 	
 	function search()
 	{
-		$category_id = intval($this->input->post('category_id'));
 		$grade_id = intval($this->input->post('grade_id'));
 		$keyword = trim($this->input->post('keyword'));
 		
-		//获取 category_id 及, 其下的子分类
-		$category = array();
-		if (!empty($category_id))
-        {
-            $category = $this->ICS_Category_model->get_sub_cat($category_id);
-        }
-		$documents = $this->ICS_Document_model->search($keyword, $grade_id, $category);
+		$documents = $this->ICS_Document_model->search($keyword, $grade_id);
 		if(empty($documents))
 		{
 			$data['main']['notification'] = '您选的分类下没有文章!';
 		}
 		
-		
-		
-		
 		$data['header']['meta_title'] = $keyword.' - 搜索 - 咨询系统管理';
 		$data['main']['keyword'] = $keyword;
 		$data['main']['grade_id'] = $grade_id;
-		$data['main']['category_id'] = $category_id;
 		$data['main']['documents'] = $documents;
 		$data['main']['grades'] = $this->ICS_Grade_model->get_all_grade();
-		$data['main']['categories'] = $this->ICS_Category_model->get_all_category();
 		$this->_load_viewer('search', $data);
 	}
 	
@@ -110,7 +96,6 @@ class Ics extends Controller {
 		$data['main']['category_info'] = $category_info;
 		$data['main']['path_info'] = $path_info;
 		$data['main']['grades'] = $this->ICS_Grade_model->get_all_grade();
-		$data['main']['categories'] = $this->ICS_Category_model->get_all_category();
 		$this->_load_viewer('category_all', $data);	
 	}
 	

@@ -1,60 +1,42 @@
-﻿<div id="nav">
-	<span class="action-span"><a href="<?php echo site_url('admin') ?>"  target="_top">管理系统</a></span>
-	<span class="action-span"> » <a href="<?php echo site_url('admin/articleCat') ?>"  target="main-frame">分类管理 </a></span>
-	 » 添加分类
-	<div style="clear:both"></div>
+﻿<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<base href="<?php echo base_url() ?>" />
+	<link href="css/admin/admin.css" rel="stylesheet" type="text/css" />
+	<title>administrator's control panel</title>
+</head>
+<body>
+<div id="navigation" class="navigation">
+	<a href="<?php echo site_url().'/admin/entry/info'?>">admin</a> &nbsp;»&nbsp; <a href="<?php echo site_url().'/admin/articleCat/index'?>">分类管理</a> &nbsp;»&nbsp; 添加分类
 </div>
-<div id="main">
-	<div id="main_body">
-		<?php if(isset($notification) && !empty($notification)): ?>
-		<div style="backgroud:#fff;padding:5px;border:1px solid #FF8080;text-align:center">
-			<img style="vertical-align: middle;" src="images/icon/warning.gif"> <span style="color:red;font-size:20px;line-height:22px"><?php echo $notification;?></span>
-		</div>
-		<?php endif;?>
-		<form action="<?php echo site_url('admin/ArticleCat/add') ?>" method="post">
-		<table width="90%" id="shop_info-table">
-			<tr>
-				<td class="narrow-label"><span class="notice-star"> * </span>分类名称: </td>
-				<td><input type="text" name="name" value="<?php echo (isset($category['name'])) ? $category['name'] : '';?>"></td>
-			</tr>
-			<tr>
-				<td class="narrow-label"><span class="notice-star"> * </span>分类描述: </td>
-				<td><input type="text" name="description" value="<?php echo (isset($category['description'])) ? $category['description'] : '';?>"></td>
-			</tr>
-			<tr>
-				<td class="narrow-label"><span class="notice-star"> * </span>上级分类: </td>
-				<td>
-					<select name="parent_id">
-						<option value="0">顶级分类</option>
-						<?php 
-						function show_category_options($category, $selected_id = 0)
-						{
-							foreach($category as $value)
-							{
-								echo '<option value="'.$value['cat_id'].'" '.(($value['cat_id'] == $selected_id) ? 'SELECTED' : '').'>';
-								
-								for($i = 0; $i < $value['level']; $i++)
-									echo '&nbsp;&nbsp;';
-								
-								if($value['level'] > 0)
-									echo '└─';
-								
-								echo $value['cat_name'].'</option>';
-								
-								if(isset($value['sub_cat']) && !empty($value['sub_cat']))
-									show_category_options($value['sub_cat'], $selected_id);
-							}
-						}
-						show_category_options($categories);
-						?>
-					</select>
-				</td>
-			</tr>
-		</table>
-		<div class="button-div">
-			<input type="submit" class="button" value=" 确定 " name="submit">
-			<input type="reset" class="button" value=" 重置 " name="reset">
-		</div>
-		</form>
-	</div>
+<div>
+	<span style="color:#FF0000;font-size:20px">添加分类</span>
+	<form action="<?php echo site_url().'/admin/articleCat/add'?>" method="post">
+		分类名称: <input id="name" name="name" type="text" value="" />&nbsp;*<br/>
+		分类描述: <input id="description" name="description" type="text" value="" />&nbsp;*<br/>
+		<input type="radio" id="type" name="type" value="super" />添加新的大分类 &nbsp;*<br/>
+		<?php
+			if(isset($parrent_cat) && is_array($parrent_cat)):
+		?>
+		<input type="radio" id="type" name="type" value="sub" />添加新的子分类 &nbsp;* <br/>
+		<select name="parent">
+			<?php
+				foreach($catetories['parrent_cat'] as $parrent_id => $parrent_cat):
+			?>
+			<option value="<?php echo $parrent_id ?>"><?php echo $parrent_cat['cat_name'] ?></option>
+			<?php
+				endforeach;
+			?>
+		</select><br/>
+		<?php
+			endif;
+		?>
+
+		<input type="submit" value="添加分类" name="submit"><br/>
+		<input type="reset" value="重写" name="reset"><br/>
+	</form>
 </div>
+
+</body>
+</html>
