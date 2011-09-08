@@ -8,1010 +8,518 @@
 
 <url>
   <loc>http://www.ndedu.org/</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/golden</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/test</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/interview</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/personal</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/multi</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/international</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/group</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/nv1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/syn</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/advance</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/goldencotent</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/special</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/value</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/plan</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/performance</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/improve</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/learningAbility</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/growing</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorPlan/team</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/study</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/responsibility</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/studentRelation</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/selfish</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/lovetv</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/restrain</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/behaviour</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/teacherRelation</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/expression</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/late</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/wilful</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/memory</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/communicate</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/timid</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/attention</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/lie</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/better</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/money</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/relation</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/webnet</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/rely</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/home</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/moceng</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/lone</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/self_protection</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growthPlan/nostudy</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.98</priority>
-</url>
-<url>
   <loc>http://www.ndedu.org/index.php/user/login</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/topGrowth</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/goldenLearningPlan</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/multiSubjectTutorial</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/planEffect</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/synBasis</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/aboutUs</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/1v1testing</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/1v1interview</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/personalFiles</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/tutorialFlow</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/internationalTrusteeship</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/studyGroup</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/nv1Tutorial</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/improveScore</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/graduateRate</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/learningAbility</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/growingAbility</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/successfulMembers</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/advancedImprove</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/goldenConnect</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/specialModule</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/valueGrowth</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/book</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/vedio</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/software</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/advantage</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/team</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/gallery</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/jobs</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/contactUs</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/1v1testing</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/1v1interview</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/personalFiles</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/tutorialFlow</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/internationalTrusteeship</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/studyGroup</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/nv1Tutorial</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/improveScore</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/graduateRate</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/learningAbility</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/growingAbility</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/successfulMembers</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/advancedImprove</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/goldenConnect</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/specialModule</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/valueGrowth</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/advantage</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/team</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/gallery</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/jobs</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/news</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/50</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/46</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/54</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/45</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/32</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/49</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/14</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/59</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/60</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/61</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/62</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/63</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/64</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/65</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/66</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/67</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/68</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/69</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/70</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/71</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/72</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/entry/oo1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/topGrowth</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/siteMap</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>http://www.ndedu.org/index.php/rss</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/topGrowth/mszj</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/topGrowth/qwxy</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/topGrowth/jczy</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/topGrowth/jzjl</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/topGrowth/jxjlp</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/topGrowth/hygs</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/article/5-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/article/6-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/article/7-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/article/8-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/article/9-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/article/10-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/article/11-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/article/12-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/article/89</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/article/88</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/article/87</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/article/86</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/article/85</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/article/84</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/article/83</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/article/82</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/article/81</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/article/80</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/article/79</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/article/78</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/article/77</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/article/76</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/article/75</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/article/74</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/article/73</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/book/5-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/book/6-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/book/7-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/book/8-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/book/9-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/book/10-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/book/11-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/book/12-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/vedio/5-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/vedio/6-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/vedio/7-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/vedio/8-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/vedio/9-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/vedio/10-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/vedio/11-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>http://www.ndedu.org/index.php/school/vedio/12-0/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
   <loc>http://www.ndedu.org/index.php/article/44</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/42</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/58</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/55</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/57</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/56</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/53</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/47</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/48</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/articleCat/1/2</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/43</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/article/46/2</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/articleCat/7</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.64</priority>
 </url>
 <url>
+  <loc>http://www.ndedu.org/index.php/topGrowth/mszj</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/topGrowth/qwxy</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/topGrowth/jczy</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/topGrowth/jzjl</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/topGrowth/jxjlp</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/topGrowth/hygs</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.html</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/article/44/2</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/article/44/3</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/article/44/4</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/article/56/2</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/article/47/2</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
   <loc>http://www.ndedu.org/index.php/article/51</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.51</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/article/52</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.51</priority>
 </url>
 <url>
   <loc>http://www.ndedu.org/index.php/articleCat/1/1</loc>
-  <lastmod>2010-09-08T16:07:44+00:00</lastmod>
-  <changefreq>always</changefreq>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/article/46/1</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/article/44/1</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/article/56/1</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>http://www.ndedu.org/index.php/article/47/1</loc>
+  <lastmod>2010-08-16T15:03:07+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.41</priority>
 </url>
 </urlset>

@@ -1,20 +1,25 @@
-<div class="description">
-	<div class="center"><img src="images/mingshi_03.jpg" width="877" height="163" /></div>
-	<div class="center" style="margin-top:15px"><img src="images/mingshi_07.jpg" width="622" height="316" /></div>
-</div>
-<div class="description">
-	<ul>
-		<li>尼德教育专家、北师大附属幼儿园特级幼教专家、人大附小、北京四中一线名师、101、八一中学儿童心理辅导专家。</li>
-		<li>运用国际领先专业问卷，通过27个方面，815个因素，科学、客观、系统地测评发现孩子的优劣势，挖掘潜能和提升空间。</li>
-		<li>访谈课程针对学员成长的10个方面，186个学习成长话题，通过与家长、孩子、教师（尽量约访）进行一对一面对面的沟通，身临其境地感受孩子学习成长、家庭教育的优势和不足。</li>
-	</ul>
-</div>
-<div class="main">
-	<h2>据尼德教育统计，尼德成长会员与一般儿童比较：</h2>
-</div>
 <table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
-    <td width="613" valign="top" style="padding:15px; padding-top:0px;">
+    <td align="center" style="padding:15px;"><img src="images/mingshi_03.jpg" width="877" height="163" /></td>
+  </tr>
+</table>
+<table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center"><img src="images/mingshi_07.jpg" width="622" height="316" /></td>
+  </tr>
+</table>
+<table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td style="padding:15px;">1、尼德教育专家、北师大附属幼儿园特级幼教专家、人大附小、北京四中一线名师、101、八一中学儿童心理辅导专家。<br />
+      2、运用国际领先专业问卷，通过27个方面，815个因素，科学、客观、系统地测评发现孩子的优劣势，挖掘潜能和提升空间。 <br />
+      3、访谈课程针对学员成长的10个方面，186个学习成长话题，通过与家长、孩子、教师（尽量约访）进行一对一面对面的沟通，身临其境地<br />
+感受孩子学习成长、家庭教育的优势和不足。</td>
+  </tr>
+</table>
+<table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="613" valign="top" style="padding:15px; padding-top:0px;"><span class="font_orange">据尼德教育统计，尼德成长会员与一般儿童比较:
+      </span>
       <table border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;" bordercolor="#c6c6c6">
       <tr>
         <td width="415" valign="top" bgcolor="#FFFFCC">统计项目 </td>

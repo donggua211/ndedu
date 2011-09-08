@@ -1,0 +1,106 @@
+/* CSS Document */
+
+body{margin:0 auto;
+     font-size:14px;
+	 color:#333333;
+	 line-height:24px;
+	 }
+.font_12{font-size:12px;
+         line-height:22px;
+		 color:#333333;
+		 text-align:left
+		 }
+.font_12 li{ height:22px;
+			list-style:none;
+			background-image:url(1_08.jpg);
+			background-repeat:no-repeat;
+			background-position:left;
+			margin-left:50px;
+			padding-left:20px;
+			}
+.gray_border{background-color:#eee;
+             border-left:1px solid #c6c6c6;
+			 border-right:1px solid #c6c6c6;
+			 }
+li{list-style:inside}			 
+.font_gray{color:#999999}
+#book{width:279px;
+      height:338px;
+	  background-image:url(bg_14.jpg);
+	  visibility:visible
+	  }
+.input1{ width:150px;
+         height:20px;
+		 background-color:#FFFFFF;
+		 border: 1px solid #d6d6d6;
+		 }
+.input2{ width:150px;
+         height:120px;
+		 background-color:#FFFFFF;
+		 border: 1px solid #d6d6d6;
+		 }	
+.input3{ width:60px;
+         height:20px;
+		 background-color:#FFFFFF;
+		 border: 1px solid #d6d6d6;
+		 }
+.copy{font-size:12px;
+      line-height:22px;
+	  color:#999999;
+	  text-align:center
+	  }
+.input4{ width:200px;
+         height:22px;
+		 background-color:#f0f0f0;
+		 border: 1px solid #d6d6d6;
+		 }
+.input5{ width:200px;
+         height:180px;
+		 background-color:#f0f0f0;
+		 border: 1px solid #d6d6d6;
+		 }	
+.input6{ width:60px;
+         height:22px;
+		 background-color:#f0f0f0;
+		 border: 1px solid #d6d6d6;
+		 }	
+.font_orange{font-weight:bold;
+             color:#FF6600;
+			 }
+#nav li{ width:125px;
+         height:54px;
+		 padding-top:10px;
+		 margin-left:5px;
+		 list-style:none;
+		 font-size:14px;
+		 color:#FFFFFF;
+		 line-height:18px;
+		 font-weight:bold;
+		 text-align:center;
+		 float:left;
+		 display:block
+		 }
+#nav li a{width:125px;
+          height:44px;
+		  padding-top:10px;
+		  background-image:url(nav_08.jpg);
+		  background-position:bottom;
+		  background-repeat:no-repeat;
+		  font-size:14px;
+		  line-height:18px;
+		  color:#000000;
+		  text-align:center;
+		  text-decoration:none;
+		  display:block
+		  }
+#nav li a:hover{background-image:url(nav_05.jpg);
+                text-decoration:none;
+				color:#FFFFFF;
+				}		  		 			 		   		 		 			 	 	  
+#nav li a.active{background-image:url(nav_05.jpg);
+                 color:#FFFFFF
+				 }	  		
+.font_12_red{font-size:12px;
+         color:red;
+		 line-height:24px;
+		 }				 

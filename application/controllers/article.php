@@ -55,13 +55,8 @@ class Article extends Controller {
 		}
 		elseif($data['article']['cat_id'] == 6)
 		{
-			$data_header['nav_menu_id'] = 7;
+			$data_header['nav_menu_id'] = 6;
 			$data['cat_url'] = 'aboutUs';
-		}
-		elseif($data['article']['cat_id'] == 9)
-		{
-			$data_header['nav_menu_id'] = 1;
-			$data['cat_url'] = 'school';
 		}
 		else
 		{
@@ -87,7 +82,15 @@ class Article extends Controller {
 			$data['sidebar_articles'] = $this->Article_model->getArticleByCat($data['article']['cat_id'], 'count', $this->num_sidebar_articles);
 			
 			//Nav part
-			$data['article']['content'] = str_replace( $this->article_separator, '', $data['article']['content'] );		
+			$article_pages = explode($this->article_separator, $data['article']['content']);
+			$data['article_nav']['totle_page'] =  count($article_pages);
+
+			if($page > $data['article_nav']['totle_page'])
+				$page = 1;
+			
+			$data['article_nav']['current_page'] = $page;
+			$data['article']['content'] = $article_pages[($page-1)];
+			
 			$this->load->view('article', $data);
 		}
 		
@@ -98,7 +101,7 @@ class Article extends Controller {
 	{
 		if(isset($_POST['keyword']) && !empty($_POST['keyword']))
 		{
-			$keyword = $this->input->myPost('keyword');
+			$keyword = $this->input->post('keyword');
 			
 			$this->Article_model->addStats($keyword);
 			

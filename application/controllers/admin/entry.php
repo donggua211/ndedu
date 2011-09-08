@@ -1,51 +1,42 @@
 <?php
-/* 
-  后台入口.
-  公共权限
- */
+
 class Entry extends Controller {
 
 	function Entry()
 	{
 		parent::Controller();
-		$this->load->library('session');
-		$this->load->helper('admin');
 		
-		//如果没有经登录, 就跳转到admin/login登陆页
-		if (!has_login())
+		$this->load->library('session');
+		
+		if (!$this->session->userdata("adminuser"))
 		{
-			goto_login();
+			redirect("admin/admin/login");
 		}
 		
-		$this->staff_info = get_staff_info();
+		$this->load->model('Guestbook_model');
 	}
 	
 	function index()
 	{
-		$data['main_url'] = 'admin/calendar/';
-		$this->load->view('admin/common_frame', $data);
+		$this->load->view('admin/admin');
 	}
 	
 	function menu()
 	{
-		$data_header['css_file'] = 'common_menu.css';
-		$this->load->view('admin/header', $data_header);
-		$this->load->view('admin/common_menu');
-		$this->load->view('admin/footer');
-	}
-	function top()
-	{
-		$data_header['css_file'] = 'common_top.css';
-		$staff_info = get_staff_info();
-		$data_main['staff_info'] = $staff_info;
-		$this->load->view('admin/header', $data_header);
-		$this->load->view('admin/common_top', $data_main);
-		$this->load->view('admin/footer');
+		$this->load->view('admin/menu');
 	}
 	
-	function drag()
+	function top()
 	{
-		$this->load->view('admin/common_drag');
+		$this->load->view('admin/top');
+	}
+	
+	function info()
+	{
+		$data["new_messages"] = $this->Guestbook_model->getLast10NewGuestBook();
+		
+		
+		$this->load->view('admin/info', $data);
 	}
 }
 

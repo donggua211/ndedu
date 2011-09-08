@@ -27,60 +27,25 @@ class Guestbook_model extends Model {
 		}
 	}
 	
-	function getAll($filter, $offset = 0, $row_count = 0)
+	function getMessages($page, $num_message_per_page, $message_stats)
 	{
-		$where = '';
-		//是否为新的
-        if (isset($filter['is_new']) && $filter['is_new']!= 2)
-        {
-            $where .= " AND is_new = {$filter['is_new']} ";
-        }
-		//是否为删除的
-		if (isset($filter['is_deleted']) && $filter['is_deleted']!= 2)
-        {
-            $where .= " AND is_deleted = {$filter['is_deleted']} ";
-        }
+		$this->db->order_by("is_new", 'DESC');
 		
-		$sql = "SELECT * FROM ".$this->db->dbprefix('guestbook')." ";
-		
-		//WHERE
-		if(!empty($where))
+		if($message_stats == 'available')
 		{
-			$pos = strpos($where, 'AND');
-			$sql .= substr_replace($where, ' WHERE', 0, $pos+3);
+			$this->db->where('is_deleted', '0');
 		}
-		$sql .= " ORDER BY add_time DESC ";
-		//LIMIT
-		if (!empty($row_count))
-        {
-            $sql .= " LIMIT $offset, $row_count";
-        }
+		elseif($message_stats == 'unavailable')
+		{
+			$this->db->where('is_deleted', '1');
+		}
 		
-		$query = $this->db->query($sql);
+		$query = $this->db->get('guestbook', $num_message_per_page, $num_message_per_page*($page-1));
 		if ($query->num_rows() > 0)
 		{
 			foreach ($query->result_array() as $row)
 			{
-				$row['add_time'] = date('Y-m-d H:i', $row['add_time']);
-				
-				switch($row['grade'])
-				{
-					case 'preschool':
-						$row['grade_name'] = '学前班';
-						break;
-					case 'primary_school':
-						$row['grade_name'] = '小学';
-						break;
-					case 'junior_middle_school':
-						$row['grade_name'] = '初中';
-						break;
-					case 'high_school':
-						$row['grade_name'] = '高中';
-						break;
-					default:
-						$row['grade_name'] = '';
-						break;
-				}
+				$row['add_time'] = date('Y-m-d h:i:s', $row['add_time']);
 				
 				$result[$row['msg_id']] = $row;
 			}
@@ -91,32 +56,20 @@ class Guestbook_model extends Model {
 			return array();
 		}
 	}
-	
-	function getAll_count($filter)
+
+	function countMessage($message_stats)
 	{
-		$where = '';
-		//是否为新的
-        if (isset($filter['is_new']) && $filter['is_new']!= 2)
-        {
-            $where .= " AND is_new = {$filter['is_new']} ";
-        }
-		//是否为删除的
-		if (isset($filter['is_deleted']) && $filter['is_deleted']!= 2)
-        {
-            $where .= " AND is_deleted = {$filter['is_deleted']} ";
-        }
-				
-		//student基本信息
-		$sql = "SELECT COUNT(msg_id) AS total FROM ".$this->db->dbprefix('guestbook')." ";
-		if(!empty($where))
+		if($message_stats == 'available')
 		{
-			$pos = strpos($where, 'AND');
-			$sql .= substr_replace($where, ' WHERE', 0, $pos+3);
+			$this->db->where('is_deleted', '0');
+		}
+		elseif($message_stats == 'unavailable')
+		{
+			$this->db->where('is_deleted', '1');
 		}
 
-		$query = $this->db->query($sql);
-		$row = $query->row_array();
-		return $row['total'];
+		$query = $this->db->get('guestbook');
+		return $query->num_rows();
 	}
 	
 	function getOneMessage($message_id)
@@ -124,27 +77,7 @@ class Guestbook_model extends Model {
 		$query = $this->db->get_where('guestbook', array('msg_id ' => $message_id));
 		if ($query->num_rows() > 0)
 		{
-			$row = $query->row_array();
-			$row['add_time'] = date('Y-m-d H:i', $row['add_time']);
-			switch($row['grade'])
-			{
-				case 'preschool':
-					$row['grade_name'] = '学前班';
-					break;
-				case 'primary_school':
-					$row['grade_name'] = '小学';
-					break;
-				case 'junior_middle_school':
-					$row['grade_name'] = '初中';
-					break;
-				case 'high_school':
-					$row['grade_name'] = '高中';
-					break;
-				default:
-					$row['grade_name'] = '';
-					break;
-			}
-			return $row;
+			return $query->row_array();
 		}
 		else
 		{
@@ -166,6 +99,38 @@ class Guestbook_model extends Model {
 		$result = $this->db->update('guestbook', $data);
 
 		return $result;
+	}
+	
+	function deleteMessage($message_id)
+	{
+		if(!is_array($message_id))
+			$msg_ids[] = $message_id;
+		else
+			$msg_ids = $message_id;
+		
+		$this->db->where_in('msg_id', $msg_ids);
+		$result = $this->db->delete('guestbook');
+		return $result;
+	}
+	
+	function getLast10NewGuestBook()
+	{
+		$query = $this->db->get_where('guestbook', array('is_new' => '1', 'is_deleted' => '0'), 10);
+		if ($query->num_rows() > 0)
+		{
+			foreach ($query->result_array() as $row)
+			{
+				$row['add_time'] = date('Y-m-d h:i:s', $row['add_time']);
+				
+				$result[$row['msg_id']] = $row;
+			}
+			return $result;
+		}
+		else
+		{
+			return array();
+		}
+	
 	}
 }
 ?>

@@ -9,9 +9,10 @@
    var s1 = new SWFObject("<?php echo base_url() ?>images/flash/focusFlash_fp.swf", "mymovie1", "658", "201", "5", "#ffffff");
    s1.addParam("wmode", "transparent");
    s1.addParam("AllowscriptAccess", "sameDomain");
-   s1.addVariable("bigSrc", "images/07.jpg|images/06.jpg|images/02.jpg|images/03.jpg|images/04.jpg|images/05.jpg");
-   s1.addVariable("smallSrc", "|||||");
-   s1.addVariable("href", "<?php echo site_url('cp/detail/1') ?>|<?php echo site_url('topGrowth') ?>|<?php echo site_url('goldenLearningPlan') ?>|<?php echo site_url('1v1interview') ?>|<?php echo site_url('personalFiles') ?>|<?php echo site_url('multiSubjectTutorial') ?>");
+   s1.addVariable("bigSrc", "images/01.jpg|images/02.jpg|images/03.jpg|images/04.jpg|images/05.jpg");
+   s1.addVariable("smallSrc", "|images/06.jpg|||");
+   //s1.addVariable("href", "|<?php echo site_url('goldenLearningPlan') ?>|<?php echo site_url('1v1interview') ?>|<?php echo site_url('personalFiles') ?>|#<?php echo site_url('multiSubjectTutorial') ?>");
+   s1.addVariable("href", "|<?php echo site_url('goldenLearningPlan') ?>|<?php echo site_url('1v1interview') ?>|<?php echo site_url('personalFiles') ?>|<?php echo site_url('multiSubjectTutorial') ?>");
    s1.addVariable("txt", "||||");
    s1.addVariable("width", "658");
    s1.addVariable("height", "201");
@@ -92,77 +93,6 @@
           </div></td>
         </tr>
       </table>
-	  
-	  <table width="662" border="0" cellpadding="0" cellspacing="0" style="margin-top:9px;">
-        <tr>
-          <td align="center" valign="top">
-			  <div id="Tab1">
-				  <div class="Menubox">
-					<ul>
-					  <li id="school1" onmouseover="setTab('school',1,4)"  class="hover"><a href="<?php echo site_url('school') ?>">教育文章</a></li>
-					  <li id="school2" onmouseover="setTab('school',2,4)" ><a href="<?php echo site_url('school/book') ?>">精品图书</a></li>
-					  <li id="school3" onmouseover="setTab('school',3,4)"><a href="<?php echo site_url('school/vedio') ?>">教育影视</a></li>
-					  <li id="school4" onmouseover="setTab('school',4,4)"><a href="<?php echo site_url('school/software') ?>">教育软件</a></li>
-					</ul>
-				  </div>
-				<div class="Contentbox">
-					<div id="con_school_1" class="hover" style="text-align:left">
-					<table width="660" border="0" cellspacing="0" cellpadding="0">
-					<tr><td width="330" align="left" style="padding-left:10px;border-right:1px dashed #C8C8C8">
-					<?php foreach($school_articles as $index => $article): ?>
-					<table width="300" border="0" cellspacing="0" cellpadding="0" style="margin-top:3px">
-					  <tr><td align="left" class="news_content_li"><a href="<?php echo site_url('article/'.$article['article_id']) ?>" title="<?php echo $article['title']?>"><?php echo utf_substr($article['title'], 48); ?></a></td></tr>
-					</table>
-					
-					<?php if(($index+1) == ceil($school_articles_num/2)): //分屏 ?>
-					</td><td width="330" align="left" style="padding-left:10px;">
-					<?php endif;?>
-					
-					<?php endforeach;?>
-					</td></tr>
-					</table>
-					</div>
-					<div id="con_school_2" style="display:none; text-align:center">
-					<table width="660" border="0" cellspacing="0" cellpadding="0">
-						<tr>
-						<?php foreach($school_book as  $book): ?>
-						<td width="163" height="32" valign="top" align="center" class="font_12_18" style="text-align:center;padding-top:5px">
-							<a href="<?php echo site_url('transfer/dangdang/'.$book['pid'])?>" target="_blank"><img src="<?php echo $book['image_url'] ?>" title="<?php echo $book['product_name'] ?>" /></a><br/>
-							<a href="<?php echo site_url('transfer/dangdang/'.$book['pid']) ?>" target="_blank" title="<?php echo $book['product_name'] ?>" ><?php echo utf_substr($book['product_name'], 48) ?></a><br/>
-						</td>
-						<?php endforeach;?>
-						</tr>
-					</table>
-					</div>
-					<div id="con_school_3" style="display:none; text-align:center">
-					<table width="660" border="0" cellspacing="0" cellpadding="0">
-						<tr>
-						<?php foreach($school_vedio as  $book): ?>
-						<td width="163" height="32" valign="top" align="center" class="font_12_18" style="text-align:center;padding-top:5px">
-							<a href="<?php echo site_url('transfer/dangdang/'.$book['pid'])?>" target="_blank"><img src="<?php echo $book['image_url'] ?>" title="<?php echo $book['product_name'] ?>" /></a><br/>
-							<a href="<?php echo site_url('transfer/dangdang/'.$book['pid']) ?>" target="_blank" title="<?php echo $book['product_name'] ?>" ><?php echo utf_substr($book['product_name'], 48) ?></a><br/>
-						</td>
-						<?php endforeach;?>
-						</tr>
-					</table>
-					</div>
-					<div id="con_school_4" style="display:none; text-align:center">
-					<table width="660" border="0" cellspacing="0" cellpadding="0">
-						<tr>
-						<?php foreach($school_software as  $book): ?>
-						<td width="163" height="32" valign="top" align="center" class="font_12_18" style="text-align:center;padding-top:5px">
-							<a href="<?php echo site_url('transfer/dangdang/'.$book['pid'])?>" target="_blank"><img src="<?php echo $book['image_url'] ?>" title="<?php echo $book['product_name'] ?>" /></a><br/>
-							<a href="<?php echo site_url('transfer/dangdang/'.$book['pid']) ?>" target="_blank" title="<?php echo $book['product_name'] ?>" ><?php echo utf_substr($book['product_name'], 48) ?></a><br/>
-						</td>
-						<?php endforeach;?>
-						</tr>
-					</table>
-					</div>
-			  </div>
-		  </td>
-        </tr>
-      </table>
-	  
       <table width="662" border="0" cellpadding="0" cellspacing="0" style="margin-top:9px;">
         <tr>
           <td align="center" valign="top">
@@ -305,6 +235,113 @@
           </table></td>
         </tr>
       </table>
+	  <table width="662" border="0" cellpadding="0" cellspacing="0" style="margin-top:9px;">
+        <tr>
+          <td align="center" valign="top"><table width="662" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="28" valign="bottom" background="images/slide_bg2.gif"><table width="662" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td width="31">&nbsp;</td>
+                      <td width="631" height="26" align="left" class="font_14"><a href="<?php echo site_url('14') ?>">尼德教育根据学员问题总结出14种需求类型</a></td>
+                    </tr>
+                </table></td>
+              </tr>
+            </table>
+              <table width="662" border="0" cellspacing="0" cellpadding="0" style="padding-top:8px; padding-bottom:8px; border-bottom:1px solid #ffc600;
+			border-left:1px solid #ffc600; border-right:1px solid #ffc600;">
+                <tr>
+                  <td align="center"><table width="636" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td align="left"><table width="114" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td height="27" background="images/button_03.gif" style="text-align:center; font-size:14px; color:#333333;line-heigt:27px;"><a href="<?php echo site_url('article/59') ?>">基础薄弱</a></td>
+                          </tr>
+                        </table></td>
+                        <td align="left"><table width="114" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td height="27" background="images/button_03.gif" style="text-align:center; font-size:14px; color:#333333;line-heigt:27px;"><a href="<?php echo site_url('article/60') ?>">动力匮乏</a></td>
+                          </tr>
+                        </table></td>
+                        <td align="left"><table width="114" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td height="27" background="images/button_03.gif" style="text-align:center; font-size:14px; color:#333333;line-heigt:27px;"><a href="<?php echo site_url('article/61') ?>">粗心马虎</a></td>
+                          </tr>
+                        </table></td>
+                        <td align="left"><table width="114" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td height="27" background="images/button_03.gif" style="text-align:center; font-size:14px; color:#333333;line-heigt:27px;"><a href="<?php echo site_url('article/62') ?>">情绪波动</a></td>
+                          </tr>
+                        </table></td>
+                        <td align="left"><table width="114" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td height="27" background="images/button_03.gif" style="text-align:center; font-size:14px; color:#333333;line-heigt:27px;"><a href="<?php echo site_url('article/63') ?>">焦躁好动</a></td>
+                          </tr>
+                        </table></td>
+                      </tr>
+                    </table>
+                      <table width="636" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
+                        <tr>
+                          <td align="left"><table width="114" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td height="27" background="images/button_03.gif" style="text-align:center; font-size:14px; color:#333333;line-heigt:27px;"><a href="<?php echo site_url('article/64') ?>">苦学无效</a></td>
+                              </tr>
+                          </table></td>
+                          <td align="left"><table width="114" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td height="27" background="images/button_03.gif" style="text-align:center; font-size:14px; color:#333333;line-heigt:27px;"><a href="<?php echo site_url('article/65') ?>">缺乏思路</a></td>
+                              </tr>
+                          </table></td>
+                          <td align="left"><table width="114" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td height="27" background="images/button_03.gif" style="text-align:center; font-size:14px; color:#333333;line-heigt:27px;"><a href="<?php echo site_url('article/66') ?>">一做就错</a></td>
+                              </tr>
+                          </table></td>
+                          <td align="left"><table width="114" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td height="27" background="images/button_03.gif" style="text-align:center; font-size:14px; color:#333333;line-heigt:27px;"><a href="<?php echo site_url('article/67') ?>">知识生疏</a></td>
+                              </tr>
+                          </table></td>
+                          <td align="left"><table width="114" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td height="27" background="images/button_03.gif" style="text-align:center; font-size:14px; color:#333333;line-heigt:27px;"><a href="<?php echo site_url('article/68') ?>">学习走神</a></td>
+                              </tr>
+                          </table></td>
+                        </tr>
+                      </table>
+                      <table width="636" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
+                        <tr>
+                          <td align="left"><table width="114" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td height="27" background="images/button_03.gif" style="text-align:center; font-size:14px; color:#333333;line-heigt:27px;"><a href="<?php echo site_url('article/69') ?>">缺乏自信</a></td>
+                              </tr>
+                          </table></td>
+                          <td align="left"><table width="114" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td height="27" background="images/button_03.gif" style="text-align:center; font-size:14px; color:#333333;line-heigt:27px;"><a href="<?php echo site_url('article/70') ?>">模块夹生</a></td>
+                              </tr>
+                          </table></td>
+                          <td align="left"><table width="114" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td height="27" background="images/button_03.gif" style="text-align:center; font-size:14px; color:#333333;line-heigt:27px;"><a href="<?php echo site_url('article/71') ?>">年级衔接</a></td>
+                              </tr>
+                          </table></td>
+                          <td align="left"><table width="114" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td height="27" background="images/button_03.gif" style="text-align:center; font-size:14px; color:#333333;line-heigt:27px;"><a href="<?php echo site_url('article/72') ?>">毕业冲刺</a></td>
+                              </tr>
+                          </table></td>
+                          <td align="left"><table width="114" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td height="27" style="text-align:center; font-size:14px; color:#333333;">&nbsp;</td>
+                              </tr>
+                          </table></td>
+                        </tr>
+                      </table>
+                  </td>
+                </tr>
+            </table></td>
+        </tr>
+      </table>
       <table width="662" border="0" cellpadding="0" cellspacing="0" style="margin-top:9px;">
         <tr>
           <td height="200" align="center" valign="top"><table width="662" border="0" cellspacing="0" cellpadding="0">
@@ -323,27 +360,27 @@
                   <td align="center"><table width="636" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                       <td align="left"><table width="211" border="0" cellpadding="0" cellspacing="0" bgcolor="#f5f5f5" class="font_12_20">
-                            <tr>
-                              <td width="85" height="86" align="center"><a href="<?php echo site_url('successfulMembers') ?>"><img src="images/ll.jpg" width="65" height="65" border="0" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
-                              <td><span class="red_title">李蕾</span><br />
-                                小一 <br />
-                                尼德教育3A级学员</td>
-                            </tr>
-                        </table></td>
-                      <td align="left"><table width="211" border="0" cellpadding="0" cellspacing="0" bgcolor="#f5f5f5" class="font_12_20">
                           <tr>
-                            <td width="85" height="86" align="center"><a href="<?php echo site_url('successfulMembers') ?>"><img src="images/lzh.jpg" width="65" height="65" border="0" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
-                            <td><span class="red_title">吕志浩</span><br />
-                              小四 <br />
-                              尼德教育2A级学员</td>
+                            <td width="85" height="86" align="center"><a href="<?php echo site_url('successfulMembers') ?>"><img src="images/hxd.jpg" width="65" height="65" border="0" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
+                            <td><span class="red_title">胡晓丹</span><br />
+                              幼小衔接期 <br />
+                              尼德私塾3A级学员</td>
                           </tr>
                       </table></td>
                       <td align="left"><table width="211" border="0" cellpadding="0" cellspacing="0" bgcolor="#f5f5f5" class="font_12_20">
                           <tr>
-                            <td width="85" height="86" align="center"><a href="<?php echo site_url('successfulMembers') ?>"><img src="images/hxd.jpg" width="65" height="65" border="0" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
-                            <td><span class="red_title">胡晓丹</span><br />
-                              小六 <br />
-                              尼德教育A级学员</td>
+                            <td width="85" height="86" align="center"><a href="<?php echo site_url('successfulMembers') ?>"><img src="images/lzh.jpg" width="65" height="65" border="0" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
+                            <td><span class="red_title">吕志浩</span><br />
+                              小学四年级 <br />
+                              尼德私塾2A级学员</td>
+                          </tr>
+                      </table></td>
+                      <td align="left"><table width="211" border="0" cellpadding="0" cellspacing="0" bgcolor="#f5f5f5" class="font_12_20">
+                          <tr>
+                            <td width="85" height="86" align="center"><a href="<?php echo site_url('successfulMembers') ?>"><img src="images/jjw.jpg" width="65" height="65" border="0" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
+                            <td><span class="red_title">贾静雯</span><br />
+                              初二<br />
+                              尼德私塾A级学员</td>
                           </tr>
                       </table></td>
                     </tr>
@@ -351,27 +388,27 @@
                     <table width="636" border="0" cellspacing="0" cellpadding="0" style="margin-top:1px;">
                       <tr>
                         <td align="left"><table width="211" border="0" cellpadding="0" cellspacing="0" bgcolor="#f5f5f5" class="font_12_20">
-                          <tr>
-                            <td width="85" height="86" align="center"><a href="<?php echo site_url('successfulMembers') ?>"><img src="images/jjw.jpg" width="65" height="65" border="0" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
-                            <td><span class="red_title">贾静雯</span><br />
-                              初二 <br />
-                              尼德教育A级学员</td>
-                          </tr>
-                      </table></td>
-                        <td align="left"><table width="211" border="0" cellpadding="0" cellspacing="0" bgcolor="#f5f5f5" class="font_12_20">
-                            <tr>
-                              <td width="85" height="86" align="center"><a href="<?php echo site_url('successfulMembers') ?>"><img src="images/index_79.jpg" width="65" height="66" border="0" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
-                              <td><span class="red_title">聂媛媛</span><br />
-                                初三 <br />
-                                尼德教育A级学员</td>
-                            </tr>
-                        </table></td>
-                        <td align="left"><table width="211" border="0" cellpadding="0" cellspacing="0" bgcolor="#f5f5f5" class="font_12_20">
                             <tr>
                               <td width="85" height="86" align="center"><a href="<?php echo site_url('successfulMembers') ?>"><img src="images/zk.jpg" width="65" height="65" border="0" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
                               <td><span class="red_title">张坤</span><br />
                                 高三 <br />
-                                尼德教育A级学员</td>
+                                尼德私塾A级学员</td>
+                            </tr>
+                        </table></td>
+                        <td align="left"><table width="211" border="0" cellpadding="0" cellspacing="0" bgcolor="#f5f5f5" class="font_12_20">
+                            <tr>
+                              <td width="85" height="86" align="center"><a href="<?php echo site_url('successfulMembers') ?>"><img src="images/index_79.jpg" width="65" height="66" border="0" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
+                              <td><span class="red_title">聂媛媛</span><br />
+                                幼小衔接期 <br />
+                                尼德私塾3A级学员</td>
+                            </tr>
+                        </table></td>
+                        <td align="left"><table width="211" border="0" cellpadding="0" cellspacing="0" bgcolor="#f5f5f5" class="font_12_20">
+                            <tr>
+                              <td width="85" height="86" align="center"><a href="<?php echo site_url('successfulMembers') ?>"><img src="images/ll.jpg" width="65" height="65" border="0" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
+                              <td><span class="red_title">李蕾</span><br />
+                                幼小衔接期 <br />
+                                尼德私塾3A级学员</td>
                             </tr>
                         </table></td>
                       </tr>
@@ -418,11 +455,6 @@
       </table>
     </td>
     <td width="247" valign="top">
-	  <table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:9px;">
-        <tr>
-          <td align="center" valign="bottom"><a href="<?php echo site_url('topGrowth') ?>" target="_blank"><img src="images/jyczjh.gif" width="247" height="70" border="0" /></a></td>
-        </tr>
-      </table>
       <table width="247" border="0" cellspacing="0" cellpadding="0">
         <tr>
           <td height="31" background="images/index_47.jpg"><a href="<?php echo site_url('advantage') ?>" class="more2">更多&gt;&gt;</a></td>
@@ -447,6 +479,79 @@
           <td><img src="images/hjxxgh_07.jpg" width="247" height="72" /></td>
         </tr>
       </table>
+      <table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
+        <tr>
+          <td height="31" background="images/index_54.jpg"><a href="<?php echo site_url('aboutUs') ?>" class="more2">更多&gt;&gt;</a></td>
+        </tr>
+      </table>
+      <table width="247" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td height="165" align="center" background="images/index_55.jpg"><table width="220" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td height="140" align="left" valign="top" class="font_12_20"><a href="<?php echo site_url('aboutUs') ?>"><img src="images/right_07.jpg" width="60" height="60" border="0" class="img_border"  style="float:left; margin-right:8px;" alt="<?php echo SITE_NAME; ?>"/>尼德教育配合黄金学习规划系统，反思当前课外辅导机构辅导方式对学员成长的弊端，正式提出尼德多元化学科辅导体系，该体系以黄金学习规划系统工具为基础，以学后国际化托管、团体研究性学习、纯学科一对一辅导...</a></td>
+              </tr>
+          </table></td>
+        </tr>
+      </table>
+      <table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
+        <tr>
+          <td height="31" background="images/teacher_11.jpg"><a href="<?php echo site_url('team') ?>" class="more2">更多&gt;&gt;</a></td>
+        </tr>
+      </table>
+      <table width="247" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td height="165" align="center" background="images/index_55.jpg"><table width="220" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="140" valign="top" class="font_12_20"><a href="<?php echo site_url('team') ?>"><img src="images/teacher.jpg" width="60" height="60" border="0" class="img_border" style="float:left; margin-right:8px;" alt="<?php echo SITE_NAME; ?>"/></a><a href="<?php echo site_url('team') ?>">毕业于以北师大、华东师范<br />
+                大学为首的高等师范院校，<br />
+                近300名一线特高级教师，以本科、硕士学历为主，也<br />
+                有部分博士教授作为师资顾问；以学科教<br />
+                育专业为主，以儿童发展心理学为辅，其<br />
+                中近多一半教师从事过中小学教育...</a></td>
+              </tr>
+          </table></td>
+        </tr>
+      </table>
+      <table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
+        <tr>
+          <td height="31" background="images/index_61.jpg"><a href="<?php echo site_url('gallery') ?>" class="more2">更多&gt;&gt;</a></td>
+        </tr>
+      </table>
+      <table width="247" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td height="260" align="center" valign="top" background="images/index_66.jpg"><table width="220" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="65" height="48"><a href="<?php echo site_url('gallery') ?>"><img src="images/index7_11.jpg" width="49" height="33" border="0" class="img_border" /></a></td>
+              <td align="left"><a href="<?php echo site_url('gallery') ?>" title="2010年家长集体授予最值得信赖的学科辅导机构">2010年家长集体授予最值...</a></td>
+            </tr>
+          </table>
+            <table width="220" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="65" height="48"><a href="<?php echo site_url('gallery') ?>"><img src="images/index7_11.jpg" width="49" height="33" border="0" class="img_border" /></a></td>
+                <td align="left"><a href="<?php echo site_url('gallery') ?>" title="2009年连续三年被评为最值得推荐的教育品牌">2009年连续三年被评为最...</a></td>
+              </tr>
+            </table>
+            <table width="220" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="65" height="48"><a href="<?php echo site_url('gallery') ?>"><img src="images/index7_11.jpg" width="49" height="33" border="0" class="img_border" /></a></td>
+                <td align="left"><a href="<?php echo site_url('gallery') ?>" title="2008年尼德黄金学习规划系统获得国家级优秀教育产品奖">2008年尼德黄金学习规划...</a></td>
+              </tr>
+            </table>
+            <table width="220" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="65" height="48"><a href="<?php echo site_url('gallery') ?>"><img src="images/index7_11.jpg" width="49" height="33" border="0" class="img_border" /></a></td>
+                <td align="left"><a href="<?php echo site_url('gallery') ?>" title="2007年被评为北京课外辅导机构最具有发展潜力奖">2007年被评为北京课外辅...</a></td>
+              </tr>
+            </table>
+            <table width="220" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="65" height="48"><a href="<?php echo site_url('gallery') ?>"><img src="images/index7_11.jpg" width="49" height="33" border="0" class="img_border" /></a></td>
+                <td align="left"><a href="<?php echo site_url('gallery') ?>" title="2006年北京中小学课外辅导创新奖">2006年北京中小学课外辅...</a></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
 	  <table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
         <tr>
           <td height="32" background="images/right_79.jpg"></td>
@@ -455,7 +560,7 @@
       <table width="247" border="0" cellspacing="0" cellpadding="0">
 	  <form name="guestbook" action="<?php echo site_url().'/guestbook/submit/'?>" method="post" onSubmit="return checkTable(this);">
         <tr>
-          <td height="" align="center" valign="top" background="images/right_80.jpg"><table width="220" border="0" cellspacing="0" cellpadding="0" style="margin-top:8px;">
+          <td height="384" align="center" valign="top" background="images/right_80.jpg"><table width="220" border="0" cellspacing="0" cellpadding="0" style="margin-top:8px;">
             <tr>
               <td width="70" align="left">姓&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
               <td align="left"><label>
@@ -488,7 +593,7 @@
               <tr>
                 <td width="70" valign="top">学习情况：</td>
                 <td  align="left"><label>
-                  <textarea name="message" style="width:148px; height:130px; background-color:#FFFFFF; border:1px solid #CCCCCC; overflow:auto"></textarea>
+                  <textarea name="message" style="width:148px; height:115px; background-color:#FFFFFF; border:1px solid #CCCCCC; overflow:auto"></textarea>
                 </label></td>
               </tr>
             </table>
@@ -516,105 +621,23 @@
               <tr>
                 <td width="231" height="62" align="center" background="images/index2_35.jpg" class="font_12_red" style="padding-left:8px; padding-right:8px; padding-top:4px; font-size:12px; color:#333333; font-weight:bold">请放心，家长所留下的个人信息，尼德将恪守职业道德，为您保密。</td>
               </tr>
-            </table>
-			<table border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td><img src="images/right_80_bottom.gif"></td>
-              </tr>
             </table></td>
         </tr>
 	  </form>	
       </table>
-	  <table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
-        <tr>
-          <td align="center" valign="bottom"><a href="<?php echo site_url('userGrowth') ?>" target="_blank"><img src="images/evaluate/banner_userGrowth.gif" width="247" height="72" border="0" /></a></td>
-        </tr>
-      </table>  
       <table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
         <tr>
-          <td height="31" background="images/index_54.jpg"><a href="<?php echo site_url('aboutUs') ?>" class="more2">更多&gt;&gt;</a></td>
-        </tr>
-      </table>
-      <table width="247" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td height="165" align="center" background="images/index_55.jpg"><table width="220" border="0" cellspacing="0" cellpadding="0">
-            <tr>
-              <td height="140" align="left" valign="top" class="font_12_20"><a href="<?php echo site_url('aboutUs') ?>"><img src="images/right_07.jpg" width="60" height="60" border="0" class="img_border"  style="float:left; margin-right:8px;" alt="<?php echo SITE_NAME; ?>"/>尼德教育配合黄金学习规划系统，反思当前课外辅导机构辅导方式对学员成长的弊端，正式提出尼德多元化学科辅导体系，该体系以黄金学习规划系统工具为基础，以学后国际化托管、团体研究性学习、纯学科一对一辅导...</a></td>
-              </tr>
-          </table></td>
-        </tr>
-      </table>
-	  <table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
-        <tr>
-          <td align="center" valign="bottom"><a href="<?php echo site_url('cp/detail/1') ?>" target="_blank"><img src="images/banner_evaluate.gif" width="247" height="72" border="0" /></a></td>
-        </tr>
-      </table>
-	  <table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
-        <tr>
-          <td height="31" background="images/teacher_11.jpg"><a href="<?php echo site_url('team') ?>" class="more2">更多&gt;&gt;</a></td>
-        </tr>
-      </table>
-      <table width="247" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td height="165" align="center" background="images/index_55.jpg"><table width="220" border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td height="140" valign="top" class="font_12_20"><a href="<?php echo site_url('team') ?>"><img src="images/teacher.jpg" width="60" height="60" border="0" class="img_border" style="float:left; margin-right:8px;" alt="<?php echo SITE_NAME; ?>"/></a><a href="<?php echo site_url('team') ?>">毕业于以北师大、华东师范<br />
-                大学为首的高等师范院校，<br />
-                近300名一线特高级教师，以本科、硕士学历为主，也<br />
-                有部分博士教授作为师资顾问；以学科教<br />
-                育专业为主，以儿童发展心理学为辅，其<br />
-                中近多一半教师从事过中小学教育...</a></td>
-              </tr>
-          </table></td>
-        </tr>
-      </table>
-      <table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
-        <tr>
-          <td height="31" background="images/index_61.jpg"><a href="<?php echo site_url('gallery') ?>" class="more2">更多&gt;&gt;</a></td>
-        </tr>
-      </table>
-      <table width="247" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td height="200" align="center" valign="top" background="images/index_66.jpg"><table width="220" border="0" cellspacing="0" cellpadding="0">
-            <tr>
-              <td width="65" height="48"><a href="<?php echo site_url('gallery') ?>"><img src="images/index7_11.jpg" width="49" height="33" border="0" class="img_border" /></a></td>
-              <td align="left"><a href="<?php echo site_url('gallery') ?>" title="2010年家长集体授予最值得信赖的学科辅导机构">2010年家长集体授予最值...</a></td>
-            </tr>
-          </table>
-            <table width="220" border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td width="65" height="48"><a href="<?php echo site_url('gallery') ?>"><img src="images/index7_11.jpg" width="49" height="33" border="0" class="img_border" /></a></td>
-                <td align="left"><a href="<?php echo site_url('gallery') ?>" title="2009年连续三年被评为最值得推荐的教育品牌">2009年连续三年被评为最...</a></td>
-              </tr>
-            </table>
-            <table width="220" border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td width="65" height="48"><a href="<?php echo site_url('gallery') ?>"><img src="images/index7_11.jpg" width="49" height="33" border="0" class="img_border" /></a></td>
-                <td align="left"><a href="<?php echo site_url('gallery') ?>" title="2008年尼德黄金学习规划系统获得国家级优秀教育产品奖">2008年尼德黄金学习规划...</a></td>
-              </tr>
-            </table>
-            <table width="220" border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td width="65" height="48"><a href="<?php echo site_url('gallery') ?>"><img src="images/index7_11.jpg" width="49" height="33" border="0" class="img_border" /></a></td>
-                <td align="left"><a href="<?php echo site_url('gallery') ?>" title="2007年被评为北京课外辅导机构最具有发展潜力奖">2007年被评为北京课外辅...</a></td>
-              </tr>
-            </table>
-			<table width="220" border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td><img src="images/index_66_bottom.gif"></td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-      <table width="247" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td height="100" valign="bottom"><a href="<?php echo site_url('contactUs') ?>"><img src="images/index_94.jpg" width="237" height="93" border="0" alt="<?php echo SITE_NAME; ?>" /></a></td>
+          <td height="103" valign="bottom"><a href="<?php echo site_url('contactUs') ?>"><img src="images/index_94.jpg" width="237" height="93" border="0" alt="<?php echo SITE_NAME; ?>" /></a></td>
         </tr>
     </table>
 	<table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
         <tr>
           <td align="center" valign="bottom"><a href="<?php echo site_url('entry/oo1') ?>" target="_blank"><img src="images/9d.gif" width="247" height="70" border="0" /></a></td>
+        </tr>
+      </table>
+      <table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
+        <tr>
+          <td align="center" valign="bottom"><a href="<?php echo site_url('topGrowth') ?>" target="_blank"><img src="images/jyczjh.gif" width="247" height="70" border="0" /></a></td>
         </tr>
       </table></td>
   </tr>
@@ -623,10 +646,9 @@
   <tr>
     <td width="83"><img src="images/index_98.jpg" width="83" height="36" alt="<?php echo SITE_NAME; ?>" /></td>
     <td bgcolor="#f1f1f1" class="font_12_20" style="border-bottom:1px solid #d7d7d7; border-right:1px solid #d7d7d7; border-top:1px solid #d7d7d7; padding-left:10px;">
-		<a href="http://fe.bnu.edu.cn/index.htm" target="_blank">北京师范大学教育学部</a> &nbsp;&nbsp;|&nbsp;&nbsp; 
-		<a href="http://www.bjeea.cn" target="_blank">北京教育考试院</a> &nbsp;&nbsp;|&nbsp;&nbsp; 
-		<a href="http://www.21cedu.org/index.html" target="_blank">21世纪教育研究院</a> &nbsp;&nbsp;|&nbsp;&nbsp; 
-		<a href="http://www.appshare.cn" target="_blank">工程师爸爸</a>
+		<a href="http://fe.bnu.edu.cn/index.htm">北京师范大学教育学部</a> &nbsp;&nbsp;|&nbsp;&nbsp; 
+		<a href="http://www.bjeea.cn">北京教育考试院</a> &nbsp;&nbsp;|&nbsp;&nbsp; 
+		<a href="http://www.21cedu.org/index.html">21世纪教育研究院</a>
 	</td>
   </tr>
 </table>

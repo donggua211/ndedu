@@ -1,42 +1,77 @@
-﻿<?php
-/* 
-  文章管理
-  admin权限.
- */
+<?php
+
 class Stats extends Controller {
 
 	function Stats()
 	{
 		parent::Controller();
+
 		$this->load->library('session');
+		
+		if (!$this->session->userdata("adminuser"))
+		{
+			redirect("admin/admin/login");
+		}
+		
 		$this->load->model('Stats_model');
-		$this->load->helper('admin');
-		
-		//如果没有经登录, 就跳转到admin/login登陆页
-		if (!has_login())
-		{
-			goto_login();
-		}
-		
-		$this->staff_info = get_staff_info();
-		//检查权限.
-		if(!check_role(array(GROUP_ADMIN), $this->staff_info['group_id']))
-		{
-			show_access_deny_page();
-		}
+		//$this->output->enable_profiler(TRUE);
 	}
 	
 	function index()
 	{
-		$this->keywords;
+		$data1['year_stats_from'] = '2008';
+		$this->load->view('admin/stats_time_selector.php', $data1);
 	}
 	
 		
 	function keywords()
 	{
-		$data['header']['meta_title'] = '查看搜索关键字 - 统计';
-		$data['main']['keyword_stats'] = $this->Stats_model->getKeywordStats();
-		_load_viewer($this->staff_info['group_id'], 'stats_keyword', $data);
+		$data['keyword_stats'] = $this->Stats_model->getKeywordStats();
+		$this->load->view('admin/stats_keyword.php', $data);
+	}
+	
+	function quickMenu()
+	{
+		if(isset($_POST['submit']) && !empty($_POST['submit']))
+		{		
+			$fields = $this->Stats_model->getAllFields();
+			$quick_menu = $this->input->post('quick_menu');
+			switch($quick_menu)
+			{
+				case 'year':
+					break;
+				case 'month':
+					break;
+				case 'day':
+				default:
+					$day = date('Y-m-d');
+					foreach($fields as $key => $field)
+					{
+						$fields_stats[$key] = $this->Stats_model->getStatsByDay($key, $day);
+					}
+					
+					ksort($fields);
+					ksort($fields_stats);
+					$this->load->view('admin/stats_by_day.php', array('fields' => $fields, 'fields_stats' => $fields_stats));
+					break;
+			}
+		}
+		else
+		{
+			$this->index();
+		}
+	}
+
+	function byDate()
+	{
+		$data['year_stats_from'] = '2008';
+	
+	}
+	
+	function Bymonth()
+	{
+		$data['year_stats_from'] = '2008';
+	
 	}
 }
 

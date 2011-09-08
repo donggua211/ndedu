@@ -1,21 +1,26 @@
-<div class="description">
-	<div class="center"><img src="images/jxjlp_03.jpg" width="878" height="149" /></div>
-</div>
-<div class="description">
-	<ul>
-		<li>尼德教育组织发起会员、家长参与的与学习成长有关的比赛，激励会员、鼓励家长。<br />青少年小发明、小创造活动比赛。<br />会员作文竞赛<br />
-家长家庭教育博文比赛</li><li>尼德教育组织发起针对幼小、小初、初高、18岁成人衔接期的会员成长仪式活动，<br />儿童节不再属于我<br />进入青春期<br />
-成人（18岁）意味着什么</li>
-		<li>尼德教育针对不同会员特点（兴趣、爱好、家庭背景、年龄等），在会员由低年级向高年级过渡时赠送很有意义品味的升学礼品，体现出一岁一变化、一岁更新。<br />天文望远镜、显微镜、贺卡、巧克力、文具盒</li>
-	</ul>
-</div>
-<div class="main">
-	<h2>据尼德教育统计，尼德成长会员与一般儿童比较：</h2>
-</div>
-
 <table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
-    <td width="613" valign="top" style="padding:15px; padding-top:0px;">
+    <td align="center" style="padding:15px;"><img src="images/jxjlp_03.jpg" width="878" height="149" /></td>
+  </tr>
+</table>
+<table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td style="padding:15px; padding-top:0px;">1、尼德教育组织发起会员、家长参与的与学习成长有关的比赛，激励会员、鼓励家长。<br />
+　 青少年小发明、小创造活动比赛。<br />
+　 会员作文竞赛<br />
+　 家长家庭教育博文比赛<br />
+2、尼德教育组织发起针对幼小、小初、初高、18岁成人衔接期的会员成长仪式活动，<br />
+　 儿童节不再属于我<br />
+　 进入青春期<br />
+　 成人（18岁）意味着什么<br />
+3、尼德教育针对不同会员特点（兴趣、爱好、家庭背景、年龄等），在会员由低年级向高年级过渡时赠送很有意义品味的升学礼品，体现出一岁一变化、一岁更新。<br />
+　 天文望远镜、显微镜、贺卡、巧克力、文具盒</td>
+  </tr>
+</table>
+<table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="613" valign="top" style="padding:15px; padding-top:0px;"><strong class="font_orange">据尼德教育统计，尼德成长会员与一般儿童比较：</strong>
+    
       <table border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;" bordercolor="#c6c6c6">
       <tr>
         <td width="415" valign="top" bgcolor="#FFFFCC">统计项目 </td>

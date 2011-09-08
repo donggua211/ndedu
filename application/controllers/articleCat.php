@@ -24,7 +24,7 @@ class ArticleCat extends Controller {
 		
 		$data['article_nav']['current_page'] = $page;
 		
-		$data['articles'] = $this->Article_model->getArticleByCat($cat_id, 'time', $this->articles_per_page, $this->articles_per_page * ($page-1), 'Y-m-d h:i');
+		$data['articles'] = $this->Article_model->getArticleByCat($cat_id, 'time', $this->articles_per_page, $this->articles_per_page * ($page-1));
 		
 		$data['num_sidebar_articles'] = $this->num_sidebar_articles;
 		$data['sidebar_articles'] = $this->Article_model->getArticleByCat($cat_id, 'count', $this->num_sidebar_articles);

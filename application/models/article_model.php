@@ -66,7 +66,7 @@ class Article_model extends Model {
 		
 		if($this->db->insert('article', $data))
 		{
-			return $this->db->insert_id();
+			return true;
 		}
 		else
 		{
@@ -121,8 +121,8 @@ class Article_model extends Model {
 			
 			foreach ($query->result_array() as $row)
 			{
-				$row['add_time'] = date('Y-m-d H:i:s', $row['add_time']);
-				$row['modified_time'] = date('Y-m-d H:i:s', $row['modified_time']);
+				$row['add_time'] = date('Y-m-d h:i:s', $row['add_time']);
+				$row['modified_time'] = date('Y-m-d h:i:s', $row['modified_time']);
 				$result[] = $row;
 			}
 			return $result;
@@ -227,12 +227,12 @@ class Article_model extends Model {
 		}
 	}
 	
-	function getArticleByCat($cat, $order_by='time', $limit = 0, $offset = 0, $time_formate = 'Y-m-d')
+	function getArticleByCat($cat, $order_by='time', $limit = 0, $offset = 0)
 	{
 
 		$this->db->where('is_open', '1');		
 		$this->db->where('cat_id', $cat);	
-		$this->db->select('article_id, title, add_time, count, content');
+		$this->db->select('article_id, title, add_time, count');
 		
 		if($order_by == 'time')	
 			$this->db->order_by("add_time", 'DESC');
@@ -243,60 +243,6 @@ class Article_model extends Model {
 			$this->db->limit($limit, $offset);
 		
 		$query = $this->db->get('article');
-		if ($query->num_rows() > 0)
-		{
-			$result = array();
-			
-			foreach ($query->result_array() as $row)
-			{
-				$row['add_time'] = date($time_formate, $row['add_time']);
-				$result[] = $row;
-			}
-			return $result;
-		}
-		else
-		{
-			return array();
-		}
-	}
-	
-	function getArticleByCatTag($cat, $tags, $order_by='time', $limit = 0, $offset = 0)
-	{
-		$sql = "SELECT DISTINCT ndedu_article.`article_id`, `title`, `add_time`, `count`, `rank`
-				FROM `ndedu_article`, `ndedu_tag_article` as a, `ndedu_tag_article` as b
-				WHERE `is_open` = '1'
-				AND `cat_id` = '$cat'
-				AND ndedu_article.article_id = a.article_id
-				AND a.article_id = b.article_id
-				AND rank=99 ";
-		
-		list($left_tag, $right_tag) = explode('-', $tags);
-		if( $left_tag != 0 )
-			$sql .= ' AND a.tag_id ='.$left_tag;
-		if( $right_tag != 0 )
-			$sql .= ' AND b.tag_id ='.$right_tag;
-		/*
-		if($left_tag != 0 || $right_tag != 0) {
-			$tag = '';
-			if( $left_tag != 0 )
-				$tag .= $left_tag.','; 
-			if( $right_tag != 0 )
-				$tag .= $right_tag.',';
-			
-			$sql .= ' AND ndedu_tag_article.tag_id in ('.trim($tag, ',').')';
-		}
-		*/
-		if($order_by == 'rank')
-			$sql .= " ORDER BY `rank` ASC, `add_time` DESC ";
-		elseif($order_by == 'time')	
-			$sql .= " ORDER BY `add_time` DESC ";
-		elseif($order_by == 'count')
-			$sql .= " ORDER BY `count` DESC ";
-		
-		if($limit > 0)
-			$sql .= " LIMIT $offset, $limit";					
-		
-		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
 			$result = array();
@@ -320,54 +266,6 @@ class Article_model extends Model {
 		$this->db->where('cat_id', $cat);	
 		return $this->db->count_all_results('article');
 		
-	}
-	function getTotleArticleNumByCatTag($cat, $tags)
-	{	
-		$sql = "SELECT DISTINCT ndedu_article.*
-				FROM `ndedu_article`, `ndedu_tag_article` as a, `ndedu_tag_article` as b
-				WHERE `cat_id` = '$cat'
-				AND ndedu_article.article_id = a.article_id
-				AND a.article_id = b.article_id 
-				AND rank=99 ";
-		
-		list($left_tag, $right_tag) = explode('-', $tags);
-		if( $left_tag != 0 )
-			$sql .= ' AND a.tag_id ='.$left_tag;
-		if( $right_tag != 0 )
-			$sql .= ' AND b.tag_id ='.$right_tag;
-		
-		$query = $this->db->query($sql);
-		return $query->num_rows();
-		
-	}
-	
-	function getRecommandArticle($cat_id, $limit = 0, $offset = 0, $time_formate = 'Y-m-d')
-	{
-		$this->db->where('is_open', '1');		
-		$this->db->where('cat_id', $cat_id);	
-		$this->db->where('rank <', 99);	
-		$this->db->select('article_id, title, add_time');
-		$this->db->order_by("rank", 'ASC');
-		
-		if($limit > 0)
-			$this->db->limit($limit, $offset);
-		
-		$query = $this->db->get('article');
-		if ($query->num_rows() > 0)
-		{
-			$result = array();
-			
-			foreach ($query->result_array() as $row)
-			{
-				$row['add_time'] = date($time_formate, $row['add_time']);
-				$result[] = $row;
-			}
-			return $result;
-		}
-		else
-		{
-			return array();
-		}
 	}
 }
 ?>

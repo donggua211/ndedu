@@ -1,10 +1,13 @@
-<div class="description">
-	<div class="center"><img src="images/hygs_03.jpg" width="878" height="149" /></div>
-</div>
-<div class="main" style="padding-left:30px; padding-top:6px;">
-	经过三年的积累，目前我们已经与北京市多所幼儿园、中小学校建立了长期良好的科研、实验、推广合作关系，近万名学生参加了尼德教育课程辅导，并享受了我们的会员服务。涉及数学、英语、语文等学科，小学和初中各年级。家长们对课程和服务都给出了中肯的评价，一下是一些家长和会员的评价：
-</div>
-
+<table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center" style="padding:15px; padding-bottom:0px;"><img src="images/hygs_03.jpg" width="878" height="149" /></td>
+  </tr>
+</table>
+<table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td valign="top" style="padding-left:30px; padding-top:6px;">经过三年的积累，目前我们已经与北京市多所幼儿园、中小学校建立了长期良好的科研、实验、推广合作关系，近万名学生参加了尼德教育课程辅导，并享受了我们的会员服务。涉及数学、英语、语文等学科，小学和初中各年级。家长们对课程和服务都给出了中肯的评价，一下是一些家长和会员的评价：</td>
+  </tr>
+</table>
 <table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td><img src="images/hygs_07.jpg" width="583" height="408" /></td>

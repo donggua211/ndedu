@@ -40,18 +40,6 @@
 |
 */
 
-/* compatible for both the upper and lower case of controller's name*/
-$route['topgrowth'] = "topGrowth";
-$route['topgrowth/(:any)'] = "topGrowth/$1";
-$route['usergrowth'] = "userGrowth";
-$route['usergrowth/(:any)'] = "userGrowth/$1";
-$route['articlecat/(:num)'] = "articleCat/index/$1";
-$route['articlecat/(:num)/(:num)'] = "articleCat/index/$1/$2";
-$route['growthglan'] = "growthPlan";
-$route['growthglan/(:any)'] = "growthPlan/index/$1";
-$route['tutorplan'] = "tutorPlan";
-$route['tutorplan/(:any)'] = "tutorPlan/index/$1";
-
 $route['default_controller'] = "entry";
 $route['scaffolding_trigger'] = "scaffolding";
 
@@ -64,43 +52,6 @@ $route['articleCat/(:num)/(:num)'] = "articleCat/index/$1/$2";
 
 $route['growthPlan/(:any)'] = "growthPlan/index/$1";
 $route['tutorPlan/(:any)'] = "tutorPlan/index/$1";
-$route['primaryEdu/(:any)'] = "short_article/primaryEdu/index/$1";
-$route['primaryEdu2/(:any)'] = "short_article/primaryEdu2/index/$1";
-$route['primaryEdu3/(:any)'] = "short_article/primaryEdu3/index/$1";
-$route['primaryEdu4/(:any)'] = "short_article/primaryEdu4/index/$1";
-$route['primaryEdu5/(:any)'] = "short_article/primaryEdu5/index/$1";
-$route['primaryEdu6/(:any)'] = "short_article/primaryEdu6/index/$1";
-$route['primaryEdu7/(:any)'] = "short_article/primaryEdu7/index/$1";
-$route['primaryEdu8/(:any)'] = "short_article/primaryEdu8/index/$1";
-$route['primaryEdu9/(:any)'] = "short_article/primaryEdu9/index/$1";
-$route['primaryEdu10/(:any)'] = "short_article/primaryEdu10/index/$1";
-$route['primaryEdu11/(:any)'] = "short_article/primaryEdu11/index/$1";
-$route['primaryEdu12/(:any)'] = "short_article/primaryEdu12/index/$1";
-$route['primaryEdu13/(:any)'] = "short_article/primaryEdu13/index/$1";
-$route['primaryEdu14/(:any)'] = "short_article/primaryEdu14/index/$1";
-$route['primaryEdu15/(:any)'] = "short_article/primaryEdu15/index/$1";
-$route['primaryEdu16/(:any)'] = "short_article/primaryEdu16/index/$1";
-$route['primaryEdu17/(:any)'] = "short_article/primaryEdu17/index/$1";
-$route['primaryEdu18/(:any)'] = "short_article/primaryEdu18/index/$1";
-$route['primaryEdu19/(:any)'] = "short_article/primaryEdu19/index/$1";
-$route['primaryEdu20/(:any)'] = "short_article/primaryEdu20/index/$1";
-$route['primaryEdu21/(:any)'] = "short_article/primaryEdu21/index/$1";
-$route['primaryEdu22/(:any)'] = "short_article/primaryEdu22/index/$1";
-$route['primaryEdu23/(:any)'] = "short_article/primaryEdu23/index/$1";
-$route['primaryEdu24/(:any)'] = "short_article/primaryEdu24/index/$1";
-$route['primaryEdu25/(:any)'] = "short_article/primaryEdu25/index/$1";
-$route['primaryEdu26/(:any)'] = "short_article/primaryEdu26/index/$1";
-$route['primaryEdu27/(:any)'] = "short_article/primaryEdu27/index/$1";
-$route['primaryEdu28/(:any)'] = "short_article/primaryEdu28/index/$1";
-$route['primaryEdu29/(:any)'] = "short_article/primaryEdu29/index/$1";
-$route['middleEdu/(:any)'] = "short_article/middleEdu/index/$1";
-$route['middleEdu2/(:any)'] = "short_article/middleEdu2/index/$1";
-$route['middleEdu3/(:any)'] = "short_article/middleEdu3/index/$1";
-$route['middleEdu4/(:any)'] = "short_article/middleEdu4/index/$1";
-$route['middleEdu5/(:any)'] = "short_article/middleEdu5/index/$1";
-$route['middleEdu6/(:any)'] = "short_article/middleEdu6/index/$1";
-$route['middleEdu7/(:any)'] = "short_article/middleEdu7/index/$1";
-$route['middlePer/(:any)'] = "short_article/middlePer/index/$1";
 
 $route['news'] = "articleCat/index/1";
 $route['14'] = "articleCat/index/7";
@@ -135,37 +86,9 @@ $route['team'] = "article/index/29";
 $route['gallery'] = "article/index/30";
 $route['jobs'] = "article/index/31";
 
-$route['contactUs'] = "staticPage/contactus";
-$route['siteMap'] = "staticPage/siteMap";
-$route['oo1'] = "staticPage/oo1";
-
-$route['school'] = "school/article/9/0-0/1";
-$route['school/article/(:any)/(:any)'] = "school/article/9/$1/$2";
-$route['school/book'] = "school/dangdang/10/0-0/1";
-$route['school/book/(:any)/(:any)'] = "school/dangdang/10/$1/$2";
-$route['school/vedio'] = "school/dangdang/11/0-0/1";
-$route['school/vedio/(:any)/(:any)'] = "school/dangdang/11/$1/$2";
-$route['school/software'] = "school/dangdang/12/0-0/1";
-$route['school/software/(:any)/(:any)'] = "school/dangdang/12/$1/$2";
-
-$route['evaluate'] = "evaluate/index";
-$route['evaluate/(:num)'] = "evaluate/doEvaluate/$1";
-
-$route['register'] = "user/register";
-$route['register/(:any)'] = "user/register/$1";
-
-$route['cp_order/(:num)/(:num)'] = "cp_order/index/$1/$2";
-$route['cp_login/(:num)'] = "cp_login/index/$1";
-$route['cp_login/(:num)/(:num)'] = "cp_login/index/$1/$2";
-$route['media'] = "articleCat/index/13";
-$route['cp1'] = "cp_login/index/1";
-$route['cp2'] = "cp_login/index/2";
-$route['cp3'] = "cp_login/index/3";
-$route['cp4'] = "cp_login/index/4";
-$route['cp5'] = "cp_login/index/5";
-$route['promo'] = "cp_promo";
-
-
+$route['contactUs'] = "entry/contactus";
+$route['siteMap'] = "entry/siteMap";
+$route['oo1'] = "entry/oo1";
 
 /* End of file routes.php */
 /* Location: ./system/application/config/routes.php */

@@ -116,48 +116,7 @@
             <tr>
               <td height="28" align="left" class="right_content_li"><a href="'.site_url('personalFiles').'">充分享受快客、享受成功</a></td>
             </tr>
-          </table>
-		  <table width="245" border="0" cellspacing="0" cellpadding="0">
-            <tr>
-              <td background="images/line_36.jpg" style="background-repeat:no-repeat; background-position:center" height="9"></td>
-            </tr>
-          </table>
-		  <table width="220" border="0" cellspacing="0" cellpadding="0" >
-            <tr>
-              <td height="21" background="images/hjxxgh_10.jpg" class="font_14" style="background-position:left; background-repeat:no-repeat; padding-left:30px;"><a href="'.site_url('advantage').'">尼德优势</a></td>
-            </tr>
-          </table>
-		  <table width="170" border="0" cellspacing="0" cellpadding="0" >
-            <tr>
-              <td height="28" align="left" class="right_content_li"><a href="'.site_url('advantage').'">黄金学习规划</a></td>
-            </tr>
-          </table>
-		  <table width="170" border="0" cellspacing="0" cellpadding="0" >
-            <tr>
-              <td height="28" align="left" class="right_content_li"><a href="'.site_url('advantage').'">多元化学科辅导</a></td>
-            </tr>
-          </table>
-		  <table width="170" border="0" cellspacing="0" cellpadding="0" >
-            <tr>
-              <td height="28" align="left" class="right_content_li"><a href="'.site_url('advantage').'">科学合理的课程设置</a></td>
-            </tr>
-          </table>
-		  <table width="170" border="0" cellspacing="0" cellpadding="0" >
-            <tr>
-              <td height="28" align="left" class="right_content_li"><a href="'.site_url('advantage').'">优中选优的师资团队</a></td>
-            </tr>
-          </table>
-		  <table width="170" border="0" cellspacing="0" cellpadding="0" >
-            <tr>
-              <td height="28" align="left" class="right_content_li"><a href="'.site_url('advantage').'">辅导模式</a></td>
-            </tr>
-          </table>
-		  <table width="170" border="0" cellspacing="0" cellpadding="0" >
-            <tr>
-              <td height="28" align="left" class="right_content_li"><a href="'.site_url('advantage').'">学习环境</a></td>
-            </tr>
-          </table>
-		  </td>
+          </table></td>
         </tr>
       </table>';
 	

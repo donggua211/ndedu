@@ -24,7 +24,7 @@ class Guestbook extends Controller {
 	
 	function submit()
 	{
-		$captcha = $this->input->myPost('captcha');
+		$captcha = $this->input->post('captcha');
 		
 		if($captcha == FAlSE || strtolower($captcha) != strtolower($this->session->userdata("captcha_word")))
 		{
@@ -35,11 +35,11 @@ class Guestbook extends Controller {
 			return FALSE;
 		}
 		
-		$message['username'] = $this->input->myPost('username');
-		$message['phone'] = $this->input->myPost('phone');
-		$message['grade'] = $this->input->myPost('grade');
-		$message['message'] = $this->input->myPost('message');
-		$message['from_page'] = $this->input->myPost('from_page');
+		$message['username'] = $this->input->post('username');
+		$message['phone'] = $this->input->post('phone');
+		$message['grade'] = $this->input->post('grade');
+		$message['message'] = $this->input->post('message');
+		$message['from_page'] = $this->input->post('from_page');
 		print_r($message);
 		exit();
 		$message['ip_address'] = real_ip();

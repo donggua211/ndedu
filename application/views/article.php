@@ -1,20 +1,16 @@
-<?php if( file_exists('images/cat_'.$article['cat_id'].'.jpg')): ?>
 <table width="920" border="0" align="center" cellpadding="0" cellspacing="0" class="banner_border" style="margin-top:10px;">
   <tr>
     <td align="left"><img src="images/cat_<?php echo $article['cat_id']; ?>.jpg" width="916" height="203" /></td>
   </tr>
 </table>
-<?php endif; ?>
 <table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
-    <td height="30" background="images/hjxxgh_10.jpg" class="mianbao">
-	您所在位置：<a href="<?php echo site_url('') ?>">首页</a> &gt; <a href="<?php echo site_url($cat_url) ?>"><?php echo $article['cat_name'] ?></a> &gt; <?php echo $article['title'] ?> 
-	</td>
+    <td height="30" background="images/hjxxgh_10.jpg" class="mianbao">您所在位置：<a href="<?php echo site_url('') ?>">首页</a> &gt; <a href="<?php echo site_url($cat_url) ?>"><?php echo $article['cat_name'] ?></a> &gt; <?php echo $article['title'] ?> </td>
   </tr>
 </table>
 <table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
-    <td align="left" valign="top"><table width="662" border="0" cellpadding="0" cellspacing="0" style="border:1px solid #c8c8c8; padding-bottom:6px;padding-left:10px;">
+    <td align="left" valign="top"><table width="662" border="0" cellpadding="0" cellspacing="0" style="border:1px solid #c8c8c8; padding-bottom:6px;">
         <tr>
           <td height="588"  width="600" align="center" valign="top"><table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:8px;">
             <tr>
@@ -23,7 +19,7 @@
           </table>
             <table width="600" border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td align="center" class="font_12_24" style="border-bottom:1px dashed #c8c8c8"><?php echo $article['add_time'] ?>　来源：尼德教育教研组<?php //echo $article['source'] ?>　 作者：<?php $rand=$article['article_id']%3; $author=array('王老师', '赵老师', '庞老师'); echo ( empty( $article['author'] ) ) ? $author[$rand] : $article['author'] ?> </td>
+                <td align="center" class="font_12_24" style="border-bottom:1px dashed #c8c8c8"><?php echo $article['add_time'] ?>　来源：<?php echo $article['source'] ?>　 作者：<?php echo ( empty( $article['author'] ) ) ? '匿名' : $article['author'] ?> </td>
               </tr>
             </table>
             <table width="610" border="0" cellspacing="0" cellpadding="0">
@@ -35,15 +31,30 @@
             </table>
             <table width="605" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px; background-color:#EEEEEE">
               <tr>
-                <td height="24" align="left" valign="middle" style="padding-left:10px;">
-					分享到:
-					<a href="http://v.t.sina.com.cn/share/share.php?title=<?php echo urlencode(site_url('article/'.$article['article_id']).' '.$article['title'])?>" title="新浪微博" target="_blank"><img src="images/icon/sina_t.gif" alt="分享到新浪微博" style="padding-left:5px;"></a>
-					<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=<?php echo urlencode(site_url('article/'.$article['article_id']))?>" title="QQ空间" target="_blank"><img src="images/icon/qqzone.gif"alt="分享到QQ空间" style="padding-left:5px;"></a>
-					<a href="http://www.kaixin001.com/repaste/share.php?rtitle=<?php echo urlencode(site_url('article/'.$article['article_id']).' '.$article['title'])?>" title="开心网" target="_blank"><img src="images/icon/kaixin.gif" alt="分享开心网" style="padding-left:5px;"></a>
-					<a href="http://apps.hi.baidu.com/share/?url=<?php echo urlencode(site_url('article/'.$article['article_id']))?>&title=<?php echo urlencode($article['title'])?>" target="_blank" title="百度空间"><img src="images/icon/baidu_kongjian.gif" alt="分享到百度空间" style="padding-left:5px;"></a>
-					<a href="http://www.douban.com/recommend/?url=<?php echo urlencode(site_url('article/'.$article['article_id']))?>&title=<?php echo urlencode($article['title'])?>" title="豆瓣" target="_blank"><img src="images/icon/douban.gif" alt="分享到豆瓣" style="padding-left:5px;"></a>
-					<a href="#" onclick="copyUrl();return false;" title="复制网址"><img src="images/icon/copy_url.gif" alt="复制网址" style="padding-left:5px;"></a>
-					<a href="mailto:?subject=在尼德教育网站发现一篇文章很不错&body=<?php echo $article['title']." ".site_url('article/'.$article['article_id'])?>" title="发送邮件" target="_blank"><img src="images/icon/mailto.gif" alt="发送邮件" style="padding-left:5px;"></a>
+                <td height="24" align="center" valign="middle">
+					页次:<?php echo $article_nav['current_page']?>/<?php echo $article_nav['totle_page']?>
+				<?php 
+					if($article_nav['current_page'] == 1)
+						echo '';
+					else
+						echo '<a href="'.site_url('article/'.$article['article_id'].'/1').'">首页</a> ';
+					
+					for($i = 1; $i <= $article_nav['totle_page']; $i++)
+					{
+						if($article_nav['current_page'] == $i)
+							echo $i.' ';
+						else
+							echo '<a href="'.site_url('article/'.$article['article_id'].'/'.$i).'">'.$i.' </a>';
+					}
+					
+					
+					if($article_nav['current_page'] == $article_nav['totle_page'])
+						echo '';
+					else
+						echo '<a href="'.site_url('article/'.$article['article_id'].'/'.$article_nav['totle_page']).'">尾页</a>';
+				
+				?>
+				共<?php echo $article_nav['totle_page'] ?>页
 				</td>
               </tr>
             </table></td>
@@ -72,7 +83,7 @@
 		?>
 			<table width="220" border="0" cellspacing="0" cellpadding="0" >
               <tr>
-                <td width="178" align="left" class="right_content_li"><a href="<?php echo site_url('article/'.$article['article_id']); ?>" title="<?php echo $article['title'] ?>"><?php echo utf_substr($article['title'], 24) ?></a></td>
+                <td width="178" align="left" class="right_content_li"><a href="<?php echo site_url('article/'.$article['article_id']); ?>" title="<?php echo $article['title'] ?>"><?php echo utf_substr($article['title'], 27) ?></a></td>
                 <td width="42" align="center" class="date" ><?php echo $article['count'] ?></td>
               </tr>
             </table>
@@ -163,13 +174,8 @@
       </table>
       <table width="247" border="0" cellspacing="0" cellpadding="0">
         <tr>
-          <td height="90" align="center" valign="bottom"><a href="<?php echo site_url('contactUs') ?>"><img src="images/index_94.jpg" width="237" height="93" border="0" /></a></td>
+          <td height="90" align="center" valign="bottom"><img src="images/index_94.jpg" width="237" height="93" /></td>
         </tr>
-      </table>
-	  <table width="247" border="0" cellspacing="0" cellpadding="0" style="margin-top:9px;">
-		<tr>
-			<td align="center" valign="bottom"><a href="<?php echo site_url('entry/oo1') ?>" target="_blank"><img src="images/9d.gif" width="247" height="70" border="0" /></a></td>
-		</tr>
-	</table></td>
+      </table></td>
   </tr>
 </table>

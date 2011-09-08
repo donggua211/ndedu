@@ -15,7 +15,11 @@
     <td align="left" valign="top"><table width="662" border="0" cellpadding="0" cellspacing="0" style="border:1px solid #c8c8c8; padding-bottom:6px;">
         <tr>
           <td height="588" align="center" valign="top"><table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
-                <tr><td></td></tr>
+                <tr>
+                  <td width="442" height="36" align="left" class="font_143_orange">标题</td>
+                  <td width="80" align="center" class="font_143_orange">发布日期</td>
+                  <td width="78" align="center" class="font_143_orange">点击次数</td>
+                </tr>
             </table>
 			
 		<?php
@@ -24,8 +28,9 @@
 		?>
 			<table width="600" border="0" cellspacing="0" cellpadding="0" style="border-bottom:1px dashed #c8c8c8;">
 			  <tr>
-				<td width="600" height="32" align="left" class="font_14" style="background-image:url(images/dott_15.jpg); background-repeat:no-repeat; background-position:5px center; padding-left:15px;"><a href="<?php echo site_url('article/'.$article['article_id']) ?>"><?php echo $article['title'] ?></a></td>
-				<td width="160" align="center" class="font_gray"><?php echo $article['add_time'] ?></td>
+				<td width="442" height="32" align="left" class="font_14" style="background-image:url(images/dott_15.jpg); background-repeat:no-repeat; background-position:5px center; padding-left:15px;"><a href="<?php echo site_url('article/'.$article['article_id']) ?>"><?php echo $article['title'] ?></a></td>
+				<td width="80" align="center" class="font_gray"><?php echo $article['add_time'] ?></td>
+				<td width="78" align="center" class="font_gray"><?php echo $article['count'] ?></td>
 			  </tr>
 			</table>
 		<?php
@@ -79,7 +84,10 @@
       <table width="247" border="0" cellpadding="0" cellspacing="0" class="gray_box">
         <tr>
           <td height="200" align="center" valign="top"><table width="220" border="0" cellspacing="0" cellpadding="0" style="margin-top:8px;">
-            <tr></tr>
+            <tr>
+              <td align="left" class="font_12_orange" style="padding-left:8px;">标题</td>
+              <td width="55" align="center" class="font_12_orange">点击次数</td>
+            </tr>
           </table>
 		  
 		<?php
@@ -87,7 +95,7 @@
 		?>
 			<table width="220" border="0" cellspacing="0" cellpadding="0" >
               <tr>
-                <td width="178" align="left" class="right_content_li"><a href="<?php echo site_url('article/'.$article['article_id']); ?>" title="<?php echo $article['title'] ?>"><?php echo utf_substr($article['title'], 24) ?></a></td>
+                <td width="178" align="left" class="right_content_li"><a href="<?php echo site_url('article/'.$article['article_id']); ?>" title="<?php echo $article['title'] ?>"><?php echo utf_substr($article['title'], 27) ?></a></td>
                 <td width="42" align="center" class="date" ><?php echo $article['count'] ?></td>
               </tr>
             </table>

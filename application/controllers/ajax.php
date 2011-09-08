@@ -8,17 +8,15 @@ class Ajax extends Controller {
 		$this->load->library('session');
 		$this->load->plugin('captcha');
 		$this->load->model('Guestbook_model');
-		$this->load->model('CP_comment_model');
-		$this->load->model('CP_quan_model');
-		$this->load->model('User_model');
 		$this->load->helper('ip');
-		$this->load->helper('common');
 	}
 	
 	function captcha()
 	{
 		header("content-type:image/gif");
-	
+		$captcha_word = 'asd3';
+		
+
 		$pool = '2345678abcdefhijkmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ';
 
 		$str = '';
@@ -59,7 +57,7 @@ class Ajax extends Controller {
 	
 	function submitGuestBook()
 	{
-		$captcha = $this->input->myPost('captcha');
+		$captcha = $this->input->post('captcha');
 		
 		if($captcha == FAlSE || strtolower($captcha) != strtolower($this->session->userdata("captcha_word")))
 		{
@@ -67,11 +65,11 @@ class Ajax extends Controller {
 		}
 		else
 		{
-			$message['username'] = $this->input->myPost('username');
-			$message['phone'] = $this->input->myPost('phone');
-			$message['grade'] = $this->input->myPost('grade');
-			$message['message'] = $this->input->myPost('message');
-			$message['from_page'] = $this->input->myPost('from_page');
+			$message['username'] = $this->input->post('username');
+			$message['phone'] = $this->input->post('phone');
+			$message['grade'] = $this->input->post('grade');
+			$message['message'] = $this->input->post('message');
+			$message['from_page'] = $this->input->post('from_page');
 			
 			$message['ip_address'] = real_ip();
 			$message['add_time'] = time();		
@@ -93,86 +91,6 @@ class Ajax extends Controller {
 			
 			}
 		}
-	}
-	
-	function add_comment()
-	{
-		$captcha = $this->input->myPost('captcha');
-		
-		if($captcha == FAlSE || strtolower($captcha) != strtolower($this->session->userdata("captcha_word")))
-		{
-			echo 'captcha wrong';
-		}
-		else
-		{
-			$comment['name'] = trim($this->input->Post('name'));
-			$comment['comment'] = trim($this->input->Post('comment'));
-			$comment['cat_id'] = $this->input->Post('cat_id');
-			
-			if($comment['name'] == FAlSE || $comment['comment'] == FAlSE)
-			{
-				echo 'field empty';
-			}
-			else
-			{
-				if($this->CP_comment_model->add($comment))
-				{
-					echo 'ok';
-				}
-				else
-				{
-					echo 'ng';
-				}
-			
-			}
-		}
-	}
-	
-	function checkUserExist()
-	{
-		$username = $this->input->myPost('username');
-		if($username == FAlSE)
-		{
-			echo 'warning: empty username';
-		}
-		else
-		{
-			if($this->User_model->checkUserExist($username))
-			{
-				echo 'yes';
-			}
-			else
-			{
-				echo 'no';
-			}
-		}
-	}
-	
-	function get_ship_value($province_id = 0)
-	{
-		$ship_fee = get_ship_fee($province_id);
-		echo implode(',', $ship_fee);
-	}
-	
-	function check_quan($quan_id = '')
-	{
-		if(empty($quan_id) )
-		{
-			echo 'ng';
-		}
-		else
-		{
-			$quan_info = $this->CP_quan_model->get_one_quan($quan_id, true);
-			if(!empty($quan_info))
-			{
-				echo $quan_info['value'];
-			}
-			else
-			{
-				echo 'ng';
-			}
-		}
-	
 	}
 }
 

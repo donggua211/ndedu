@@ -1,20 +1,23 @@
-<div class="description">
-	<div class="center"><img src="images/qwxy_03.jpg" width="877" height="185px" /></div>
-	<div class="center" style="margin-top:15px"><img src="images/qwxy_07.jpg" width="622" height="316" /></div>
-</div>
-<div class="description">
-	<ul>
-		<li>尼德教育对每一位会员的测评问卷和访谈结果进行充分分析和研究，定期整理出一份实用、有效、针对性强的学习成长指导方案，指导家长教育、孩子学习。</li>
-		<li>指导方案包括家庭教育与学员学习成长两方面，具体包括会员如何建立良好学习习惯、学习方法、生活行为习惯、个性发展、人格培养等。</li>
-	</ul>
-</div>
-<div class="main">
-	<h2>据尼德教育统计，尼德成长会员与一般儿童比较：</h2>
-</div>
-
 <table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
-    <td width="613" valign="top" style="padding:15px; padding-top:0px;">
+    <td align="center" style="padding:15px;"><img src="images/qwxy_03.jpg" width="877" height="185" /></td>
+  </tr>
+</table>
+<table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center"><img src="images/qwxy_07.jpg" width="645" height="295" /></td>
+  </tr>
+</table>
+<table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td style="padding:15px">1、尼德教育对每一位会员的测评问卷和访谈结果进行充分分析和研究，定期整理出一份实用、有效、针对性强的学习成长指导方案，指导家长教育、孩子学习。<br />
+2、指导方案包括家庭教育与学员学习成长两方面，具体包括会员如何建立良好学习习惯、学习方法、生活行为习惯、个性发展、人格培养等。</td>
+  </tr>
+</table>
+<table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="613" valign="top" style="padding:15px; padding-top:0px;"><strong class="font_orange">据尼德教育统计，尼德成长会员与一般儿童比较：</strong>
+    
       <table border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;" bordercolor="#c6c6c6">
       <tr>
         <td width="415" valign="top" bgcolor="#FFFFCC">统计项目 </td>

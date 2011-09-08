@@ -1,357 +1,177 @@
-var ajaxReq = new AjaxRequest();
+/*
+	[Discuz!] (C)2001-2007 Comsenz Inc.
+	This is NOT a freeware, use is subject to license terms
 
-function checkTable_falk(obj)
-{
-	var warningTable = document.getElementById('warningTable');
-	var warningText = document.getElementById('warningText');
-	
-	if( obj.username.value == '')
-	{
-		warningTable.style.display = '';
-		warningText.innerHTML = '请完全填写信息！';
-		obj.username.focus();	
-	}
-	else if( obj.password.value == '')
-	{
-		warningTable.style.display = '';
-		warningText.innerHTML = '请完全填写信息！';
-		obj.password.focus();
-	}
-	else if ( obj.captcha.value == '')
-	{
-		warningTable.style.display = '';
-		warningText.innerHTML = '验证码错误！';
-		reloadcode();
-		obj.captcha.focus();
-	}
-	else
-	{
-		warningTable.style.display = '';
-		warningText.innerHTML = '您输入信息有误！';
-	}
-	
-	return false;
-	
+	$RCSfile: common.js,v $
+	$Revision: 1.103 $
+	$Date: 2007/07/30 09:16:52 $
+*/
+
+var lang = new Array();
+var userAgent = navigator.userAgent.toLowerCase();
+var is_opera = userAgent.indexOf('opera') != -1 && opera.version();
+var is_moz = (navigator.product == 'Gecko') && userAgent.substr(userAgent.indexOf('firefox') + 8, 3);
+var is_ie = (userAgent.indexOf('msie') != -1 && !is_opera) && userAgent.substr(userAgent.indexOf('msie') + 5, 3);
+
+function $(id) {
+	return document.getElementById(id);
 }
 
-function checkTable_contactus_right(obj)
-{
-	var warningTable = document.getElementById('warningTable_right');
-	var warningText = document.getElementById('warningText_right');
-	
-	if( obj.username.value == '')
-	{
-		warningTable.style.display = '';
-		warningText.innerHTML = '请完全填写信息！';
-		obj.username.focus();	
-	}
-	else if( obj.phone.value == '')
-	{
-		warningTable.style.display = '';
-		warningText.innerHTML = '请完全填写信息！';
-		obj.phone.focus();
-	}
-	else if( obj.message.value == '')
-	{
-		warningTable.style.display = '';
-		warningText.innerHTML = '请完全填写信息！';
-		obj.message.focus();	
-	}
-	else if ( obj.captcha.value == '')
-	{
-		warningTable.style.display = '';
-		warningText.innerHTML = '验证码错误！';
-		reloadcode_right();
-		obj.captcha.focus();
-	}
-	else if( !checkPhone(obj.phone.value) )
-	{
-		warningTable.style.display = '';
-		warningText.innerHTML = '您的电话格式不正确';
-		obj.phone.focus();
-	}
-	else 
-	{
-		submitGuestbook_contactus_right(obj);		
-	}
-	
-	return false;
+Array.prototype.push = function(value) {
+	this[this.length] = value;
+	return this.length;
 }
 
-
-function submitGuestbook_contactus_right(obj)
-{
-	var warningTable = document.getElementById('warningTable_right');
-	var warningText = document.getElementById('warningText_right');
-	
-	warningTable.style.display = '';
-	warningText.innerHTML = '正在提交.....<img src="' + base_url + 'images/wait.gif" alt="Loading..." />';
-	
-	var handleRequest = function()
-	{
-		if (ajaxReq.getReadyState() == 4 && ajaxReq.getStatus() == 200) 
-		{
-			textData = ajaxReq.getResponseText();
-			
-			if(textData == 'ok')
-			{
-				obj.reset();
-				reloadcode_right();
-				warningText.innerHTML = '<span style="color:green">谢谢您的留言，我们会尽快和您联系！<span>';
-			}
-			else if(textData == 'captcha wrong')
-			{
-				reloadcode_right();
-				warningText.innerHTML = '验证码错误！';
-			}
-			else if(textData == 'field empty')
-			{
-				warningText.innerHTML = '请完全填写信息！';
-			}
-			else
-			{
-				warningText.innerHTML = '对不起，留言失败，请重试';
-			}
+function checkall(form, prefix, checkall) {
+	var checkall = checkall ? checkall : 'chkall';
+	for(var i = 0; i < form.elements.length; i++) {
+		var e = form.elements[i];
+		if(e.name && e.name != checkall && (!prefix || (prefix && e.name.match(prefix)))) {
+			e.checked = form.elements[checkall].checked;
 		}
 	}
-	
-	var param = "captcha=" + obj.captcha.value + "&username=" + obj.username.value + "&phone=" + obj.phone.value + "&grade=" + obj.grade.value + "&message=" + obj.message.value + "&from_page=" + thisURL;
-	
-	ajaxReq.send("POST", site_url + "/ajax/submitGuestBook/", handleRequest, 'application/x-www-form-urlencoded', 'utf8', param);
-
 }
 
-function checkTable(obj)
-{
-	var warningTable = document.getElementById('warningTable');
-	var warningText = document.getElementById('warningText');
-	
-	if( obj.username.value == '')
-	{
-		warningTable.style.display = '';
-		warningText.innerHTML = '请完全填写信息！';
-		obj.username.focus();	
-	}
-	else if( obj.phone.value == '')
-	{
-		warningTable.style.display = '';
-		warningText.innerHTML = '请完全填写信息！';
-		obj.phone.focus();
-	}
-	else if( obj.message.value == '')
-	{
-		warningTable.style.display = '';
-		warningText.innerHTML = '请完全填写信息！';
-		obj.message.focus();	
-	}
-	else if ( obj.captcha.value == '')
-	{
-		warningTable.style.display = '';
-		warningText.innerHTML = '验证码错误！';
-		reloadcode();
-		obj.captcha.focus();
-	}
-	else if( !checkPhone(obj.phone.value) )
-	{
-		warningTable.style.display = '';
-		warningText.innerHTML = '您的电话格式不正确';
-		obj.phone.focus();
-	}
-	else 
-	{
-		submitGuestbook(obj);		
-	}
-	
-	return false;
-}
-
-function submitGuestbook(obj)
-{
-	var warningTable = document.getElementById('warningTable');
-	var warningText = document.getElementById('warningText');
-	
-	warningTable.style.display = '';
-	warningText.innerHTML = '正在提交.....<img src="' + base_url + 'images/wait.gif" alt="Loading..." />';
-	
-	var handleRequest = function()
-	{
-		if (ajaxReq.getReadyState() == 4 && ajaxReq.getStatus() == 200) 
-		{
-			textData = ajaxReq.getResponseText();
-			
-			if(textData == 'ok')
-			{
-				obj.reset();
-				reloadcode();
-				warningText.innerHTML = '<span style="color:green">谢谢您的留言，我们会尽快和您联系！<span>';
-			}
-			else if(textData == 'captcha wrong')
-			{
-				reloadcode();
-				warningText.innerHTML = '验证码错误！';
-			}
-			else if(textData == 'field empty')
-			{
-				warningText.innerHTML = '请完全填写信息！';
-			}
-			else
-			{
-				warningText.innerHTML = '对不起，留言失败，请重试';
-			}
-		}
-	}
-	
-	var param = "captcha=" + obj.captcha.value + "&username=" + obj.username.value + "&phone=" + obj.phone.value + "&grade=" + obj.grade.value + "&message=" + obj.message.value + "&from_page=" + thisURL;
-	
-	ajaxReq.send("POST", site_url + "/ajax/submitGuestBook/", handleRequest, 'application/x-www-form-urlencoded', 'utf8', param);
-
-}
-
-function checkPhone(str)
-{
-	var checkMobile = (/^(?:1[358]\d)-?\d{5}(\d{3}|\*{3})/.test(str));
-	var checkTel = (/^(([0\+]\d{2,3})?(-)?(0\d{2,3}))(-)?(\d{7,8})(-(\d{3,}))?/.test(str));
-	
-	if (checkMobile||checkTel)
-	{  
-		return true;  
-	}
-	else 
-	{  
-		return false;  
-	}
-}
-
-function check_email(str)
-{
-	var check_email = /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-	return check_email.test(str); 
-}
-
-function check_postcode(str)
-{
-	var pattern =/^[0-9]{6}$/;
-	return pattern.test(str); 
-}
-
-function reloadcode()
-{
-	var verify=document.getElementById('safecode');
-	verify.setAttribute('src',site_url + '/ajax/captcha/' + Math.random());
-}
-		
-function reloadcode_right()
-{
-	var verify=document.getElementById('safecode_right');
-	verify.setAttribute('src',site_url + '/ajax/captcha/' + Math.random());
-}
-		
-function collapse_switch( id )
-{
-	var student = document.getElementById( id );
-	if(student.style.display == 'none') {
-		student.style.display = '';
-	} else {
-		student.style.display = 'none';
-	}
-}
-
-function copyUrl() {
-	var a = this.location.href;
-	var b = document.title;
-	var c = b + " " + a;
-	var userAgent = navigator.userAgent.toLowerCase();
-	var is_opera = userAgent.indexOf('opera') != -1 && opera.version();
-	var is_ie = (userAgent.indexOf('msie') != -1 && !is_opera) && userAgent.substr(userAgent.indexOf('msie') + 5, 3);
-
+function doane(event) {
+	e = event ? event : window.event;
 	if(is_ie) {
-		clipboardData.setData('Text', c);
-		alert("复制成功,请粘贴到你的QQ/MSN上推荐给你的好友！");
-	} else if(prompt('你使用的是非IE核心浏览器，请按下 Ctrl+C 复制代码到剪贴板', c)) {
-		alert('复制成功,请粘贴到你的QQ/MSN上推荐给你的好友！');
+		e.returnValue = false;
+		e.cancelBubble = true;
+	} else if(e) {
+		e.stopPropagation();
+		e.preventDefault();
+	}
+}
+
+function fetchCheckbox(cbn) {
+	return $(cbn) && $(cbn).checked == true ? 1 : 0;
+}
+
+function getcookie(name) {
+	var cookie_start = document.cookie.indexOf(name);
+	var cookie_end = document.cookie.indexOf(";", cookie_start);
+	return cookie_start == -1 ? '' : unescape(document.cookie.substring(cookie_start + name.length + 1, (cookie_end > cookie_start ? cookie_end : document.cookie.length)));
+}
+
+function thumbImg(obj) {
+	var zw = obj.width;
+	var zh = obj.height;
+	if(is_ie && zw == 0 && zh == 0) {
+		var matches
+		re = /width=(["']?)(\d+)(\1)/i
+		matches = re.exec(obj.outerHTML);
+		zw = matches[2];
+		re = /height=(["']?)(\d+)(\1)/i
+		matches = re.exec(obj.outerHTML);
+		zh = matches[2];
+	}
+	obj.resized = true;
+	obj.style.width = zw + 'px';
+	obj.style.height = 'auto';
+	if(obj.offsetHeight > zh) {
+		obj.style.height = zh + 'px';
+		obj.style.width = 'auto';
+	}
+	if(is_ie) {
+		var imgid = 'img_' + Math.random();
+		obj.id = imgid;
+		setTimeout('try {if ($(\''+imgid+'\').offsetHeight > '+zh+') {$(\''+imgid+'\').style.height = \''+zh+'px\';$(\''+imgid+'\').style.width = \'auto\';}} catch(e){}', 1000);
+	}
+	obj.onload = null;
+}
+
+function imgzoom(obj) {}
+
+function in_array(needle, haystack) {
+	if(typeof needle == 'string' || typeof needle == 'number') {
+		for(var i in haystack) {
+			if(haystack[i] == needle) {
+					return true;
+			}
+		}
+	}
+	return false;
+}
+
+function setcopy(text, alertmsg){
+	if(is_ie) {
+		clipboardData.setData('Text', text);
+		alert(alertmsg);
+	} else if(prompt('Press Ctrl+C Copy to Clipboard', text)) {
+		alert(alertmsg);
+	}
+}
+
+function isUndefined(variable) {
+	return typeof variable == 'undefined' ? true : false;
+}
+
+function mb_strlen(str) {
+	var len = 0;
+	for(var i = 0; i < str.length; i++) {
+		len += str.charCodeAt(i) < 0 || str.charCodeAt(i) > 255 ? (charset == 'utf-8' ? 3 : 2) : 1;
+	}
+	return len;
+}
+
+function setcookie(cookieName, cookieValue, seconds, path, domain, secure) {
+	var expires = new Date();
+	expires.setTime(expires.getTime() + seconds);
+	document.cookie = escape(cookieName) + '=' + escape(cookieValue)
+		+ (expires ? '; expires=' + expires.toGMTString() : '')
+		+ (path ? '; path=' + path : '/')
+		+ (domain ? '; domain=' + domain : '')
+		+ (secure ? '; secure' : '');
+}
+
+function strlen(str) {
+	return (is_ie && str.indexOf('\n') != -1) ? str.replace(/\r?\n/g, '_').length : str.length;
+}
+
+function updatestring(str1, str2, clear) {
+	str2 = '_' + str2 + '_';
+	return clear ? str1.replace(str2, '') : (str1.indexOf(str2) == -1 ? str1 + str2 : str1);
+}
+
+function toggle_collapse(objname, noimg) {
+	var obj = $(objname);
+	obj.style.display = obj.style.display == '' ? 'none' : '';
+	if(!noimg) {
+		var img = $(objname + '_img');
+		img.src = img.src.indexOf('_yes.gif') == -1 ? img.src.replace(/_no\.gif/, '_yes\.gif') : img.src.replace(/_yes\.gif/, '_no\.gif')
+	}
+	var collapsed = getcookie('discuz_collapse');
+	collapsed =  updatestring(collapsed, objname, !obj.style.display);
+	setcookie('discuz_collapse', collapsed, (collapsed ? 86400 * 30 : -(86400 * 30 * 1000)));
+}
+
+function trim(str) {
+	return (str + '').replace(/(\s+)$/g, '').replace(/^\s+/g, '');
+}
+
+function updateseccode() {
+	type = seccodedata[2];
+	var rand = Math.random();
+	if(type == 2) {
+		$('seccodeimage').innerHTML = '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="' + seccodedata[0] + '" height="' + seccodedata[1] + '" align="middle">'
+			+ '<param name="allowScriptAccess" value="sameDomain" /><param name="movie" value="seccode.php?update=' + rand + '" /><param name="quality" value="high" /><param name="wmode" value="transparent" /><param name="bgcolor" value="#ffffff" />'
+			+ '<embed src="seccode.php?update=' + rand + '" quality="high" wmode="transparent" bgcolor="#ffffff" width="' + seccodedata[0] + '" height="' + seccodedata[1] + '" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" /></object>';
 	} else {
-		alert('目前只支持IE，请复制地址栏URL,推荐给你的QQ/MSN好友！');
-	}
-} 
-function SetHome(obj,vrl){
-	try{
-		obj.style.behavior='url(#default#homepage)';obj.setHomePage(vrl);
-	}
-	
-	catch(e){
-		if(window.netscape) {
-			try {
-				netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
-			}
-			catch (e)
-			{
-		alert("抱歉！您的浏览器不支持直接设为首页。请在浏览器地址栏输入“about:config”并回车然后将 [signed.applets.codebase_principal_support]设置为“true”，点击“加入收藏”后忽略安全提示，即可设置成功。");
-			}
-			var prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch);
-			prefs.setCharPref('browser.startup.homepage',vrl);
-		}
-	}
-} 
-/*第一种形式 第二种形式 更换显示样式*/
-function setTab(name,cursel,n){
-	for(i=1;i<=n;i++){
-		var menu=document.getElementById(name+i);
-		var con=document.getElementById("con_"+name+"_"+i);
-		menu.className=i==cursel?"hover":"";
-		con.style.display=i==cursel?"block":"none";
+		$('seccodeimage').innerHTML = '<img id="seccode" onclick="updateseccode()" width="' + seccodedata[0] + '" height="' + seccodedata[1] + '" src="seccode.php?update=' + rand + '" class="absmiddle" alt="" />';
 	}
 }
 
-function checkEvaluate(count){
-	var finished = 0;
-	for( var i=1; i <= count; i++){
-		var option_1 = document.getElementById('option' + i + '1').checked;
-		var option_2 = document.getElementById('option' + i + '2').checked;
-		
-		if(document.getElementById('option' + i + '3'))
-			var option_3 = document.getElementById('option' + i + '3').checked;
-		else
-			var option_3 = false;
-		
-		if(document.getElementById('option' + i + '4'))
-			var option_4 = document.getElementById('option' + i + '4').checked;
-		else
-			var option_4 = false;
-		
-		if(document.getElementById('option' + i + '5'))
-			var option_5 = document.getElementById('option' + i + '5').checked;
-		else
-			var option_5 = false;
-					
-		if(document.getElementById('option' + i + '6'))
-			var option_6 = document.getElementById('option' + i + '6').checked;
-		else
-			var option_6 = false;
-		
-		var warning = document.getElementById("warning" + i);
-		warning.style.padding = '2px';
-		warning.style.margin = '0 10px 0 0';
-		if(option_1 == true || option_2 == true || option_3 == true || option_4 == true || option_5 == true || option_6 == true ){
-			warning.innerHTML='<img src="images/icon/ok.gif" style="vertical-align:middle">已选';
-			finished++;
-		} else {
-			warning.style.border = '1px solid #FF8080';
-			warning.innerHTML='<img src="images/icon/warning.gif" style="vertical-align:middle">您忘记选这道题啦~';
-		}
-	}
-	
-	if( finished == count )
-		return true;
-	else
-		return false;
+function updatesecqaa() {
+	var x = new Ajax();
+	x.get('ajax.php?action=updatesecqaa&inajax=1', function(s) {
+		$('secquestion').innerHTML = s;
+	});
 }
 
-function switch_tag(ul_id, index)
-{
-	var lis_objs = document.getElementById(ul_id).getElementsByTagName("li");
-	
-	for(var i=0,l=lis_objs.length;i<l;i++){
-		lis_objs[i].className = '';
+function _attachEvent(obj, evt, func) {
+	if(obj.addEventListener) {
+		obj.addEventListener(evt, func, false);
+	} else if(obj.attachEvent) {
+		obj.attachEvent("on" + evt, func);
 	}
-	lis_objs[index].className = 'cover';
 }
