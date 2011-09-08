@@ -12,18 +12,13 @@ class CRM_Staff_model extends Model {
         $where .= " WHERE staff.is_active = {$filter['is_active']} ";//是否注销
         $where .= " AND staff.is_delete = {$filter['is_delete']} ";//是否删除
 		
-		//是否在试用期
-        if (isset($filter['in_trial']))
-        {
-            $where .= " AND staff.in_trial = {$filter['in_trial']} ";
-        }
 		//添加的时间段: 开始时间
-        if (isset($filter['start_time']) && $filter['start_time'])
+        if ($filter['start_time'])
         {
             $where .= " AND staff.add_time >= {$filter['start_time']} ";
         }
 		//添加的时间段: 结束时间
-		if (isset($filter['end_time']) && $filter['end_time'])
+		if ($filter['end_time'])
         {
             $where .= " AND staff.add_time <= {$filter['end_time']} ";
         }
@@ -82,19 +77,13 @@ class CRM_Staff_model extends Model {
 		$where = '';
 		$where .= " WHERE staff.is_active = {$filter['is_active']} ";//是否注销
         $where .= " AND staff.is_delete = {$filter['is_delete']} ";//是否删除
-		
-		//是否在试用期
-        if (isset($filter['in_trial']))
-        {
-            $where .= " AND staff.in_trial = {$filter['in_trial']} ";
-        }
 		//添加的时间段: 开始时间
-        if (isset($filter['start_time']) && $filter['start_time'])
+        if ($filter['start_time'])
         {
             $where .= " AND staff.add_time >= {$filter['start_time']} ";
         }
 		//添加的时间段: 结束时间
-		if (isset($filter['end_time']) && $filter['end_time'])
+		if ($filter['end_time'])
         {
             $where .= " AND staff.add_time <= {$filter['end_time']} ";
         }
@@ -157,7 +146,7 @@ class CRM_Staff_model extends Model {
 		$sql = "SELECT consultant_id, count(status_history_id) as not_signup
 				FROM ".$this->db->dbprefix('crm_student_status_history')."
 				WHERE consultant_id IN ($staff_string)
-				AND status = ".STUDENT_STATUS_NOT_APPOINTMENT.' '.$where.
+				AND status = ".STUDENT_STATUS_NOT_SIGNUP.' '.$where.
 				" GROUP BY consultant_id";
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
@@ -344,13 +333,6 @@ class CRM_Staff_model extends Model {
 		$data['is_active'] = 1;
 		$data['add_time'] = date('Y-m-d H:i:s');
 		$data['update_time'] = date('Y-m-d H:i:s');
-		
-		//ndedu1.2.2 新加： 性别，生日，星级，是否是试用期
-		$data['dob'] = $staff['dob'];
-		$data['gender'] = $staff['gender'];
-		$data['level'] = $staff['level'];
-		$data['in_trial'] = $staff['in_trial'];
-			
 		
 		if($this->db->insert('crm_staff', $data))
 		{

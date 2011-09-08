@@ -21,7 +21,7 @@ class Dangdang_model extends Model {
 			$dangdangs = array();
 			foreach ($query->result_array() as $row)
 			{
-				$row['add_time'] = date('Y-m-d H:i', $row['add_time']);
+				$row['add_time'] = date('Y-m-d h:i', $row['add_time']);
 				$row['image_url'] = $this->get_imageurl($row['pid'],'p');
 				$dangdangs[$row['pid']] = $row;
 			}

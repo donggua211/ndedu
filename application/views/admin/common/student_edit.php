@@ -24,38 +24,22 @@
 						{
 							echo '<option value="'.$status.'" '.((isset($student['status']) && $status == $student['status']) ? 'SELECTED' : '').'>'.get_student_status_text($status).'</option>';
 						}
-						
-						if(is_admin() || is_school_admin()) //未约访状态, 只能管理员修改
+						if(is_admin() || is_school_admin()) //未报名状态, 只能管理员修改
 						{
-							show_status_options(STUDENT_STATUS_NOT_APPOINTMENT, $student);
+							show_status_options(STUDENT_STATUS_NOT_SIGNUP, $student);
 						}
-						
-						if(is_admin() || is_school_admin() || is_cs() || is_consultant()) //正在约状态, 只能管理员, 客服, 咨询师修改
-						{
-							show_status_options(STUDENT_STATUS_APPOINTMENT, $student);
-						}
-						
-						
-						if(is_admin() || is_school_admin() || is_consultant()) //已约访状态, 只能管理员, 咨询师修改
-						{
-							show_status_options(STUDENT_STATUS_HAS_APPOINTMENT, $student);
-						}
-						
 						if(is_admin() || is_school_admin() || is_consultant()) //已报名状态, 管理员, 咨询师可以修改
 						{
 							show_status_options(STUDENT_STATUS_SIGNUP, $student);
 						}
-						
 						if(is_admin() || is_school_admin()) //正在学状态, 只能管理员修改
 						{
 							show_status_options(STUDENT_STATUS_LEARNING, $student);
 						}
-						
 						if(is_admin() || is_school_admin() || is_supervisor()) //已学完状态, 管理员, 班主任可以修改
 						{
 							show_status_options(STUDENT_STATUS_FINISHED, $student);
 						}
-						
 						if(is_admin() || is_school_admin()) //正在学状态, 只能管理员修改
 						{
 							show_status_options(STUDENT_STATUS_INACTIVE, $student);
@@ -64,23 +48,6 @@
 					</select>
 				</td>
 			</tr>
-			<?php if(is_admin() || is_school_admin() || is_cs()): //只有管理员修改咨询师 ?>
-			<tr>
-				<td class="label" valign="top"><span class="notice-star"> * </span>咨询师: </td>
-				<td>
-					<select name="consultant_id">
-						<option value='0'>请选择...</option>
-						<?php
-							var_dump($consultants);
-							foreach($consultants as $consultant)
-							{
-								echo '<option value="'.$consultant['staff_id'].'" '.((isset($consultant['consultant_id']) && $consultant['staff_id'] == $student['consultant_id']) ? 'SELECTED' : '' ).'>'.$consultant['name'].'</option>';
-							}
-						?>
-					</select>
-				</td>
-			</tr>
-			<?php endif; ?>
 			<?php if(is_admin() || is_school_admin()): //只有管理员可以修改班主任 ?>
 			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>班主任: </td>
@@ -118,15 +85,6 @@
 				<td class="label" valign="top"><span class="notice-star"> * </span>姓名: </td>
 				<td><input name="name" type="text" value="<?php echo (isset($student['name'])) ? $student['name'] :''; ?>" size="40" /></td>
 			</tr>
-			
-			<tr>
-				<td class="label" valign="top"><span class="notice-star"> * </span>性别: </td>
-				<td>
-					<input name="gender" type="radio" value="m" <?php echo ((isset($student['gender']) && $student['gender'] == 'm') ? 'CHECKED' : '' ); ?> />男
-					<input name="gender" type="radio" value="f" <?php echo ((isset($student['gender']) && $student['gender'] == 'f') ? 'CHECKED' : '' ); ?> />女
-				</td>
-			</tr>
-			
 			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>年级: </td>
 				<td>

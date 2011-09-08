@@ -27,7 +27,7 @@ class Staff extends Controller {
 		//检查权限.
 		if(!check_role(array(GROUP_ADMIN, GROUP_SCHOOLADMIN), $this->staff_info['group_id']))
 		{
-			//show_access_deny_page();
+			show_access_deny_page();
 		}
 		
 		//$this->output->enable_profiler(TRUE);
@@ -45,7 +45,6 @@ class Staff extends Controller {
 		$filter['name'] = $this->input->post('name');
 		$filter['is_active'] = 1;
 		$filter['is_delete'] = 0;
-		$filter['in_trial'] = 0;
 	
 		$filter = $this->_parse_filter($filter_string, $filter);
 		
@@ -77,34 +76,7 @@ class Staff extends Controller {
 		$data['main']['branches'] = $this->_get_branch();
 		$data['main']['grades'] = $this->_get_grade();
 		$data['main']['groups'] = $this->_get_groups();
-		$data['main']['filter'] = $filter;
 		_load_viewer($this->staff_info['group_id'], 'staff_all', $data);
-	}
-	
-	function one($staff_id)
-	{
-		//判断student_id是否合法.
-		$staff_id = intval($staff_id);
-		if($staff_id <= 0)
-		{
-			show_error_page('您输入的员工ID不合法, 请返回重试.', 'admin/staff');
-			return false;
-		}
-		
-		//获取 staff 信息.
-		$staff_info = $this->CRM_Staff_model->getOne($staff_id);
-		
-		//检查权限
-		if(empty($staff_info))
-		{
-			show_error_page('您所查询的员工不存在!', 'admin/student');
-			return false;
-		}
-		
-		$data['header']['meta_title'] = $staff_info['name'].' -查看员工 - 管理员工';
-		$data['main']['staff'] = $staff_info;
-		
-		_load_viewer($this->staff_info['group_id'], 'staff_one', $data);
 	}
 	
 	function inactive_staff()
@@ -115,11 +87,6 @@ class Staff extends Controller {
 	function delete_staff()
 	{
 		$this->index('page=1&is_delete=1');
-	}
-	
-	function trial_staff()
-	{
-		$this->index('page=1&is_active=1&is_delete=0&in_trial=1');
 	}
 	
 	function performance($filter_string = '')
@@ -292,15 +259,9 @@ class Staff extends Controller {
 			$new_staff['address'] = $this->input->post('address');
 			$new_staff['remark'] = $this->input->post('remark');
 			
-			//ndedu1.2.2 新加： 性别，生日，星级，是否是试用期
-			$new_staff['dob'] = $this->input->post('dob');
-			$new_staff['gender'] = $this->input->post('gender');
-			$new_staff['level'] = $this->input->post('level');
-			$new_staff['in_trial'] = $this->input->post('trial') ?  1 : 0;
-			
-			if(empty($new_staff['username']) || empty($new_staff['password']) || empty($new_staff['password_c']) || empty($new_staff['name']) || empty($new_staff['phone']) || empty($new_staff['qq']) || empty($new_staff['email']) || empty($new_staff['group_id']) || empty($new_staff['branch_id']) || empty($new_staff['grade_id']) || empty($new_staff['dob']) || empty($new_staff['gender']) || empty($new_staff['level']))
+			if(empty($new_staff['username']) || empty($new_staff['password']) || empty($new_staff['password_c']) || empty($new_staff['name']) || empty($new_staff['phone']) || empty($new_staff['qq']) || empty($new_staff['email']) || empty($new_staff['group_id']) || empty($new_staff['branch_id']) || empty($new_staff['grade_id']))
 			{
-				$notify = '请填写完整的员工信息';
+				$notify = '请填写完整的学生信息';
 				$this->_load_staff_add_view($notify, $new_staff);
 			}
 			elseif(!$this->_check_username($new_staff['username']))
@@ -439,50 +400,6 @@ class Staff extends Controller {
 		}	
 	}
 	
-	
-	function become_full($staff_id, $in_trial = 0)
-	{
-		//判断staff_id是否合法.
-		$staff_id = intval($staff_id);
-		if($staff_id <= 0)
-		{
-			show_error_page('您输入的员工ID不合法, 请返回重试.', 'admin/staff');
-			return false;
-		}
-		
-		$staff_info = $this->CRM_Staff_model->getOne($staff_id);
-		
-		//检查权限.
-		switch($this->staff_info['group_id'])
-		{
-			case GROUP_ADMIN: //admin管理有权限
-				break;
-			case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区员工的权限
-				if($staff_info['branch_id'] != $this->staff_info['branch_id'])
-				{
-					show_error_page('您没有权限注销该员工: 他/她不在您所在的校区!', 'admin/staff');
-					return false;
-				}
-				break;
-			default:
-				show_error_page('您没有权限注销该员工: 请重新登录或者联系管理员!', 'admin/staff');
-				return false;
-		}
-		
-		$update_field['in_trial'] = $in_trial;
-		if($this->CRM_Staff_model->update($staff_id, $update_field))
-		{
-			$notify = '员工已经成功转正!';
-			show_result_page($notify, 'admin/staff/trial_staff');
-		}
-		else
-		{
-			$notify = '员工已经成功转正, 请重试.';
-			show_error_page($notify, 'admin/staff/trial_staff');
-		}	
-	}
-	
-	
 	function change_psd()
 	{
 		if(isset($_POST['submit']) && !empty($_POST['submit']))
@@ -579,10 +496,8 @@ class Staff extends Controller {
 	function _load_staff_add_view($notify = '', $staff = array())
 	{
 		$data['header']['meta_title'] = '添加员工 - 管理员工';
-		$data['header']['css_file'] = '../calendar.css';
-		$data['footer']['js_file'][] = '../calendar.js';
-		$data['footer']['js_file'][] = '../ajax.js';
-		$data['footer']['js_file'][] = 'staff.js';
+		$data['header']['js_file'][] = '../ajax.js';
+		$data['header']['js_file'][] = 'staff.js';
 		$data['main']['branches'] = $this->_get_branch();
 		$data['main']['groups'] = $this->_get_groups();
 		$data['main']['grades'] = $this->_get_grade();
@@ -655,7 +570,6 @@ class Staff extends Controller {
 				case 'end_time':
 					if(!check_valid_date($input_filter[$key]))
 						continue;
-					$filter[$key] = $input_filter[$key];
 					break;
 				case 'page':
 				case 'branch_id':
@@ -663,7 +577,6 @@ class Staff extends Controller {
 				case 'group_id':
 				case 'is_active':
 				case 'is_delete':
-				case 'in_trial':
 					$input_filter[$key] = intval($input_filter[$key]);
 					break;
 				case 'name':

@@ -121,8 +121,8 @@ class Article_model extends Model {
 			
 			foreach ($query->result_array() as $row)
 			{
-				$row['add_time'] = date('Y-m-d H:i:s', $row['add_time']);
-				$row['modified_time'] = date('Y-m-d H:i:s', $row['modified_time']);
+				$row['add_time'] = date('Y-m-d h:i:s', $row['add_time']);
+				$row['modified_time'] = date('Y-m-d h:i:s', $row['modified_time']);
 				$result[] = $row;
 			}
 			return $result;

@@ -39,14 +39,12 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 /*
  * Constans for Admin Panel
  */
-define('STUDENT_PER_PAGE', 15); //每页显示15个学员
-define('STAFF_PER_PAGE', 15); //每页显示15个员工
-define('DOCUMENT_PER_PAGE', 10); //每页显示15个学员
-
+ define('STUDENT_PER_PAGE', 15); //每页显示15个学员
+ define('STAFF_PER_PAGE', 15); //每页显示15个员工
+ define('DOCUMENT_PER_PAGE', 10); //每页显示15个学员
+ 
 /*student status*/
-define('STUDENT_STATUS_NOT_APPOINTMENT', 1); //未约访(0)
-define('STUDENT_STATUS_APPOINTMENT', 6); //正在约(0)
-define('STUDENT_STATUS_HAS_APPOINTMENT', 7); //已约访(0)
+define('STUDENT_STATUS_NOT_SIGNUP', 1); //未报名(0)
 define('STUDENT_STATUS_SIGNUP', 2); //已报名(1)
 define('STUDENT_STATUS_LEARNING', 3); //正在学(2)
 define('STUDENT_STATUS_FINISHED', 4); //已学完(3)
@@ -58,9 +56,7 @@ define('GROUP_ADMIN', 1);
 define('GROUP_SCHOOLADMIN', 2);
 define('GROUP_CONSULTANT', 3);
 define('GROUP_SUPERVISOR', 4);
-define('GROUP_TEACHER_PARTTIME', 5);
-define('GROUP_TEACHER_FULL', 6);
-define('GROUP_CS', 7);
+define('GROUP_TEACHER', 5);
 
 /*region ID*/
 define('REGION_PROVINCE', 1);
@@ -86,58 +82,6 @@ define('GUESTBOOK_MESSAGE_PER_PAGE', 20);
 define('DANGDANG_BOOK_CAT_ID', 10);
 define('DANGDANG_VIDEO_CAT_ID', 11);
 define('DANGDANG_SOFTWARE_CAT_ID', 12);
-
-/* ceping */
-define('CP_COMMENTS_PER_CAT', 5);
-define('CP_CARD_PER_PAGE', 20);
-define('CP_COMMENTS_PER_PAGE', 20);
-define('CP_GEN_CARD_MAX', 5000);
-//ceping card status
-define('CP_CARD_STATUS_UNUSED', 1);
-define('CP_CARD_STATUS_AGREED', 2);
-define('CP_CARD_STATUS_STARTED', 3);
-define('CP_CARD_STATUS_FINISHED', 4);
-//ceping level
-define('CP_LEVEL_ADVANCED', 1);
-define('CP_LEVEL_LUXURY', 2);
-//ceping comment status
-define('CP_COMMENT_STATUS_NEW', 1); //新评论
-define('CP_COMMENT_STATUS_REVIEWED', 2); //评论, 已验证
-//ceping order status
-define('CP_ORDER_STATUS_NEW', 1); //新订单
-define('CP_ORDER_STATUS_CONFIRMED', 2); //订单以确认
-define('CP_ORDER_STATUS_SHIPPED', 3); //订单已发货
-//ceping order delivery type
-define('CP_ORDER_DELIVERY_TYPE_PINGYOU', 1); //平邮
-define('CP_ORDER_DELIVERY_TYPE_KUAIDI', 2); //快递公司
-define('CP_ORDER_DELIVERY_TYPE_EMS', 3); //EMS
-define('CP_ORDER_DELIVERY_TYPE_HUODAO', 4); //货到付款
-//ceping order type
-define('CP_ORDER_TYPE_NORMAL', 1); //普通购买卡
-define('CP_ORDER_TYPE_PROMO', 2); //促销
-define('CP_ORDER_TYPE_UPDATE', 3); //升级
-//ceping quan
-define('CP_QUAN_STATUS_NEW', 1);
-define('CP_QUAN_STATUS_USED', 2);
-define('CP_QUAN_USED_AT_NDEDU', 1);
-define('CP_QUAN_USED_AT_TAOBAO', 2);
-//ceping cat type
-define('CP_CAT_TYPE_NORMAL', 1);
-define('CP_CAT_TYPE_PROMO', 2);
-//join us
-define('JOIN_STATUS_START', 1);
-define('JOIN_STATUS_SURVEY', 2);
-define('JOIN_STATUS_FINISHED', 3);
-define('JOIN_PER_PAGE', 20);
-
-//给学管老师报警的剩余课数数
-define('WARNING_REMAIN_HOURS', 10);
-
-//员工转正的课时数
-define('STAFF_BECOME_FULL_HOURS', 5);
-
-//科目
-define('SUBJECT_SUYANG', 2);
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

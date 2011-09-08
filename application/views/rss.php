@@ -10,7 +10,7 @@
 		<title>尼德教育 - 尼德动态</title>
 		<link>http://www.ndedu.org/</link>
 		<description><![CDATA[尼德教育 - 尼德动态]]></description>
-		<pubDate><?php echo date('l dS \of F Y H:i:s A'); ?></pubDate>
+		<pubDate><?php echo date('l dS \of F Y h:i:s A'); ?></pubDate>
 		<generator>尼德教育</generator>
 
 		<?php foreach( $articles as $article): ?>

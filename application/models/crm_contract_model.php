@@ -65,11 +65,6 @@ class CRM_Contract_model extends Model {
 		$data['teacher_id'] = $finished['teacher_id'];
 		$data['finished_hours'] = $finished['finished_hours'];
 		
-		//ndedu1.2.2 新加项
-		$data['start_time'] = $finished['start_time'];
-		$data['end_time'] = $finished['end_time'];
-		$data['subject_id'] = $finished['subject_id'];
-		
 		$data['add_time'] = date('Y-m-d H:i:s');
 		$data['update_time'] = date('Y-m-d H:i:s');
 		if($this->db->insert('crm_contract_finished', $data))
@@ -171,12 +166,11 @@ class CRM_Contract_model extends Model {
 	function get_one_all_finished($contract_id)
 	{
 		//获取合同列表信息
-		$sql = "SELECT contract_finished.*, supervisor.name as supervisor_name, teacher.name as teacher_name, subject.subject_name FROM " . $this->db->dbprefix('crm_contract_finished') . " as contract_finished
+		$sql = "SELECT contract_finished.*, supervisor.name as supervisor_name, teacher.name as teacher_name FROM " . $this->db->dbprefix('crm_contract_finished') . " as contract_finished
 				LEFT JOIN ".$this->db->dbprefix('crm_staff')." as supervisor ON supervisor.staff_id =  contract_finished.supervisor_id
 				LEFT JOIN ".$this->db->dbprefix('crm_staff')." as teacher ON teacher.staff_id =  contract_finished.teacher_id
-				LEFT JOIN ".$this->db->dbprefix('crm_subject')." as subject ON subject.subject_id =  contract_finished.subject_id
 				WHERE contract_finished.contract_id = $contract_id
-				ORDER BY start_time DESC";
+				ORDER BY add_time DESC";
 		
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
@@ -230,110 +224,6 @@ class CRM_Contract_model extends Model {
 		}
 		
 		return true;
-	}
-	
-	//根据学员id，获取指定学员列表的最新合同信息。
-	function get_active_contracts($student_ids)
-	{
-		if(!is_array($student_ids))
-			$student_ids = array($student_ids);
-		
-		//获取合同列表信息
-		$sql = "SELECT contract.* FROM " . $this->db->dbprefix('crm_contract') . " as contract
-				WHERE contract.student_id in ( ".implode (',', $student_ids)." )
-				AND contract.status = ".CONTRACT_STATUS_AVAILABLE;
-		
-		$query = $this->db->query($sql);
-		if ($query->num_rows() > 0)
-		{
-			return $query->result_array();
-		}
-		else
-		{
-			return array();
-		}
-	}
-	
-	function get_classes_by_staff($staff_id)
-	{
-		//获取合同列表信息
-		$sql = "SELECT SUM(`finished_hours`) as sum
-				FROM " . $this->db->dbprefix('crm_contract_finished') . "
-				WHERE `teacher_id` = $staff_id
-				GROUP BY `teacher_id`";
-		
-		$query = $this->db->query($sql);
-		return $query->row_array();
-	}
-	
-	function get_one_finished_class_detail($staff_id, $filter = array())
-	{
-		$where = '';
-		//添加的时间段: 开始时间
-        if (isset($filter['class_start_time']) && $filter['class_start_time'])
-        {
-            $where .= " AND start_time >= '{$filter['class_start_time']} 00:00:00' ";
-        }
-		//添加的时间段: 结束时间
-		if (isset($filter['class_end_time']) && $filter['class_end_time'])
-        {
-            $where .= " AND start_time <= '{$filter['class_end_time']} 23:59:59' ";
-        }
-		
-		//获取合同列表信息
-		$sql = "SELECT * 
-				FROM " . $this->db->dbprefix('crm_contract_finished') . "
-				WHERE `teacher_id` = $staff_id ".$where;
-		
-		$query = $this->db->query($sql);
-		
-		if ($query->num_rows() > 0)
-		{
-			$result = array();
-			
-			foreach($query->result_array() as $key => $val)
-			{
-				$result[$key] = $val;
-				$result[$key]['grade'] = $this->_get_student_grade($val['contract_id']);
-			}
-			
-			return $result;
-		}
-		else
-		{
-			return array();
-		}
-	}
-	
-	function _get_student_grade($contract_id)
-	{
-		static $contract_grade;
-		
-		if(!isset($contract_grade[$contract_id]))
-		{
-			//获取合同id对应学院信息
-			$sql = "SELECT student.grade_id 
-			FROM " . $this->db->dbprefix('crm_contract') . " as contract
-			LEFT JOIN " . $this->db->dbprefix('crm_student') . " as student on student.student_id = contract.student_id
-			WHERE contract.`contract_id` = ".$contract_id;
-			
-			//$query = $this->db->query($sql)->row_array();
-			$tmp = $this->db->query($sql)->row_array();
-			$contract_grade[$contract_id] =  substr($tmp['grade_id'], 0, 1);
-		}
-		return $contract_grade[$contract_id];
-	}
-	
-	function update_finished_hour($contract_id, $finished_hour)
-	{
-		//获取合同列表信息
-		$sql = "UPDATE ". $this->db->dbprefix('crm_contract') . "
-				SET finished_hours = (finished_hours + $finished_hour)
-				WHERE `contract_id` = $contract_id
-				LIMIT 1";
-		
-		$query = $this->db->query($sql);
-		return ($this->db->affected_rows() > 0) ? true : false;
 	}
 }
 

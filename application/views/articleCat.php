@@ -87,7 +87,7 @@
 		?>
 			<table width="220" border="0" cellspacing="0" cellpadding="0" >
               <tr>
-                <td width="178" align="left" class="right_content_li"><a href="<?php echo site_url('article/'.$article['article_id']); ?>" title="<?php echo $article['title'] ?>"><?php echo utf_substr($article['title'], 24) ?></a></td>
+                <td width="178" align="left" class="right_content_li"><a href="<?php echo site_url('article/'.$article['article_id']); ?>" title="<?php echo $article['title'] ?>"><?php echo utf_substr($article['title'], 27) ?></a></td>
                 <td width="42" align="center" class="date" ><?php echo $article['count'] ?></td>
               </tr>
             </table>

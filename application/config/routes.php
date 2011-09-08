@@ -153,19 +153,5 @@ $route['evaluate/(:num)'] = "evaluate/doEvaluate/$1";
 
 $route['register'] = "user/register";
 $route['register/(:any)'] = "user/register/$1";
-
-$route['cp_order/(:num)/(:num)'] = "cp_order/index/$1/$2";
-$route['cp_login/(:num)'] = "cp_login/index/$1";
-$route['cp_login/(:num)/(:num)'] = "cp_login/index/$1/$2";
-$route['media'] = "articleCat/index/13";
-$route['cp1'] = "cp_login/index/1";
-$route['cp2'] = "cp_login/index/2";
-$route['cp3'] = "cp_login/index/3";
-$route['cp4'] = "cp_login/index/4";
-$route['cp5'] = "cp_login/index/5";
-$route['promo'] = "cp_promo";
-
-
-
 /* End of file routes.php */
 /* Location: ./system/application/config/routes.php */
