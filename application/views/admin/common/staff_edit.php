@@ -97,7 +97,7 @@
 			</tr>
 			<tr>
 				<td class="label" valign="top">备注: </td>
-				<td><textarea name="remark" cols="40" rows="5"><?php echo (isset($staff['remark'])) ? $staff['remark'] :''; ?></textarea></td>
+				<td><textarea name="remark" cols="40" rows="5"></textarea></td>
 			</tr>			
 		</table>
 		<div class="button-div">

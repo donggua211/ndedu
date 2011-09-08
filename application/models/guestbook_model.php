@@ -61,7 +61,7 @@ class Guestbook_model extends Model {
 		{
 			foreach ($query->result_array() as $row)
 			{
-				$row['add_time'] = date('Y-m-d H:i', $row['add_time']);
+				$row['add_time'] = date('Y-m-d h:i', $row['add_time']);
 				
 				switch($row['grade'])
 				{
@@ -125,7 +125,7 @@ class Guestbook_model extends Model {
 		if ($query->num_rows() > 0)
 		{
 			$row = $query->row_array();
-			$row['add_time'] = date('Y-m-d H:i', $row['add_time']);
+			$row['add_time'] = date('Y-m-d h:i', $row['add_time']);
 			switch($row['grade'])
 			{
 				case 'preschool':

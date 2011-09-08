@@ -143,8 +143,6 @@ class Guestbook extends Controller {
 				break;
 		}
 		$data['header']['meta_title'] = '留言管理 - '.$page_name;
-		$data['header']['js_file'][] = '../ajax.js';
-		$data['header']['js_file'][] = 'guestbook.js';
 		$data['main']['page_name'] = $page_name;
 		$data['main']['messages'] = $messages;
 		_load_viewer($this->staff_info['group_id'], 'guestbook', $data);

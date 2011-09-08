@@ -14,7 +14,7 @@
 		<p>
 			<span class="navbar-back"><a href="<?php echo site_url('admin/student/one/'.$student['student_id']) ?>">基本信息</a></span>
 			<span class="navbar-back"><a href="<?php echo site_url('admin/student/one/'.$student['student_id'].'/history') ?>">详细信息</a></span>
-			<?php if(is_admin() || is_school_admin() || is_consultant() || is_supervisor()): //权限: 超级管理员, 校区管理员, 咨询师可以查看/编辑合同信息?>
+			<?php if(is_admin() || is_school_admin() || is_consultant()): //权限: 超级管理员, 校区管理员, 咨询师可以查看/编辑合同信息?>
 			<span class="navbar-front"><a href="<?php echo site_url('admin/student/one/'.$student['student_id'].'/contract') ?>">合同信息</a></span>
 			<?php endif; ?>
 		</p>
@@ -48,7 +48,7 @@
 						<a href="<?php echo site_url('admin/contract/one/'.$contract['contract_id']) ?>">查看详情</a>
 						<a href="<?php echo site_url('admin/contract/edit/'.$contract['contract_id']) ?>">编辑</a><br/>
 						<a href="<?php echo site_url('admin/contract/one/'.$contract['contract_id'].'/refund/') ?>">添加退费</a>
-						<a href="<?php echo site_url('admin/student/add_finished_hour/') ?>">添加完成课时</a>
+						<a href="<?php echo site_url('admin/contract/one/'.$contract['contract_id'].'/finished/') ?>">添加完成课时</a>
 						<?php endif; ?>
 					</td>
 				<?php endforeach; ?>

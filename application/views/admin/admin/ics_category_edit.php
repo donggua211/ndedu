@@ -15,7 +15,7 @@
 		<table width="90%" id="shop_info-table">
 			<tr>
 				<td class="narrow-label"><span class="notice-star"> * </span>分类名称: </td>
-				<td><input type="text" name="name" value="<?php echo (isset($category['category_name'])) ? $category['category_name'] : '';?>"></td>
+				<td><input type="text" name="category_name" value="<?php echo (isset($category['category_name'])) ? $category['category_name'] : '';?>"></td>
 			</tr>
 			<tr>
 				<td class="narrow-label"><span class="notice-star"> * </span>上级分类: </td>

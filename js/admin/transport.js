@@ -744,12 +744,14 @@ function showLoader()
   {
     var obj = document.getElementById('loader');
 
-    if ( obj )
+    if ( ! obj )
     {
-		obj.style.display = '';
-		obj.style.border = '0';
-		obj.innerHTML = '<img src="images/icon/wait.gif" style="vertical-align:middle">';
-	}
+      obj = document.createElement("DIV");
+      obj.id = "loader";
+      obj.innerHTML = '正在处理';
+
+      document.body.appendChild(obj);
+    }
   }
 }
 

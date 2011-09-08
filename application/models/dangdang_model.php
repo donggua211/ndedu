@@ -21,7 +21,7 @@ class Dangdang_model extends Model {
 			$dangdangs = array();
 			foreach ($query->result_array() as $row)
 			{
-				$row['add_time'] = date('Y-m-d H:i', $row['add_time']);
+				$row['add_time'] = date('Y-m-d h:i', $row['add_time']);
 				$row['image_url'] = $this->get_imageurl($row['pid'],'p');
 				$dangdangs[$row['pid']] = $row;
 			}
@@ -133,12 +133,12 @@ class Dangdang_model extends Model {
 	}
 	function get_imageurl( $pid, $size_id )
 	{
-		//$size : { 'å‡ºç‰ˆå“(å›¾ä¹¦+éŸ³åƒ)' : {54x54=>x; 70x70=>s; 90x90=>m; 200x200=>b; åŽŸå›¾=>o}, 
-		//          'ç™¾è´§'              : {54x54=>x; 100x100=>s; 120x120=>m; 150x150=>l; 200x200=>b, åŽŸå›¾=>o},
-		//          'è™šæ‹Ÿå•†å“'          : {90x90=>m; 200x200=>b}
+		//$size : { '³ö°æÆ·(Í¼Êé+ÒôÏñ)' : {54x54=>x; 70x70=>s; 90x90=>m; 200x200=>b; Ô­Í¼=>o}, 
+		//          '°Ù»õ'              : {54x54=>x; 100x100=>s; 120x120=>m; 150x150=>l; 200x200=>b, Ô­Í¼=>o},
+		//          'ÐéÄâÉÌÆ·'          : {90x90=>m; 200x200=>b}
 		//        }
 		$size_array = array( 'x', 'p', 'l' );
-		$size_id = in_array( $size_id, $size_array ) ? $size_id : 'x';	//é»˜è®¤ç»™å°å›¾
+		$size_id = in_array( $size_id, $size_array ) ? $size_id : 'x';	//Ä¬ÈÏ¸øÐ¡Í¼
 		return "http://img3".($pid%10).".dangdang.com/".($pid%99)."/".($pid%37)."/{$pid}-1_{$size_id}.jpg";
 
 	}
@@ -177,7 +177,7 @@ class Dangdang_model extends Model {
 		if(empty($update_field))
 			return true;
 		
-		//æ›´æ–°studentè¡¨
+		//¸üÐÂstudent±í
 		foreach($update_field as $key => $val)
 		{
 				$data[$key] = $val;
@@ -189,13 +189,13 @@ class Dangdang_model extends Model {
 	
 	function delete($pid)
 	{
-		//ä»Ždangdangè¡¨åˆ é™¤.
+		//´Ódangdang±íÉ¾³ý.
 		$this->db->where('pid', $pid);
 		$this->db->delete('dangdang'); 
 			
 		if($this->db->affected_rows() > 0 )
 		{
-			//ä»Ždangdang, tagå…³ç³»è¡¨ä¸­åˆ é™¤.
+			//´Ódangdang, tag¹ØÏµ±íÖÐÉ¾³ý.
 			$this->db->where('dangdang_pid', $pid);
 			$this->db->delete('tag_dangdang');
 			
