@@ -75,11 +75,6 @@
 				<tr>
 					<td colspan="3" style="padding:10px;"><hr size="1" width="100%" color="#DDDDDD"></td>
 				</tr>
-				<tr class="register_tr">
-					<td width="120" align="right"><span>VIP码：</span></td>
-					<td width="180" align="left"><input type="text" name="vipcode" value="<?php echo (isset($vipcode))?$vipcode:''; ?>" style="width:150px; height:18px; background-color:#FFFFFF; border:1px solid #CCCCCC" onFocus="focusInput(this, 'phone', '请输入您的VIP码.');"/></td>
-					<td width="210"><div id="warning_vipcode"></div></td>
-				</tr>
 			</table>
 			<table width="610" border="0" cellspacing="0" cellpadding="0" class="font_14">
 				<tr id="tr_captcha" class="register_tr">

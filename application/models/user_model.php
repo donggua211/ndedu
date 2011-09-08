@@ -51,8 +51,8 @@ class User_model extends Model {
 		
 		$data['is_vip'] = 0;
 		$data['is_active'] = 0;
-		$data['add_time'] = date('Y-m-d H:i:s');
-		$data['last_login_time'] = date('Y-m-d H:i:s');
+		$data['add_time'] = date('Y-m-d H:m:s');
+		$data['last_login_time'] = date('Y-m-d H:m:s');
 				
 		if($this->db->insert('user', $data))
 		{
@@ -63,7 +63,7 @@ class User_model extends Model {
 			return false;
 		}
 	}
-		
+	
 	function getUserInfo($user_id)
 	{
 		$this->db->where('uid', $user_id); 

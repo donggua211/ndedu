@@ -1,7 +1,7 @@
 <?php
 /* 
-  åå°å…¥å£.
-  å…¬å…±æƒé™
+  Ä¬ÈÏÏÔÊ¾Ò³.
+  ¹«¹²È¨ÏŞ
  */
 class Entry extends Controller {
 
@@ -9,43 +9,47 @@ class Entry extends Controller {
 	{
 		parent::Controller();
 		$this->load->library('session');
-		$this->load->helper('admin');
+		$this->load->model('Guestbook_model');
+		$this->load->helper('admin_authority');
 		
-		//å¦‚æœæ²¡æœ‰ç»ç™»å½•, å°±è·³è½¬åˆ°admin/loginç™»é™†é¡µ
+		//$this->allowed_group = array(1);
+		
+		//Èç¹ûÃ»ÓĞ¾­µÇÂ¼, ¾ÍÌø×ªµ½admin/loginµÇÂ½Ò³
 		if (!has_login())
 		{
 			goto_login();
 		}
 		
-		$this->staff_info = get_staff_info();
+		/*
+		//¼ì²éÈ¨ÏŞ.
+		if(!check_role($this->allowed_group))
+		{
+			//show_access_deny_page();
+		}
+		*/
 	}
 	
 	function index()
 	{
-		$data['main_url'] = 'admin/calendar/';
-		$this->load->view('admin/common_frame', $data);
+		$this->load->view('admin/admin');
 	}
 	
 	function menu()
 	{
-		$data_header['css_file'] = 'common_menu.css';
-		$this->load->view('admin/header', $data_header);
-		$this->load->view('admin/common_menu');
-		$this->load->view('admin/footer');
-	}
-	function top()
-	{
-		$data_header['css_file'] = 'common_top.css';
-		$staff_info = get_staff_info();
-		$data_main['staff_info'] = $staff_info;
-		$this->load->view('admin/header', $data_header);
-		$this->load->view('admin/common_top', $data_main);
-		$this->load->view('admin/footer');
+		$group_id = get_group_id();
+		$data['group_id'] = $group_id;
+		$this->load->view('admin/menu', $data);
 	}
 	
-	function drag()
+	function top()
 	{
-		$this->load->view('admin/common_drag');
+		$this->load->view('admin/top');
+	}
+	
+	function info()
+	{
+		$data["new_messages"] = $this->Guestbook_model->getLast10NewGuestBook();
+		$this->load->view('admin/info', $data);
 	}
 }
 

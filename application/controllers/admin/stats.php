@@ -1,7 +1,7 @@
-ï»¿<?php
+<?php
 /* 
-  æ–‡ç« ç®¡ç†
-  adminæƒé™.
+  ÎÄÕÂ¹ÜÀí
+  adminÈ¨ÏÞ.
  */
 class Stats extends Controller {
 
@@ -10,17 +10,18 @@ class Stats extends Controller {
 		parent::Controller();
 		$this->load->library('session');
 		$this->load->model('Stats_model');
-		$this->load->helper('admin');
+		$this->load->helper('admin_authority');
 		
-		//å¦‚æžœæ²¡æœ‰ç»ç™»å½•, å°±è·³è½¬åˆ°admin/loginç™»é™†é¡µ
+		$this->allowed_group = array(1);
+		
+		//Èç¹ûÃ»ÓÐ¾­µÇÂ¼, ¾ÍÌø×ªµ½admin/loginµÇÂ½Ò³
 		if (!has_login())
 		{
 			goto_login();
 		}
 		
-		$this->staff_info = get_staff_info();
-		//æ£€æŸ¥æƒé™.
-		if(!check_role(array(GROUP_ADMIN), $this->staff_info['group_id']))
+		//¼ì²éÈ¨ÏÞ.
+		if(!check_role($this->allowed_group))
 		{
 			show_access_deny_page();
 		}
@@ -34,9 +35,8 @@ class Stats extends Controller {
 		
 	function keywords()
 	{
-		$data['header']['meta_title'] = 'æŸ¥çœ‹æœç´¢å…³é”®å­— - ç»Ÿè®¡';
-		$data['main']['keyword_stats'] = $this->Stats_model->getKeywordStats();
-		_load_viewer($this->staff_info['group_id'], 'stats_keyword', $data);
+		$data['keyword_stats'] = $this->Stats_model->getKeywordStats();
+		$this->load->view('admin/stats_keyword.php', $data);
 	}
 }
 

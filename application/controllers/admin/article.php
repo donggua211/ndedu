@@ -1,7 +1,7 @@
-ï»¿<?php
+<?php
 /* 
-  æ–‡ç« ç®¡ç†
-  adminæƒé™.
+  ÎÄÕÂ¹ÜÀí
+  adminÈ¨ÏÞ.
  */
 class Article extends Controller {
 
@@ -11,17 +11,19 @@ class Article extends Controller {
 		$this->load->library('session');
 		$this->load->model('Article_model');
 		$this->load->model('Tags_model');
-		$this->load->helper('admin');
+		$this->load->helper('admin_authority');
+		$this->load->helper('language');
 		
-		//å¦‚æžœæ²¡æœ‰ç»ç™»å½•, å°±è·³è½¬åˆ°admin/loginç™»é™†é¡µ
+		$this->allowed_group = array(1);
+		
+		//Èç¹ûÃ»ÓÐ¾­µÇÂ¼, ¾ÍÌø×ªµ½admin/loginµÇÂ½Ò³
 		if (!has_login())
 		{
 			goto_login();
 		}
 		
-		$this->staff_info = get_staff_info();
-		//æ£€æŸ¥æƒé™.
-		if(!check_role(array(GROUP_ADMIN), $this->staff_info['group_id']))
+		//¼ì²éÈ¨ÏÞ.
+		if(!check_role($this->allowed_group))
 		{
 			show_access_deny_page();
 		}
@@ -30,21 +32,15 @@ class Article extends Controller {
 	function index()
 	{
 		$articles = $this->Article_model->getArticle('public');
-		
-		$data['header']['meta_title'] = 'æ‰€æœ‰åˆ†ç±» - å’¨è¯¢ç³»ç»Ÿç®¡ç†';
-		$data['main']['articles'] = $articles;
-		$data['main']['page_name'] = 'æŸ¥çœ‹æ–‡ç« ';
-		_load_viewer($this->staff_info['group_id'], 'articles', $data);
+		$data["articles"] = $articles;				
+		$this->load->view('admin/articles', $data);
 	}
 	
 	function draft()
 	{
 		$articles = $this->Article_model->getArticle('draft');
-		
-		$data['header']['meta_title'] = 'è‰ç¨¿ç®± - å’¨è¯¢ç³»ç»Ÿç®¡ç†';
-		$data['main']['articles'] = $articles;
-		$data['main']['page_name'] = 'è‰ç¨¿ç®±';
-		_load_viewer($this->staff_info['group_id'], 'articles', $data);
+		$data["articles"] = $articles;				
+		$this->load->view('admin/articles', $data);
 	}
 	
 	
@@ -82,10 +78,10 @@ class Article extends Controller {
 			
 			if($new_article['title'] == FAlSE || $new_article['catagory'] === FAlSE || $new_article['content'] == FAlSE)
 			{
-				$data['notification'] = 'è¯·å¡«å†™ï¼š';
-				$data['notification'] .= $new_article['title']? '' : 'æ ‡é¢˜, '. '';
-				$data['notification'] .= $new_article['catagory']? '' : 'åˆ†ç±», '. ',';
-				$data['notification'] .= $new_article['content']? '' : 'å†…å®¹, '. ',';
+				$data['notification'] = 'ÇëÌîÐ´£º';
+				$data['notification'] .= $new_article['title']? '' : '±êÌâ, '. '';
+				$data['notification'] .= $new_article['catagory']? '' : '·ÖÀà, '. ',';
+				$data['notification'] .= $new_article['content']? '' : 'ÄÚÈÝ, '. ',';
 				$data['notification'] = trim($data['notification'], ' ,');
 				
 				$tags = $this->Tags_model->getAllTags();
@@ -93,7 +89,7 @@ class Article extends Controller {
 				$categories_list = $this->Article_model->getCategoriesList();
 				$data['categories_list'] = $categories_list;
 				$data["article"] = $new_article;				
-				$this->load->view('admin/admin/article_add', $data);
+				$this->load->view('admin/article_add', $data);
 			}
 			else
 			{
@@ -115,7 +111,7 @@ class Article extends Controller {
 					if ( ! $this->upload->do_upload('image'))
 					{
 						$error = array('error' => $this->upload->display_errors());
-						$data['notification'] = '<font color="red">ä¸Šä¼ å›¾ç‰‡å¤±è´¥</font>';
+						$data['notification'] = '<font color="red">ÉÏ´«Í¼Æ¬Ê§°Ü</font>';
 					}
 					else
 					{
@@ -130,13 +126,16 @@ class Article extends Controller {
 				{
 					$tags = $this->input->post('tags');
 					$this->Tags_model->addArtileTag($article_id, $tags);
-					$data['notification'] = 'åˆ†ç±»æ·»åŠ æˆåŠŸ!';
+					$data['notification'] = '·ÖÀàÌí¼Ó³É¹¦!';
 				}
 				else
 				{
-					$data['notification'] = 'åˆ†ç±»æ·»åŠ å¤±è´¥ï¼è¯·é‡è¯•';
+					$data['notification'] = '·ÖÀàÌí¼ÓÊ§°Ü£¡ÇëÖØÊÔ';
 				}
-				show_result_page($data['notification'], 'admin/article');
+
+				$data['page'] = 'admin/article';
+				$this->load->view('admin/result', $data);
+				
 			}
 		}
 		else
@@ -146,7 +145,7 @@ class Article extends Controller {
 			$categories_list = $this->Article_model->getCategoriesList();
 			$data['categories_list'] = $categories_list;
 			
-			$this->load->view('admin/admin/article_add', $data);		
+			$this->load->view('admin/article_add', $data);		
 		}
 	}
 	
@@ -163,16 +162,16 @@ class Article extends Controller {
 					
 			if($edit_article['title'] == FAlSE || $edit_article['catagory'] === FAlSE || $edit_article['content'] == FAlSE)
 			{
-				$data['notification'] = 'è¯·å¡«å†™ï¼š';
-				$data['notification'] .= $edit_article['title']? '' : 'æ ‡é¢˜, '. '';
-				$data['notification'] .= $edit_article['catagory']? '' : 'åˆ†ç±», '. ',';
-				$data['notification'] .= $edit_article['content']? '' : 'å†…å®¹, '. ',';
+				$data['notification'] = 'ÇëÌîÐ´£º';
+				$data['notification'] .= $edit_article['title']? '' : '±êÌâ, '. '';
+				$data['notification'] .= $edit_article['catagory']? '' : '·ÖÀà, '. ',';
+				$data['notification'] .= $edit_article['content']? '' : 'ÄÚÈÝ, '. ',';
 				$data['notification'] = trim($data['notification'], ' ,');
 				
 				$categories_list = $this->Article_model->getCategoriesList();
 				$data['categories_list'] = $categories_list;
 				$data["article"] = $edit_article;				
-				$this->load->view('admin/admin/article_add', $data);
+				$this->load->view('admin/article_add', $data);
 			}
 			else
 			{
@@ -194,7 +193,7 @@ class Article extends Controller {
 					if ( ! $this->upload->do_upload('image'))
 					{
 						$error = array('error' => $this->upload->display_errors());
-						$data['notification'][] = '<font color="red">ä¸Šä¼ å›¾ç‰‡å¤±è´¥</font>';
+						$data['notification'][] = '<font color="red">ÉÏ´«Í¼Æ¬Ê§°Ü</font>';
 					}
 					else
 					{
@@ -215,7 +214,9 @@ class Article extends Controller {
 				{
 					$data['notification'] = 'category_failed';
 				}
-				show_result_page($data['notification'], 'admin/article');
+
+				$data['page'] = 'admin/article';
+				$this->load->view('admin/result', $data);
 				
 			}
 		}
@@ -227,7 +228,7 @@ class Article extends Controller {
 			$artcle_info = $this->Article_model->getOneArticle($article_id);
 			$data['artcle_info'] = $artcle_info;
 			
-			$this->load->view('admin/admin/article_edit', $data);		
+			$this->load->view('admin/article_edit', $data);		
 		}
 	
 	}
@@ -235,7 +236,7 @@ class Article extends Controller {
 	function one($article_id)
 	{
 		$data['article'] = $this->Article_model->getOneArticle($article_id);
-		$this->load->view('admin/admin/article', $data);			
+		$this->load->view('admin/article', $data);			
 	}
 }
 
