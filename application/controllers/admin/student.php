@@ -19,7 +19,6 @@ class Student extends Controller {
 		$this->load->model('CRM_Staff_model');
 		$this->load->model('CRM_Calendar_model');
 		$this->load->model('CRM_Status_history_model');
-		$this->load->model('CRM_Subject_model');
 		
 		$this->load->helper('admin');
 		$this->load->helper('calendar');
@@ -71,17 +70,12 @@ class Student extends Controller {
 			case GROUP_CONSULTANT: //shooladmin只有查看本校区的, 自己添加的, 状态为未报名的学员的权限
 				$filter['branch_id'] = $this->staff_info['branch_id'];
 				$filter['consultant_id'] = $this->staff_info['staff_id'];
-				$filter['status'] = array(STUDENT_STATUS_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT);
+				$filter['status'] = STUDENT_STATUS_NOT_SIGNUP;
 				break;
 			case GROUP_SUPERVISOR: //shooladmin只有查看本校区的, 自己分配的, 状态为正在学的学员的权限
 				$filter['branch_id'] = $this->staff_info['branch_id'];
 				$filter['supervisor_id'] = $this->staff_info['staff_id'];
 				$filter['status'] = STUDENT_STATUS_LEARNING;
-				break;
-			case GROUP_CS: //shooladmin只有查看本校区的, 自己分配的, 状态为正在学的学员的权限
-				$filter['branch_id'] = $this->staff_info['branch_id'];
-				$filter['cservice_id'] = $this->staff_info['staff_id'];
-				$filter['status'] = array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_APPOINTMENT, STUDENT_STATUS_FINISHED);
 				break;
 			default:
 				show_error_page('您没有权限查看学员列表: 请重新登录或者联系管理员!', 'admin/student');
@@ -95,36 +89,17 @@ class Student extends Controller {
 		$page_nav['filter'] = $filter;
 		$data['main']['page_nav'] = $this->load->view('admin/common_page_nav', $page_nav, true);
 		
-		//页面排序
-		switch($this->staff_info['group_id'])
-		{
-			case GROUP_ADMIN: //admin管理有权限
-			case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区学员的权限
-			case GROUP_CONSULTANT: //shooladmin只有查看本校区的, 自己添加的, 状态为未报名的学员的权限
-			case GROUP_CS:
-				$order_by = 'student.status, student.update_time';
-				break;
-			case GROUP_SUPERVISOR: //shooladmin只有查看本校区的, 自己分配的, 状态为正在学的学员的权限
-				$order_by = 'student.status, contract.finished_hours';
-				break;
-			default:
-				show_error_page('您没有权限查看学员列表: 请重新登录或者联系管理员!', 'admin/student');
-				return false;
-		}
+		$students = $this->CRM_Student_model->getAll($filter, $page_nav['start'], STUDENT_PER_PAGE, 'status, add_time', 'DESC');
 		
-		$students = $this->CRM_Student_model->getAll($filter, $page_nav['start'], STUDENT_PER_PAGE, $order_by, 'DESC');
-		
-		$data['header']['meta_title'] = '查看学员 - 管理学员';
 		$data['header']['css_file'] = '../calendar.css';
+		$data['header']['meta_title'] = '查看学员 - 管理学员';
 		$data['footer']['js_file'][] = '../calendar.js';
-		$data['footer']['js_file'][] = '../ajax.js';
-		$data['footer']['js_file'][] = 'student.js';
+		$data['footer']['js_file'][] = 'region.js';
+		$data['footer']['js_file'][] = 'transport.js';
 		$data['main']['students'] = $students;
 		$data['main']['branches'] = $this->_get_branch();
 		$data['main']['provinces'] = $this->_get_province();
-		$data['main']['cities'] = $this->_get_cities($filter['province_id']);
 		$data['main']['grades'] = $this->_get_grade();
-		$data['main']['filter'] = $filter;
 		$this->_load_view('student_all', $data);
 	}
 	
@@ -148,7 +123,6 @@ class Student extends Controller {
 	{
 		$this->index('page=1&is_delete=1');
 	}
-	
 	/* 
 	 * 访问权限: 全部角色
 	*/
@@ -190,7 +164,7 @@ class Student extends Controller {
 						show_error_page('您没有权限查看该学员: 他/她不是您所创建的!', 'admin/student');
 						return false;
 					}
-					elseif(!in_array($student_info['status'], array(STUDENT_STATUS_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT)))
+					elseif($student_info['status'] != STUDENT_STATUS_NOT_SIGNUP)
 					{
 						show_error_page('您没有权限查看该学员: 他/她正在学习中!', 'admin/student');
 						return false;
@@ -203,18 +177,6 @@ class Student extends Controller {
 						return false;
 					}
 					elseif($student_info['status'] != STUDENT_STATUS_LEARNING)
-					{
-						show_error_page('您没有权限查看该学员: 他/她已经学完!', 'admin/student');
-						return false;
-					}
-					break;
-				case GROUP_CS:
-					if($student_info['cservice_id'] != $this->staff_info['staff_id'])
-					{
-						show_error_page('您没有权限查看该学员: 他/她不是您的学生!', 'admin/student');
-						return false;
-					}
-					elseif(!in_array($student_info['status'], array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_APPOINTMENT, STUDENT_STATUS_FINISHED)))
 					{
 						show_error_page('您没有权限查看该学员: 他/她已经学完!', 'admin/student');
 						return false;
@@ -270,87 +232,6 @@ class Student extends Controller {
 	/* 
 	 * 访问权限: 全部角色
 	*/
-	function sms($student_id = 0)
-	{
-		//判断student_id是否合法.
-		$student_id = intval($student_id);
-		if($student_id <= 0)
-		{
-			show_error_page('您输入的学员ID不合法, 请返回重试.', 'admin/student');
-			return false;
-		}
-		
-		//获取student 信息.
-		$student_info = $this->CRM_Student_model->getOne($student_id);
-		
-		//检查权限
-		if(empty($student_info))
-		{
-			show_error_page('您所查询的学员不存在!', 'admin/student');
-			return false;
-		}
-		else
-		{
-			switch($this->staff_info['group_id'])
-			{
-				case GROUP_ADMIN: //admin管理有权限
-					break;
-				case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区学员的权限
-					if($student_info['branch_id'] != $this->staff_info['branch_id'])
-					{
-						show_error_page('您没有权限查看该学员: 他/她不在您所在的校区!', 'admin/student');
-						return false;
-					}
-					break;
-				case GROUP_CONSULTANT:
-					if($student_info['consultant_id'] != $this->staff_info['staff_id'])
-					{
-						show_error_page('您没有权限查看该学员: 他/她不是您所创建的!', 'admin/student');
-						return false;
-					}
-					elseif($student_info['status'] != STUDENT_STATUS_NOT_APPOINTMENT)
-					{
-						show_error_page('您没有权限查看该学员: 他/她正在学习中!', 'admin/student');
-						return false;
-					}
-					break;
-				case GROUP_SUPERVISOR:
-					if($student_info['supervisor_id'] != $this->staff_info['staff_id'])
-					{
-						show_error_page('您没有权限查看该学员: 他/她不是您的学生!', 'admin/student');
-						return false;
-					}
-					elseif($student_info['status'] != STUDENT_STATUS_LEARNING)
-					{
-						show_error_page('您没有权限查看该学员: 他/她已经学完!', 'admin/student');
-						return false;
-					}
-					break;
-				default:
-					show_error_page('您没有权限查看该学员: 请重新登录或者联系管理员!', 'admin/student');
-					return false;
-			}
-		}
-		
-		//处理手机号，优先处理妈妈的。
-		$mobile = '';
-		if(!empty($student_info['mother_phone']))
-			$mobile = $student_info['mother_phone'];
-		elseif(!empty($student_info['father_phone']))
-			$mobile = $student_info['father_phone'];
-		
-		//截取电话号码
-		preg_match( "/[\d]{11}/", $mobile, $matches);
-		
-		$data['header']['meta_title'] = $student_info['name'].' - 发送短信 - 管理学员';
-		$data['main']['student'] = $student_info;
-		$data['main']['sms_mobile'] = isset($matches[0]) ? $matches[0] : '';
-		$this->_load_view('student_sms', $data);
-	}
-	
-	/* 
-	 * 访问权限: 全部角色
-	*/
 	function edit($student_id = 0)
 	{
 		//判断student_id是否合法.
@@ -389,7 +270,7 @@ class Student extends Controller {
 						show_error_page('您没有权限编辑该学员: 他/她不是您所创建的!', 'admin/student');
 						return false;
 					}
-					elseif(!in_array($student_info['status'], array(STUDENT_STATUS_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT)))
+					elseif($student_info['status'] != STUDENT_STATUS_NOT_SIGNUP)
 					{
 						show_error_page('您没有权限编辑该学员: 他/她正在学习中!', 'admin/student');
 						return false;
@@ -402,18 +283,6 @@ class Student extends Controller {
 						return false;
 					}
 					elseif($student_info['status'] != STUDENT_STATUS_LEARNING)
-					{
-						show_error_page('您没有权限编辑该学员: 他/她已经学完!', 'admin/student');
-						return false;
-					}
-					break;
-				case GROUP_CS:
-					if($student_info['cservice_id'] != $this->staff_info['staff_id'])
-					{
-						show_error_page('您没有权限编辑该学员: 他/她不是您的学生!', 'admin/student');
-						return false;
-					}
-					elseif(!in_array($student_info['status'], array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_APPOINTMENT, STUDENT_STATUS_FINISHED)))
 					{
 						show_error_page('您没有权限编辑该学员: 他/她已经学完!', 'admin/student');
 						return false;
@@ -432,7 +301,6 @@ class Student extends Controller {
 			$edit_student['supervisor_id'] = $this->input->post('supervisor_id');
 			$edit_student['consultant_id'] = $this->input->post('consultant_id');
 			$edit_student['name'] = $this->input->post('name');
-			$edit_student['gender'] = $this->input->post('gender');
 			$edit_student['branch_id'] = $this->input->post('branch_id');
 			$edit_student['grade_id'] = $this->input->post('grade_id');
 			$edit_student['province_id'] = $this->input->post('province_id');
@@ -461,16 +329,7 @@ class Student extends Controller {
 				$this->_load_student_edit_view($notify, $student_info);
 				return false;
 			}
-			
-			//如果修改学员状态为: 正在约, 需要同时指定任课老师的为谁.
-			if((isset($update_field['status']) && $update_field['status'] == STUDENT_STATUS_APPOINTMENT) && 
-				(empty($update_field['consultant_id']) && empty($student_info['consultant_id'])))
-			{
-				$notify = '把学生状态改为"正在约", 需要同时指定学员的咨询师.';
-				$this->_load_student_edit_view($notify, $student_info);
-				return false;
-			}
-			
+						
 			if($this->CRM_Student_model->update($student_id, $update_field))
 			{
 				//如果更新status的话, 插入student_status_history记录
@@ -535,9 +394,6 @@ class Student extends Controller {
 					case 'learning':
 						$notify = '学习历史内容不能为空';
 						break;
-					case 'callback':
-						$notify = '回访历史内容不能为空';
-						break;
 					default:
 						$notify = '历史内容不能为空';
 						break;
@@ -562,14 +418,10 @@ class Student extends Controller {
 				switch($history['history_type'])
 				{
 					case 'contact':
-						$allowed_group[] = GROUP_CS;
 						$allowed_group[] = GROUP_CONSULTANT;
 						break;
 					case 'learning':
 						$allowed_group[] = GROUP_SUPERVISOR;
-						break;
-					case 'callback':
-						$allowed_group[] = GROUP_CS;
 						break;
 					default:
 						break;
@@ -648,7 +500,7 @@ class Student extends Controller {
 	function add()
 	{
 		//检查权限.
-		if(!check_role(array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CONSULTANT, GROUP_CS), $this->staff_info['group_id']))
+		if(!check_role(array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CONSULTANT), $this->staff_info['group_id']))
 		{
 			show_access_deny_page();
 		}
@@ -657,7 +509,6 @@ class Student extends Controller {
 		{
 			//必填信息.
 			$new_student['name'] = $this->input->post('name');
-			$new_student['gender'] = $this->input->post('gender');
 			
 			//数字的必填信息
 			$new_student['branch_id'] = $this->input->post('branch_id');
@@ -676,11 +527,7 @@ class Student extends Controller {
 			$new_student['remark'] = $this->input->post('remark');
 			$new_student['address'] = $this->input->post('address');
 			
-			//ndedu1.2.2 新加： date of birth
-			$new_student['dob'] = $this->input->post('dob');
-			$new_student['dob'] = !empty( $new_student['dob'] ) ? $new_student['dob'] : '0000-00-00 00:00:00';
-			
-			if(empty($new_student['name']) || empty($new_student['gender']) || empty($new_student['branch_id']) || empty($new_student['grade_id']) || empty($new_student['province_id']) || empty($new_student['city_id']) || empty($new_student['district_id']))
+			if(empty($new_student['name']) || empty($new_student['branch_id']) || empty($new_student['grade_id']) || empty($new_student['province_id']) || empty($new_student['city_id']) || empty($new_student['district_id']))
 			{
 				$notify = '请填写完整的学生信息';
 				$this->_load_student_add_view($notify, $new_student);
@@ -690,17 +537,6 @@ class Student extends Controller {
 				$notify = '请填写爸爸或者妈妈的电话';
 				$this->_load_student_add_view($notify, $new_student);
 			}
-			//ndedu1.2.2 后台添加： 对电话号码进行验证
-			elseif( ($mobile_exist_result = $this->_check_mobile_exist($new_student['father_phone'], $new_student['mother_phone'])) )
-			{
-				$notify = '爸爸或者妈妈已经存在！请点击连接查看：<br/><div style="text-align:left"><ul>';
-				
-				foreach($mobile_exist_result as $val)
-					$notify .= '<li><a href="'.site_url('admin/student/one/'.$val['student_id']).'" target="_blank">'.$val['name'].'。爸爸电话：'.$val['father_phone'].'；妈妈电话：'.$val['mother_phone'].'</a></li>';
-				
-				$notify .= '</ul></div>';
-				$this->_load_student_add_view($notify, $new_student);
-			}
 			else
 			{
 				//add into DB
@@ -708,7 +544,7 @@ class Student extends Controller {
 				if($student_id > 0)
 				{
 					//插入student_status_history一条记录
-					$this->CRM_Student_model->student_status_history($student_id, 0, STUDENT_STATUS_NOT_APPOINTMENT, $this->staff_info['staff_id'], 0);
+					$this->CRM_Student_model->student_status_history($student_id, 0, STUDENT_STATUS_NOT_SIGNUP, $this->staff_info['staff_id'], 0);
 
 					show_result_page('学员已经添加成功! ', 'admin/student/one/'.$student_id);
 				}
@@ -723,13 +559,6 @@ class Student extends Controller {
 		{
 			$this->_load_student_add_view();
 		}
-	}
-	
-	function _check_mobile_exist($father_phone, $mother_phone)
-	{
-		$result = $this->CRM_Student_model->check_mobile_exist(array($father_phone, $mother_phone));
-		
-		return $result;
 	}
 	
 	function delete($student_id, $is_delete = 1)
@@ -779,7 +608,7 @@ class Student extends Controller {
 		}
 		
 		$filter['is_delete'] = 0;
-		$filter['status'] = STUDENT_STATUS_NOT_APPOINTMENT;
+		$filter['status'] = STUDENT_STATUS_NOT_SIGNUP;
 		$students = $this->CRM_Student_model->getAll($filter);
 		
 		if(empty($students))
@@ -818,32 +647,6 @@ class Student extends Controller {
 		}
 	}
 	
-	//添加已完成课时
-	function add_finished_hour()
-	{
-		$data['header']['css_file'] = '../calendar.css';
-		$data['footer']['js_file'] = '../calendar.js';
-		$data['header']['meta_title'] = '添加已完成课时 - 管理学员';
-		$data['main']['student'] = $this->CRM_Student_model->getAll(array('status' => STUDENT_STATUS_LEARNING));
-		$data['main']['staffs'] = $this->CRM_Staff_model->get_all_by_group();
-		$data['main']['subjects'] = $this->CRM_Subject_model->getAll();
-		$this->_load_view('student_add_finished_hour', $data);
-	}
-	
-	
-	function sms_batch()
-	{
-		$sms_mobile = $this->input->post('mobile');
-		
-		foreach($sms_mobile as $key => $val)
-			if(empty($val))
-				unset($sms_mobile[$key]);
-		
-		$data['header']['meta_title'] = ' 群发短信 - 管理学员';
-		$data['main']['sms_mobile'] = implode(',', $sms_mobile);
-		$this->_load_view('student_sms', $data);
-	}
-	
 	function get_mobile_number($str)
 	{
 		if(empty($str))
@@ -858,11 +661,7 @@ class Student extends Controller {
 		$data['header']['meta_title'] = '添加学员 - 管理学员';
 		$data['footer']['js_file'][] = 'region.js';
 		$data['footer']['js_file'][] = 'transport.js';
-		$data['header']['css_file'] = '../calendar.css';
-		$data['footer']['js_file'][] = '../calendar.js';
 		$data['main']['provinces'] = $this->_get_province();
-		$data['main']['cities'] = $this->CRM_Region_model->get_regions(REGION_CITY, $data['main']['provinces'][0]['region_id']);
-		$data['main']['districts'] = $this->CRM_Region_model->get_regions(REGION_DISTRICT, $data['main']['cities'][0]['region_id']);
 		$data['main']['grades'] = $this->_get_grade();
 		$data['main']['branches'] = $this->_get_branch();
 		$data['main']['notification'] = $notify;
@@ -880,7 +679,6 @@ class Student extends Controller {
 		$data['main']['districts'] = $this->CRM_Region_model->get_regions(REGION_DISTRICT, $student['city_id']);
 		$data['main']['grades'] = $this->_get_grade();
 		$data['main']['branches'] = $this->_get_branch();
-		$data['main']['consultants'] = $this->CRM_Staff_model->get_all_by_group(GROUP_CONSULTANT);
 		$data['main']['supervisors'] = $this->CRM_Staff_model->get_all_by_group(GROUP_SUPERVISOR);
 		$data['main']['notification'] = $notify;
 		$data['main']['student'] = $student;
@@ -920,14 +718,7 @@ class Student extends Controller {
 	function _get_province()
 	{
 		return $this->CRM_Region_model->get_regions();
-	}
-	
-	function _get_cities($province_id)
-	{
-		if(empty($province_id))
-			return false;
-		else
-			return $this->CRM_Region_model->get_regions(REGION_CITY, $province_id);
+		
 	}
 	
 	function _get_grade()

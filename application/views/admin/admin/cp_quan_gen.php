@@ -18,7 +18,6 @@
 				<td>
 					<input type="checkbox" name="values[]" value="20" <?php echo ((isset($gen_info['values']) && in_array('20', $gen_info['values'])) ? 'CHECKED' : ''); ?>>20<br/>
 					<input type="checkbox" name="values[]" value="50" <?php echo ((isset($gen_info['values']) && in_array('50', $gen_info['values'])) ? 'CHECKED' : ''); ?>>50<br/>
-					<input type="checkbox" name="values[]" value="100" <?php echo ((isset($gen_info['values']) && in_array('50', $gen_info['values'])) ? 'CHECKED' : ''); ?>>100<br/>
 				</td>
 			</tr>
 			<tr>

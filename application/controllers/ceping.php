@@ -43,7 +43,7 @@ class ceping extends Controller {
 		{
 			redirect('ceping/cp');
 		}
-		elseif($this->card_info['status'] == CP_CARD_STATUS_FINISHED && !($this->uri->rsegment(2) == 'finished' || $this->uri->rsegment(2) == 'result' || $this->uri->rsegment(2) == 'result2'))
+		elseif($this->card_info['status'] == CP_CARD_STATUS_FINISHED && !($this->uri->rsegment(2) == 'finished' || $this->uri->rsegment(2) == 'result'))
 		{
 			redirect('ceping/finished');
 		}
@@ -212,46 +212,6 @@ class ceping extends Controller {
 		$data['cp_list'] = $cp_list;
 		$data['card_info'] = $this->CP_card_model->get_one_card_detailed($this->card_id);
 		$this->load->view('cp/result.php', $data);
-	}
-	
-	function result2()
-	{
-		$cp_list = $this->CP_ceping_model->get_all_by_cat($this->card_info['cat_id']);
-		
-		//显示结果
-		$result = $this->CP_ceping_model->get_result($this->card_id);
-		$answer_arr = explode(';', $result['result']);
-		
-		header("Content-type: text/html; charset=utf-8");
-		
-		//载入测评
-		foreach($cp_list as $key => $cp)
-		{
-			//答案
-			$this_ansr_arr = explode(',', $answer_arr[$key]);
-			
-			$this->config->load('cp/'.$this->card_info['cat_id'].'/ceping'.$key.'.php');
-			$cp_info = $this->config->config['cp_info'];
-			
-			echo '<h1>'.$cp['cp_name'].'</h1>';
-			echo '<ol>';
-			foreach($cp_info['questions'] as $index => $qst)
-			{
-				echo '<li>';
-				if($cp_info['same_answer'] == 1)
-				{
-					echo $qst.'<br/>';
-					echo '答案： '.$cp_info['answers'][$this_ansr_arr[$index]].'<br/>'.'<br/>';
-				}
-				else
-				{
-					echo $qst['name'].'<br/>';
-					echo '答案： '.$qst['answers'][$this_ansr_arr[$index]].'<br/>'.'<br/>';
-				}
-				echo '</li>';
-			}
-			echo '</ol>';
-		}
 	}
 	
 	function _load_userinfo_view($notify = '', $userinfo = array())

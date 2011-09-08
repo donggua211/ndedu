@@ -95,42 +95,6 @@ class cp extends Controller {
 		}
 	}
 	
-	function comment_replay($comment_id = 0)
-	{
-		//判断staff_id是否合法.
-		$comment_id = intval($comment_id) > 0 ? $comment_id : $this->input->post('comment_id');
-		if($comment_id <= 0)
-		{
-			show_error_page('您输入的评论ID不合法, 请返回重试.', 'admin/cp/comments');
-			return false;
-		}
-		
-		if(isset($_POST['submit']) && !empty($_POST['submit']))
-		{
-			$comment_info = $this->CP_comment_model->get_one($comment_id);
-			if(empty($comment_info))
-			{
-				show_error_page('您所查询的评论不存在!', 'admin/cp/comments');
-				return false;
-			}
-			
-			$update_field['reply'] = $this->_parse_reply_url(trim($this->input->post('reply')));
-			$update_field['reply_time'] = date('Y-m-d H:i:s');
-			if($this->CP_comment_model->update($comment_id, $update_field))
-			{
-				show_result_page('回复成功! ', 'admin/cp/comments');
-			}
-			else
-			{
-				show_error_page('操作失败, 请重试.', 'admin/cp/comments');
-			}
-		}
-		else
-		{
-			$this->_load_comment_replay_view('', $comment_id);
-		}
-	}
-	
 	function comment_delete($comment_id)
 	{
 		//判断staff_id是否合法.
@@ -383,15 +347,6 @@ class cp extends Controller {
 		_load_viewer($this->staff_info['group_id'], 'cp_category_edit', $data);
 	}
 	
-	function _load_comment_replay_view($notify = '', $comment_id)
-	{
-		$data['header']['meta_title'] = '增加回复 - 咨询系统管理';
-		$data['main']['notification'] = $notify;
-		$data['main']['category'] = $this->CP_category_model->get_all_category();
-		$data['main']['comment_id'] = $comment_id;
-		_load_viewer($this->staff_info['group_id'], 'cp_comment_replay', $data);
-	}
-	
 	function _parse_filter($filter_string, $filter)
 	{
 		$input_filter = parse_filter($filter_string);
@@ -423,37 +378,6 @@ class cp extends Controller {
 			$filter[$key] = $input_filter[$key];
 		}
 		return $filter;
-	}
-	
-	function _parse_reply_url($str)
-	{
-		$pattern = '/#(.*?)#/';
-		$replacement = 'URL_PLACEHOLDER';
-
-		preg_match_all($pattern, $str, $matches);
-		$str = preg_replace($pattern, $replacement, $str);
-		
-		$urls =array();
-		foreach($matches[1] as $key => $val)
-		{
-			@list($url, $text) = explode('|',$val);
-			if(empty($text))
-				$text = $url;
-				
-			$text = htmlspecialchars(trim($text));
-			$url = trim($url);
-			
-			$url = (strpos($url, 'http://') === false) ? 'http://'.$url : $url;
-			
-			$urls[] = "<a href=\"$url\" title=\"$text\" target=\"_blank\">$text</a>";
-		}
-		
-		foreach($urls as $one)
-		{
-			$str = preg_replace("/$replacement/", $one, $str, 1);
-		}
-		
-		return $str;
 	}
 }
 

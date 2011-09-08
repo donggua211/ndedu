@@ -42,10 +42,9 @@
 					<th>姓名</th>
 					<th>测评分类</th>
 					<th>状态状态</th>
-					<th>评论</th>
-					<th>回复</th>
+					<th>测评</th>
 					<th>时间</th>
-					<th width="100px">操作</th>
+					<th>操作</th>
 				</tr>
 				<?php foreach($comments as $comment): ?>
 				<tr>
@@ -59,10 +58,8 @@
 					?>
 					</td>
 					<td><?php echo $comment['comment'] ?></td>
-					<td><?php echo $comment['reply'] ?></td>
 					<td align="center"><?php echo date('Y-m-d H:i', strtotime($comment['add_time'])); ?></td>
 					<td align="center">
-						<a href="<?php echo site_url('admin/cp/comment_replay/'.$comment['comment_id']) ?>">添加回复</a>
 					<?php
 						echo ($comment['status'] == CP_COMMENT_STATUS_NEW) ? '<a href="'.site_url('admin/cp/comment_review/'.$comment['comment_id']).'">通过审核</a>' : '';
 					?>	

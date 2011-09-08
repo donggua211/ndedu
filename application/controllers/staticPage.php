@@ -5,8 +5,6 @@ class StaticPage extends Controller {
 	function StaticPage()
 	{
 		parent::Controller();
-		
-		$this->load->helper('common');
 	}
 
 	function contactus()
@@ -38,22 +36,6 @@ class StaticPage extends Controller {
 		$this->load->view('header', $data_header);
 		$this->load->view('contactus', $data);
 		$this->load->view('footer');
-	}
-	
-	function oo1()
-	{
-		$data_header['css_file'] = 'promo0901.css';
-		$data_header['meta_title'] = '尼德教育九大理由保障成绩提高，成功规划学业，成就完美人生！';
-		$data_header['no_header'] = TRUE;
-		$this->load->view('header', $data_header);
-		$this->load->view('promo0901');
-		$this->load->view('footer');
-	}
-	
-	function _load_viewer($template)
-	{
-		$template_arr = array('header', $template, 'footer');
-		_load_viewer($template_arr, $data);
 	}
 }
 

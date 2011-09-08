@@ -153,11 +153,8 @@ class cp_quan extends Controller {
 	//quan长度为: 16位.
 	function _gen_quan_id($batch_id)
 	{
-		$key = md5('ndedu_'.uniqid(mt_rand(), true));
-		$code1 = hexdec(substr($key,0,6));
-		$code2 = hexdec(substr($key,7,6));
-		$codex = substr($code1,0,6).substr($code2,0,6);
-		return  $batch_id.str_pad($codex, 12, '0', STR_PAD_LEFT);
+		$key = 'ndedu_'.uniqid(mt_rand(), true);
+		return $batch_id.str_pad(substr(hexdec(md5($key)),2,12), 12, '0', STR_PAD_LEFT);
 	}
 	
 	function use_quan()

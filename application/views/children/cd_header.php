@@ -1,9 +1,9 @@
 <div id="cd_header">
 	<div class="mini_nav">
 		<ul>
-			<li><img src="images/children/mini_nav_list.jpg"/><a href="<?php echo site_url('') ?>">尼德中小学辅导</a></li>
-			<li><img src="images/children/mini_nav_list.jpg"/><a href="<?php echo site_url('cp') ?>">尼德测评系统</a></li>
-			<li><img src="images/children/mini_nav_list.jpg"/><a href="<?php echo site_url('grothPlan') ?>">精英成长计划</a></li>
+			<li><a href="<?php echo site_url('') ?>">尼德中小学辅导</a></li>
+			<li><a href="<?php echo site_url('cp') ?>">尼德测评系统</a></li>
+			<li><a href="<?php echo site_url('grothPlan') ?>">精英成长计划</a></li>
 		</ul>
 	</div>
 	<div class="phone">电话：010-59790750</div>

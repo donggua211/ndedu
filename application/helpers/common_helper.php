@@ -74,7 +74,7 @@
 	
 	function _setauthcookie($key, $value, $expire = 0)
 	{
-		$authcookie_expire = 3600 * 12; //默认2个小时
+		$authcookie_expire = 3600 * 2; //默认2个小时
 		$pycrypto_value = authcode($value, 'ENCODE', '', $authcookie_expire);
 		setcookie($key, $pycrypto_value, $expire);
 	}
@@ -260,24 +260,4 @@
 		$page_nav['pagesize'] = $pagesize;
 
 		return $page_nav;	
-	}
-	
-	function num2chinsesNum($num)
-	{
-		$table_num = array("零", "一", "二", "三", "四", "五", "六", "七", "八", "九");
-		$table_unit = array(0 => '', 1 => "十", 2 => "百", 3 => "千", 4 => '万');
-		
-		$num = (string)($num);
-		
-		$result = '';
-		for($i = 0; $i < strlen($num); $i++)
-		{
-			if($num[$i] == 0 && strlen($num) == ($i+1) && strlen($num) > 1) //不显示末尾的零.
-				$result .= '';
-			elseif($num[$i] == 1 && strlen($num) == 2 && $i == 0) //如果只有两位的十位为1, 不显示.
-				$result .= $table_unit[(strlen($num)-$i-1)];	
-			else
-				$result .= $table_num[$num[$i]] . $table_unit[(strlen($num)-$i-1)];		
-		}
-		return $result;
 	}

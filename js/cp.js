@@ -448,8 +448,7 @@ function check_quan()
 			{
 				changWarningText('quan_warning', '', 'ok');
 				quan_value_obj.innerHTML = textData+'.00';
-				var total_count = (parseInt(old_total_count) - parseInt(textData));
-				
+				total_count = (parseInt(old_total_count) - parseInt(textData));
 				//如果 total_count 小于零的话, 默认为0
 				if(total_count < 0)
 					total_count = 0;

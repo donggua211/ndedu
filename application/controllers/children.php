@@ -15,7 +15,7 @@ class children extends Controller {
 	function index()
 	{
 		$data['header']['meta_title'] = '首页 - 尼德早教';
-		$data['main']['news'] = $this->Article_model->getArticleByCat(17, 'time', 6);
+		$data['main']['news'] = $this->Article_model->getArticleByCat(1, 'time', 6);
 		$data['main']['advantage'] = $this->Article_model->getArticleByCat(15, 'article_id', 6);
 		
 		$this->_load_children_view('cd_index', $data);
@@ -23,19 +23,19 @@ class children extends Controller {
 	
 	function advantage()
 	{
-		$this->article(705);
+		$this->article(613);
 	}
 	
 	function parrent()
 	{
-		$article_info = $this->Article_model->getOneArticle(714);
+		$article_info = $this->Article_model->getOneArticle(612);
 		$data['main']['single'] = true;
 		$this->_article($article_info, $data);
 	}
 	
 	function course()
 	{
-		$this->article(710);
+		$this->article(618);
 	}
 	
 	function aboutus()

@@ -137,7 +137,7 @@
 	{
 		$str = '<select name="'.$name.'">';
 		for($i = 0; $i < 24; $i++)
-			$str .= '<option value="'.str_pad($i, 2, '0', STR_PAD_LEFT).'" '.($selected == $i ? 'SELECTED' : '').'>'.str_pad($i, 2, 0, STR_PAD_LEFT);
+			$str .= '<option value="'.$i.'" '.($selected == $i ? 'SELECTED' : '').'>'.str_pad($i, 2, 0, STR_PAD_LEFT);
 		
 		$str .= '</select>';
 		return $str;
@@ -147,7 +147,7 @@
 	{
 		$str = '<select name="'.$name.'">';
 		for($i = 0; $i < 60; $i += 10)
-			$str .= '<option value="'.str_pad($i, 2, '0', STR_PAD_LEFT).'" '.($selected == $i ? 'SELECTED' : '').'>'.str_pad($i, 2, 0, STR_PAD_LEFT);
+			$str .= '<option value="'.$i.'" '.($selected == $i ? 'SELECTED' : '').'>'.str_pad($i, 2, 0, STR_PAD_LEFT);
 		
 		$str .= '</select>';
 		return $str;

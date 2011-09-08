@@ -20,7 +20,6 @@
 					<th width="45px">年级</th>
 					<th width="100px">留言时间</th>
 					<th>内容</th>
-					<th width="90px">状态</th>
 					<th width="90px">操作</th>
 				</tr>
 				<?php foreach($messages as $key => $message): ?>
@@ -30,16 +29,6 @@
 					<td <?php echo $message['is_new'] == 1 ? 'style="font-weight:bold"' : '' ?> align="center"><?php echo $message['grade_name']?></td>
 					<td <?php echo $message['is_new'] == 1 ? 'style="font-weight:bold"' : '' ?>><?php echo $message['add_time']?></td>
 					<td><?php echo $message['message']?></td>
-					<td>
-						<input id="status3_<?php echo $message['msg_id']?>" type="radio" value="3" name="status_<?php echo $message['msg_id']?>" <?php echo ($message['status'] == 3) ? 'CHECKED' : '' ?> OnClick="change_status(this.value,<?php echo $message['msg_id']?>)">
-						<label id="st3_<?php echo $message['msg_id']?>" for="status3_<?php echo $message['msg_id']?>" style="color:#<?php echo ($message['status'] == 3) ? '000' : 'CCCCCC' ?>">联系成功</label><br/>
-						
-						<input id="status2_<?php echo $message['msg_id']?>" type="radio" value="2" name="status_<?php echo $message['msg_id']?>" <?php echo ($message['status'] == 2) ? 'CHECKED' : '' ?> OnClick="change_status(this.value,<?php echo $message['msg_id']?>)">
-						<label id="st2_<?php echo $message['msg_id']?>" for="status2_<?php echo $message['msg_id']?>" style="color:#<?php echo ($message['status'] == 2) ? '000' : 'CCCCCC' ?>">无法联系</label><br/>
-						
-						<input id="status1_<?php echo $message['msg_id']?>" type="radio" value="1" name="status_<?php echo $message['msg_id']?>" <?php echo ($message['status'] == 1) ? 'CHECKED' : '' ?> OnClick="change_status(this.value,<?php echo $message['msg_id']?>)">
-						<label id="st1_<?php echo $message['msg_id']?>" for="status1_<?php echo $message['msg_id']?>" style="color:#<?php echo ($message['status'] == 1) ? '000' : 'CCCCCC' ?>">尚未联系</label>
-					</td>
 					<td align="center">
 						<a href="<?php echo site_url().'/admin/guestbook/one/'.$key ?>">查看</a> / 
 						<?php 

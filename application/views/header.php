@@ -3,25 +3,18 @@
 <head>
 <meta name="google-site-verification" content="CmIkFL0fe-8rD2sopBwU--rsiY6LpL7KEeL25jX73tY" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><?php echo (isset($meta_title) && !empty($meta_title)) ? $meta_title . ' - 尼德教育': '尼德教育，真正一对一个性化辅导，100%一线重点学校专职教师任教，100%个性化VIP小班设置，100%教育界资深人士管理。'; ?></title>
-<meta name="keywords" content="<?php echo (isset($meta_keywords) && !empty($meta_keywords)) ? $meta_keywords : '尼德教育，真正一对一个性化辅导，100%一线重点学校专职教师任教，100%个性化VIP小班设置，100%教育界资深人士管理。'; ?>" />
-<meta name="description" content="<?php echo (isset($meta_description) && !empty($meta_description)) ? $meta_description : '尼德教育，真正一对一个性化辅导，100%一线重点学校专职教师任教，100%个性化VIP小班设置，100%教育界资深人士管理。'; ?>" />
-<meta name="subscrition " content="尼德教育，北京最好的一对一个性化辅导机构，100%一线重点学校专职教师任教，100%个性化VIP小班设置，100%教育界资深人士管理。" />
+<title><?php echo (isset($meta_title) && !empty($meta_title)) ? $meta_title . ' - 尼德教育': '尼德教育 - 学科学习咨询 成长咨询 学科辅导 一对一-个性化辅导-家教-N对一-课外辅导-辅导班-小学家教-初中家教-高中家教-小学课外辅导-初中课外辅导-高中课外辅导'; ?></title>
+<meta name="keywords" content="<?php echo (isset($meta_keywords) && !empty($meta_keywords)) ? $meta_keywords : '尼德,尼德教育,一对一-个性化辅导,家教,N对一,课外辅导,辅导班,小学家教,初中家教,高中家教,小学课外辅导,初中课外辅导,高中课外辅导'; ?>" />
+<meta name="description" content="<?php echo (isset($meta_description) && !empty($meta_description)) ? $meta_description : '尼德,尼德教育,一对一-个性化辅导,家教,N对一,课外辅导,辅导班,小学家教,初中家教,高中家教,小学课外辅导,初中课外辅导,高中课外辅导'; ?>" />
+<meta name="subscrition " content="尼德,尼德教育,一对一-个性化辅导,家教,N对一,课外辅导,辅导班,小学家教,初中家教,高中家教,小学课外辅导,初中课外辅导,高中课外辅导" />
 <link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo site_url('rss');?>" />
 <base href="<?php echo base_url() ?>" />
-<link rel="shortcut icon" href="<?php echo base_url(); ?>images/favicon.ico" type="image/x-icon"/>
-<link rel="icon" href="<?php echo base_url(); ?>images/favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon"/>
+<link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
 <link href="images/css.css" rel="stylesheet" type="text/css" />
-<?php if(isset($css_file) && !empty($css_file)):?>
-	<?php 
-	if(is_array($css_file)): 
-		foreach($css_file as $css)
-			echo '<link href="css/'.$css.'" rel="stylesheet" type="text/css" />';
-	else: ?>
-	<link href="css/<?php echo $css_file ?>" rel="stylesheet" type="text/css" />
-	<?php endif; ?>
+<?php if(isset($css_file) && $css_file):?>
+<link href="css/<?php echo $css_file ?>" rel="stylesheet" type="text/css" />
 <?php endif;?>
-
 <script>
 <!--
 site_url = '<?php echo site_url();?>';
@@ -30,7 +23,6 @@ thisURL = '<?php echo $_SERVER['REQUEST_URI'];?>';
 -->
 </script>
 
-<!--
 <?php
 //Load Google Map API:
 if(isset($load_google_map) && $load_google_map):
@@ -67,7 +59,6 @@ window.onload = function()
 //Load Google Map API END.
 endif;
 ?>
--->
 
 <?php if(IS_ONLINE): ?>
 <script type="text/javascript">
@@ -153,7 +144,7 @@ endif;
 <li > <a href="<?php echo site_url('cp/detail/2') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'cp' && $CI->uri->segment(2) == 'detail' && $CI->uri->segment(3) == '2') ? 'slidingBlock_hover' : '';?>">初中应试</font></a></li>
 <li > <a href="<?php echo site_url('cp/detail/3') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'cp' && $CI->uri->segment(2) == 'detail' && $CI->uri->segment(3) == '3') ? 'slidingBlock_hover' : '';?>">高中应试</font></a></li>
 <li > <a href="<?php echo site_url('cp/detail/4') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'cp' && $CI->uri->segment(2) == 'detail' && $CI->uri->segment(3) == '4') ? 'slidingBlock_hover' : '';?>">高考状态</font></a></li>
-<li > <a href="<?php echo site_url('cp/detail/5') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'cp' && $CI->uri->segment(2) == 'detail' && $CI->uri->segment(3) == '5') ? 'slidingBlock_hover' : '';?>">专业选择</font></a></li>
+<li > <a href="<?php echo site_url('cp/detail/5') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'cp' && $CI->uri->segment(3) == 'detail' && $CI->uri->segment(3) == '5') ? 'slidingBlock_hover' : '';?>">专业选择</font></a></li>
 <li > <a href="<?php echo site_url('promo') ?>" target="_blank"><font">促销组合</font></a></li>
 </ul>
 </div>

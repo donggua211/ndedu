@@ -14,12 +14,6 @@
 	</div>
 	<?php endif;?>
 	
-	<div class="order_notice_block">
-		您可以直接通过银行转帐购买对应年级测评卡，转帐成功后我们会将测评卡帐号和密码通过在线聊天工具或者QQ直接发送给您。<br/>
-		帐  号：9558 8002 0010 8555 372 ( 工商银行 )<br/>
-		户  名：庞有博 
-	</div>
-	
 	<div class="order_main_title">尼德教育购买</div>
 	<div class="order_sub_title">填写收货地址：</div>
 	<div class="order_block">

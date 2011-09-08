@@ -228,12 +228,6 @@ function check_email(str)
 	return check_email.test(str); 
 }
 
-function check_postcode(str)
-{
-	var pattern =/^[0-9]{6}$/;
-	return pattern.test(str); 
-}
-
 function reloadcode()
 {
 	var verify=document.getElementById('safecode');

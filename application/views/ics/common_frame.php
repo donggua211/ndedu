@@ -15,12 +15,12 @@ if (window.top != window)
 </script>
 
 <frameset rows="50,*" framespacing="0" border="0">
-  <frame src="<?php echo site_url("ics/entry/top") ?>" id="header-ics" name="header-ics" frameborder="no" scrolling="no">
-  <frameset cols="200, 10, *" framespacing="0" border="0" id="frame-body">
-    <frame src="<?php echo site_url("ics/ics/menu") ?>" id="menu-ics" name="menu-ics" frameborder="no" scrolling="yes">
-    <frame src="<?php echo site_url("admin/entry/drag") ?>" id="drag-ics" name="drag-ics" frameborder="no" scrolling="no">
+  <frame src="<?php echo site_url("ics/entry/top") ?>" id="header-frame" name="header-frame" frameborder="no" scrolling="no">
+  <frameset cols="155, 10, *" framespacing="0" border="0" id="frame-body">
+    <frame src="<?php echo site_url("ics/ics/menu") ?>" id="menu-frame" name="menu-frame" frameborder="no" scrolling="yes">
+    <frame src="<?php echo site_url("admin/entry/drag") ?>" id="drag-frame" name="drag-frame" frameborder="no" scrolling="no">
 
-    <frame src="<?php echo site_url($main_url) ?>" id="main-ics" name="main-ics" frameborder="no" scrolling="yes">
+    <frame src="<?php echo site_url($main_url) ?>" id="main-frame" name="main-frame" frameborder="no" scrolling="yes">
   </frameset>
 </frameset>
 </head>

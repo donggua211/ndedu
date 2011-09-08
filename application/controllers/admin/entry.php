@@ -37,7 +37,7 @@ class Entry extends Controller {
 	{
 		$data_header['css_file'] = 'common_top.css';
 		$staff_info = get_staff_info();
-		$data_main['staff_info'] = $staff_info;
+		$data_main['username'] = $staff_info['username'];
 		$this->load->view('admin/header', $data_header);
 		$this->load->view('admin/common_top', $data_main);
 		$this->load->view('admin/footer');

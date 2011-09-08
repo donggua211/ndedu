@@ -132,12 +132,14 @@ body {
 	line-height:25px;
 	float:right;
 }
-.
- {
+.cat_detail_yuan {
+	padding:0;
 	color:#FF0000;
 	font-size:20px;
 }
 .cat_detail_cp_link {
+	margin-right:115px;
+	margin-top:5px;
 	width:80px;
 	height:20px;
 	line-height:20px;
@@ -193,9 +195,6 @@ body {
 	background-image:url(../images/cp/index_sidebar_head_bg.jpg);
 	background-repeat: no-repeat;
 	background-position:center left;
-}
-.sidebar_head span{
-	float:left;
 }
 .sidebar_head a{
 	padding-right:20px;
@@ -289,7 +288,7 @@ body {
 	clear:both;
 	margin-top:8px;
 	height:auto;
-	font-size:12px;
+	font-size:13px;
 	color:#000000;
 	line-height:1.7;
 }
@@ -301,47 +300,6 @@ body {
 	margin:5px;
     line-height: 23px;
     margin-bottom : 1.5em;
-}
-.cat_content_common .detail_title {
-	font-size: 18px;
-	font-weight: bold;
-	line-height: 1.7;
-	color:#43AEE4;
-}
-.cat_content_common .detail_sub_title {
-	padding:10px 20px 0 20px;
-	font-size: 14px;
-	font-weight: bold;
-	line-height: 1.7;
-}
-.cat_content_common .detail_text {
-	padding:0 20px 0 42px;
-	font-size: 14px;
-	line-height: 1.7;
-}
-.cat_content_common .detail_text ul{
-	list-style-type:disc;
-}
-.cat_content_common .detail_text ul li{
-	margin-left:14px;
-}
-.cat_content_common .detail_text2 {
-	padding:10px 20px 0 20px;
-	font-size: 14px;
-	line-height: 1.7;
-}
-.cat_content_common .detail_text3 {
-	margin:10px 20px 0 0;
-	font-size: 12px;
-	line-height: 1.7;
-	color:#FF3300;
-}
-.cat_content_common .detail_text3 ul {
-	list-style-type:disc;
-}
-.cat_content_common .detail_text3 ul  li{
-	margin-top:10px;
-	margin-left:42px;
 }
 .cat_content_score {
 	float:left;
@@ -498,14 +456,6 @@ body {
 	padding-left:10px;
 	line-height:23px;
 }
-
-.order_notice_block {
-    background-color: #F1F1F1;
-    border: 1px solid #E0E0E0;
-    margin: 10px 20px;
-    padding: 10px;
-}
-
 .order_main_title {
 	margin-top:10px;
 	padding-left:10px;
@@ -881,13 +831,8 @@ body {
 	padding-left:27px;
 	background:url(../images/cp/cp_promo_block_buy_bg.jpg) no-repeat;
 }
-.cp_promo_block_buy span{
-	float:left;
-}
 .cp_promo_block_buy form{
-	margin-right:40px;
-	position:relative;
-	top:8px;
+	margin: 8px 43px 0 0;
 	float:right;
 }
 .cp_promo_block_price {
@@ -968,14 +913,9 @@ body {
 	float:left;
 	height:100%;
 }
-.comment_reply{
-	padding: 0 20px 0 20px;
-	color:#333333;
-}
-.comment_reply p a {
-	color:blue;
-	text-decoration:underline;
-}
+
+
+
 
 
 

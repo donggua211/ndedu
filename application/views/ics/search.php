@@ -6,11 +6,6 @@
 	</div>
 	<div id="nav_right">
 		<form action="<?php echo site_url('ics/ics/search')?>" method="POST" name="searchForm">
-			<select name="category_id">
-				<option value="0">请选择分类</option>
-					<?php 
-					show_category_options($categories, $category_id); ?>
-			</select>
 			<select name="grade_id">
 				<option value='0'>全部学阶</option>
 				<?php

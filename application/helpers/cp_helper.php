@@ -182,7 +182,27 @@
 		}
 		return $result;
 	}
+	
+	function num2chinsesNum($num)
+	{
+		$table_num = array("零", "一", "二", "三", "四", "五", "六", "七", "八", "九");
+		$table_unit = array(0 => '', 1 => "十", 2 => "百", 3 => "千", 4 => '万');
 		
+		$num = (string)($num);
+		
+		$result = '';
+		for($i = 0; $i < strlen($num); $i++)
+		{
+			if($num[$i] == 0 && strlen($num) == ($i+1) && strlen($num) > 1) //不显示末尾的零.
+				$result .= '';
+			elseif($num[$i] == 1 && strlen($num) == 2 && $i == 0) //如果只有两位的十位为1, 不显示.
+				$result .= $table_unit[(strlen($num)-$i-1)];	
+			else
+				$result .= $table_num[$num[$i]] . $table_unit[(strlen($num)-$i-1)];		
+		}
+		return $result;
+	}
+	
 	function update_fee($price_luxury, $price_advanced)
 	{
 		return ($price_luxury - $price_advanced) * 0.5;

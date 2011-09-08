@@ -8,8 +8,6 @@
 	<?php if(isset($css_file) && $css_file):?>
 		<link href="css/admin/<?php echo $css_file ?>" rel="stylesheet" type="text/css" />
 	<?php endif;?>
-	<script type="text/javascript" src="js/jquery-1.6.2.js"></script>
-	<script type="text/javascript" src="js/admin/admin.common.js"></script>
 	<?php if(isset($js_file_header) && !empty($js_file_header)):?>
 		<?php 
 		if(is_array($js_file_header)): 

@@ -9,9 +9,9 @@
 			<div class="cp_promo_content">
 				<div class="cp_promo_block_left">
 					<div class="cp_promo_block_buy">
-						<span>￥<?php echo $value['ndedu_price'] ?></span>
+						￥<?php echo $value['ndedu_price'] ?>
 						<form action="<?php echo site_url('cp_order')?>" method="post" target="_blank">
-						<input type="image" name="submit" value="submit" src="images/cp/cp_promo_block_buy_botton.jpg">
+						<input type="image" name="submit" src="images/cp/cp_promo_block_buy_botton.jpg">
 						<input type="hidden" name="cat_id" value="<?php echo $value['cat_id']; ?>">
 						<input type="hidden" name="level" value="<?php echo CP_LEVEL_LUXURY; ?>">
 						<input type="hidden" name="order_type" value="<?php echo CP_ORDER_TYPE_PROMO; ?>">
