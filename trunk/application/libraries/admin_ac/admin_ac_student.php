@@ -173,15 +173,18 @@ class Admin_Ac_Student extends Admin_Ac_Base
 	{
 		$access_group_status = array(
 			'contact' => array(
-				STUDENT_STATUS_NOT_APPOINTMENT => array(
-					GROUP_ADMIN => 2,
-					GROUP_SCHOOLADMIN => 2,
-					GROUP_CONSULTANT => 2,
-					GROUP_SUPERVISOR => 2,
-				)
-			
+				STUDENT_STATUS_NOT_APPOINTMENT => array( GROUP_CS => 2 ),		//未约访
+				STUDENT_STATUS_HAS_APPOINTMENT => array( GROUP_CS => 2, GROUP_CONSULTANT => 2 ),		//已约访
+				STUDENT_STATUS_SIGNUP => array( GROUP_CS => 2 ),		//已报名
+				STUDENT_STATUS_LEARNING => array( GROUP_CS => 2 ),		//正在学
+				STUDENT_STATUS_FINISHED => array( GROUP_CS => 2 ),		//已学完
 			),
-		
+			
+			'learning' => array(
+				STUDENT_STATUS_LEARNING => array( GROUP_CS => 2 ),		//正在学
+				STUDENT_STATUS_FINISHED => array( GROUP_CS => 2 ),		//已学完
+			),
+			
 		);
 	}
 
