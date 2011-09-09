@@ -1,6 +1,7 @@
 <?php
-require_once(APPPATH.'libraries/nusoap0.9.5/nusoap.php');
+header("Content-Type: text/html; charset=utf-8");
 
+require_once(APPPATH.'libraries/nusoap0.9.5/nusoap.php');
 
 class sms extends Controller {
 

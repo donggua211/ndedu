@@ -16,10 +16,16 @@
 			<li class="explode" key="03_student" name="menu">
 				学员管理
 				<ul>
-					<?php if(is_admin() || is_school_admin() || is_consultant() || is_cs()): //权限: 超级管理员, 校区管理员, 咨询师可以添加员工?>
+					<?php
+						//access control
+						$CI = & get_instance();
+						if($CI->admin_ac_entry->munu_show_add_student() ):
+					?>
 					<li class="menu-item"><a href="<?php echo site_url("admin/student/add"); ?>" target="main-frame">添加学员</a></li>
 					<?php endif; ?>
+					
 					<li class="menu-item"><a href="<?php echo site_url("admin/student"); ?>" target="main-frame">查看学员</a></li>
+					
 					<?php if(is_admin() || is_school_admin()): //权限: 超级管理员, 校区管理员?>
 					<li class="menu-item"><a href="<?php echo site_url("admin/student/signup"); ?>" target="main-frame">已报名未分配的学员</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/student/finished"); ?>" target="main-frame">已学完的学员</a></li>
@@ -32,16 +38,24 @@
 					<?php endif; ?>
 				</ul>
 			</li>
-			<?php if(is_admin() || is_school_admin()): //权限: 只有超级管理员和校区管理员可以管理员工?>
+			<?php if($CI->admin_ac_entry->munu_show_staff_list() ): ?>
 			<li class="explode" key="02_staff" name="menu">
 				员工管理
 				<ul>
+					<?php if(is_admin() || is_school_admin()): ?>
 					<li class="menu-item"><a href="<?php echo site_url("admin/staff/add"); ?>" target="main-frame">添加员工</a></li>
+					<?php endif; ?>
+					
+					<?php if($CI->admin_ac_entry->munu_show_staff_list() ): ?>
 					<li class="menu-item"><a href="<?php echo site_url("admin/staff"); ?>" target="main-frame">员工列表</a></li>
+					<?php endif; ?>
+					
+					<?php if(is_admin() || is_school_admin()): ?>
 					<li class="menu-item"><a href="<?php echo site_url("admin/staff/trial_staff"); ?>" target="main-frame">试用期员工列表</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/staff/performance"); ?>" target="main-frame">员工绩效</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/staff/inactive_staff"); ?>" target="main-frame">注销的员工</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/staff/delete_staff"); ?>" target="main-frame">删除的员工</a></li>
+					<?php endif; ?>
 				</ul>
 			</li>
 			<?php endif; ?>

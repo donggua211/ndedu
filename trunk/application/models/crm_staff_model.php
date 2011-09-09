@@ -40,7 +40,16 @@ class CRM_Staff_model extends Model {
 		//所在组
 		if ($filter['group_id'])
         {
-            $where .= " AND staff.group_id = {$filter['group_id']} ";
+			if(is_array($filter['group_id']))
+			{
+				foreach($filter['group_id'] as $val)
+					$where_status[] = " staff.group_id = {$val} ";
+				
+				$where .= " AND ( ".implode(' OR ', $where_status)." )";
+			}
+			else
+				$where .= " AND staff.group_id = {$filter['group_id']} ";
+			
         }
 		elseif(is_school_admin()) //默认校区管理员只能查看咨询师和班主任.
 		{
@@ -111,7 +120,15 @@ class CRM_Staff_model extends Model {
 		//所在组
 		if ($filter['group_id'])
         {
-            $where .= " AND staff.group_id = {$filter['group_id']} ";
+            if(is_array($filter['group_id']))
+			{
+				foreach($filter['group_id'] as $val)
+					$where_status[] = " staff.group_id = {$val} ";
+				
+				$where .= " AND ( ".implode(' OR ', $where_status)." )";
+			}
+			else
+				$where .= " AND staff.group_id = {$filter['group_id']} ";
         }
 		elseif(is_school_admin()) //默认校区管理员只能查看咨询师和班主任.
 		{

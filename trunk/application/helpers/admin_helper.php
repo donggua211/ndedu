@@ -153,7 +153,6 @@
 		$status = intval($status);
 		$status_text = array(
 			STUDENT_STATUS_NOT_APPOINTMENT => '未约访',
-			STUDENT_STATUS_APPOINTMENT => '正在约',
 			STUDENT_STATUS_HAS_APPOINTMENT => '已约访',
 			STUDENT_STATUS_SIGNUP => '已报名',
 			STUDENT_STATUS_LEARNING => '正在学',

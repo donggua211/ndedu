@@ -25,7 +25,7 @@ class Staff extends Controller {
 		
 		$this->staff_info = get_staff_info();
 		//检查权限.
-		if(!check_role(array(GROUP_ADMIN, GROUP_SCHOOLADMIN), $this->staff_info['group_id']))
+		if(!check_role(array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS), $this->staff_info['group_id']))
 		{
 			//show_access_deny_page();
 		}
@@ -55,6 +55,10 @@ class Staff extends Controller {
 				break;
 			case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区员工的权限
 				$filter['branch_id'] = $this->staff_info['branch_id'];
+				break;
+			case GROUP_CS: //shooladmin只有查看本校区的, 自己分配的, 状态为正在学的学员的权限
+				$filter['branch_id'] = $this->staff_info['branch_id'];
+				$filter['group_id'] = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
 				break;
 			default:
 				show_error_page('您没有权限查看员工列表: 请重新登录或者联系管理员!', 'admin');
