@@ -90,7 +90,7 @@ class Ajax extends Controller {
 	{
 		//获取该员工名下的学生.
 		$staff_id = $this->input->Post('staff_id');
-		$filter['supervisor_id'] = $staff_id;
+		$filter['cservice_id'] = $staff_id;
 		$students = $this->CRM_Student_model->getAll($filter);
 		
 		foreach($students as $val)

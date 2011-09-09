@@ -29,13 +29,6 @@
 						{
 							show_status_options(STUDENT_STATUS_NOT_APPOINTMENT, $student);
 						}
-						
-						if(is_admin() || is_school_admin() || is_cs() || is_consultant()) //正在约状态, 只能管理员, 客服, 咨询师修改
-						{
-							show_status_options(STUDENT_STATUS_APPOINTMENT, $student);
-						}
-						
-						
 						if(is_admin() || is_school_admin() || is_consultant()) //已约访状态, 只能管理员, 咨询师修改
 						{
 							show_status_options(STUDENT_STATUS_HAS_APPOINTMENT, $student);

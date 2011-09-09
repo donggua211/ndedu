@@ -41,7 +41,6 @@
 			<select name="status">
 				<option value='0'>所有状态</option>
 				<option value='<?php echo STUDENT_STATUS_NOT_APPOINTMENT ?>' <?php echo ( (STUDENT_STATUS_NOT_APPOINTMENT == $filter['status']) ? 'SELECTED' : '' ) ?>><?php echo get_student_status_text(STUDENT_STATUS_NOT_APPOINTMENT)?></option>
-				<option value='<?php echo STUDENT_STATUS_APPOINTMENT ?>' <?php echo ( (STUDENT_STATUS_APPOINTMENT == $filter['status']) ? 'SELECTED' : '' ) ?>><?php echo get_student_status_text(STUDENT_STATUS_APPOINTMENT)?></option>
 				<option value='<?php echo STUDENT_STATUS_HAS_APPOINTMENT ?>' <?php echo ( (STUDENT_STATUS_HAS_APPOINTMENT == $filter['status']) ? 'SELECTED' : '' ) ?>><?php echo get_student_status_text(STUDENT_STATUS_HAS_APPOINTMENT)?></option>
 				<option value='<?php echo STUDENT_STATUS_SIGNUP ?>' <?php echo ( (STUDENT_STATUS_SIGNUP == $filter['status']) ? 'SELECTED' : '' ) ?>><?php echo get_student_status_text(STUDENT_STATUS_SIGNUP)?></option>
 				<option value='<?php echo STUDENT_STATUS_LEARNING ?>' <?php echo ( (STUDENT_STATUS_LEARNING == $filter['status']) ? 'SELECTED' : '' ) ?>><?php echo get_student_status_text(STUDENT_STATUS_LEARNING)?></option>

@@ -94,6 +94,7 @@
 					</td>
 					<td><span title="<?php echo $staff['remark'] ?>"><?php echo utf_substr($staff['remark'], 45); ?></span></td>
 					<td align="center"  id="option_<?php echo $staff['staff_id']; ?>">
+					<?php if(is_admin() || is_school_admin()): ?>
 						<a href="<?php echo site_url('admin/complain/add/'.$staff['staff_id']) ?>">投诉</a>
 						<a href="<?php echo site_url('admin/staff/edit/'.$staff['staff_id']) ?>">编辑</a>
 						<?php 
@@ -107,6 +108,7 @@
 						else
 							echo '<a onclick="return confirm(\'确定要取消删除?\');" href="'.site_url('admin/staff/delete/'.$staff['staff_id'].'/1').'">取消删除</a>';
 						?>
+					<?php endif; ?>
 					</td>
 				</tr>
 				<?php endforeach; ?>

@@ -44,23 +44,23 @@ define('STAFF_PER_PAGE', 15); //每页显示15个员工
 define('DOCUMENT_PER_PAGE', 10); //每页显示15个学员
 
 /*student status*/
-define('STUDENT_STATUS_NOT_APPOINTMENT', 1); //未约访(0)
-define('STUDENT_STATUS_APPOINTMENT', 6); //正在约(0)
-define('STUDENT_STATUS_HAS_APPOINTMENT', 7); //已约访(0)
-define('STUDENT_STATUS_SIGNUP', 2); //已报名(1)
-define('STUDENT_STATUS_LEARNING', 3); //正在学(2)
-define('STUDENT_STATUS_FINISHED', 4); //已学完(3)
-define('STUDENT_STATUS_INACTIVE', 5); //注销(4)
+define('STUDENT_STATUS_NOT_APPOINTMENT', 1); //未约访
+define('STUDENT_STATUS_HAS_APPOINTMENT', 7); //已约访
+define('STUDENT_STATUS_SIGNUP', 2); //已报名
+define('STUDENT_STATUS_LEARNING', 3); //正在学
+define('STUDENT_STATUS_FINISHED', 4); //已学完
+define('STUDENT_STATUS_INACTIVE', 5); //注销
 
 
 /*GROUP ID for admin panel */
-define('GROUP_ADMIN', 1);
-define('GROUP_SCHOOLADMIN', 2);
-define('GROUP_CONSULTANT', 3);
-define('GROUP_SUPERVISOR', 4);
-define('GROUP_TEACHER_PARTTIME', 5);
-define('GROUP_TEACHER_FULL', 6);
-define('GROUP_CS', 7);
+define('GROUP_ADMIN', 1);			//管理员
+define('GROUP_SCHOOLADMIN', 2);		//校区管理员
+define('GROUP_CONSULTANT', 3);		//咨询师
+define('GROUP_SUPERVISOR', 4);		//班主任
+define('GROUP_CS', 7);				//客服老师
+define('GROUP_TEACHER_PARTTIME', 5);//学科老师（兼职）
+define('GROUP_TEACHER_FULL', 6);	//学科老师（全职）
+define('GROUP_SUYANG', 8);			//素养课老师
 
 /*region ID*/
 define('REGION_PROVINCE', 1);
