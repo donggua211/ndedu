@@ -347,7 +347,11 @@ class Student extends Controller {
 			//access_control
 			//获取student 信息.
 			$student_info = $this->CRM_Student_model->getOne($student_id);
-			$this->admin_ac_student->history_ac($student_info['status'], $history['history_type']);
+			if($this->admin_ac_student->history_ac($student_info['status'], $history['history_type']) != HISTORY_RULE_READ_WRITE)
+			{
+				show_error_page('您没有权限查看该学员的历史记录！', 'admin/student');
+				return 0;
+			}
 		
 			
 			if(empty($history['history_type']) || empty($history['student_id']))

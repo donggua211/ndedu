@@ -134,10 +134,14 @@ define('JOIN_PER_PAGE', 20);
 define('WARNING_REMAIN_HOURS', 10);
 
 //员工转正的课时数
-define('STAFF_BECOME_FULL_HOURS', 5);
+define('STAFF_BECOME_FULL_HOURS', 20);
 
 //科目
 define('SUBJECT_SUYANG', 2);
+
+//历史记录的权限.
+define('HISTORY_RULE_READ', 1);
+define('HISTORY_RULE_READ_WRITE', 2);
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */
