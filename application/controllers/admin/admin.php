@@ -11,9 +11,6 @@ class Admin extends Controller {
 		$this->load->library('session');
 		$this->load->model('CRM_Staff_model');
 		$this->load->helper('admin');
-		
-		//加载权限控制类
-		$this->load->library('admin_ac/Admin_Ac_Admin', array('group_id' => $this->staff_info['group_id']));
 	}
 	
 	/* 用户登录 */

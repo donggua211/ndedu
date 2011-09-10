@@ -166,28 +166,91 @@ class Admin_Ac_Student extends Admin_Ac_Base
 	/*
 	 * 判断历史的access control。 
 	 * 不可读写： 0
-	 * 可读，不可写： 1
-	 * 可读写： 2
+	 * 可读，不可写： HISTORY_RULE_READ
+	 * 可读写： HISTORY_RULE_READ_WRITE
 	 */
 	function history_ac($status, $type)
 	{
+		//管理员有权限。
+		if($this->group_id == GROUP_ADMIN || $this->group_id == GROUP_SCHOOLADMIN)
+			return true;
+		
+		$RW = HISTORY_RULE_READ_WRITE;
+		$R = HISTORY_RULE_READ;
+		
 		$access_group_status = array(
 			'contact' => array(
-				STUDENT_STATUS_NOT_APPOINTMENT => array( GROUP_CS => 2 ),		//未约访
-				STUDENT_STATUS_HAS_APPOINTMENT => array( GROUP_CS => 2, GROUP_CONSULTANT => 2 ),		//已约访
-				STUDENT_STATUS_SIGNUP => array( GROUP_CS => 2 ),		//已报名
-				STUDENT_STATUS_LEARNING => array( GROUP_CS => 2 ),		//正在学
-				STUDENT_STATUS_FINISHED => array( GROUP_CS => 2 ),		//已学完
+				STUDENT_STATUS_NOT_APPOINTMENT => array( GROUP_CS => $RW ),		//未约访
+				STUDENT_STATUS_HAS_APPOINTMENT => array( GROUP_CS => $RW, GROUP_CONSULTANT => $RW ),		//已约访
+				STUDENT_STATUS_SIGNUP => array( GROUP_CS => $RW ),		//已报名
+				STUDENT_STATUS_LEARNING => array( GROUP_CS => $RW ),		//正在学
+				STUDENT_STATUS_FINISHED => array( GROUP_CS => $RW ),		//已学完
+			),
+			
+			'consult' => array(
+				STUDENT_STATUS_LEARNING => array(
+					GROUP_CS => $R,
+					GROUP_CONSULTANT => $RW,
+					GROUP_TEACHER_FULL => $R,
+					GROUP_SUYANG => $R),									  //正在学
+				STUDENT_STATUS_FINISHED => array( GROUP_CS => $R ),		//已学完
+			),
+			
+			'suyang' => array(
+				STUDENT_STATUS_LEARNING => array(
+					GROUP_CS => $R,
+					GROUP_CONSULTANT => $R,
+					GROUP_TEACHER_FULL => $R,
+					GROUP_SUYANG => $RW),									  //正在学
+				STUDENT_STATUS_FINISHED => array( GROUP_CS => $R ),		//已学完
 			),
 			
 			'learning' => array(
-				STUDENT_STATUS_LEARNING => array( GROUP_CS => 2 ),		//正在学
-				STUDENT_STATUS_FINISHED => array( GROUP_CS => 2 ),		//已学完
+				STUDENT_STATUS_LEARNING => array(
+					GROUP_CS => $R,
+					GROUP_CONSULTANT => $R,
+					GROUP_TEACHER_FULL => $RW,
+					GROUP_SUYANG => $R),									  //正在学
+				STUDENT_STATUS_FINISHED => array( GROUP_CS => $R ),		//已学完
 			),
 			
+			'callback' => array(
+				STUDENT_STATUS_LEARNING => array( GROUP_CS => $RW),		//正在学
+				STUDENT_STATUS_FINISHED => array( GROUP_CS => $RW ),		//已学完
+			),
 		);
+		
+		if(!isset($access_group_status[$type][$status][$this->group_id]))
+		{
+			show_error_page('您没有权限查看该学员的历史记录！', 'admin/student');
+			return 0;
+		}
+		
+		return $access_group_status[$type][$status][$this->group_id];
 	}
 
 
-
+	/*
+	 * view 权限控制
+	 *
+	 */
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
