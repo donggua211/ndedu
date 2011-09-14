@@ -37,17 +37,15 @@
 				?>
 			</select>
 			<!-- 校区 -->
-			<?php if(is_admin() || is_school_admin()): //权限: 只有管理员可以按状态?>
 			<select name="status">
 				<option value='0'>所有状态</option>
-				<option value='<?php echo STUDENT_STATUS_NOT_APPOINTMENT ?>' <?php echo ( (STUDENT_STATUS_NOT_APPOINTMENT == $filter['status']) ? 'SELECTED' : '' ) ?>><?php echo get_student_status_text(STUDENT_STATUS_NOT_APPOINTMENT)?></option>
-				<option value='<?php echo STUDENT_STATUS_HAS_APPOINTMENT ?>' <?php echo ( (STUDENT_STATUS_HAS_APPOINTMENT == $filter['status']) ? 'SELECTED' : '' ) ?>><?php echo get_student_status_text(STUDENT_STATUS_HAS_APPOINTMENT)?></option>
-				<option value='<?php echo STUDENT_STATUS_SIGNUP ?>' <?php echo ( (STUDENT_STATUS_SIGNUP == $filter['status']) ? 'SELECTED' : '' ) ?>><?php echo get_student_status_text(STUDENT_STATUS_SIGNUP)?></option>
-				<option value='<?php echo STUDENT_STATUS_LEARNING ?>' <?php echo ( (STUDENT_STATUS_LEARNING == $filter['status']) ? 'SELECTED' : '' ) ?>><?php echo get_student_status_text(STUDENT_STATUS_LEARNING)?></option>
-				<option value='<?php echo STUDENT_STATUS_FINISHED ?>' <?php echo ( (STUDENT_STATUS_FINISHED == $filter['status']) ? 'SELECTED' : '' ) ?>><?php echo get_student_status_text(STUDENT_STATUS_FINISHED)?></option>
-				<option value='<?php echo STUDENT_STATUS_INACTIVE ?>' <?php echo ( (STUDENT_STATUS_INACTIVE == $filter['status']) ? 'SELECTED' : '' ) ?>><?php echo get_student_status_text(STUDENT_STATUS_INACTIVE)?></option>
+				<?php
+				//access control
+				$CI = & get_instance();
+				foreach($CI->admin_ac_student->get_group_status() as $val)
+					echo "<option value='$val' ".( ($val == $filter['status']) ? 'SELECTED' : '' ). ">".get_student_status_text($val)."</option>";
+				?>
 			</select>
-			<?php endif; ?>
 			<!-- 省市 -->
 			<select name="province_id" id="selProvinces" onchange="region.changed(this, 2, 'selCities')">
 				<option value='0' selected>所有省...</option>
@@ -126,7 +124,7 @@
 						<a href="<?php echo site_url('admin/student/one/'.$student['student_id']) ?>">查看</a>
 						<a href="<?php echo site_url('admin/student/sms/'.$student['student_id']) ?>" target="_blank">发短信</a>
 						<?php
-						if(is_admin() || is_school_admin()) //权限: 只有管理员可以按状态
+						if($CI->admin_ac_student->view_student_all_operation())
 						{
 							if($student['is_delete'] == 0) 
 								echo '<a onclick="return confirm(\'确定要删除?\');" href="'.site_url('admin/student/delete/'.$student['student_id']).'">删除</a>';

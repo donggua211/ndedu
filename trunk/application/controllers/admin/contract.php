@@ -26,14 +26,16 @@ class Contract extends Controller {
 		//获取员工基本信息
 		$this->staff_info = get_staff_info();
 		
-		//检查权限.
+		/*检查权限.
 		$this->allowed_group = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
 		if(!check_role($this->allowed_group, $this->staff_info['group_id']))
 		{
 			//show_access_deny_page();
 		}
+		*/
 		
-		//$this->output->enable_profiler(TRUE);
+		//加载权限控制类
+		$this->load->library('admin_ac/Admin_Ac_Contract', array('group_id' => $this->staff_info['group_id']));
 	}
 	
 	function refund_add()
@@ -160,31 +162,9 @@ class Contract extends Controller {
 			show_error_page('您所查询的合同不存在!', 'admin/student');
 			return false;
 		}
-		else
-		{
-			switch($this->staff_info['group_id'])
-			{
-				case GROUP_ADMIN: //admin管理有权限
-					break;
-				case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区学员的合同
-					if($student_info['branch_id'] != $this->staff_info['branch_id'])
-					{
-						show_error_page('您没有权限查看该学员: 他/她不在您所在的校区!', 'admin/student');
-						return false;
-					}
-					break;
-				case GROUP_SUPERVISOR: //shooladmin只有查看本校区学员的合同
-					if($student_info['supervisor_id'] != $this->staff_info['staff_id'])
-					{
-						show_error_page('您没有权限查看该学员: 他/她不是您的学生!', 'admin/student');
-						return false;
-					}
-					break;
-				default:
-					show_error_page('您没有权限查看该合同: 请重新登录或者联系管理员!', 'admin/student');
-					return false;
-			}
-		}
+		
+		//access_control
+		$this->admin_ac_contract->contract_one_ac($student_info, $this->staff_info);
 		
 		//开始展示
 		switch($type)
@@ -231,31 +211,9 @@ class Contract extends Controller {
 			show_error_page('您所查询的合同不存在!', 'admin/student');
 			return false;
 		}
-		else
-		{
-			switch($this->staff_info['group_id'])
-			{
-				case GROUP_ADMIN: //admin管理有权限
-					break;
-				case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区学员的合同
-					if($student_info['branch_id'] != $this->staff_info['branch_id'])
-					{
-						show_error_page('您没有权限编辑该合同: 他/她不在您所在的校区!', 'admin/student');
-						return false;
-					}
-					break;
-				case GROUP_CONSULTANT: //修改自己创建的合同
-					if($contract_info['staff_id'] != $this->staff_info['staff_id'])
-					{
-						show_error_page('您没有权限编辑该合同: 他/她不是您所创建的!', 'admin/student');
-						return false;
-					}
-					break;
-				default:
-					show_error_page('您没有权限编辑该合同: 请重新登录或者联系管理员!', 'admin/student');
-					return false;
-			}
-		}
+		
+		//access_control
+		$this->admin_ac_contract->contract_one_ac($student_info, $this->staff_info);
 		
 		if(isset($_POST['submit']) && !empty($_POST['submit']))
 		{

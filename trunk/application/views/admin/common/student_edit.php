@@ -13,58 +13,33 @@
 		<?php endif;?>
 		<form action="<?php echo site_url('admin/student/edit') ?>" method="post">
 		<table width="90%" id="shop_info-table" >
+			<?php
+			//access control
+			$CI = & get_instance();
+			if(!empty($CI->admin_ac_student->view_student_edit_status())):
+			?>
 			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>状态: </td>
 				<td>
 					<select name="status">
 						<option value='0'>所有状态</option>
 						<?php
-						//分角色显示状态
-						function show_status_options($status, $student)
-						{
-							echo '<option value="'.$status.'" '.((isset($student['status']) && $status == $student['status']) ? 'SELECTED' : '').'>'.get_student_status_text($status).'</option>';
-						}
-						
-						if(is_admin() || is_school_admin()) //未约访状态, 只能管理员修改
-						{
-							show_status_options(STUDENT_STATUS_NOT_APPOINTMENT, $student);
-						}
-						if(is_admin() || is_school_admin() || is_consultant()) //已约访状态, 只能管理员, 咨询师修改
-						{
-							show_status_options(STUDENT_STATUS_HAS_APPOINTMENT, $student);
-						}
-						
-						if(is_admin() || is_school_admin() || is_consultant()) //已报名状态, 管理员, 咨询师可以修改
-						{
-							show_status_options(STUDENT_STATUS_SIGNUP, $student);
-						}
-						
-						if(is_admin() || is_school_admin()) //正在学状态, 只能管理员修改
-						{
-							show_status_options(STUDENT_STATUS_LEARNING, $student);
-						}
-						
-						if(is_admin() || is_school_admin() || is_supervisor()) //已学完状态, 管理员, 班主任可以修改
-						{
-							show_status_options(STUDENT_STATUS_FINISHED, $student);
-						}
-						
-						if(is_admin() || is_school_admin()) //正在学状态, 只能管理员修改
-						{
-							show_status_options(STUDENT_STATUS_INACTIVE, $student);
+						foreach($CI->admin_ac_student->view_student_edit_status() as $val)
+							echo '<option value="'.$val.'" '.((isset($student['status']) && $val == $student['status']) ? 'SELECTED' : '').'>'.get_student_status_text($val).'</option>';
 						}
 						?>
 					</select>
 				</td>
 			</tr>
-			<?php if(is_admin() || is_school_admin() || is_cs()): //只有管理员修改咨询师 ?>
+			<?php endif; ?>
+			
+			<?php if($CI->admin_ac_student->view_student_edit_consultant()): ?>
 			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>咨询师: </td>
 				<td>
 					<select name="consultant_id">
 						<option value='0'>请选择...</option>
 						<?php
-							var_dump($consultants);
 							foreach($consultants as $consultant)
 							{
 								echo '<option value="'.$consultant['staff_id'].'" '.((isset($consultant['consultant_id']) && $consultant['staff_id'] == $student['consultant_id']) ? 'SELECTED' : '' ).'>'.$consultant['name'].'</option>';
@@ -74,7 +49,8 @@
 				</td>
 			</tr>
 			<?php endif; ?>
-			<?php if(is_admin() || is_school_admin()): //只有管理员可以修改班主任 ?>
+			
+			<?php if($CI->admin_ac_student->view_student_edit_supervisor()): ?>
 			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>班主任: </td>
 				<td>
@@ -90,6 +66,7 @@
 				</td>
 			</tr>
 			<?php endif; ?>
+			
 			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>校区: </td>
 				<td>

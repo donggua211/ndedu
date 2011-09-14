@@ -82,18 +82,16 @@ class Student extends Controller {
 		//页面排序
 		switch($this->staff_info['group_id'])
 		{
+			case GROUP_SUPERVISOR: //shooladmin只有查看本校区的, 自己分配的, 状态为正在学的学员的权限
+				$order_by = 'student.status, contract.finished_hours';
+				break;
 			case GROUP_ADMIN: //admin管理有权限
 			case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区学员的权限
 			case GROUP_CONSULTANT: //shooladmin只有查看本校区的, 自己添加的, 状态为未报名的学员的权限
 			case GROUP_CS:
+			default:
 				$order_by = 'student.status, student.update_time';
 				break;
-			case GROUP_SUPERVISOR: //shooladmin只有查看本校区的, 自己分配的, 状态为正在学的学员的权限
-				$order_by = 'student.status, contract.finished_hours';
-				break;
-			default:
-				show_error_page('您没有权限查看学员列表: 请重新登录或者联系管理员!', 'admin/student');
-				return false;
 		}
 		
 		$students = $this->CRM_Student_model->getAll($filter, $page_nav['start'], STUDENT_PER_PAGE, $order_by, 'DESC');
@@ -347,12 +345,11 @@ class Student extends Controller {
 			//access_control
 			//获取student 信息.
 			$student_info = $this->CRM_Student_model->getOne($student_id);
-			if($this->admin_ac_student->history_ac($student_info['status'], $history['history_type']) != HISTORY_RULE_READ_WRITE)
+			if($this->admin_ac_student->history_ac($student_info['status'], $history['history_type']) != HISTORY_WR)
 			{
 				show_error_page('您没有权限查看该学员的历史记录！', 'admin/student');
-				return 0;
+				return false;
 			}
-		
 			
 			if(empty($history['history_type']) || empty($history['student_id']))
 			{
@@ -360,22 +357,7 @@ class Student extends Controller {
 			}
 			elseif(empty($history['history']))
 			{
-				switch($history['history_type'])
-				{
-					case 'contact':
-						$notify = '联系历史内容不能为空';
-						break;
-					case 'learning':
-						$notify = '学习历史内容不能为空';
-						break;
-					case 'callback':
-						$notify = '回访历史内容不能为空';
-						break;
-					default:
-						$notify = '历史内容不能为空';
-						break;
-				}
-				
+				$notify = '历史内容不能为空';
 				$this->_load_history_view($notify, $history, $calendar);
 			}
 			elseif($calendar['add_calendar'] == '1' && ( empty($calendar['start_time']) || empty($calendar['end_time']))) //添加到Calendar
@@ -390,28 +372,6 @@ class Student extends Controller {
 			}
 			else
 			{
-				//检查权限.
-				$allowed_group = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
-				switch($history['history_type'])
-				{
-					case 'contact':
-						$allowed_group[] = GROUP_CS;
-						$allowed_group[] = GROUP_CONSULTANT;
-						break;
-					case 'learning':
-						$allowed_group[] = GROUP_SUPERVISOR;
-						break;
-					case 'callback':
-						$allowed_group[] = GROUP_CS;
-						break;
-					default:
-						break;
-				}
-				if(!check_role($allowed_group, $this->staff_info['group_id']))
-				{
-					show_access_deny_page();
-				}
-				
 				//add into DB
 				if($this->CRM_History_model->add_history($history, $history['history_type']))
 				{
@@ -532,7 +492,7 @@ class Student extends Controller {
 			else
 			{
 				//add into DB
-				$student_id = $this->CRM_Student_model->add($new_student, $this->staff_info['staff_id']);
+				$student_id = $this->CRM_Student_model->add($new_student, $this->staff_info);
 				if($student_id > 0)
 				{
 					//插入student_status_history一条记录
@@ -643,6 +603,9 @@ class Student extends Controller {
 	//添加已完成课时
 	function add_finished_hour()
 	{
+		//access control
+		$this->admin_ac_student->add_finished_hour_ac();
+		
 		$data['header']['css_file'] = '../calendar.css';
 		$data['footer']['js_file'] = '../calendar.js';
 		$data['header']['meta_title'] = '添加已完成课时 - 管理学员';
@@ -651,7 +614,6 @@ class Student extends Controller {
 		$data['main']['subjects'] = $this->CRM_Subject_model->getAll();
 		$this->_load_view('student_add_finished_hour', $data);
 	}
-	
 	
 	function sms_batch()
 	{

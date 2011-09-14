@@ -3,7 +3,7 @@
 require_once('admin_ac_base.php');
 
 /*
- * admin/student controller 权限控制类
+ * admin/entry controller 权限控制类
  */
 class Admin_Ac_Entry extends Admin_Ac_Base 
 {
@@ -20,13 +20,13 @@ class Admin_Ac_Entry extends Admin_Ac_Base
 
 	function munu_show_add_student()
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CONSULTANT, GROUP_CS);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CONSULTANT, GROUP_CONSULTANT_D, GROUP_CS);
 		return ($this->_check_role($allowed_group_id)) ? TRUE : FALSE;
 	}
 
 	function munu_show_staff_list()
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_TEACHER_D, GROUP_CONSULTANT_D);
 		return ($this->_check_role($allowed_group_id)) ? TRUE : FALSE;
 	}
 }

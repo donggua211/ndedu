@@ -53,14 +53,16 @@ define('STUDENT_STATUS_INACTIVE', 5); //注销
 
 
 /*GROUP ID for admin panel */
-define('GROUP_ADMIN', 1);			//管理员
-define('GROUP_SCHOOLADMIN', 2);		//校区管理员
-define('GROUP_CONSULTANT', 3);		//咨询师
-define('GROUP_SUPERVISOR', 4);		//班主任
-define('GROUP_CS', 7);				//客服老师
-define('GROUP_TEACHER_PARTTIME', 5);//学科老师（兼职）
-define('GROUP_TEACHER_FULL', 6);	//学科老师（全职）
-define('GROUP_SUYANG', 8);			//素养课老师
+define('GROUP_ADMIN', 1);				//管理员
+define('GROUP_SCHOOLADMIN', 2);			//校区管理员
+define('GROUP_CONSULTANT', 3);			//咨询师
+define('GROUP_SUPERVISOR', 4);			//班主任
+define('GROUP_TEACHER_PARTTIME', 5);	//学科老师（兼职）
+define('GROUP_TEACHER_FULL', 6);		//学科老师（全职）
+define('GROUP_CS', 7);					//客服老师
+define('GROUP_SUYANG', 8);				//素养课老师
+define('GROUP_TEACHER_D', 9);			//学科主管
+define('GROUP_CONSULTANT_D', 10);		//咨询主管
 
 /*region ID*/
 define('REGION_PROVINCE', 1);
@@ -139,9 +141,10 @@ define('STAFF_BECOME_FULL_HOURS', 20);
 //科目
 define('SUBJECT_SUYANG', 2);
 
-//历史记录的权限.
-define('HISTORY_RULE_READ', 1);
-define('HISTORY_RULE_READ_WRITE', 2);
+//历史记录
+define('HISTORY_DENY', 0);
+define('HISTORY_R', 1);
+define('HISTORY_WR', 2);
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

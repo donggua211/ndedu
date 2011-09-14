@@ -218,6 +218,9 @@
 			case GROUP_CS:
 				$template_full = 'admin/cs/'.$template;
 				break;
+			default:
+				$template_full = 'admin/common/'.$template;
+				break;
 		}
 		
 		if(!file_exists(APPPATH.'views/'.$template_full))

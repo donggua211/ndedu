@@ -24,11 +24,9 @@ class Staff extends Controller {
 		}
 		
 		$this->staff_info = get_staff_info();
-		//检查权限.
-		if(!check_role(array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS), $this->staff_info['group_id']))
-		{
-			//show_access_deny_page();
-		}
+		
+		//加载权限控制类
+		$this->load->library('admin_ac/Admin_Ac_Staff', array('group_id' => $this->staff_info['group_id'], 'branch_id' => $this->staff_info['branch_id']));
 		
 		//$this->output->enable_profiler(TRUE);
 	}
@@ -49,21 +47,9 @@ class Staff extends Controller {
 	
 		$filter = $this->_parse_filter($filter_string, $filter);
 		
-		switch($this->staff_info['group_id'])
-		{
-			case GROUP_ADMIN: //admin管理有权限
-				break;
-			case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区员工的权限
-				$filter['branch_id'] = $this->staff_info['branch_id'];
-				break;
-			case GROUP_CS: //shooladmin只有查看本校区的, 自己分配的, 状态为正在学的学员的权限
-				$filter['branch_id'] = $this->staff_info['branch_id'];
-				$filter['group_id'] = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
-				break;
-			default:
-				show_error_page('您没有权限查看员工列表: 请重新登录或者联系管理员!', 'admin');
-				return false;
-		}
+		//access control
+		$filter_ac = $this->admin_ac_student->index_ac($this->staff_info);
+		$filter = array_merge($filter, $filter_ac);
 		
 		//Page Nav
 		$total = $this->CRM_Staff_model->getAll_count($filter);
@@ -105,6 +91,9 @@ class Staff extends Controller {
 			return false;
 		}
 		
+		//access_control
+		$this->admin_ac_staff->staff_one_ac($staff_info, $this_staff_info);
+		
 		$data['header']['meta_title'] = $staff_info['name'].' -查看员工 - 管理员工';
 		$data['main']['staff'] = $staff_info;
 		
@@ -126,6 +115,8 @@ class Staff extends Controller {
 		$this->index('page=1&is_active=1&is_delete=0&in_trial=1');
 	}
 	
+	/*
+	Delete from ndedu1.2.3. 新的绩效系统： admin/pms
 	function performance($filter_string = '')
 	{
 		//默认值
@@ -174,6 +165,7 @@ class Staff extends Controller {
 		_load_viewer($this->staff_info['group_id'], 'staff_performance', $data);
 	}
 	
+	*/
 	/* 
 	 * 访问权限: 全部角色
 	*/
@@ -190,30 +182,8 @@ class Staff extends Controller {
 		//获取staff 信息.
 		$staff_info = $this->CRM_Staff_model->getOne($staff_id);
 		
-		//检查权限
-		if(empty($staff_info))
-		{
-			show_error_page('您所查询的员工不存在!', 'admin/staff');
-			return false;
-		}
-		else
-		{
-			switch($this->staff_info['group_id'])
-			{
-				case GROUP_ADMIN: //admin管理有权限
-					break;
-				case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区员工的权限
-					if($staff_info['branch_id'] != $this->staff_info['branch_id'])
-					{
-						show_error_page('您没有权限查看该员工: 他/她不在您所在的校区!', 'admin/staff');
-						return false;
-					}
-					break;
-				default:
-					show_error_page('您没有权限查看该员工: 请重新登录或者联系管理员!', 'admin');
-					return false;
-			}
-		}
+		//access_control
+		$this->admin_ac_staff->staff_management_ac($staff_info, $this->staff_info, 'warning');
 		
 		if(isset($_POST['submit']) && !empty($_POST['submit']))
 		{
@@ -273,7 +243,8 @@ class Staff extends Controller {
 	*/
 	function add()
 	{
-		//检查权限. 已经在constructor中检查过.
+		//access_control
+		$this->admin_ac_staff->staff_add_ac();
 		
 		if(isset($_POST['submit']) && !empty($_POST['submit']))
 		{
@@ -354,23 +325,8 @@ class Staff extends Controller {
 		
 		$staff_info = $this->CRM_Staff_model->getOne($staff_id);
 		
-		//检查权限.
-		switch($this->staff_info['group_id'])
-		{
-			case GROUP_ADMIN: //admin管理有权限
-				break;
-			case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区员工的权限
-				if($staff_info['branch_id'] != $this->staff_info['branch_id'])
-				{
-					show_error_page('您没有权限删除该员工: 他/她不在您所在的校区!', 'admin/staff');
-					return false;
-				}
-				break;
-			default:
-				show_error_page('您没有权限删除该员工: 请重新登录或者联系管理员!', 'admin/staff');
-				return false;
-		}
-		
+		//access_control
+		$this->admin_ac_staff->staff_management_ac($staff_info, $this->staff_info, 'warning');
 		
 		$update_field['is_delete'] = $is_delete;
 		if($this->CRM_Staff_model->update($staff_id, $update_field))
@@ -405,22 +361,8 @@ class Staff extends Controller {
 		
 		$staff_info = $this->CRM_Staff_model->getOne($staff_id);
 		
-		//检查权限.
-		switch($this->staff_info['group_id'])
-		{
-			case GROUP_ADMIN: //admin管理有权限
-				break;
-			case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区员工的权限
-				if($staff_info['branch_id'] != $this->staff_info['branch_id'])
-				{
-					show_error_page('您没有权限注销该员工: 他/她不在您所在的校区!', 'admin/staff');
-					return false;
-				}
-				break;
-			default:
-				show_error_page('您没有权限注销该员工: 请重新登录或者联系管理员!', 'admin/staff');
-				return false;
-		}
+		//access_control
+		$this->admin_ac_staff->staff_management_ac($staff_info, $this->staff_info, 'warning');
 		
 		$update_field['is_active'] = $is_active;
 		if($this->CRM_Staff_model->update($staff_id, $update_field))
@@ -456,22 +398,8 @@ class Staff extends Controller {
 		
 		$staff_info = $this->CRM_Staff_model->getOne($staff_id);
 		
-		//检查权限.
-		switch($this->staff_info['group_id'])
-		{
-			case GROUP_ADMIN: //admin管理有权限
-				break;
-			case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区员工的权限
-				if($staff_info['branch_id'] != $this->staff_info['branch_id'])
-				{
-					show_error_page('您没有权限注销该员工: 他/她不在您所在的校区!', 'admin/staff');
-					return false;
-				}
-				break;
-			default:
-				show_error_page('您没有权限注销该员工: 请重新登录或者联系管理员!', 'admin/staff');
-				return false;
-		}
+		//access_control
+		$this->admin_ac_staff->staff_management_ac($staff_info, $this->staff_info, 'warning');
 		
 		$update_field['in_trial'] = $in_trial;
 		if($this->CRM_Staff_model->update($staff_id, $update_field))
@@ -542,15 +470,8 @@ class Staff extends Controller {
 	
 	function admin_gen_psw()
 	{
-		//检查权限.
-		switch($this->staff_info['group_id'])
-		{
-			case GROUP_ADMIN: //admin管理有权限
-				break;
-			default:
-				show_error_page('您没有权限访问该页面!', 'admin/staff');
-				return false;
-		}
+		//access_control
+		$this->admin_ac_staff->admin_gen_psw_ac();
 		
 		$new_password = substr(md5(microtime()), 0, 6);
 		$update_field['password'] = md5($new_password);

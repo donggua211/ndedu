@@ -52,7 +52,7 @@
 					
 					<?php if(is_admin() || is_school_admin()): ?>
 					<li class="menu-item"><a href="<?php echo site_url("admin/staff/trial_staff"); ?>" target="main-frame">试用期员工列表</a></li>
-					<li class="menu-item"><a href="<?php echo site_url("admin/staff/performance"); ?>" target="main-frame">员工绩效</a></li>
+					<!--<li class="menu-item"><a href="<?php echo site_url("admin/staff/performance"); ?>" target="main-frame">员工绩效</a></li>-->
 					<li class="menu-item"><a href="<?php echo site_url("admin/staff/inactive_staff"); ?>" target="main-frame">注销的员工</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/staff/delete_staff"); ?>" target="main-frame">删除的员工</a></li>
 					<?php endif; ?>

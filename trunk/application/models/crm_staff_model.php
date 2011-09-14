@@ -28,12 +28,12 @@ class CRM_Staff_model extends Model {
             $where .= " AND staff.add_time <= {$filter['end_time']} ";
         }
 		//分校区
-		if ($filter['branch_id'])
+		if (isset($filter['branch_id']) && $filter['branch_id'])
         {
             $where .= " AND staff.branch_id = {$filter['branch_id']} ";
         }
 		//学阶
-		if ($filter['grade_id'])
+		if (isset($filter['grade_id']) && $filter['grade_id'])
         {
             $where .= " AND staff.grade_id = {$filter['grade_id']} ";
         }
@@ -56,7 +56,7 @@ class CRM_Staff_model extends Model {
 			$where .= " AND staff.group_id > ".GROUP_SCHOOLADMIN;
 		}
 		//员工姓名
-		if ($filter['name'])
+		if (isset($filter['name']) && $filter['name'])
         {
             $where .= " AND staff.name LIKE '%{$filter['name']}%' ";
         }
@@ -304,27 +304,6 @@ class CRM_Staff_model extends Model {
 		$sql = "SELECT staff_id, name FROM " . $this->db->dbprefix('crm_staff') . " as staff";
 		if($group_id > 0)
 			$sql .= " WHERE group_id = $group_id";
-		
-		$query = $this->db->query($sql);
-		
-		if ($query->num_rows() > 0)
-		{
-			return $query->result_array();
-		}
-		else
-		{
-			return array();
-		}
-	}
-	
-	function get_all_by_branch($branch_id = 0)
-	{
-		$sql = "SELECT staff_id, name FROM " . $this->db->dbprefix('crm_staff') . " as staff";
-		if($branch_id > 0)
-			$sql .= " WHERE branch_id = $branch_id";
-		
-		if(is_school_admin()) //默认校区管理员只能查看咨询师和班主任.
-			$sql .= " AND staff.group_id > ".GROUP_SCHOOLADMIN;
 		
 		$query = $this->db->query($sql);
 		
