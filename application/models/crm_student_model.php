@@ -6,7 +6,7 @@ class CRM_Student_model extends Model {
 		parent::Model();
 	}
 	
-	function add($student, $staff_id)
+	function add($student, $staff_info)
 	{
 		//开始事务.
 		$this->db->trans_begin();
@@ -22,7 +22,14 @@ class CRM_Student_model extends Model {
 		$data['province_id'] = $student['province_id'];
 		$data['city_id'] = $student['city_id'];
 		$data['district_id'] = $student['district_id'];
-		$data['cservice_id'] = $staff_id;
+		$data['cservice_id'] = $staff_info['staff_id'];
+		
+		//如果是咨询师添加的，则 $data['supervisor_id'] 字段为该咨询师id
+		if($staff_info['group_id'] == GROUP_CONSULTANT || $staff_info['group_id'] == GROUP_CONSULTANT_D)
+			$data['supervisor_id'] = $staff_info['staff_id'];
+		else
+			$data['supervisor_id'] = 0;
+		
 		//选填信息.
 		$data['father_phone'] = $student['father_phone'];
 		$data['mother_phone'] = $student['mother_phone'];
@@ -32,7 +39,6 @@ class CRM_Student_model extends Model {
 		$data['remark'] = $student['remark'];
 		//状态字段
 		$data['consultant_id'] = 0;
-		$data['supervisor_id'] = 0;
 		$data['status'] = STUDENT_STATUS_NOT_APPOINTMENT;
 		$data['is_delete'] = 0;
 		$data['add_time'] = date('Y-m-d H:i:s');

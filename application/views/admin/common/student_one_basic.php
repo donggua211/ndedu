@@ -14,7 +14,11 @@
 		<p>
 			<span class="navbar-front"><a href="<?php echo site_url('admin/student/one/'.$student['student_id']) ?>">基本信息</a></span>
 			<span class="navbar-back"><a href="<?php echo site_url('admin/student/one/'.$student['student_id'].'/history') ?>">详细信息</a></span>
-			<?php if(is_admin() || is_school_admin() || is_consultant() || is_supervisor()): //权限: 超级管理员, 校区管理员, 咨询师可以查看/编辑合同信息?>
+			<?php
+			//access control
+			$CI = & get_instance();
+			if($CI->admin_ac_student->view_student_one_contract()):
+			?>
 			<span class="navbar-back"><a href="<?php echo site_url('admin/student/one/'.$student['student_id'].'/contract') ?>">合同信息</a></span>
 			<?php endif; ?>
 		</p>
@@ -80,7 +84,7 @@
 					<a href="javascript:void(0);" onclick="collapse_switch('status_history')" style="margin-left:20px"><font style="color:red">查看详情</font></a></td>
 					<?php endif?>
 			</tr>
-			<?php if(is_admin() || is_school_admin()): //权限: 只有管理员可以按状态?>
+			<?php if($CI->admin_ac_student->view_student_one_status_history()): ?>
 			<tr id="status_history" style="display:none">
 				<td></td>
 				<td>

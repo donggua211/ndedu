@@ -14,7 +14,11 @@
 		<p>
 			<span class="navbar-back"><a href="<?php echo site_url('admin/student/one/'.$student['student_id']) ?>">基本信息</a></span>
 			<span class="navbar-back"><a href="<?php echo site_url('admin/student/one/'.$student['student_id'].'/history') ?>">详细信息</a></span>
-			<?php if(is_admin() || is_school_admin() || is_consultant() || is_supervisor()): //权限: 超级管理员, 校区管理员, 咨询师可以查看/编辑合同信息?>
+			<?php
+			//access control
+			$CI = & get_instance();
+			if($CI->admin_ac_student->view_student_one_contract()):
+			?>
 			<span class="navbar-front"><a href="<?php echo site_url('admin/student/one/'.$student['student_id'].'/contract') ?>">合同信息</a></span>
 			<?php endif; ?>
 		</p>
@@ -44,12 +48,17 @@
 					<td align="left">定金: <?php echo $contract['deposit'] ?>元, 全额: <?php echo $contract['contact_value'] ?>元, 退费额: <?php echo $contract['refund_value'] ?></a></td>
 					<td align="center"><?php echo $contract['name'] ?></a></td>
 					<td align="center">
-						<?php if(is_admin() || is_school_admin()):?>
 						<a href="<?php echo site_url('admin/contract/one/'.$contract['contract_id']) ?>">查看详情</a>
 						<a href="<?php echo site_url('admin/contract/edit/'.$contract['contract_id']) ?>">编辑</a><br/>
+						<?php
+						//access control
+						$CI = & get_instance();
+						if($CI->admin_ac_student->view_student_one_contract_operation()):
+						?>
 						<a href="<?php echo site_url('admin/contract/one/'.$contract['contract_id'].'/refund/') ?>">添加退费</a>
 						<a href="<?php echo site_url('admin/student/add_finished_hour/') ?>">添加完成课时</a>
 						<?php endif; ?>
+						
 					</td>
 				<?php endforeach; ?>
 				</tr>

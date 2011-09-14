@@ -359,19 +359,22 @@ class Calendar extends Controller {
 	
 	function _get_all_staffs()
 	{
+		$filter['is_active'] = 1;
+		$filter['is_delete'] = 0;
+		$filter['group_id'] = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CONSULTANT, GROUP_SUPERVISOR, GROUP_TEACHER_FULL, GROUP_CS, GROUP_SUYANG, GROUP_TEACHER_D, GROUP_CONSULTANT_D);
+		
 		switch($this->staff_info['group_id'])
 		{
 			case GROUP_ADMIN: //admin管理有权限
-				return $this->CRM_Staff_model->get_all_by_branch();
 				break;
 			case GROUP_SCHOOLADMIN:
-				return $this->CRM_Staff_model->get_all_by_branch($this->staff_info['branch_id']);
+				$filter['branch_id'] = $this->staff_info['branch_id'];
 				break;
-			case GROUP_CONSULTANT:
-			case GROUP_SUPERVISOR:
 			default:
 				return array();
 		}
+		
+		return $this->CRM_Staff_model->getAll($filter);
 	}
 	
 	function _is_owner($staff_id)

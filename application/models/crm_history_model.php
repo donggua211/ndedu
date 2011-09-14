@@ -9,25 +9,16 @@ class CRM_History_model extends Model {
 	function add_history($history, $history_type)
 	{
 		//ÅÐ¶Ïhistory type.
-		if($history_type == 'learning')
-			$table = 'crm_history_learning';
-		elseif($history_type == 'contact')
-			$table = 'crm_history_contact';
-		elseif($history_type == 'callback')
-			$table = 'crm_history_callback';
-		else
+		$types = array('learning', 'contact', 'callback', 'consult', 'suyang');
+		if(!in_array($history_type, $types))
 			return false;
+		
+		$table = 'crm_history_'.$history_type;
 		
 		//±ØÌîÏî
 		$data['student_id'] = $history['student_id'];
 		$data['staff_id'] = $history['staff_id'];
-		
-		if($history_type == 'learning')
-			$data['history_learning'] = $history['history'];
-		elseif($history_type == 'contact')
-			$data['history_contact'] = $history['history'];
-		elseif($history_type == 'callback')
-			$data['history_callback'] = $history['history'];
+		$data['history_'.$history_type] = $history['history'];
 		
 		$data['is_delete'] = 0;
 		$data['add_time'] = date('Y-m-d H:i:s');
