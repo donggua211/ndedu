@@ -64,6 +64,7 @@ class Student extends Controller {
 		$filter['city_id'] = $this->input->post('city_id');
 		$filter['consultant_id'] = FALSE;
 		$filter['supervisor_id'] = FALSE;
+		$filter['suyang_id'] = FALSE;
 		$filter['is_delete'] = 0;
 	
 		$filter = $this->_parse_filter($filter_string, $filter);
@@ -89,6 +90,8 @@ class Student extends Controller {
 			case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区学员的权限
 			case GROUP_CONSULTANT: //shooladmin只有查看本校区的, 自己添加的, 状态为未报名的学员的权限
 			case GROUP_CS:
+			case GROUP_SUYANG:
+			case GROUP_SUYANG_D:
 			default:
 				$order_by = 'student.status, student.update_time';
 				break;
@@ -165,6 +168,8 @@ class Student extends Controller {
 				$student_extra_info['end_date'] = date('Y-m-d', $time_stamp);
 				$student_extra_info['end_hour'] = date('H', $time_stamp);
 				$student_extra_info['end_mins'] = floor(date('i')/10) * 10;
+				
+				$student_extra_info['this_staff_id'] = $this->staff_info['staff_id'];
 				
 				$template = 'student_one_history';
 				break;
@@ -251,8 +256,10 @@ class Student extends Controller {
 			$edit_student['status'] = $this->input->post('status');
 			$edit_student['supervisor_id'] = $this->input->post('supervisor_id');
 			$edit_student['consultant_id'] = $this->input->post('consultant_id');
+			$edit_student['suyang_id'] = $this->input->post('suyang_id');
 			$edit_student['name'] = $this->input->post('name');
 			$edit_student['gender'] = $this->input->post('gender');
+			$edit_student['dob'] = $this->input->post('dob');
 			$edit_student['branch_id'] = $this->input->post('branch_id');
 			$edit_student['grade_id'] = $this->input->post('grade_id');
 			$edit_student['province_id'] = $this->input->post('province_id');
@@ -273,7 +280,8 @@ class Student extends Controller {
 					$update_field[$key] = $val;
 			}
 			
-			//如果修改学员状态为: 正在学, 需要同时指定任课老师的为谁.
+			/* ndedu1.2.3 去掉班主任角色
+			//如果修改学员状态为: 正在学, 需要同时指定班主任的为谁.
 			if((isset($update_field['status']) && $update_field['status'] == STUDENT_STATUS_LEARNING) && 
 				(empty($update_field['supervisor_id']) && empty($student_info['supervisor_id'])))
 			{
@@ -281,9 +289,10 @@ class Student extends Controller {
 				$this->_load_student_edit_view($notify, $student_info);
 				return false;
 			}
+			*/
 			
-			//如果修改学员状态为: 正在约, 需要同时指定任课老师的为谁.
-			if((isset($update_field['status']) && $update_field['status'] == STUDENT_STATUS_APPOINTMENT) && 
+			//如果修改学员状态为: 正在约, 需要同时指定咨询师的为谁.
+			if((isset($update_field['status']) && $update_field['status'] == STUDENT_STATUS_HAS_APPOINTMENT) && 
 				(empty($update_field['consultant_id']) && empty($student_info['consultant_id'])))
 			{
 				$notify = '把学生状态改为"正在约", 需要同时指定学员的咨询师.';
@@ -344,8 +353,8 @@ class Student extends Controller {
 			
 			//access_control
 			//获取student 信息.
-			$student_info = $this->CRM_Student_model->getOne($student_id);
-			if($this->admin_ac_student->history_ac($student_info['status'], $history['history_type']) != HISTORY_WR)
+			$student_info = $this->CRM_Student_model->getOne($history['student_id']);
+			if($this->admin_ac_student->history_ac($history['history_type'], $student_info['status']) != HISTORY_WR)
 			{
 				show_error_page('您没有权限查看该学员的历史记录！', 'admin/student');
 				return false;
@@ -610,7 +619,7 @@ class Student extends Controller {
 		$data['footer']['js_file'] = '../calendar.js';
 		$data['header']['meta_title'] = '添加已完成课时 - 管理学员';
 		$data['main']['student'] = $this->CRM_Student_model->getAll(array('status' => STUDENT_STATUS_LEARNING));
-		$data['main']['staffs'] = $this->CRM_Staff_model->get_all_by_group();
+		$data['main']['staffs'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_CONSULTANT, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG, GROUP_TEACHER_D, GROUP_CONSULTANT_D, GROUP_SUYANG_D));
 		$data['main']['subjects'] = $this->CRM_Subject_model->getAll();
 		$this->_load_view('student_add_finished_hour', $data);
 	}
@@ -659,13 +668,16 @@ class Student extends Controller {
 		$data['header']['meta_title'] = '编辑学员 - 管理学员';
 		$data['footer']['js_file'][] = 'region.js';
 		$data['footer']['js_file'][] = 'transport.js';
+		$data['header']['css_file'] = '../calendar.css';
+		$data['footer']['js_file'][] = '../calendar.js';
 		$data['main']['provinces'] = $this->_get_province();
 		$data['main']['cities'] = $this->CRM_Region_model->get_regions(REGION_CITY, $student['province_id']);
 		$data['main']['districts'] = $this->CRM_Region_model->get_regions(REGION_DISTRICT, $student['city_id']);
 		$data['main']['grades'] = $this->_get_grade();
 		$data['main']['branches'] = $this->_get_branch();
-		$data['main']['consultants'] = $this->CRM_Staff_model->get_all_by_group(GROUP_CONSULTANT);
+		$data['main']['consultants'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_CONSULTANT,GROUP_CONSULTANT_D));
 		$data['main']['supervisors'] = $this->CRM_Staff_model->get_all_by_group(GROUP_SUPERVISOR);
+		$data['main']['suyangs'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_SUYANG_D, GROUP_SUYANG));
 		$data['main']['notification'] = $notify;
 		$data['main']['student'] = $student;
 		$this->_load_view('student_edit', $data);
@@ -761,6 +773,7 @@ class Student extends Controller {
 				case 'city_id':
 				case 'consultant_id':
 				case 'supervisor_id':
+				case 'suyang_id':
 				case 'is_delete':
 					$input_filter[$key] = intval($input_filter[$key]);
 					break;

@@ -75,6 +75,12 @@
 				</tr>
 			</table>
 		</div>
+		
+		<?php
+		//access control
+		$CI = & get_instance();
+		if($CI->admin_ac_contract->contract_one_refund_add()):
+		?>
 		<div class="title margin_top">
 			<span>添加退费</span>
 		</div>
@@ -104,6 +110,7 @@
 					<br/><input type="checkbox" name="consultant" value="1"><font color="red">追求为退费责任人</font>
 				</td>
 			</tr>
+			<?php if(!empty($student['supervisor'])): ?>
 			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>班主任老师: </td>
 				<td>
@@ -112,6 +119,7 @@
 					<br/><input type="checkbox" name="supervisor" value="1"><font color="red">追求为退费责任人</font>
 				</td>
 			</tr>
+			<?php endif; ?>
 			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>任课老师: </td>
 				<td>
@@ -133,5 +141,6 @@
 			<input type="reset" class="button" value=" 重置 " name="reset">
 		</div>
 		</form>
+		<?php endif; ?>
 	</div>
 </div>

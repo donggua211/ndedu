@@ -9,7 +9,11 @@ class CRM_Staff_model extends Model {
 	function getAll($filter, $offset = 0, $row_count = 0)
 	{
 		$where = '';
+		if(!isset($filter['is_active']))
+			$filter['is_active'] = 1;
         $where .= " WHERE staff.is_active = {$filter['is_active']} ";//是否注销
+		if(!isset($filter['is_delete']))
+			$filter['is_delete'] = 0;
         $where .= " AND staff.is_delete = {$filter['is_delete']} ";//是否删除
 		
 		//是否在试用期
@@ -301,6 +305,8 @@ class CRM_Staff_model extends Model {
 	
 	function get_all_by_group($group_id = 0)
 	{
+		$filter['group_id'] = $group_id;
+		return $this->getAll($filter);
 		$sql = "SELECT staff_id, name FROM " . $this->db->dbprefix('crm_staff') . " as staff";
 		if($group_id > 0)
 			$sql .= " WHERE group_id = $group_id";

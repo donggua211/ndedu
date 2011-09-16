@@ -4,13 +4,19 @@ class CRM_History_model extends Model {
 	function CRM_History_model()
 	{
 		parent::Model();
+		
+		$this->types = array('learning', 'contact', 'callback', 'consult', 'suyang');
+	}
+	
+	function _check_history_type($history_type)
+	{
+		//ÅĞ¶Ïhistory type.
+		return in_array($history_type, $this->types);
 	}
 	
 	function add_history($history, $history_type)
 	{
-		//ÅĞ¶Ïhistory type.
-		$types = array('learning', 'contact', 'callback', 'consult', 'suyang');
-		if(!in_array($history_type, $types))
+		if(!$this->_check_history_type($history_type))
 			return false;
 		
 		$table = 'crm_history_'.$history_type;
@@ -37,9 +43,8 @@ class CRM_History_model extends Model {
 	
 	function get_histories($student_id)
 	{
-		$result['history_learning'] = $this->_get_history($student_id, 'learning');
-		$result['history_contact'] = $this->_get_history($student_id, 'contact');
-		$result['history_callback'] = $this->_get_history($student_id, 'callback');
+		foreach($this->types as $type)
+			$result['history_'.$type] = $this->_get_history($student_id, $type);
 		return $result;
 	}
 	
@@ -55,12 +60,10 @@ class CRM_History_model extends Model {
 	
 	function _get_history($student_id, $history_type)
 	{
-		if($history_type == 'learning')
-			$table = 'crm_history_learning';
-		elseif($history_type == 'contact')
-			$table = 'crm_history_contact';
-		elseif($history_type == 'callback')
-			$table = 'crm_history_callback';
+		if(!$this->_check_history_type($history_type))
+			return false;
+		
+		$table = 'crm_history_'.$history_type;
 		
 		$sql = "SELECT history.*, staff.name FROM " . $this->db->dbprefix($table) . " as history, " . $this->db->dbprefix('crm_staff') . " as staff
 				WHERE student_id = $student_id	

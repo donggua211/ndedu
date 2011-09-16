@@ -63,6 +63,7 @@ define('GROUP_CS', 7);					//客服老师
 define('GROUP_SUYANG', 8);				//素养课老师
 define('GROUP_TEACHER_D', 9);			//学科主管
 define('GROUP_CONSULTANT_D', 10);		//咨询主管
+define('GROUP_SUYANG_D', 11);			//素养主管
 
 /*region ID*/
 define('REGION_PROVINCE', 1);

@@ -96,7 +96,10 @@ class Contract extends Controller {
 			$finished['end_time'] = $this->input->post('date').' '.$this->input->post('end_hour').':'.$this->input->post('end_mins').':00';
 			$finished['subject_id'] = $this->input->post('subject_id');
 			
-			if(empty($finished['contract_id']) || empty($finished['supervisor_id']) || empty($finished['teacher_id'])|| empty($finished['finished_hours']))
+			//ndedu1.2.3 取消班主任角色
+			//if(empty($finished['contract_id']) || empty($finished['supervisor_id']) || empty($finished['teacher_id'])|| empty($finished['finished_hours']))
+			
+			if(empty($finished['contract_id']) || empty($finished['teacher_id'])|| empty($finished['finished_hours']))
 			{
 				$notify = '请填写完整完成课程信息';
 				$this->_load_contract_finished_view($notify, $finished);

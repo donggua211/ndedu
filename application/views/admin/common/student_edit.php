@@ -16,7 +16,7 @@
 			<?php
 			//access control
 			$CI = & get_instance();
-			if(!empty($CI->admin_ac_student->view_student_edit_status())):
+			if($CI->admin_ac_student->view_student_edit_status() !=false):
 			?>
 			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>状态: </td>
@@ -26,14 +26,13 @@
 						<?php
 						foreach($CI->admin_ac_student->view_student_edit_status() as $val)
 							echo '<option value="'.$val.'" '.((isset($student['status']) && $val == $student['status']) ? 'SELECTED' : '').'>'.get_student_status_text($val).'</option>';
-						}
 						?>
 					</select>
 				</td>
 			</tr>
 			<?php endif; ?>
 			
-			<?php if($CI->admin_ac_student->view_student_edit_consultant()): ?>
+			<?php if($CI->admin_ac_student->view_student_edit_consultant($student['status'])): ?>
 			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>咨询师: </td>
 				<td>
@@ -42,7 +41,7 @@
 						<?php
 							foreach($consultants as $consultant)
 							{
-								echo '<option value="'.$consultant['staff_id'].'" '.((isset($consultant['consultant_id']) && $consultant['staff_id'] == $student['consultant_id']) ? 'SELECTED' : '' ).'>'.$consultant['name'].'</option>';
+								echo '<option value="'.$consultant['staff_id'].'" '.((isset($student['consultant_id']) && $consultant['staff_id'] == $student['consultant_id']) ? 'SELECTED' : '' ).'>'.$consultant['name'].'</option>';
 							}
 						?>
 					</select>
@@ -50,6 +49,24 @@
 			</tr>
 			<?php endif; ?>
 			
+			<?php if($CI->admin_ac_student->view_student_edit_suyang($student['status'])): ?>
+			<tr>
+				<td class="label" valign="top"><span class="notice-star"> * </span>素养老师: </td>
+				<td>
+					<select name="suyang_id">
+						<option value='0'>请选择...</option>
+						<?php
+							foreach($suyangs as $suyang)
+							{
+								echo '<option value="'.$suyang['staff_id'].'" '.((isset($student['suyang_id']) && $suyang['staff_id'] == $student['suyang_id']) ? 'SELECTED' : '' ).'>'.$suyang['name'].'</option>';
+							}
+						?>
+					</select>
+				</td>
+			</tr>
+			<?php endif; ?>
+			
+			<!-- 去掉班主任角色 ndedu1.2.3
 			<?php if($CI->admin_ac_student->view_student_edit_supervisor()): ?>
 			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>班主任: </td>
@@ -66,6 +83,7 @@
 				</td>
 			</tr>
 			<?php endif; ?>
+			-->
 			
 			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>校区: </td>
@@ -96,7 +114,12 @@
 					<input name="gender" type="radio" value="f" <?php echo ((isset($student['gender']) && $student['gender'] == 'f') ? 'CHECKED' : '' ); ?> />女
 				</td>
 			</tr>
-			
+			<tr>
+				<td class="label" valign="top">生日: </td>
+				<td>
+					<input type="text" name="dob" maxlength="60" size="10" value="<?php echo (isset($student['dob'])) ? $student['dob'] :''; ?>" readonly="readonly" id="date" />
+				</td>
+			</tr>
 			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>年级: </td>
 				<td>
@@ -189,5 +212,11 @@
 	</div>
 </div>
 
-</body>
-</html>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//日期选择的事件
+		$("#date").click(function(){
+			showCalendar('date', '%Y-%m-%d', false, false, 'date');
+		});
+	});
+</script>

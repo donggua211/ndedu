@@ -48,7 +48,7 @@ class Staff extends Controller {
 		$filter = $this->_parse_filter($filter_string, $filter);
 		
 		//access control
-		$filter_ac = $this->admin_ac_student->index_ac($this->staff_info);
+		$filter_ac = $this->admin_ac_staff->staff_index_ac();
 		$filter = array_merge($filter, $filter_ac);
 		
 		//Page Nav
@@ -92,7 +92,7 @@ class Staff extends Controller {
 		}
 		
 		//access_control
-		$this->admin_ac_staff->staff_one_ac($staff_info, $this_staff_info);
+		$this->admin_ac_staff->staff_one_ac($staff_info);
 		
 		$data['header']['meta_title'] = $staff_info['name'].' -查看员工 - 管理员工';
 		$data['main']['staff'] = $staff_info;
@@ -183,7 +183,7 @@ class Staff extends Controller {
 		$staff_info = $this->CRM_Staff_model->getOne($staff_id);
 		
 		//access_control
-		$this->admin_ac_staff->staff_management_ac($staff_info, $this->staff_info, 'warning');
+		$this->admin_ac_staff->staff_management_ac($staff_info, 'warning');
 		
 		if(isset($_POST['submit']) && !empty($_POST['submit']))
 		{
@@ -326,7 +326,7 @@ class Staff extends Controller {
 		$staff_info = $this->CRM_Staff_model->getOne($staff_id);
 		
 		//access_control
-		$this->admin_ac_staff->staff_management_ac($staff_info, $this->staff_info, 'warning');
+		$this->admin_ac_staff->staff_management_ac($staff_info, 'warning');
 		
 		$update_field['is_delete'] = $is_delete;
 		if($this->CRM_Staff_model->update($staff_id, $update_field))
@@ -362,7 +362,7 @@ class Staff extends Controller {
 		$staff_info = $this->CRM_Staff_model->getOne($staff_id);
 		
 		//access_control
-		$this->admin_ac_staff->staff_management_ac($staff_info, $this->staff_info, 'warning');
+		$this->admin_ac_staff->staff_management_ac($staff_info, 'warning');
 		
 		$update_field['is_active'] = $is_active;
 		if($this->CRM_Staff_model->update($staff_id, $update_field))
@@ -399,7 +399,7 @@ class Staff extends Controller {
 		$staff_info = $this->CRM_Staff_model->getOne($staff_id);
 		
 		//access_control
-		$this->admin_ac_staff->staff_management_ac($staff_info, $this->staff_info, 'warning');
+		$this->admin_ac_staff->staff_management_ac($staff_info, 'warning');
 		
 		$update_field['in_trial'] = $in_trial;
 		if($this->CRM_Staff_model->update($staff_id, $update_field))

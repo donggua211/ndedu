@@ -15,8 +15,6 @@
 		<div class="form-div">
 		  <form action="<?php echo site_url('admin/staff')?>" method="POST" name="searchForm">
 			<img src="images/admin/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" />
-			<!-- 时间 -->
-			状态时间: <input type="text" name="start_time" maxlength="60" size="0" value="" readonly="readonly" id="start_time_id" /> <input name="selbtn1" type="button" id="selbtn1" onclick="return showCalendar('start_time_id', '%Y-%m-%d', '24', false, 'selbtn1');" value="选择" class="button"/> 到 <input type="text" name="end_time" maxlength="60" size="10" value="" readonly="readonly" id="end_time_id" /> <input name="selbtn1" type="button" id="selbtn2" onclick="return showCalendar('end_time_id', '%Y-%m-%d', '24', false, 'selbtn2');" value="选择" class="button"/>
 			<!-- 校区 -->
 			<?php if(is_admin()): //权限: 只有超级管理员可以按校区搜索?>
 			<select name="branch_id">
@@ -35,7 +33,8 @@
 						echo '<option value="'.$grade['grade_id'].'" ' . ( ($grade['grade_id'] == $filter['grade_id']) ? 'SELECTED' : '' ) . '>'.$grade['grade_name'].'</option>';
 				?>
 			</select>
-			<!-- 校区 -->
+			<!-- 角色 -->
+			<?php if(is_admin() || is_school_admin()): //权限: 只有超级管理员可以按校区搜索?>
 			<select name="group_id">
 				<option value='0'>所有员工角色</option>
 				<?php
@@ -43,6 +42,7 @@
 						echo '<option value="'.$group['group_id'].'" '. (($group['group_id'] == $filter['group_id']) ? 'SELECTED' : '' ) .'>'.$group['group_name'].'</option>';
 				?>
 			</select>
+			<?php endif; ?>
 			<!-- 姓名 -->
 			员工姓名 <input type="text" name="name" size="15" />
 			<input type="submit" value=" 搜索 " class="button" />

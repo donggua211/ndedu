@@ -74,7 +74,13 @@
 		
 		</table>
 		<div class="button-link-div">
+			<?php
+			//access control
+			$CI = & get_instance();
+			if($CI->admin_ac_staff->staff_management_ac($staff)):
+			?>
 			<a href="<?php echo site_url('admin/staff/edit/'.$staff['staff_id']) ?>">编辑</a>
+			<?php endif; ?>
 			<a href="javascript:void();" onclick="history.back(-1)">返回</a>
 		</div>
 	</div>

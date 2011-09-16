@@ -111,10 +111,17 @@
 			</tr>
 			<?php endif?>
 			<tr>
+				<td class="label" valign="top">咨询师: </td>
+				<td><?php echo (isset($student['consultant']['name'])) ? $student['consultant']['name'] :'未分配'; ?></td>
+			</tr>
+			<tr>
+				<td class="label" valign="top">素养老师: </td>
+				<td><?php echo (isset($student['suyang']['name'])) ? $student['suyang']['name'] :'未分配'; ?></td>
+			</tr>
+			<tr>
 				<td class="label" valign="top">班主任: </td>
 				<td><?php echo (isset($student['supervisor']['name'])) ? $student['supervisor']['name'] :'未分配'; ?></td>
 			</tr>
-			
 			<tr>
 				<td class="label" valign="top">添加时间: </td>
 				<td><?php echo (isset($student['add_time'])) ? $student['add_time'] :''; ?></td>

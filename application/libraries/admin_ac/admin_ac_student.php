@@ -22,6 +22,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 			GROUP_TEACHER_FULL => array(STUDENT_STATUS_LEARNING),		//学科老师（全职）
 			GROUP_SUYANG => array(STUDENT_STATUS_LEARNING),		//素养课老师
 			GROUP_TEACHER_D => array(STUDENT_STATUS_LEARNING),	//学科主管
+			GROUP_SUYANG_D => array(STUDENT_STATUS_LEARNING),	//素养课主管
 		);
 				
 		/*
@@ -50,7 +51,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 			),
 			//素养历史
 			'suyang' => array(
-				STUDENT_STATUS_LEARNING => array( GROUP_SUYANG => HISTORY_WR, GROUP_CS => HISTORY_R ),		//正在学
+				STUDENT_STATUS_LEARNING => array( GROUP_SUYANG_D => HISTORY_WR, GROUP_SUYANG => HISTORY_WR, GROUP_CS => HISTORY_R ),		//正在学
 				STUDENT_STATUS_FINISHED => array( GROUP_CS => HISTORY_R ),		//已学完
 			),
 			//回访历史
@@ -88,10 +89,17 @@ class Admin_Ac_Student extends Admin_Ac_Base
 				$filter['cservice_id'] = $staff_info['staff_id'];
 				$filter['status'] = $this->group_student_status[$this->group_id];
 				break;
+			case GROUP_SUYANG: //shooladmin只有查看本校区的, 自己分配的, 状态为正在学的学员的权限
+				$filter['branch_id'] = $staff_info['branch_id'];
+				$filter['suyang_id'] = $staff_info['staff_id'];
+				$filter['status'] = $this->group_student_status[$this->group_id];
+				break;
 			case GROUP_CONSULTANT_D:
 			case GROUP_TEACHER_D:
+			case GROUP_SUYANG_D:
 				$filter['branch_id'] = $staff_info['branch_id'];
 				$filter['status'] = $this->group_student_status[$this->group_id];
+				break;
 			default:
 				show_error_page('您没有权限查看学员列表: 请重新登录或者联系管理员!', 'admin/student');
 				return false;
@@ -131,6 +139,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		{
 			case GROUP_CONSULTANT_D:
 			case GROUP_TEACHER_D:
+			case GROUP_SUYANG_D:
 			case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区学员的权限
 				if($student_info['branch_id'] != $staff_info['branch_id'])
 				{
@@ -147,6 +156,13 @@ class Admin_Ac_Student extends Admin_Ac_Base
 				break;
 			case GROUP_SUPERVISOR:
 				if($student_info['supervisor_id'] != $staff_info['staff_id'])
+				{
+					show_error_page('您没有权限查看该学员: 他/她不是您所创建的!', 'admin/student');
+					return -2;
+				}
+				break;
+			case GROUP_SUYANG:
+				if($student_info['suyang_id'] != $staff_info['staff_id'])
 				{
 					show_error_page('您没有权限查看该学员: 他/她不是您所创建的!', 'admin/student');
 					return -2;
@@ -224,19 +240,21 @@ class Admin_Ac_Student extends Admin_Ac_Base
 	 * 可读，不可写： HISTORY_R
 	 * 可读写： HISTORY_WR
 	 */
-	function history_ac($status, $type)
+	function history_ac($type, $status, $return = '')
 	{
 		//管理员，校区管理员：无所不能
 		if($this->group_id == GROUP_ADMIN || $this->group_id == GROUP_SCHOOLADMIN)
 			return HISTORY_WR;
 		
-		if(!isset($this->history_group_status[$type][$status][$this->group_id]) || empty($this->history_group_status[$type][$status][$this->group_id]))
+		if(isset($this->history_group_status[$type][$status][$this->group_id]) && !empty($this->history_group_status[$type][$status][$this->group_id]))
 		{
-			show_error_page('您没有权限查看该学员的历史记录！', 'admin/student');
+			//show_error_page('您没有权限查看该学员的历史记录！', 'admin/student');
+			return $this->history_group_status[$type][$status][$this->group_id];
+		}
+		else
+		{
 			return HISTORY_DENY;
 		}
-		
-		return $this->history_group_status[$type][$status][$this->group_id];
 	}
 
 	/*
@@ -264,11 +282,32 @@ class Admin_Ac_Student extends Admin_Ac_Base
 			return false;
 	}
 	
-	function view_student_edit_consultant()
+	function view_student_edit_suyang($student_status)
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CONSULTANT_D);
+		if($this->group_id == GROUP_CS || $this->group_id == GROUP_SCHOOLADMIN)
+				return true;
 		
-		return $this->_check_role($allowed_group_id);	
+		if($this->group_id == GROUP_CS && in_array($student_status, array(STUDENT_STATUS_SIGNUP, STUDENT_STATUS_LEARNING)))
+			return true;
+		
+		if($this->group_id == GROUP_SUYANG_D && in_array($student_status, array(STUDENT_STATUS_LEARNING)))
+			return true;
+		
+		return false;
+	}
+	
+	function view_student_edit_consultant($student_status)
+	{
+		if($this->group_id == GROUP_CS || $this->group_id == GROUP_SCHOOLADMIN)
+				return true;
+		
+		if($this->group_id == GROUP_CS && $student_status == STUDENT_STATUS_NOT_APPOINTMENT)
+			return true;
+		
+		if($this->group_id == GROUP_CONSULTANT_D && in_array($student_status, array(STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_LEARNING)))
+			return true;
+	
+		return false;
 	}
 	
 	function view_student_edit_supervisor()
