@@ -22,7 +22,7 @@ class Admin_Ac_Contract extends Admin_Ac_Base
 	*/
 	function contract_one_ac($student_info, $staff_info)
 	{
-		switch($this->staff_info['group_id'])
+		switch($this->group_id)
 		{
 			case GROUP_ADMIN: //admin管理有权限
 				break;
@@ -48,4 +48,10 @@ class Admin_Ac_Contract extends Admin_Ac_Base
 		}
 	}
 	
+	function contract_one_refund_add()
+	{
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
+		
+		return $this->_check_role($allowed_group_id);
+	}
 }

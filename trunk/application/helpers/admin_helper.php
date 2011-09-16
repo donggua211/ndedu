@@ -62,7 +62,7 @@
 	
 	function show_access_deny_page()
 	{
-		show_error_page('Access Deny for this User. Please contact admin donggua211@qq.com');
+		show_error_page('Access Deny for this User. Please contact admin admin@ndedu.org');
 	}
 	
 	/* 

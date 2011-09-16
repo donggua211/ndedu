@@ -39,6 +39,7 @@ class CRM_Student_model extends Model {
 		$data['remark'] = $student['remark'];
 		//状态字段
 		$data['consultant_id'] = 0;
+		$data['suyang_id'] = 0;
 		$data['status'] = STUDENT_STATUS_NOT_APPOINTMENT;
 		$data['is_delete'] = 0;
 		$data['add_time'] = date('Y-m-d H:i:s');
@@ -138,6 +139,26 @@ class CRM_Student_model extends Model {
 			$student['supervisor'] = array();
 		}
 		
+		
+		//获取student对应的素养老师
+		if(!empty($student['suyang_id']))
+		{
+			$sql = "SELECT staff_id, name FROM " . $this->db->dbprefix('crm_staff') . " as staff
+				WHERE staff_id = ".$student['suyang_id'];
+			$query = $this->db->query($sql);
+			if ($query->num_rows() > 0)
+			{
+				$student['suyang'] = $query->row_array();
+			}
+			else
+			{
+				$student['suyang'] = array();
+			}
+		}
+		else
+		{
+			$student['suyang'] = array();
+		}
 		return $student;
 	}
 	
@@ -216,6 +237,11 @@ class CRM_Student_model extends Model {
 		if (isset($filter['consultant_id']) && $filter['consultant_id'])
         {
             $where .= " AND student.consultant_id = {$filter['consultant_id']} ";
+        }
+		//素养老师
+		if (isset($filter['suyang_id']) && $filter['suyang_id'])
+        {
+            $where .= " AND student.suyang_id = {$filter['suyang_id']} ";
         }
 		//班主任
 		if (isset($filter['supervisor_id']) && $filter['supervisor_id'])
@@ -371,6 +397,11 @@ class CRM_Student_model extends Model {
 		if ($filter['consultant_id'])
         {
             $where .= " AND consultant_id = {$filter['consultant_id']} ";
+        }
+		//咨询师
+		if ($filter['suyang_id'])
+        {
+            $where .= " AND suyang_id = {$filter['suyang_id']} ";
         }
 		//班主任
 		if ($filter['supervisor_id'])
