@@ -81,6 +81,10 @@
 					<th>住址</th>
 					<th>状态</th>
 					<th>最新联系时间</th>
+					<?php if($CI->admin_ac_student->view_student_all_finished_hour_dob()): ?>
+					<th>生日</th>
+					<th>剩余课时</th>
+					<?php endif; ?>
 					<th>操作</th>
 				</tr>
 				<?php foreach($students as $student): ?>
@@ -120,13 +124,26 @@
 					<td><?php echo $student['address'] ?></td>
 					<td align="center"><?php echo get_student_status_text($student['status']) ?></td>
 					<td align="center"><?php echo $student['last_contact_time'] ?></td>
+					<?php if($CI->admin_ac_student->view_student_all_finished_hour_dob()): ?>
+					<td>
+					<?php
+						echo $student['dob'];
+						//如果今天是生日的话，输入图标。
+						list($dob_y, $dob_m, $dob_d) = explode( '-', $student['dob']);
+						if($dob_m == date('m') && $dob_d == date('d'))
+							echo ' <img src="images/icon/birthday.gif" border="0">';
+						
+					?>
+					</td>
+					<td align="center"><?php echo $student['total_hours'] - $student['finished_hours'] ?></td>
+					<?php endif; ?>
 					<td align="center">
 						<a href="<?php echo site_url('admin/student/one/'.$student['student_id']) ?>">查看</a>
 						<a href="<?php echo site_url('admin/student/sms/'.$student['student_id']) ?>" target="_blank">发短信</a>
 						<?php
 						if($CI->admin_ac_student->view_student_all_operation())
 						{
-							if($student['is_delete'] == 0) 
+							if($student['is_delete'] == 0)
 								echo '<a onclick="return confirm(\'确定要删除?\');" href="'.site_url('admin/student/delete/'.$student['student_id']).'">删除</a>';
 							else
 								echo '<a onclick="return confirm(\'确定要取消删除?\');" href="'.site_url('admin/student/delete/'.$student['student_id'].'/1').'">取消删除</a>';

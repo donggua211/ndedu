@@ -338,4 +338,10 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		return $this->_check_role($allowed_group_id);	
 	}
 	
+	function view_student_all_finished_hour_dob()
+	{
+		if($this->group_id == GROUP_CS)
+			return true;
+	}
+	
 }
