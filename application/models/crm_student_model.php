@@ -24,11 +24,11 @@ class CRM_Student_model extends Model {
 		$data['district_id'] = $student['district_id'];
 		$data['cservice_id'] = $staff_info['staff_id'];
 		
-		//如果是咨询师添加的，则 $data['supervisor_id'] 字段为该咨询师id
+		//如果是咨询师添加的，则 $data['consultant_id'] 字段为该咨询师id
 		if($staff_info['group_id'] == GROUP_CONSULTANT || $staff_info['group_id'] == GROUP_CONSULTANT_D)
-			$data['supervisor_id'] = $staff_info['staff_id'];
+			$data['consultant_id'] = $staff_info['staff_id'];
 		else
-			$data['supervisor_id'] = 0;
+			$data['consultant_id'] = 0;
 		
 		//选填信息.
 		$data['father_phone'] = $student['father_phone'];
@@ -38,7 +38,8 @@ class CRM_Student_model extends Model {
 		$data['address'] = $student['address'];
 		$data['remark'] = $student['remark'];
 		//状态字段
-		$data['consultant_id'] = 0;
+		$data['supervisor_id'] = 0;
+		$data['mark_star'] = 0;
 		$data['suyang_id'] = 0;
 		$data['status'] = STUDENT_STATUS_NOT_APPOINTMENT;
 		$data['is_delete'] = 0;
