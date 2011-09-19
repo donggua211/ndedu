@@ -176,6 +176,11 @@
 			GROUP_SUPERVISOR => '班主任',
 			GROUP_TEACHER_PARTTIME => '任课老师(兼职)',
 			GROUP_TEACHER_FULL => '任课老师(全职)',
+			GROUP_CS => '客服老师',
+			GROUP_SUYANG => '素养老师',
+			GROUP_TEACHER_D => '学科主管',
+			GROUP_CONSULTANT_D => '咨询主管',
+			GROUP_SUYANG_D => '素养主管',
 		);
 		
 		if(!array_key_exists($group_id, $groups_text))

@@ -70,8 +70,7 @@ class Student extends Controller {
 		$filter = $this->_parse_filter($filter_string, $filter);
 		
 		//access control
-		$filter_ac = $this->admin_ac_student->index_ac($this->staff_info);
-		$filter = array_merge($filter, $filter_ac);
+		$filter = $this->admin_ac_student->index_ac($this->staff_info, $filter);
 		
 		//Page Nav
 		$total = $this->CRM_Student_model->getAll_count($filter);

@@ -215,7 +215,7 @@ class Staff extends Controller {
 				if($key == 'password_c')
 					continue;
 				
-				if($key == 'password')
+				if($key == 'password' && !empty($val))
 					$val = md5($val);
 				
 				if(!empty($val) && ($val != $staff_info[$key]))
@@ -399,7 +399,7 @@ class Staff extends Controller {
 		$staff_info = $this->CRM_Staff_model->getOne($staff_id);
 		
 		//access_control
-		$this->admin_ac_staff->staff_management_ac($staff_info, 'warning');
+		$this->admin_ac_staff->staff_become_full_ac($staff_info, 'warning');
 		
 		$update_field['in_trial'] = $in_trial;
 		if($this->CRM_Staff_model->update($staff_id, $update_field))
@@ -552,6 +552,16 @@ class Staff extends Controller {
 				break;
 			case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区员工的权限
 				$from_group = GROUP_CONSULTANT;
+				break;
+			case GROUP_TEACHER_D: //shooladmin只有查看本校区员工的权限
+				return array(
+					array( 'group_id' => GROUP_TEACHER_PARTTIME,
+							'group_name' => get_group_name(GROUP_TEACHER_PARTTIME)
+						 ),
+					array( 'group_id' => GROUP_TEACHER_FULL,
+							'group_name' => get_group_name(GROUP_TEACHER_FULL)
+						 ),
+					);
 				break;
 			default:
 				return array();
