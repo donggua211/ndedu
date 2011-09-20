@@ -287,7 +287,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 	
 	function view_student_edit_suyang($student_status)
 	{
-		if($this->group_id == GROUP_CS || $this->group_id == GROUP_SCHOOLADMIN)
+		if($this->group_id == GROUP_ADMIN || $this->group_id == GROUP_SCHOOLADMIN)
 				return true;
 		
 		if($this->group_id == GROUP_CS && in_array($student_status, array(STUDENT_STATUS_SIGNUP, STUDENT_STATUS_LEARNING)))
@@ -301,7 +301,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 	
 	function view_student_edit_consultant($student_status)
 	{
-		if($this->group_id == GROUP_CS || $this->group_id == GROUP_SCHOOLADMIN)
+		if($this->group_id == GROUP_ADMIN || $this->group_id == GROUP_SCHOOLADMIN)
 				return true;
 		
 		if($this->group_id == GROUP_CS && $student_status == STUDENT_STATUS_NOT_APPOINTMENT)

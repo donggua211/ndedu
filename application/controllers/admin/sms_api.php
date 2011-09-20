@@ -89,7 +89,7 @@ class sms_api extends Controller {
 				$result_text = '由于客户端网络问题导致信息发送超时，该信息是否成功下发无法确定';
 				break;
 			default:
-				$result_text = '未知错误代码：'.$result_text.'。 请将页面截图，发至管理员: zhaoyuan@ndedu.org';
+				$result_text = '未知错误代码：'.$result['return'].'。 请将页面截图，发至管理员: zhaoyuan@ndedu.org';
 				break;
 		}
 		
