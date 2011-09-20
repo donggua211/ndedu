@@ -20,17 +20,7 @@ class Calendar extends Controller {
 		{
 			goto_login();
 		}
-		
-		/* No need to check, becouse, all groups could access this class.
-		$this->allowed_group = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CONSULTANT);
-		//检查权限.
-		if(!check_role($this->allowed_group))
-		{
-			show_access_deny_page();
-		}
-		*/
-		//$this->output->enable_profiler(TRUE);
-		
+				
 		$this->staff_info = get_staff_info();
 	}
 	
@@ -146,18 +136,13 @@ class Calendar extends Controller {
 		{
 			case GROUP_ADMIN: //admin管理有权限
 				break;
-			case GROUP_SCHOOLADMIN:
-			case GROUP_CONSULTANT:
-			case GROUP_SUPERVISOR:
+			default:
 				if($calendar_info['staff_id'] != $this->staff_info['staff_id'])
 				{
 					show_error_page('您没有权限删除其他员工的日程!', 'admin/calendar');
 					return false;
 				}
 				break;
-			default:
-				show_error_page('您没有权限删除该员工: 请重新登录或者联系管理员!', 'admin/staff');
-				return false;
 		}
 		
 		if(isset($_POST['submit']) && !empty($_POST['submit']))
@@ -299,18 +284,13 @@ class Calendar extends Controller {
 		{
 			case GROUP_ADMIN: //admin管理有权限
 				break;
-			case GROUP_SCHOOLADMIN:
-			case GROUP_CONSULTANT:
-			case GROUP_SUPERVISOR:
+			default:
 				if($calendar_info['staff_id'] != $this->staff_info['staff_id'])
 				{
 					show_error_page('您没有权限删除其他员工的日程!', 'admin/calendar');
 					return false;
 				}
 				break;
-			default:
-				show_error_page('您没有权限删除该员工: 请重新登录或者联系管理员!', 'admin/staff');
-				return false;
 		}
 		
 		$update_field['is_delete'] = 1;

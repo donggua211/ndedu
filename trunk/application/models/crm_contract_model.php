@@ -18,6 +18,7 @@ class CRM_Contract_model extends Model {
 		$data['deposit'] = $contract['deposit'];
 		
 		$data['status'] = CONTRACT_STATUS_AVAILABLE;
+		$data['finished_hours'] = 0;
 		
 		$data['add_time'] = date('Y-m-d H:i:s');
 		$data['update_time'] = date('Y-m-d H:i:s');
