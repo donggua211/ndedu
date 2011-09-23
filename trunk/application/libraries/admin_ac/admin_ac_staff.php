@@ -24,6 +24,7 @@ class Admin_Ac_Staff extends Admin_Ac_Base
 				$filter['branch_id'] = $this->branch_id;
 				break;
 			case GROUP_CS:
+			case GROUP_CS_D:
 			case GROUP_TEACHER_D:
 				$filter['branch_id'] = $this->branch_id;
 				$filter['group_id'] = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
@@ -61,6 +62,7 @@ class Admin_Ac_Staff extends Admin_Ac_Base
 					return true;
 				break;
 			case GROUP_CS:
+			case GROUP_CS_D:
 			case GROUP_TEACHER_D:
 				$allow_group = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
 				if(!in_array($staff_info['group_id'], $allow_group))

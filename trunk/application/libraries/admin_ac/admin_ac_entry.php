@@ -14,19 +14,19 @@ class Admin_Ac_Entry extends Admin_Ac_Base
 	
 	function show_less_10_warn()
 	{
-		$allowed_group_id = array(GROUP_CS);
+		$allowed_group_id = array(GROUP_CS, GROUP_CS_D);
 		return ($this->_check_role($allowed_group_id)) ? TRUE : FALSE;
 	}
 
 	function munu_show_add_student()
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CONSULTANT, GROUP_CONSULTANT_D, GROUP_CS);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CONSULTANT, GROUP_CONSULTANT_D, GROUP_CS,  GROUP_CS_D);
 		return ($this->_check_role($allowed_group_id)) ? TRUE : FALSE;
 	}
 
 	function munu_show_staff_list()
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_TEACHER_D, GROUP_SUYANG_D, GROUP_CONSULTANT_D);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_CS_D, GROUP_TEACHER_D, GROUP_SUYANG_D, GROUP_CONSULTANT_D);
 		return ($this->_check_role($allowed_group_id)) ? TRUE : FALSE;
 	}
 	
