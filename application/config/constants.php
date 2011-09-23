@@ -59,11 +59,12 @@ define('GROUP_CONSULTANT', 3);			//咨询师
 define('GROUP_SUPERVISOR', 4);			//班主任
 define('GROUP_TEACHER_PARTTIME', 5);	//学科老师（兼职）
 define('GROUP_TEACHER_FULL', 6);		//学科老师（全职）
-define('GROUP_CS', 7);					//客服老师
+define('GROUP_CS', 7);					//课程顾问
 define('GROUP_SUYANG', 8);				//素养课老师
 define('GROUP_TEACHER_D', 9);			//学科主管
 define('GROUP_CONSULTANT_D', 10);		//咨询主管
 define('GROUP_SUYANG_D', 11);			//素养主管
+define('GROUP_CS_D', 12);				//课程顾问主管
 
 /*region ID*/
 define('REGION_PROVINCE', 1);

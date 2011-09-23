@@ -420,7 +420,7 @@ class Student extends Controller {
 			$contract['deposit'] = floatval($this->input->post('deposit'));
 			$contract['staff_id'] = $this->staff_info['staff_id'];
 			
-			if(empty($contract['start_time']) || empty($contract['end_time']) || empty($contract['total_hours']) || empty($contract['contact_value']) || empty($contract['deposit']))
+			if(empty($contract['start_time']) || empty($contract['end_time']) || empty($contract['total_hours']) || empty($contract['contact_value']))
 			{
 				$notify = '请填写完整合同信息';
 				$this->_load_contract_view($notify, $contract);
