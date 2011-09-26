@@ -12,7 +12,7 @@
 <div id="main">
 	<div id="main_navbar">
 		<p>
-			<span class="navbar-front"><a href="<?php echo site_url('admin/student/one/'.$student['student_id']) ?>">基本信息</a></span>
+			<span class="navbar-back"><a href="<?php echo site_url('admin/student/one/'.$student['student_id']) ?>">基本信息</a></span>
 			<span class="navbar-back"><a href="<?php echo site_url('admin/student/one/'.$student['student_id'].'/history') ?>">详细信息</a></span>
 			<?php
 			//access control
@@ -26,7 +26,7 @@
 			$CI = & get_instance();
 			if($CI->admin_ac_student->view_student_one_sms()):
 			?>
-			<span class="navbar-back"><a href="<?php echo site_url('admin/student/one/'.$student['student_id'].'/sms') ?>">短信记录</a></span>
+			<span class="navbar-front"><a href="<?php echo site_url('admin/student/one/'.$student['student_id'].'/sms') ?>">短信记录</a></span>
 			<?php endif; ?>
 		</p>
 	</div>
