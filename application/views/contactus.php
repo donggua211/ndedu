@@ -17,6 +17,11 @@
               <td height="36" align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;">　　您好，感谢您对尼德教育的支持！如有任何问题或需要任何帮助，请联系我们，我们将热诚为您服务！</td>
             </tr>
           </table>
+		  <table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
+              <tr>
+                <td height="32" align="left" class="font_16_orange" style="padding-left:15px;">北京尼德成长教育科技有限公司联系方式：</td>
+              </tr>
+            </table>
           <table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
               <tr>
                 <td height="36" align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;"><span class="font_14black">统一咨询电话：</span><span class="font_16_orange">010-59790750</span><br />

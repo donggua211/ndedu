@@ -94,24 +94,12 @@ class CRM_History_model extends Model {
 	
 	function _get_one_history($history_id, $history_type)
 	{
-		if($history_type == 'learning')
-		{
-			$primary_key = 'history_learning_id';
-			$history_text = 'history_learning';
-			$table = 'crm_history_learning';
-		}
-		elseif($history_type == 'contact')
-		{
-			$primary_key = 'history_contact_id';
-			$history_text = 'history_contact';
-			$table = 'crm_history_contact';
-		}
-		elseif($history_type == 'callback')
-		{
-			$primary_key = 'history_callback_id';
-			$history_text = 'history_callback';
-			$table = 'crm_history_callback';
-		}
+		if(!$this->_check_history_type($history_type))
+			return false;
+		
+		$primary_key = 'history_'.$history_type.'_id';
+		$history_text = 'history_'.$history_type;
+		$table = 'crm_history_'.$history_type;
 		
 		$sql = "SELECT $primary_key as history_id, student_id, staff_id, $history_text as history_text FROM " . $this->db->dbprefix($table) . " as history
 				WHERE $primary_key = $history_id	
@@ -133,21 +121,11 @@ class CRM_History_model extends Model {
 		if(empty($update_field))
 			return true;
 		
-		if($history_type == 'learning')
-		{
-			$primary_key = 'history_learning_id';
-			$table = 'crm_history_learning';
-		}
-		elseif($history_type == 'contact')
-		{
-			$primary_key = 'history_contact_id 	';
-			$table = 'crm_history_contact';
-		}
-		elseif($history_type == 'callback')
-		{
-			$primary_key = 'history_callback_id 	';
-			$table = 'crm_history_callback';
-		}
+		if(!$this->_check_history_type($history_type))
+			return false;
+		
+		$primary_key = 'history_'.$history_type.'_id';
+		$table = 'crm_history_'.$history_type;
 		
 		//¸üÐÂstudent±í
 		foreach($update_field as $key => $val)

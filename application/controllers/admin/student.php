@@ -178,6 +178,12 @@ class Student extends Controller {
 				$student_extra_info['contract'] = $this->CRM_Contract_model->get_contracts($student_id);
 				$template = 'student_one_contract';
 				break;
+			case 'sms':
+				$data['header']['css_file'] = '../calendar.css';
+				$data['footer']['js_file'] = '../calendar.js';
+				$student_extra_info['contract'] = $this->CRM_Contract_model->get_contracts($student_id);
+				$template = 'student_one_sms';
+				break;
 			case 'basic':
 			default:
 				//获取student 信息.

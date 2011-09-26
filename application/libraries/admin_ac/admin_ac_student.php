@@ -350,6 +350,14 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		return $this->_check_role($allowed_group_id);	
 	}
 	
+	function view_student_one_sms()
+	{
+		return true;
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_CS_D);
+		
+		return $this->_check_role($allowed_group_id);	
+	}
+	
 	function view_student_one_status_history()
 	{
 		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
