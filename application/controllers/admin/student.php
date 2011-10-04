@@ -179,9 +179,8 @@ class Student extends Controller {
 				$template = 'student_one_contract';
 				break;
 			case 'sms':
-				$data['header']['css_file'] = '../calendar.css';
-				$data['footer']['js_file'] = '../calendar.js';
-				$student_extra_info['contract'] = $this->CRM_Contract_model->get_contracts($student_id);
+				
+				$student_extra_info['contract'] = $this->CRM_Sms_history_model->get_sms_history($filter);
 				$template = 'student_one_sms';
 				break;
 			case 'basic':
