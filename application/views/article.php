@@ -23,7 +23,7 @@
           </table>
             <table width="600" border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td align="center" class="font_12_24" style="border-bottom:1px dashed #c8c8c8"><?php echo $article['add_time'] ?>　来源：尼德教育教研组<?php //echo $article['source'] ?>　 作者：<?php $rand=$article['article_id']%6; $author=array('王老师', '赵老师', '庞老师', '查老师', '张老师', '李老师', '黄老师'); echo ( empty( $article['author'] ) ) ? $author[$rand] : $article['author'] ?> </td>
+                <td align="center" class="font_12_24" style="border-bottom:1px dashed #c8c8c8"><?php echo $article['add_time'] ?>　来源：尼德教育教研组<?php //echo $article['source'] ?>　 作者：<?php $rand=$article['article_id']%3; $author=array('王老师', '赵老师', '庞老师'); echo ( empty( $article['author'] ) ) ? $author[$rand] : $article['author'] ?> </td>
               </tr>
             </table>
             <table width="610" border="0" cellspacing="0" cellpadding="0">

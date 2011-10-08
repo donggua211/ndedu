@@ -21,13 +21,6 @@
 			?>
 			<span class="navbar-back"><a href="<?php echo site_url('admin/student/one/'.$student['student_id'].'/contract') ?>">合同信息</a></span>
 			<?php endif; ?>
-			<?php
-			//access control
-			$CI = & get_instance();
-			if($CI->admin_ac_student->view_student_one_sms()):
-			?>
-			<span class="navbar-back"><a href="<?php echo site_url('admin/student/one/'.$student['student_id'].'/sms') ?>">短信记录</a></span>
-			<?php endif; ?>
 		</p>
 	</div>
 	
@@ -57,7 +50,7 @@
 					</tr>
 					<?php foreach($student['history_'.$history_type] as $history): ?>
 					<tr>
-						<td><?php echo nl2br($history['history_'.$history_type]) ?></td>
+						<td class="first-cell" ><?php echo $history['history_'.$history_type] ?></td>
 						<td align="center"><?php echo $history['add_time'] ?></td>
 						<td align="center"><?php echo $history['name'] ?></td>
 						<td align="center">

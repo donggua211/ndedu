@@ -3,7 +3,7 @@
 		<span class="action-span"><a href="<?php echo site_url('admin') ?>"  target="_top">管理系统</a></span>
 		<span class="action-span"> » <a href="<?php echo site_url('admin/student') ?>" target="main-frame">学员管理</a></span>
 		<span class="action-span"> » <a href="<?php echo site_url('admin/student') ?>" target="main-frame">查看学员</a></span>
-		<span class="action-span"> » <a href="<?php echo site_url('admin/student/one/'.$student_info['student_id'].'/history') ?>" target="main-frame"><?php echo $student_info['name'] ?></a></span>
+		<span class="action-span"> » <a href="<?php echo site_url('admin/student/one/'.$student_info['student_id'].'/contract') ?>" target="main-frame"><?php echo $student_info['name'] ?></a></span>
 		 » 修改<?php if($type == 'contact') {echo '联系历史';} else{ echo '学习历史';} ?>
 	</div>
 	<div id="nav_right">
