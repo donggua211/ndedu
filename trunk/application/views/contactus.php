@@ -48,7 +48,7 @@
               <tr>
                 <td height="36" align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;"><span class="font_12_orange" style="font-weight:normal;font-size:12px">公交地铁：</span><br />
 公交线路有：33, 79, 355, 360, 365, 425, 425高峰快车, 539, 611, 664, 992, 996, 运通101, 运通109, 运通114, 运通118远. 大路东口站下<br />
-地铁10号线：巴沟站A口出，往南3公里，公交可乘664，611，运通109，539，运通114，481，996，992，三站到远大路东口下<br />
+地铁10号线：巴沟站B口出，往南100米在万柳中路北口坐车(华联商场的东边)，可乘664，611，运通109，539，运通114，481，996，992，三站到远大路东口下<br />
                   <span class="font_12_orange" style="font-weight:normal;font-size:12px">自驾车：</span><br />
 				  北三环苏州桥往西经过长椿桥到金源购物中心对面即是；西四环从远大路口出，上远大路（由西向东）到姜杰文化艺术大厦（对面金源购物中心）</td>
               </tr>
