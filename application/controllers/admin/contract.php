@@ -89,7 +89,7 @@ class Contract extends Controller {
 			$finished['contract_id'] = $this->input->post('contract_id');
 			$finished['supervisor_id'] = $this->input->post('supervisor_id');
 			$finished['teacher_id'] = $this->input->post('teacher_id');
-			$finished['finished_hours'] = intval($this->input->post('finished_hours'));
+			$finished['finished_hours'] = floatval($this->input->post('finished_hours'));
 			
 			//ndedu后台1.2.2新加信息
 			$finished['start_time'] = $this->input->post('date').' '.$this->input->post('start_hour').':'.$this->input->post('start_mins').':00';
