@@ -85,6 +85,9 @@
 					<th>生日</th>
 					<th>剩余课时</th>
 					<?php endif; ?>
+					<?php if($CI->admin_ac_student->view_student_all_teaches()): ?>
+					<th>对应老师</th>
+					<?php endif; ?>
 					<th>操作</th>
 				</tr>
 				<?php foreach($students as $student): ?>
@@ -137,8 +140,24 @@
 					</td>
 					<td align="center"><?php echo $student['total_hours'] - $student['finished_hours'] ?></td>
 					<?php endif; ?>
+					
+					<?php if($CI->admin_ac_student->view_student_all_teaches()): ?>
+					<td>
+					<?php
+						echo '客服老师：'.( empty($student['cs_name']) ? '无' : $student['cs_name'] ).'<br/>';
+						echo '咨询老师：'.( empty($student['consultant_name']) ? '无' : $student['consultant_name'] ).'<br/>';
+						echo '素养老师：'.( empty($student['suyang_name']) ? '无' : $student['suyang_name'] ).'<br/>';
+					?>
+					</td>
+					<?php endif; ?>
+					
 					<td align="center">
-						<a href="<?php echo site_url('admin/student/one/'.$student['student_id']) ?>">查看</a>
+						<?php
+						if($CI->admin_ac_student->view_student_all_contact_history($student['status']))
+							echo '<a href="javascript:void(0)" onclick="show_history('.$student['student_id'].')" id="wbox"'.$student['student_id'].'>历史记录</a>';
+						else
+							echo '<a href="'.site_url('admin/student/one/'.$student['student_id']).'">查看</a>';
+						?>
 						<a href="<?php echo site_url('admin/student/sms/'.$student['student_id']) ?>" target="_blank">发短信</a>
 						<?php
 						if($CI->admin_ac_student->view_student_all_operation())
@@ -179,4 +198,37 @@
 			}
 		});
 	});
+
+	function show_history(student_id)
+	{
+		
+		$.post(site_url+"admin/ajax/get_contact_history", { student_id: student_id},
+			function (data, textStatus){
+				var html_content = '<div style="width:450px">';
+				if(data == '-1')
+					html_content += '无记录';
+				else
+				{
+					html_content += '<table width="100%" cellspacing="1" id="list-table"><tr><th width="300px" align="center">联系历史</th><th width="150px" align="center">联系时间</th>';
+
+					$.each(data, function(i, field){
+						html_content += '<tr>';
+						html_content += '<td>' + UrlDecode(field.history_contact) + '</td>';
+						html_content += '<td align="center">' + UrlDecode(field.add_time) + '</td>';
+						html_content += '</tr>';
+					});
+					
+					html_content += '</table>';
+				}
+				html_content += '</div>';
+				
+				var wBox=$("#wbox"+student_id).wBox({
+					title: "最近联系历史",
+					iframeWH:{width:800,height:400},
+					html: html_content,
+				});
+				wBox.showBox();
+				
+		}, "json");
+	}
 </script>

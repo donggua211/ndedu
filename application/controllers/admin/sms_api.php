@@ -55,7 +55,7 @@ class sms_api extends Controller {
 		
 		if($result === FALSE)
 		{
-			echo '发送失败，请将页面截图，发至管理员: zhaoyuan@ndedu.org';
+			echo '<h2>Response: <font>-1</font></h2><pre>发送失败，请将页面截图，发至管理员: zhaoyuan@ndedu.org</pre>';
 			return false;
 		}
 		
@@ -93,7 +93,7 @@ class sms_api extends Controller {
 				break;
 		}
 		
-		echo '<h2>Response</h2><pre>' . $result_text . '</pre>';
+		echo '<h2>Response: <font>'.$result['return'].'</font></h2><pre>' . $result_text . '</pre>';
 	}
 	
 	//短信费用

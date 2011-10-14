@@ -23,6 +23,8 @@ class Student extends Controller {
 		$this->load->model('CRM_Calendar_model');
 		$this->load->model('CRM_Status_history_model');
 		$this->load->model('CRM_Subject_model');
+		$this->load->model('CRM_Sms_history_model');
+		$this->load->model('CRM_Student_from_model');
 		
 		$this->load->helper('admin');
 		$this->load->helper('calendar');
@@ -99,7 +101,9 @@ class Student extends Controller {
 		$students = $this->CRM_Student_model->getAll($filter, $page_nav['start'], STUDENT_PER_PAGE, $order_by, 'DESC');
 		
 		$data['header']['meta_title'] = '查看学员 - 管理学员';
-		$data['header']['css_file'] = '../calendar.css';
+		$data['header']['css_file'][] = 'wbox/wbox.css';
+		$data['header']['css_file'][] = '../calendar.css';
+		$data['header']['js_file_header'][] = '../jquery-pugin/wbox-min.js';
 		$data['footer']['js_file'][] = '../calendar.js';
 		$data['footer']['js_file'][] = '../ajax.js';
 		$data['footer']['js_file'][] = 'student.js';
@@ -136,7 +140,7 @@ class Student extends Controller {
 	/* 
 	 * 访问权限: 全部角色
 	*/
-	function one($student_id = 0, $type = 'basic')
+	function one($student_id = 0, $type = 'basic', $page = 1)
 	{
 		//判断student_id是否合法.
 		$student_id = intval($student_id);
@@ -177,6 +181,36 @@ class Student extends Controller {
 				$data['footer']['js_file'] = '../calendar.js';
 				$student_extra_info['contract'] = $this->CRM_Contract_model->get_contracts($student_id);
 				$template = 'student_one_contract';
+				break;
+			case 'sms':
+				//处理手机号，优先处理妈妈的。
+				$mobile = '';
+				if(!empty($student_info['mother_phone']))
+					$mobile = $student_info['mother_phone'];
+				elseif(!empty($student_info['father_phone']))
+					$mobile = $student_info['father_phone'];
+				//截取电话号码
+				preg_match( "/[\d]{11}/", $mobile, $matches);
+				$data['main']['sms_mobile'] = isset($matches[0]) ? $matches[0] : '';
+				
+				//获取sms历史
+				$filter = array();
+				$filter['staff_id'] = $this->staff_info['staff_id'];
+				if(!empty($student_info['father_phone']))
+					$filter['mobile'][] = $student_info['father_phone'];
+				if(!empty($student_info['mother_phone']))
+					$filter['mobile'][] = $student_info['mother_phone'];
+				
+				//Page Nav
+				$total = $this->CRM_Sms_history_model->count_sms_history($filter);
+				$page_nav = page_nav($total, SMS_HISTORY_PER_PAGE, $page);
+				$page_nav['base_url'] = 'admin/student/one/'.$student_id.'/sms';
+				$page_nav['filter'] = array();
+				$data['main']['page_nav'] = $this->load->view('admin/common_page_nav', $page_nav, true);
+				$student_extra_info['sms_history'] = $this->CRM_Sms_history_model->get_sms_history($filter, $page_nav['start'], SMS_HISTORY_PER_PAGE, 'mobile, update_time', 'DESC');
+				
+				$student_extra_info['this_staff_id'] = $this->staff_info['staff_id'];
+				$template = 'student_one_sms';
 				break;
 			case 'basic':
 			default:
@@ -476,6 +510,10 @@ class Student extends Controller {
 			$new_student['dob'] = $this->input->post('dob');
 			$new_student['dob'] = !empty( $new_student['dob'] ) ? $new_student['dob'] : '0000-00-00 00:00:00';
 			
+			//ndedu1.2.4 新加： 学员来源
+			$new_student['student_from'] = $this->input->post('student_from');
+			$new_student['student_from_text'] = $this->input->post('student_from_text');
+			
 			if(empty($new_student['name']) || empty($new_student['gender']) || empty($new_student['branch_id']) || empty($new_student['grade_id']) || empty($new_student['province_id']) || empty($new_student['city_id']) || empty($new_student['district_id']))
 			{
 				$notify = '请填写完整的学生信息';
@@ -495,6 +533,12 @@ class Student extends Controller {
 					$notify .= '<li><a href="'.site_url('admin/student/one/'.$val['student_id']).'" target="_blank">'.$val['name'].'。爸爸电话：'.$val['father_phone'].'；妈妈电话：'.$val['mother_phone'].'</a></li>';
 				
 				$notify .= '</ul></div>';
+				$this->_load_student_add_view($notify, $new_student);
+			}
+			//ndedu1.2.4 后台添加： 学员来源
+			elseif( empty($new_student['student_from']) || ($new_student['student_from'] == 'other' && empty($new_student['student_from_text'])) )
+			{
+				$notify = '请填写学员来源';
 				$this->_load_student_add_view($notify, $new_student);
 			}
 			else
@@ -657,6 +701,7 @@ class Student extends Controller {
 		$data['main']['districts'] = $this->CRM_Region_model->get_regions(REGION_DISTRICT, $data['main']['cities'][0]['region_id']);
 		$data['main']['grades'] = $this->_get_grade();
 		$data['main']['branches'] = $this->_get_branch();
+		$data['main']['froms'] = $this->CRM_Student_from_model->get_all();
 		$data['main']['notification'] = $notify;
 		$data['main']['student'] = $student;
 		$this->_load_view('student_add', $data);

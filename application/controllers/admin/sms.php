@@ -8,10 +8,11 @@ class sms extends Controller {
 	function sms()
 	{
 		parent::Controller();
+		$this->load->model('CRM_Sms_history_model');
 		$this->load->library('session');
 		$this->load->helper('admin');
 		$this->load->helper('sms');
-		
+				
 		/*如果没有经登录, 就跳转到admin/login登陆页*/
 		if (!has_login())
 		{
@@ -49,52 +50,51 @@ class sms extends Controller {
 		
 		//发送短信
 		$result = $this->_send($mobile, $content);
+		preg_match('/<font>(.*?)<\/font>/', $result, $matches);
+		$status = (int)$matches[1];
 		
-		echo $result;
+		//记入history
+		$this->_add_sms_history($status, $content, $mobile);
 		
-		/*
-		if($result === FALSE)
+		if($status == '0')	//成功
 		{
-			echo '发送失败，请将页面截图，发至管理员: zhaoyuan@ndedu.org';
-			return false;
+			show_result_page('短信发送成功', '');
 		}
-		
-		switch($result['return'])
+		else
 		{
-			case -1:
-				$result_text = '发送失败！手机号码或者短信内容不能为空';
-				break;
-			case 0:
-				$result_text = '发送成功！';
-				break;
-			case 17:
-				$result_text = '发送信息失败';
-				break;
-			case 18:
-				$result_text = '发送定时信息失败';
-				break;
-			case 101:
-				$result_text = '客户端网络故障';
-				break;
-			case 305:
-				$result_text = '服务器端返回错误，错误的返回值（返回值不是数字字符串）';
-				break;
-			case 307:
-				$result_text = '目标电话号码不符合规则，电话号码必须是以0、1开头';
-				break;
-			case 997:
-				$result_text = '平台返回找不到超时的短信，该信息是否成功无法确定';
-				break;
-			case 998:
-				$result_text = '由于客户端网络问题导致信息发送超时，该信息是否成功下发无法确定';
-				break;
-			default:
-				$result_text = '未知错误代码：'.$result_text.'。 请将页面截图，发至管理员: zhaoyuan@ndedu.org';
-				break;
+			preg_match('/<pre>(.*?)<\/pre>/', $result, $matches);
+			$error = $matches[1] ? $matches[1] : '发送失败。';
+			show_error_page($error, '');
 		}
+	}
+	
+	function _add_sms_history($status, $content, $mobile)
+	{
+		$resend = trim($this->input->post('resend'));
 		
-		echo '<h2>Response</h2><pre>' . $result_text . '</pre>';
-		*/
+		//重发
+		if($resend == '1')
+		{
+			$sms_history_id = trim($this->input->post('sms_history_id'));
+			
+			$update_field['status'] = $status;
+			$update_field['update_time'] = date('Y-m-d H:i:s');
+			$this->CRM_Sms_history_model->update($sms_history_id, $update_field);
+		}
+		else
+		{
+			$mobiles = explode(',', $mobile);
+			foreach($mobiles as $key => $val)
+			{
+				$sms_history = array(
+					'staff_id' => $this->staff_info['staff_id'],
+					'sms_text' => $content,
+					'mobile' => $mobile,
+					'status' => $status,
+				);
+				$this->CRM_Sms_history_model->add($sms_history);
+			}
+		}
 	}
 	
 	function check()
@@ -147,6 +147,10 @@ class sms extends Controller {
 	 */
 	function _send($mobile, $content)
 	{
+		//for test
+		$seed = rand(0,1);
+		return '<h2>Response: <font>'.($seed == 1 ? rand(1, 999) : $seed).'</font></h2><pre>这是个测试</pre>';
+		
 		$url = "http://www.donggua211.com/ndedu/index.php/admin/sms_api/send";
 		$post_data = array (
 			"mobile" => $mobile,
