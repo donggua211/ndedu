@@ -72,6 +72,20 @@ class CRM_Student_model extends Model {
 			return false;
 		}
 		
+		/*
+		 * ndedu 1.2.4
+		 * 插入crm_student_extra表.
+		 */
+		$data = array();
+		$data['student_id'] = $student_id;
+		$data['student_from_id'] = $student['student_from'] == 'other' ? 0 : (int)$student['student_from'];
+		$data['student_from_other'] = $student['student_from_text'];
+		$data['add_time'] = date('Y-m-d H:i:s');
+		if(!$this->db->insert('crm_student_extra', $data))
+		{
+			$this->db->trans_rollback();
+			return false;
+		}
 		
 		/*
 		 * 提交事务
@@ -89,14 +103,16 @@ class CRM_Student_model extends Model {
 	{
 		//@TODO: 优化sql
 		//student基本信息
-		$sql = "SELECT student.*, grade.grade_name, branch.branch_name, province.region_name as province_name, city.region_name as city_name, district.region_name as district_name 
+		$sql = "SELECT student_extra.*, student_from.student_from_name, grade.grade_name, branch.branch_name, province.region_name as province_name, city.region_name as city_name, district.region_name as district_name, student.* 
 				FROM " . $this->db->dbprefix('crm_student') . " as student 
 				LEFT JOIN ".$this->db->dbprefix('crm_grade')." as grade ON grade.grade_id =  student.grade_id
 				LEFT JOIN ".$this->db->dbprefix('crm_branch')." as branch ON branch.branch_id =  student.branch_id
 				LEFT JOIN ".$this->db->dbprefix('crm_region')." as province ON province.region_id = student.province_id
 				LEFT JOIN ".$this->db->dbprefix('crm_region')." as city ON city.region_id = student.city_id
 				LEFT JOIN ".$this->db->dbprefix('crm_region')." as district ON district.region_id = student.district_id
-				WHERE student_id = $student_id";
+				LEFT JOIN ".$this->db->dbprefix('crm_student_extra')." as student_extra ON student_extra.student_id = student.student_id
+				LEFT JOIN ".$this->db->dbprefix('crm_student_from')." as student_from ON student_from.student_from_id = student_extra.student_from_id
+				WHERE student.student_id = $student_id";
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
@@ -118,6 +134,19 @@ class CRM_Student_model extends Model {
 		else
 		{
 			$student['consultant'] = array();
+		}
+		
+		//获取student对应的客服老师.
+		$sql = "SELECT staff_id, name FROM " . $this->db->dbprefix('crm_staff') . " as staff
+				WHERE staff_id = ".$student['cservice_id'];
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			$student['cservice'] = $query->row_array();
+		}
+		else
+		{
+			$student['cservice'] = array();
 		}
 		
 		//获取student对应的班主任
@@ -261,9 +290,12 @@ class CRM_Student_model extends Model {
         }
 		
 		//student基本信息
-		$sql = "SELECT DISTINCT student.*, grade.grade_name, contract.finished_hours, contract.total_hours FROM ".$this->db->dbprefix('crm_student')." as student
+		$sql = "SELECT DISTINCT student.*, staff_consultant.name as consultant_name, staff_cs.name as cs_name, staff_suyang.name as suyang_name,  grade.grade_name, contract.finished_hours, contract.total_hours FROM ".$this->db->dbprefix('crm_student')." as student
 				LEFT JOIN ".$this->db->dbprefix('crm_contract')." as contract ON contract.student_id = student.student_id 
-				LEFT JOIN ".$this->db->dbprefix('crm_grade')." as grade ON grade.grade_id = student.grade_id";
+				LEFT JOIN ".$this->db->dbprefix('crm_grade')." as grade ON grade.grade_id = student.grade_id
+				LEFT JOIN ".$this->db->dbprefix('crm_staff')." as staff_consultant ON staff_consultant.staff_id = student.consultant_id
+				LEFT JOIN ".$this->db->dbprefix('crm_staff')." as staff_cs ON staff_cs.staff_id = student.cservice_id
+				LEFT JOIN ".$this->db->dbprefix('crm_staff')." as staff_suyang ON staff_suyang.staff_id = student.suyang_id";
 		
 		if(!empty($where))
 			$sql .= substr_replace($where, ' WHERE ', 0, strpos($where, 'AND') + 3);

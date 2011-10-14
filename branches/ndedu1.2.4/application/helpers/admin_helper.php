@@ -291,10 +291,10 @@
 	}
 	
 	//把 filter 封装成URL
-	function pack_fileter_url($page, $base_url, $filter)
+	function pack_fileter_url($page, $base_url, $filter = array())
 	{
 		if(empty($filter))
-			return '';
+			return site_url($base_url.'/'.$page);;
 		
 		$filter['page'] = $page;
 		

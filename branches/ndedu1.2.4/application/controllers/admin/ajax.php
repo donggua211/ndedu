@@ -15,6 +15,7 @@ class Ajax extends Controller {
 		$this->load->model('CP_card_model');
 		$this->load->model('CP_quan_model');
 		$this->load->model('guestbook_model');
+		$this->load->model('CRM_History_model');
 		
 		$this->load->library('Services_JSON');
 	}
@@ -123,6 +124,28 @@ class Ajax extends Controller {
 		}
 		
 		echo $this->services_json->encode($arr);
+	}
+	
+	function get_contact_history()
+	{
+		$student_id = $this->input->Post('student_id');
+		$contact_history = $this->CRM_History_model->get_last3_contact_history($student_id);
+		
+		if(empty($contact_history))
+		{
+			echo '-1';
+			return false;
+		}
+		
+		foreach($contact_history as $val)
+		{
+			//$arr[] = '{"contract_id":"'.$val['contract_id'].'",'.'"start_time":"'.$val['start_time'].'",'.'"end_time":"'.$val['end_time'].'"}';
+			
+			$arr[$val['history_contact_id']]['history_contact'] = $val['history_contact'];
+			$arr[$val['history_contact_id']]['add_time'] = $val['add_time'];
+		}
+		
+		echo urldecode($this->services_json->encode($arr));
 	}
 	
 	function count_staff_finished_hours()

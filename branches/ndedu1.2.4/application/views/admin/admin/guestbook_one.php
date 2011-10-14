@@ -42,7 +42,7 @@
 				<td><?php echo (isset($message_info['message'])) ? $message_info['message'] :''; ?></td>
 			</tr>
 			<tr align="center">
-				<td colspan="2"><a href="javascript:void();" onclick="history.back(-1)">返回</a></td>
+				<td colspan="2"><a href="javascript:void(0);" onclick="history.back(-1)">返回</a></td>
 			</tr>	
 		</table>
 	</div>

@@ -5,8 +5,13 @@
 	<base href="<?php echo base_url() ?>" />
 	<title><?php echo (isset($meta_title) && !empty($meta_title)) ? $meta_title . ' - administrator control panel': 'administrator control panel'; ?></title>
 	<link href="css/admin/admin.css" rel="stylesheet" type="text/css" />
-	<?php if(isset($css_file) && $css_file):?>
-		<link href="css/admin/<?php echo $css_file ?>" rel="stylesheet" type="text/css" />
+	<?php if(isset($css_file) && $css_file):
+		if(is_array($css_file)): 
+			foreach($css_file as $css)
+				echo '<link href="css/admin/'.$css.'" rel="stylesheet" type="text/css" />';
+		else: ?>
+			<link href="css/admin/<?php echo $css_file ?>" rel="stylesheet" type="text/css" />
+		<?php endif; ?>
 	<?php endif;?>
 	<script type="text/javascript" src="js/jquery-1.6.2.js"></script>
 	<script type="text/javascript" src="js/admin/admin.common.js"></script>
