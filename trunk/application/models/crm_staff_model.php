@@ -6,7 +6,7 @@ class CRM_Staff_model extends Model {
 		parent::Model();
 	}
 	
-	function getAll($filter, $offset = 0, $row_count = 0)
+	function getAll($filter, $offset = 0, $row_count = 0, $order_by = '', $order = 'ASC')
 	{
 		$where = '';
 		if(!isset($filter['is_active']))
@@ -72,6 +72,12 @@ class CRM_Staff_model extends Model {
 		if (!empty($row_count))
         {
             $sql .= " LIMIT $offset, $row_count";
+        }
+		
+		//order by
+		if (!empty($order_by))
+        {
+            $sql .= " ORDER BY $order_by $order";
         }
 				
 		$query = $this->db->query($sql);

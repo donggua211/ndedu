@@ -73,7 +73,7 @@
 			</tr>		
 		</table>
 		<div class="button-link-div">
-			<a href="javascript:void();" onclick="history.back(-1)">返回</a>
+			<a href="javascript:void(0);" onclick="history.back(-1)">返回</a>
 		</div>
 	</div>
 </div>

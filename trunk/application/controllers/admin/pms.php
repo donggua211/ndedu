@@ -46,6 +46,18 @@ class Pms extends Controller {
 					5 => 1.5,	//5星级
 				),
 			),
+			'zixun' => array(
+				'fee' => array(
+					2 => 30,	//小学
+					3 => 40,	//初中
+					4 => 50,	//高中
+				),
+				'level' => array(
+					1 => 1,		//1星级
+					3 => 1.2,	//3星级
+					5 => 1.5,	//5星级
+				),
+			),
 			'suyang' => array(
 				'fee' => array(
 					2 => 30,	//小学
@@ -281,7 +293,7 @@ class Pms extends Controller {
 	
 	function _is_teacher($group_id)
 	{
-		return check_role(array(GROUP_SUPERVISOR, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL), $group_id);
+		return check_role(array(GROUP_SUYANG, GROUP_SUYANG_D, GROUP_CONSULTANT_D, GROUP_CONSULTANT, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_TEACHER_D), $group_id);
 	}
 	
 	function _parse_filter($filter_string, $filter)

@@ -133,6 +133,20 @@
 				<td><input name="address" type="text" value="<?php echo (isset($student['address'])) ? $student['address'] :''; ?>" size="40" /></td>
 			</tr>
 			<tr>
+				<td class="label" valign="top"><span class="notice-star"> * </span>学员来源: </td>
+				<td>
+					<select id="student_from" name="student_from">
+						<option value="0">请选择...</option>
+						<?php 
+							foreach($froms as $from)
+								echo '<option value="'.$from['student_from_id'].'" '.((isset($student['student_from']) && $from['student_from_id'] == $student['student_from']) ? 'SELECTED' : '' ).'>'.$from['student_from_name'].'</option>';
+						?>
+						<option value="other" <?php echo ((isset($student['student_from']) && $student['student_from'] == 'other') ? 'SELECTED' : '' ) ?>>其他</option>
+					</select>
+					<span id="student_from_text_span" style="display:<?php echo ((isset($student['student_from']) && $student['student_from'] == 'other') ? '' : 'NONE' ) ?>"> 请填写：<input type="text" value="<?php echo (isset($student['student_from_text']) ? $student['student_from_text'] : '' ) ?>" name="student_from_text"  id="student_from_text"/></span>
+				</td>
+			</tr>
+			<tr>
 				<td class="label" valign="top">备注: </td>
 				<td><textarea name="remark" cols="40" rows="5"></textarea></td>
 			</tr>			
@@ -149,6 +163,16 @@
 		//日期选择的事件
 		$("#date").click(function(){
 			showCalendar('date', '%Y-%m-%d', false, false, 'date');
+		});
+		
+		$("#student_from").change(function(){
+			if($("#student_from option:selected").val() == 'other')
+			{
+				$("#student_from_text_span").css('display', '');
+				$("#student_from_text").focus();
+			}
+			else
+				$("#student_from_text_span").css('display', 'none');
 		});
 	});
 </script>

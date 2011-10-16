@@ -107,7 +107,7 @@ endif;
 <div id="slidingBlock">
 <script language="javascript">
   function switchmodTag(modtag,modcontent,modk) {
-    for(i=1; i < 9; i++) {
+    for(i=1; i < 10; i++) {
       if (i==modk) {
         document.getElementById(modtag+i).className="menuOn";document.getElementById(modcontent+i).className="slidingList";}
       else {
@@ -129,14 +129,15 @@ endif;
 	<div id="line"></div>
 	<h4 class="<?php echo ($nav_menu_id == 5) ? 'menuOn' : 'menuNo'; ?>" id="mod5" onmouseover="switchmodTag('mod','slidingList','5');this.blur();"><a href="<?php echo site_url('synBasis') ?>">课程设置</a></h4>
 	<div id="line"></div>
+	<h4 class="<?php echo ($nav_menu_id == 9) ? 'menuOn' : 'menuNo'; ?>" id="mod9" onmouseover="switchmodTag('mod','slidingList','9');this.blur();"><a href="<?php echo site_url('teacher') ?>">名师风采</a></h4>
+	<div id="line"></div>
 	<h4 class="<?php echo ($nav_menu_id == 6) ? 'menuOn' : 'menuNo'; ?>" id="mod6" onmouseover="switchmodTag('mod','slidingList','6');this.blur();"><a href="<?php echo site_url('school') ?>">尼德学堂</a></h4>
 	<div id="line"></div>
 	<h4 class="<?php echo ($nav_menu_id == 7) ? 'menuOn' : 'menuNo'; ?>" id="mod7" onmouseover="switchmodTag('mod','slidingList','7');this.blur();"><a href="<?php echo site_url('aboutUs') ?>">关于尼德</a></a></h4>
 	<div id="line"></div>
 </div>
 <div class="<?php echo ($nav_menu_id == 1) ? 'slidingList' : 'slidingList_none'; ?>" id="slidingList1">
-<ul>
-</ul>
+<ul></ul>
 </div>
 <?php $CI =& get_instance();?>
 <div class="<?php echo ($nav_menu_id == 2) ? 'slidingList' : 'slidingList_none'; ?>" id="slidingList2">
@@ -168,7 +169,7 @@ endif;
 </div>
 <div class="<?php echo ($nav_menu_id == 4) ? 'slidingList' : 'slidingList_none'; ?>" id="slidingList4">
 <ul>
-<li style="margin-left:250px;"> <a href="<?php echo site_url('planEffect') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'planEffect') ? 'slidingBlock_hover' : '';?>">规划效果</font></a></li>
+<li style="margin-left:280px;"> <a href="<?php echo site_url('planEffect') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'planEffect') ? 'slidingBlock_hover' : '';?>">规划效果</font></a></li>
 <li> <a href="<?php echo site_url('improveScore') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'improveScore') ? 'slidingBlock_hover' : '';?>">成绩提升</font></a></li>
 <li> <a href="<?php echo site_url('graduateRate') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'graduateRate') ? 'slidingBlock_hover' : '';?>">升学比率</font></a></li>
 <li> <a href="<?php echo site_url('learningAbility') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'learningAbility') ? 'slidingBlock_hover' : '';?>">学习能力</font></a></li>
@@ -178,41 +179,37 @@ endif;
 </div>
 <div class="<?php echo ($nav_menu_id == 5) ? 'slidingList' : 'slidingList_none'; ?>" id="slidingList5">
 <ul>
-<li style="margin-left:350px;"> <a href="<?php echo site_url('synBasis') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'synBasis') ? 'slidingBlock_hover' : '';?>">同步基础</font></a></li>
+<li style="margin-left:400px;"> <a href="<?php echo site_url('synBasis') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'synBasis') ? 'slidingBlock_hover' : '';?>">同步基础</font></a></li>
 <li> <a href="<?php echo site_url('advancedImprove') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'advancedImprove') ? 'slidingBlock_hover' : '';?>">拔高冲刺</font></a></li>
 <li> <a href="<?php echo site_url('goldenConnect') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'goldenConnect') ? 'slidingBlock_hover' : '';?>">黄金衔接</font></a></li>
 <li> <a href="<?php echo site_url('specialModule') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'specialModule') ? 'slidingBlock_hover' : '';?>">专题模块</font></a></li>
 <li> <a href="<?php echo site_url('valueGrowth') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'valueGrowth') ? 'slidingBlock_hover' : '';?>">学习素养</font></a></li>
 </ul>
-</div><div class="<?php echo ($nav_menu_id == 6) ? 'slidingList' : 'slidingList_none'; ?>" id="slidingList6">
+</div>
+<div class="<?php echo ($nav_menu_id == 9) ? 'slidingList' : 'slidingList_none'; ?>" id="slidingList9">
 <ul>
-<li style="margin-left:550px;"> <a href="<?php echo site_url('school') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'school' && $CI->uri->segment(2) == false) ? 'slidingBlock_hover' : '';?>">教育文章</font></a></li>
+<li style="margin-left:580px;"> <a href="<?php echo site_url('teacher') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'teacher') ? 'slidingBlock_hover' : '';?>">师资团队</font></a></li>
+<li > <a href="<?php echo site_url('team') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'team') ? 'slidingBlock_hover' : '';?>">师资来源</font></a></li>
+<li > <a href="<?php echo site_url('gallery') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'gallery') ? 'slidingBlock_hover' : '';?>">尼德图集</font></a></li>
+</ul>
+</div>
+<div class="<?php echo ($nav_menu_id == 6) ? 'slidingList' : 'slidingList_none'; ?>" id="slidingList6">
+<ul>
+<li style="margin-left:620px;"> <a href="<?php echo site_url('school') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'school' && $CI->uri->segment(2) == false) ? 'slidingBlock_hover' : '';?>">教育文章</font></a></li>
 <li> <a href="<?php echo site_url('school/book') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'school' && $CI->uri->segment(2) == 'book') ? 'slidingBlock_hover' : '';?>">精品图书</font></a></li>
 <li> <a href="<?php echo site_url('school/vedio') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'school' && $CI->uri->segment(2) == 'vedio') ? 'slidingBlock_hover' : '';?>">教育影视</font></a></li>
 <li> <a href="<?php echo site_url('school/software') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'school' && $CI->uri->segment(2) == 'software') ? 'slidingBlock_hover' : '';?>">教育软件</font></a></li>
 </ul>
-</div><div class="<?php echo ($nav_menu_id == 7) ? 'slidingList' : 'slidingList_none'; ?>" id="slidingList7">
+</div>
+<div class="<?php echo ($nav_menu_id == 7) ? 'slidingList' : 'slidingList_none'; ?>" id="slidingList7">
 <ul>
-<li style="margin-left:430px;"> <a href="<?php echo site_url('aboutUs') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'aboutUs') ? 'slidingBlock_hover' : '';?>">尼德简介</font></a></li>
+<li style="margin-left:670px;"> <a href="<?php echo site_url('aboutUs') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'aboutUs') ? 'slidingBlock_hover' : '';?>">尼德简介</font></a></li>
 <li> <a href="<?php echo site_url('advantage') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'advantage') ? 'slidingBlock_hover' : '';?>">尼德优势</font></a></li>
-<li> <a href="<?php echo site_url('team') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'team') ? 'slidingBlock_hover' : '';?>">师资团队</font></a></li>
-<li> <a href="<?php echo site_url('gallery') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'gallery') ? 'slidingBlock_hover' : '';?>">尼德图集</font></a></li>
 <li> <a href="<?php echo site_url('jobs') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'jobs') ? 'slidingBlock_hover' : '';?>">招贤纳士</font></a></li>
 <li> <a href="<?php echo site_url('contactUs') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'contactUs') ? 'slidingBlock_hover' : '';?>">联系我们</font></a></li>
 </ul>
 </div>
 </div>
-		</td>
-        <td width="100" align="right" valign="top">
-			<table width="115" border="0" cellspacing="0" cellpadding="0" style="margin-top:6px;">
-			<form name="search" action="<?php echo site_url().'/article/search/'?>" method="post">
-			  <tr>
-				<td width="72" height="21" align="left" background="images/index_16.jpg" style="background-repeat:no-repeat; background-position:left"><input name="keyword" type="text" value="快乐提高成绩" class="input_serch" onfocus="if (value =='快乐提高成绩'){value =''}" onblur="if (value ==''){value='快乐提高成绩'}"/></td>
-				<td align="right"><input type="image" name="submit" align="bottom" src="images/index_17.jpg"></td>
-			  </tr>
-
-			</form>
-			</table>
 		</td>
       </tr>
     </table>

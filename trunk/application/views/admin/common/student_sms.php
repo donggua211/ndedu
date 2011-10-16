@@ -1,27 +1,3 @@
-<script language="javascript" type="text/javascript">
-function ContentChange(){
-	var len=document.getElementById("content").value.length;
-	var ts=parseInt(len/64);
-	var ys=parseInt(len%64);
-	
-	if (ys>0){
-		ts+=1;
-	}
-	
-	var tsx=parseInt(len/63);
-	var ysx=parseInt(len%63);
-	
-	if (ysx>0){
-		tsx+=1;
-	}
-	if(ts>1){
-		document.getElementById("content_Info").innerHTML="（"+len+"字/普通短信:"+ts+"条,长短信:"+tsx+"）";
-	}else{
-		document.getElementById("content_Info").innerHTML="（"+len+"字/短信:"+ts+"条）";
-	}
-} 
-</script>
-
 <div id="main">
 	<div id="main_body">
 		<?php if(isset($notification) && !empty($notification)): ?>

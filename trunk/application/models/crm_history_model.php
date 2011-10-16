@@ -155,6 +155,27 @@ class CRM_History_model extends Model {
 		return true;
 	
 	}
+	
+	function get_last3_contact_history($student_id)
+	{
+		$table = 'crm_history_contact';
+		
+		$sql = "SELECT history.* FROM " . $this->db->dbprefix($table) . " as history
+				WHERE student_id = $student_id	
+				AND history.is_delete = 0
+				ORDER BY add_time DESC
+				LIMIT 3";
+		
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			return $query->result_array();
+		}
+		else
+		{
+			return array();
+		}
+	}
 }
 
 /* End of file admin.php */
