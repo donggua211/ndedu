@@ -20,6 +20,19 @@ class StaticPage extends Controller {
 		$this->load->view('footer');
 	}
 	
+	function teacher()
+	{
+		$this->config->load('text/teacher');
+		$data['teachers'] = $this->config->config['teacher'];
+		
+		$data_header['nav_menu_id'] = 9;
+		$data_header['meta_title'] = '尼德师资';
+		
+		$this->load->view('header', $data_header);
+		$this->load->view('teacher', $data);
+		$this->load->view('footer');
+	}
+	
 	function siteMap()
 	{
 		$data_header['meta_title'] = '网站地图';

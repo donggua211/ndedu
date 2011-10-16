@@ -148,5 +148,8 @@ define('HISTORY_DENY', 0);
 define('HISTORY_R', 1);
 define('HISTORY_WR', 2);
 
+//sms ÀúÊ·
+define('SMS_HISTORY_PER_PAGE', 10);
+
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

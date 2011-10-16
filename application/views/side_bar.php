@@ -1613,7 +1613,7 @@
           </table>
 		  <table width="220" border="0" cellspacing="0" cellpadding="0" >
             <tr>
-              <td height="21" background="images/dyhxkfd_13.jpg" class="font_14" style="background-position:left; background-repeat:no-repeat; padding-left:30px;"><a href="'.site_url('team').'">师资团队</a></td>
+              <td height="21" background="images/dyhxkfd_13.jpg" class="font_14" style="background-position:left; background-repeat:no-repeat; padding-left:30px;"><a href="'.site_url('team').'">师资来源</a></td>
             </tr>
           </table>
 		  <table width="200" border="0" cellpadding="0" cellspacing="0" class="font_right_content" style="margin-left:20px;">
@@ -1660,7 +1660,7 @@
           </table>
 		  <table width="220" border="0" cellspacing="0" cellpadding="0" >
             <tr>
-              <td height="21" background="images/dyhxkfd_13.jpg" class="font_14" style="background-position:left; background-repeat:no-repeat; padding-left:30px;"><a href="'.site_url('team').'">师资团队</a></td>
+              <td height="21" background="images/dyhxkfd_13.jpg" class="font_14" style="background-position:left; background-repeat:no-repeat; padding-left:30px;"><a href="'.site_url('team').'">师资来源</a></td>
             </tr>
           </table>
 		  <table width="200" border="0" cellpadding="0" cellspacing="0" class="font_right_content" style="margin-left:20px;">
@@ -1780,7 +1780,7 @@
           </table>
 		  <table width="220" border="0" cellspacing="0" cellpadding="0" >
             <tr>
-              <td height="21" background="images/ndjj_11.jpg" class="font_14" style="background-position:left; background-repeat:no-repeat; padding-left:30px;"><a href="'.site_url('team').'">师资团队</a></td>
+              <td height="21" background="images/ndjj_11.jpg" class="font_14" style="background-position:left; background-repeat:no-repeat; padding-left:30px;"><a href="'.site_url('team').'">师资来源</a></td>
             </tr>
           </table>
 		  <table width="200" border="0" cellpadding="0" cellspacing="0" class="font_right_content" style="margin-left:20px;">
@@ -1830,7 +1830,7 @@
           </table>
 		  <table width="220" border="0" cellspacing="0" cellpadding="0" >
             <tr>
-              <td height="21" background="images/ndjj_11.jpg" class="font_14" style="background-position:left; background-repeat:no-repeat; padding-left:30px;"><a href="'.site_url('team').'">师资团队</a></td>
+              <td height="21" background="images/ndjj_11.jpg" class="font_14" style="background-position:left; background-repeat:no-repeat; padding-left:30px;"><a href="'.site_url('team').'">师资来源</a></td>
             </tr>
           </table>
 		  <table width="200" border="0" cellpadding="0" cellspacing="0" class="font_right_content" style="margin-left:20px;">

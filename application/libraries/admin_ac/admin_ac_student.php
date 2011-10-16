@@ -352,8 +352,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 	
 	function view_student_one_sms()
 	{
-		return true;
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_CS_D);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_CS_D, GROUP_CONSULTANT, GROUP_CONSULTANT_D);
 		
 		return $this->_check_role($allowed_group_id);	
 	}
@@ -378,4 +377,19 @@ class Admin_Ac_Student extends Admin_Ac_Base
 			return true;
 	}
 	
+	function view_student_all_teaches()
+	{
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS_D, GROUP_SUYANG_D, GROUP_CONSULTANT_D);
+		
+		return $this->_check_role($allowed_group_id);	
+	}
+	
+	function view_student_all_contact_history($student_status)
+	{
+		if(in_array($this->group_id, array(GROUP_CONSULTANT_D, GROUP_CONSULTANT, GROUP_CS_D, GROUP_CS)) 
+			&& in_array($student_status, array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_SIGNUP)))
+			return true;
+		
+		return false;
+	}
 }

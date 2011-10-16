@@ -5,7 +5,7 @@ class Article extends Controller {
 	function Article()
 	{
 		$this->article_separator = '#!PAGESEPARATOR!#';
-		$this->special_cat = array(2, 3, 4, 5, 6);
+		$this->special_cat = array(2, 3, 4, 5, 6, 18);
 		$this->num_sidebar_articles = 11;
 		$this->articles_per_page = 15;
 		
@@ -62,6 +62,11 @@ class Article extends Controller {
 		{
 			$data_header['nav_menu_id'] = 1;
 			$data['cat_url'] = 'school';
+		}
+		elseif($data['article']['cat_id'] == 18)
+		{
+			$data_header['nav_menu_id'] = 9;
+			$data['cat_url'] = 'teacher';
 		}
 		else
 		{

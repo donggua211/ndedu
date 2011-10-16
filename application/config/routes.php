@@ -135,6 +135,7 @@ $route['team'] = "article/index/29";
 $route['gallery'] = "article/index/30";
 $route['jobs'] = "article/index/31";
 
+$route['teacher'] = "staticPage/teacher";
 $route['contactUs'] = "staticPage/contactus";
 $route['siteMap'] = "staticPage/siteMap";
 $route['oo1'] = "staticPage/oo1";
