@@ -335,13 +335,13 @@ padding-top:8px;
 h4,div,ul,li,span{ padding:0px; margin:0px}
 /* 最外面DIV的样式 */
 #slidingBlock {
-width:860px;
+width:960px;
 margin:auto;
 height:60px;
 }
 #nav_box{
 height:36px;
-width:860px;
+width:960px;
 text-align:center;
 margin-left: 2px;
 }
@@ -646,6 +646,10 @@ DIV.quotes SPAN.disabled {
 	width:222px;
 	line-height:35px;
 	
+}
+
+.img_des{
+	line-height:2em;
 }
 
 /****** clearfix ******/
