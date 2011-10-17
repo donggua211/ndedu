@@ -53,7 +53,7 @@
 				  北三环苏州桥往西经过长椿桥到金源购物中心对面即是；西四环从远大路口出，上远大路（由西向东）到姜杰文化艺术大厦（对面金源购物中心）</td>
               </tr>
             </table>
-			
+			<!--
 			<table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
               <tr>
                 <td height="36" align="left" class="font_14_orange" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;">苏州街校区：</td>
@@ -105,7 +105,7 @@
                 </td>
               </tr>
             </table>
-			
+			-->
 			<table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
               <tr><td height="36" align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;">
 				<span class="font_14_orange">在线留言咨询：</span>
