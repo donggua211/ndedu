@@ -406,10 +406,10 @@
                   </table>
                     <table width="660" border="0" cellpadding="0" cellspacing="0" class="font_14">
                       <tr>
-                        <td width="165" align="center"><a href="<?php echo site_url('gallery') ?>">前台</a></td>
-                        <td width="165" align="center"><a href="<?php echo site_url('gallery') ?>">会议室</a></td>
-                        <td width="166" align="center"><a href="<?php echo site_url('gallery') ?>">咨询教室</a></td>
-                        <td align="center"><a href="<?php echo site_url('gallery') ?>">洽谈室</a></td>
+                        <td width="165" align="center"><a href="<?php echo site_url('gallery') ?>">集体照</a></td>
+                        <td width="165" align="center"><a href="<?php echo site_url('gallery') ?>">尼德前台</a></td>
+                        <td width="166" align="center"><a href="<?php echo site_url('gallery') ?>">师生合影</a></td>
+                        <td align="center"><a href="<?php echo site_url('gallery') ?>">建造科学模型</a></td>
                       </tr>
                     </table></td>
                 </tr>
