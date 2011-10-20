@@ -220,6 +220,8 @@ class Student extends Controller {
 				$template = 'student_one_sms';
 				break;
 			case 'timetable':
+				$data['main']['teachers'] = $this->_get_teachers();
+				$data['main']['subjects'] = $this->_get_subjects();
 				$template = 'student_one_timetable';
 				$student_extra_info = array();
 				break;
@@ -239,6 +241,35 @@ class Student extends Controller {
 		$data['main']['student'] = array_merge($student_info, $student_extra_info);
 		$this->_load_view($template, $data);
 	}
+	
+	function _get_teachers()
+	{
+		if($this->staff_info['group_id'] == GROUP_CONSULTANT_D)
+			$group = array(GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+		elseif($this->staff_info['group_id'] == GROUP_SUYANG_D)
+			$group = array(GROUP_SUYANG_D, GROUP_SUYANG);
+		elseif($this->staff_info['group_id'] == GROUP_TEACHER_D)
+			$group = array(GROUP_TEACHER_D, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
+		else
+			$group = array(GROUP_CONSULTANT, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG, GROUP_TEACHER_D, GROUP_CONSULTANT_D, GROUP_SUYANG_D);
+		
+		return $this->CRM_Staff_model->get_all_by_group($group);
+	}
+	
+	function _get_subjects()
+	{
+		if($this->staff_info['group_id'] == GROUP_CONSULTANT_D)
+			$parrent_id = 2;
+		elseif($this->staff_info['group_id'] == GROUP_SUYANG_D)
+			$parrent_id = 3;
+		elseif($this->staff_info['group_id'] == GROUP_TEACHER_D)
+			$parrent_id = 1;
+		else
+			$parrent_id = 0;
+		
+		return $this->CRM_Subject_model->getAll($parrent_id);
+	}
+	
 	
 	/* 
 	 * 访问权限: 全部角色

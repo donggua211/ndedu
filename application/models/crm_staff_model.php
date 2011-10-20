@@ -312,7 +312,8 @@ class CRM_Staff_model extends Model {
 	function get_all_by_group($group_id = 0)
 	{
 		$filter['group_id'] = $group_id;
-		return $this->getAll($filter);
+		return $this->getAll($filter, 0,0, $order_by = 'username');
+		
 		$sql = "SELECT staff_id, name FROM " . $this->db->dbprefix('crm_staff') . " as staff";
 		if($group_id > 0)
 			$sql .= " WHERE group_id = $group_id";
