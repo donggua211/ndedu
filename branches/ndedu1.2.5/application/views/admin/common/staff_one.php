@@ -10,6 +10,22 @@
 </div>
 <div style="clear:both"></div>
 <div id="main">
+	<div id="main_navbar">
+		<p>
+			<span class="navbar-front"><a href="<?php echo site_url('admin/staff/one/'.$staff['staff_id']) ?>">基本信息</a></span>
+			
+			<span class="navbar-back"><a href="<?php echo site_url('admin/staff/one/'.$staff['staff_id'].'/timetable') ?>">时间表</a></span>
+			
+			<?php
+			//access control
+			$CI = & get_instance();
+			if($CI->admin_ac_staff->view_staff_one_sms()):
+			?>
+			<span class="navbar-back"><a href="<?php echo site_url('admin/staff/one/'.$staff['staff_id'].'/sms') ?>">短信记录</a></span>
+			<?php endif; ?>
+		</p>
+	</div>
+	
 	<div id="main_body">
 		<?php if(isset($notification) && !empty($notification)): ?>
 		<div style="backgroud:#fff;padding:5px;border:1px solid #FF8080;text-align:center">
