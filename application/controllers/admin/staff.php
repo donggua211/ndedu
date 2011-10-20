@@ -14,6 +14,7 @@ class Staff extends Controller {
 		$this->load->model('CRM_Branch_model');
 		$this->load->model('CRM_Group_model');
 		$this->load->model('CRM_Staff_model');
+		$this->load->model('CRM_Sms_history_model');
 		
 		$this->load->helper('admin');
 			
@@ -71,7 +72,7 @@ class Staff extends Controller {
 		_load_viewer($this->staff_info['group_id'], 'staff_all', $data);
 	}
 	
-	function one($staff_id)
+	function one($staff_id, $type = 'basic', $page = 1)
 	{
 		//判断student_id是否合法.
 		$staff_id = intval($staff_id);
@@ -94,10 +95,44 @@ class Staff extends Controller {
 		//access_control
 		$this->admin_ac_staff->staff_one_ac($staff_info);
 		
+		//开始展示
+		switch($type)
+		{
+			case 'timetable':
+				$template = 'staff_one_timetable';
+				break;
+			case 'sms':
+				//截取电话号码
+				preg_match( "/[\d]{11}/", $staff_info['phone'], $matches);
+				$data['main']['sms_mobile'] = isset($matches[0]) ? $matches[0] : '';
+				
+				//获取sms历史
+				$filter = array();
+				if(!$this->admin_ac_staff->view_staff_one_see_all_sms())
+					$filter['staff_id'] = $this->staff_info['staff_id'];
+				$filter['mobile'] = $data['main']['sms_mobile'];
+				
+				//Page Nav
+				$total = $this->CRM_Sms_history_model->count_sms_history($filter);
+				$page_nav = page_nav($total, SMS_HISTORY_PER_PAGE, $page);
+				$page_nav['base_url'] = 'admin/staff/one/'.$staff_id.'/sms';
+				$page_nav['filter'] = array();
+				$data['main']['page_nav'] = $this->load->view('admin/common_page_nav', $page_nav, true);
+				$data['main']['sms_history'] = $this->CRM_Sms_history_model->get_sms_history($filter, $page_nav['start'], SMS_HISTORY_PER_PAGE, 'mobile, update_time', 'DESC');
+				
+				$data['main']['this_staff_id'] = $this->staff_info['staff_id'];
+				$template = 'staff_one_sms';
+				break;
+			case 'basic':
+			default:
+				$template = 'staff_one';
+				break;
+		}
+		
 		$data['header']['meta_title'] = $staff_info['name'].' -查看员工 - 管理员工';
 		$data['main']['staff'] = $staff_info;
 		
-		_load_viewer($this->staff_info['group_id'], 'staff_one', $data);
+		_load_viewer($this->staff_info['group_id'], $template, $data);
 	}
 	
 	function inactive_staff()

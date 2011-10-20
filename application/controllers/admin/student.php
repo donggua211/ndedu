@@ -185,21 +185,28 @@ class Student extends Controller {
 			case 'sms':
 				//处理手机号，优先处理妈妈的。
 				$mobile = '';
-				if(!empty($student_info['mother_phone']))
-					$mobile = $student_info['mother_phone'];
-				elseif(!empty($student_info['father_phone']))
-					$mobile = $student_info['father_phone'];
+				preg_match( "/[\d]{11}/", $student_info['mother_phone'], $matches);
+				$mother_phone = isset($matches[0]) ? $matches[0] : '';
+				preg_match( "/[\d]{11}/", $student_info['father_phone'], $matches);
+				$father_phone = isset($matches[0]) ? $matches[0] : '';
+				
+				if(!empty($mother_phone))
+					$mobile = $mother_phone;
+				elseif(!empty($father_phone))
+					$mobile = $father_phone;
+				
 				//截取电话号码
-				preg_match( "/[\d]{11}/", $mobile, $matches);
-				$data['main']['sms_mobile'] = isset($matches[0]) ? $matches[0] : '';
+				$data['main']['sms_mobile'] =$mobile;
 				
 				//获取sms历史
 				$filter = array();
-				$filter['staff_id'] = $this->staff_info['staff_id'];
-				if(!empty($student_info['father_phone']))
-					$filter['mobile'][] = $student_info['father_phone'];
-				if(!empty($student_info['mother_phone']))
-					$filter['mobile'][] = $student_info['mother_phone'];
+				if(!$this->admin_ac_student->view_student_one_see_all_sms())
+					$filter['staff_id'] = $this->staff_info['staff_id'];
+				
+				if(!empty($mother_phone))
+					$filter['mobile'][] = $mother_phone;
+				if(!empty($father_phone))
+					$filter['mobile'][] = $father_phone;
 				
 				//Page Nav
 				$total = $this->CRM_Sms_history_model->count_sms_history($filter);
@@ -211,6 +218,10 @@ class Student extends Controller {
 				
 				$student_extra_info['this_staff_id'] = $this->staff_info['staff_id'];
 				$template = 'student_one_sms';
+				break;
+			case 'timetable':
+				$template = 'student_one_timetable';
+				$student_extra_info = array();
 				break;
 			case 'basic':
 			default:
