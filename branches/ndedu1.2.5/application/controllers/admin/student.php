@@ -25,6 +25,7 @@ class Student extends Controller {
 		$this->load->model('CRM_Subject_model');
 		$this->load->model('CRM_Sms_history_model');
 		$this->load->model('CRM_Student_from_model');
+		$this->load->model('CRM_Timetable_model');
 		
 		$this->load->helper('admin');
 		$this->load->helper('calendar');
@@ -49,6 +50,7 @@ class Student extends Controller {
 		
 		//加载权限控制类
 		$this->load->library('admin_ac/Admin_Ac_Student', array('group_id' => $this->staff_info['group_id']));
+		$this->load->library('admin_ac/Admin_Ac_Timetable', array('group_id' => $this->staff_info['group_id']));
 
 	}
 	
@@ -220,10 +222,15 @@ class Student extends Controller {
 				$template = 'student_one_sms';
 				break;
 			case 'timetable':
-				$data['main']['teachers'] = $this->_get_teachers();
-				$data['main']['subjects'] = $this->_get_subjects();
+				$student_extra_info['time_table'] = $this->CRM_Timetable_model->get_student_timetable($student_info['student_id']);
+				
+				//如果有添加权限的话，载入老师和课程。
+				if($this->admin_ac_timetable->add_timetable())
+				{
+					$data['main']['teachers'] = $this->_get_teachers();
+					$data['main']['subjects'] = $this->_get_subjects();
+				}
 				$template = 'student_one_timetable';
-				$student_extra_info = array();
 				break;
 			case 'basic':
 			default:

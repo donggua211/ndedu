@@ -36,45 +36,60 @@
 			<img style="vertical-align: middle;" src="images/icon/warning.gif"> <span style="color:red;font-size:20px;line-height:22px"><?php echo $notification;?></span>
 		</div>
 		<?php endif;?>
-		<div id="listDiv" class="list-div">
+		<div class="list-div">
 			<table cellspacing='1' id="list-table">
 				<tr>
-					<th>星期一</th>
-					<th>星期二</th>
-					<th>星期三</th>
-					<th>星期四</th>
-					<th>星期五</th>
-					<th>星期六</th>
-					<th>星期日</th>
+					<th width="14%">星期一</th>
+					<th width="14%">星期二</th>
+					<th width="14%">星期三</th>
+					<th width="14%">星期四</th>
+					<th width="14%">星期五</th>
+					<th width="14%">星期六</th>
+					<th width="14%">星期日</th>
 				</tr>
+				
+				<?php
+				//计算出最长的day
+				$max = 0;
+				foreach($student['time_table'] as $val)
+				{
+					if(count($val) > $max)
+						$max = count($val);
+				}
+				
+				for($i = 0; $i < $max; $i++)
+				{
+					echo '<tr>';
+					for($j = 1; $j <= 8; $j++)
+					{
+						echo '<td >';
+						if(isset($student['time_table'][$j][$i]))
+						{
+							echo $student['time_table'][$j][$i]['start_time'] . '至' . $student['time_table'][$j][$i]['end_time'].'<br/>';
+							echo $student['time_table'][$j][$i]['subject_name'] . '<br/>';
+							echo $student['time_table'][$j][$i]['name'];
+						}
+						echo '</td>';
+					}
+					echo '</tr>';
+				}
+				?>
 			</table>
 		</div>
 		
 		<?php
-		if($CI->admin_ac_student->add_timetable()):
+		if($CI->admin_ac_timetable->add_timetable()):
 		?>
 		<!-- 添加框 -->
 		<div>
 			<div class="title margin_top">
 				<span>添加课程表</span>
 			</div>
-			<form action="<?php echo site_url('admin/student/add_timetable')?>" method="post">
+			<form action="<?php echo site_url('admin/timetable/add')?>" method="post">
 			<table width="90%">
 				<tr>
 					<td class="label" valign="top">学员：</td>
 					<td><?php echo $student['name'] ?></td>
-				</tr>
-				<tr>
-					<td class="label" valign="top"><span class="notice-star"> * </span>上课老师：</td>
-					<td>
-						<select name="teacher_id">
-							<option value='0'>请选择...</option>
-							<?php
-								foreach($teachers as $staff)
-									echo '<option value="'.$staff['staff_id'].'" '.((isset($new_finished['teacher_id'])) ? ( ($staff['staff_id'] == $new_finished['teacher_id']) ? 'SELECTED' : '' ) : '').'>'.$staff['name'].'</option>';
-							?>
-						</select>
-					</td>
 				</tr>
 				<tr>
 					<td class="label" valign="top"><span class="notice-star"> * </span>科目：</td>
@@ -83,7 +98,19 @@
 							<option value='0'>请选择...</option>
 							<?php
 								foreach($subjects as $subject)
-									echo '<option value="'.$subject['subject_id'].'" '.((isset($new_finished['subject_id'])) ? ( ($subject['subject_id'] == $new_finished['subject_id']) ? 'SELECTED' : '' ) : '').'>'.$subject['subject_name'].'</option>';
+									echo '<option value="'.$subject['subject_id'].'">'.$subject['subject_name'].'</option>';
+							?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="label" valign="top"><span class="notice-star"> * </span>上课老师：</td>
+					<td>
+						<select name="staff_id">
+							<option value='0'>请选择...</option>
+							<?php
+								foreach($teachers as $staff)
+									echo '<option value="'.$staff['staff_id'].'">'.$staff['name'].'</option>';
 							?>
 						</select>
 					</td>
@@ -91,7 +118,7 @@
 				<tr>
 					<td class="label" valign="top"><span class="notice-star"> * </span>上课时间: </td>
 					<td>
-						<select name="date">
+						<select name="day">
 							<option value='1'>星期一</option>
 							<option value='2'>星期二</option>
 							<option value='3'>星期三</option>
