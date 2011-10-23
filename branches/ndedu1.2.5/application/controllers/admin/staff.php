@@ -15,6 +15,7 @@ class Staff extends Controller {
 		$this->load->model('CRM_Group_model');
 		$this->load->model('CRM_Staff_model');
 		$this->load->model('CRM_Sms_history_model');
+		$this->load->model('CRM_Timetable_model');
 		
 		$this->load->helper('admin');
 			
@@ -99,6 +100,7 @@ class Staff extends Controller {
 		switch($type)
 		{
 			case 'timetable':
+				$data['main']['time_table'] = $this->CRM_Timetable_model->get_staff_timetable($staff_id);
 				$template = 'staff_one_timetable';
 				break;
 			case 'sms':

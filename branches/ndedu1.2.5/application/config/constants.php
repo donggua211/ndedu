@@ -141,7 +141,9 @@ define('WARNING_REMAIN_HOURS', 10);
 define('STAFF_BECOME_FULL_HOURS', 20);
 
 //科目
+define('SUBJECT_XUEKE', 1);
 define('SUBJECT_SUYANG', 2);
+define('SUBJECT_ZIXUN', 3);
 
 //历史记录
 define('HISTORY_DENY', 0);

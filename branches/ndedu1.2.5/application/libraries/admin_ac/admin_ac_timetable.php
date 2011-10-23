@@ -19,4 +19,35 @@ class Admin_Ac_Timetable extends Admin_Ac_Base
 		return $this->_check_role($allowed_group_id);	
 	
 	}
+	
+	function edit_timetable()
+	{
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_TEACHER_D, GROUP_CS_D, GROUP_SUYANG_D, GROUP_CONSULTANT_D);
+		
+		return $this->_check_role($allowed_group_id);	
+	
+	}
+	
+	function view_student_timetable_opt($subject_id)
+	{
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
+		
+		$subject_id = substr($subject_id, 0 , 1);
+		
+		switch ($subject_id)
+		{
+			case SUBJECT_XUEKE:
+				$allowed_group_id[] = GROUP_TEACHER_D;
+				break;
+			case SUBJECT_SUYANG:
+				$allowed_group_id[] = GROUP_SUYANG_D;
+				break;
+			case SUBJECT_ZIXUN:
+				$allowed_group_id[] = GROUP_CONSULTANT_D;
+				break;
+		}
+		
+		return $this->_check_role($allowed_group_id);	
+	
+	}
 }
