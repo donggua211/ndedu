@@ -354,6 +354,9 @@ class Student extends Controller {
 			$edit_student['address'] = $this->input->post('address');
 			$edit_student['remark'] = $this->input->post('remark');
 			
+			//ndedu1.2.5 新加： 星级
+			$edit_student['level'] = $this->input->post('level');
+			
 			//检查修改项
 			$update_field = array();
 			foreach($edit_student as $key => $val)
@@ -395,7 +398,7 @@ class Student extends Controller {
 					
 					$this->CRM_Student_model->student_status_history($student_id, $student_info['status'], $update_field['status'], $consultant_id, $supervisor_id);
 				}
-				show_result_page('学员已经更新成功! ', 'admin/student/');
+				show_result_page('学员已经更新成功! ', 'admin/student/one/'.$student_id);
 			}
 			else
 			{
@@ -563,7 +566,10 @@ class Student extends Controller {
 			$new_student['student_from'] = $this->input->post('student_from');
 			$new_student['student_from_text'] = $this->input->post('student_from_text');
 			
-			if(empty($new_student['name']) || empty($new_student['gender']) || empty($new_student['branch_id']) || empty($new_student['grade_id']) || empty($new_student['province_id']) || empty($new_student['city_id']) || empty($new_student['district_id']))
+			//ndedu1.2.5 新加： 星级
+			$new_student['level'] = $this->input->post('level');
+			
+			if(empty($new_student['name']) || empty($new_student['gender']) || empty($new_student['branch_id']) || empty($new_student['grade_id']) || empty($new_student['province_id']) || empty($new_student['city_id']) || empty($new_student['district_id']) || empty($new_student['level']))
 			{
 				$notify = '请填写完整的学生信息';
 				$this->_load_student_add_view($notify, $new_student);

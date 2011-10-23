@@ -142,6 +142,10 @@
 				<td class="label" valign="top">学员来源: </td>
 				<td><?php echo (isset($student['student_from_name'])) ? $student['student_from_name'] : $student['student_from_other']; ?></td>
 			</tr>
+			<tr>
+				<td class="label" valign="top">星级: </td>
+				<td><?php echo (isset($student['level'])) ? $student['level'].'A' : 'A'; ?></td>
+			</tr>
 			
 			<tr>
 				<td class="label" valign="top">
