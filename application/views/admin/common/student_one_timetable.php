@@ -49,10 +49,19 @@
 				</tr>
 				
 				<?php
+				function cmp($a, $b)
+				{
+					if ($a['start_time'] == $b['start_time']) {
+						return 0;
+					}
+					return ($a['start_time'] < $b['start_time']) ? -1 : 1;
+				}
+				
 				//计算出最长的day
 				$max = 0;
-				foreach($student['time_table'] as $val)
+				foreach($student['time_table'] as $key => $val)
 				{
+					usort($student['time_table'][$key], "cmp");
 					if(count($val) > $max)
 						$max = count($val);
 				}
@@ -62,12 +71,32 @@
 					echo '<tr>';
 					for($j = 1; $j <= 8; $j++)
 					{
-						echo '<td >';
+						echo '<td onmouseover="show_operation(\'' . $i.$j . '\')" onmouseout="hidden_operation(\'' . $i.$j . '\')">';
 						if(isset($student['time_table'][$j][$i]))
 						{
-							echo $student['time_table'][$j][$i]['start_time'] . '至' . $student['time_table'][$j][$i]['end_time'].'<br/>';
+							echo '<div class="' . (($student['time_table'][$j][$i]['is_suspend'] == 0) ? 'timetable' : 'timetable_suspend') . '">';
+							echo substr($student['time_table'][$j][$i]['start_time'], 0, -3) . ' 至 ' . substr($student['time_table'][$j][$i]['end_time'], 0, -3).'<br/>';
 							echo $student['time_table'][$j][$i]['subject_name'] . '<br/>';
 							echo $student['time_table'][$j][$i]['name'];
+							
+							//编辑区域
+							echo '<div class="operation">';
+							if($CI->admin_ac_timetable->view_student_timetable_opt($student['time_table'][$j][$i]['subject_id']))
+							{
+								echo '<div id="'. $i.$j.'" class="operation_inner">
+										<a href="'.site_url('admin/timetable/edit/'.$student['time_table'][$j][$i]['timetable_id']).'"><img src="images/icon/edit.png" title="编辑"></a>';
+								
+								if($student['time_table'][$j][$i]['is_suspend'] == 0)
+									echo '<a href="'.site_url('admin/timetable/suspend/'.$student['time_table'][$j][$i]['timetable_id']).'"><img src="images/icon/suspend.png" title="暂停课程" onclick="return confirm(\'确定要暂停课程?\');" ></a>';
+								else
+									echo '<a href="'.site_url('admin/timetable/unsuspend/'.$student['time_table'][$j][$i]['timetable_id']).'"><img src="images/icon/unsuspend.png" title="取消暂停" onclick="return confirm(\'确定要取消暂停?\');" ></a>';
+								
+								echo '<a href="'.site_url('admin/timetable/delete/'.$student['time_table'][$j][$i]['timetable_id']).'"><img src="images/icon/del.png" title="删除" onclick="return confirm(\'确定要删除?\');" ></a>
+									</div>';
+							}
+							echo '</div>';
+							
+							echo '</div>';
 						}
 						echo '</td>';
 					}
@@ -85,7 +114,7 @@
 			<div class="title margin_top">
 				<span>添加课程表</span>
 			</div>
-			<form action="<?php echo site_url('admin/timetable/add')?>" method="post">
+			<form action="<?php echo site_url('admin/timetable/add')?>" method="post" id="form">
 			<table width="90%">
 				<tr>
 					<td class="label" valign="top">学员：</td>
@@ -141,3 +170,51 @@
 		<?php endif; ?>
 	</div>
 </div>
+
+<script type="text/javascript">
+	function show_operation(id)
+	{
+		$("#"+id).removeClass("operation_inner");
+	}
+	
+	function hidden_operation(id)
+	{
+		$("#"+id).addClass("operation_inner");
+	}
+	
+	//表单选项检查
+	$("#form").submit(function(){
+		//科目
+		if($("select[name='subject_id'] option:selected").val() == 0)
+		{
+			alert('请选择科目');
+			return false;
+		}
+		
+		//上课老师
+		if($("select[name='staff_id'] option:selected").val() == 0)
+		{
+			alert('请选择上课老师');
+			return false;
+		}
+		
+		//上课时间
+		var s_h = parseInt($("select[name='start_hour'] option:selected").val());
+		var s_m = parseInt($("select[name='start_mins'] option:selected").val());
+		var e_h = parseInt($("select[name='end_hour'] option:selected").val());
+		var e_m = parseInt($("select[name='end_mins'] option:selected").val());
+		
+		if(s_h > e_h)
+		{
+			alert('上课的结束时间须大于开始时间');
+			return false;
+		}
+		else if(s_h == e_h && s_m >= e_m)
+		{
+			alert('上课的结束时间须大于开始时间');
+			return false;
+		}
+		
+		return true;
+	});
+</script>

@@ -51,7 +51,53 @@ class CRM_Timetable_model extends Model {
 		}
 	}
 	
-	function update($calendar_id, $update_field = array())
+	function get_staff_timetable($staff_id)
+	{
+		$sql = "SELECT student.name, subject.subject_name, timetable.* FROM ".$this->db->dbprefix('crm_timetable')." as timetable
+				LEFT JOIN ".$this->db->dbprefix('crm_student')." as student ON student.student_id = timetable.student_id
+				LEFT JOIN ".$this->db->dbprefix('crm_subject')." as subject ON subject.subject_id = timetable.subject_id
+				WHERE timetable.staff_id = $staff_id ";
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			$result = array();
+			foreach( $query->result_array() as $val )
+			{
+				$result[$val['day']][] = $val;
+			}
+			return $result;
+		}
+		else
+		{
+			return array();
+		}
+	}
+	
+	function get_one_timetable($timetable_id)
+	{
+		$sql = "SELECT student.name, timetable.* FROM ".$this->db->dbprefix('crm_timetable')." as timetable
+				INNER JOIN  ".$this->db->dbprefix('crm_student')." as student ON student.student_id = timetable.student_id
+				WHERE timetable.timetable_id = $timetable_id
+				LIMIT 1";
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			return $query->row_array();
+		}
+		else
+		{
+			return array();
+		}
+	}
+	
+	function delete($timetable_id)
+	{
+		$this->db->where('timetable_id', $timetable_id);
+		$this->db->delete('crm_timetable'); 
+		return ($this->db->affected_rows() > 0 ) ? TRUE : FALSE;
+	}
+	
+	function update($timetable_id, $update_field = array())
 	{
 		if(empty($update_field))
 			return true;
@@ -60,10 +106,9 @@ class CRM_Timetable_model extends Model {
 		{
 				$data[$key] = $val;
 		}
-		$data['update_time'] = date('Y-m-d H:i:s');
 		
-		$this->db->where('calendar_id', $calendar_id);
-		if($this->db->update('crm_calendar', $data))
+		$this->db->where('timetable_id', $timetable_id);
+		if($this->db->update('crm_timetable', $data))
 		{
 			return true;
 		}
