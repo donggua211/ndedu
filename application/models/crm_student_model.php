@@ -47,7 +47,9 @@ class CRM_Student_model extends Model {
 		$data['update_time'] = date('Y-m-d H:i:s');
 		//ndedu1.2.2 新加字段： dob
 		$data['dob'] = $student['dob'];
-		
+		//ndedu1.2.5 新加： 星级
+		$data['level'] = $student['level'];
+			
 		if($this->db->insert('crm_student', $data))
 		{
 			$student_id = $this->db->insert_id();

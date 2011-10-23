@@ -147,6 +147,16 @@
 				</td>
 			</tr>
 			<tr>
+				<td class="label" valign="top"><span class="notice-star"> * </span>星级: </td>
+				<td>
+					<select name="level">
+						<option value='1'>A级</option>
+						<option value='3'>3A级</option>
+						<option value='5'>5A级</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td class="label" valign="top">备注: </td>
 				<td><textarea name="remark" cols="40" rows="5"></textarea></td>
 			</tr>			
