@@ -149,6 +149,7 @@ define('SUBJECT_ZIXUN', 3);
 define('HISTORY_DENY', 0);
 define('HISTORY_R', 1);
 define('HISTORY_WR', 2);
+define('HISTORY_LEARNING_SEP', 'HISTORY_LEARNING_SEP');
 
 //sms ÀúÊ·
 define('SMS_HISTORY_PER_PAGE', 10);

@@ -56,7 +56,20 @@
 					</tr>
 					<?php foreach($student['history_'.$history_type] as $history): ?>
 					<tr>
-						<td><?php echo nl2br($history['history_'.$history_type]) ?></td>
+						<td>
+							<?php if($history_type == 'learning'): ?>
+								<?php
+									$history_learning = explode(HISTORY_LEARNING_SEP, $history['history_'.$history_type]);
+									$title = array('科目', '课时', '日期', '教材版本', '教案');
+									echo '<table width="100%" cellspacing="1">';
+									foreach($history_learning as $key => $val)
+										echo '<tr><td width="80px">'.$title[$key].'：</td><td>'.nl2br($val).'</td></tr>';
+									echo '</table>';
+								?>
+							<?php else: ?>
+								<?php echo nl2br($history['history_'.$history_type]) ?>
+							<?php endif; ?>
+						</td>
 						<td align="center"><?php echo $history['add_time'] ?></td>
 						<td align="center"><?php echo $history['name'] ?></td>
 						<td align="center">
@@ -81,18 +94,29 @@
 				<table>
 					<tr><td>
 						<form action="<?php echo site_url('admin/student/history_add')?>" method="post">
-							<textarea name="history" cols="80" rows="5"></textarea>
+							<?php if($history_type == 'learning'): ?>
+								<table>
+									<tr><td>科目：</td><td><input type="text" name="subject_name" value=""></td></tr>
+									<tr><td>课时：</td><td><input type="text" name="finished_hours" value="" size="4"> 小时</td></tr>
+									<tr><td>日期：</td><td><input type="text" name="start_date" readonly="readonly" id="start_date_<?php echo $history_type; ?>" size="12" value="<?php  echo (isset($student['start_date']) ? $student['start_date'] : '')?>" onclick="showCalendar('start_date_<?php echo $history_type; ?>', '%Y-%m-%d', false, false, 'start_date_<?php echo $history_type; ?>');" /></td></tr>
+									<tr><td>教材版本：</td><td><input type="text" name="version" value=""></td></tr>
+									<tr><td>教案：</td><td><textarea name="history" cols="80" rows="5"></textarea></td></tr>
+									<input type="hidden" name="add_calendar" value="0">
+								</table>
+							<?php else: ?>
+								<textarea name="history" cols="80" rows="5"></textarea><br/>
+								<input type="checkbox" name="add_calendar" value="1" <?php echo (isset($student['add_calendar']) && !empty($student['add_calendar'])) ? 'CHECKED' :''; ?>>同时添加到日程: 
+								<input type="text" name="start_date" readonly="readonly" id="start_date_<?php echo $history_type; ?>" size="12" value="<?php  echo (isset($student['start_date']) ? $student['start_date'] : '')?>" onclick="showCalendar('start_date_<?php echo $history_type; ?>', '%Y-%m-%d', false, false, 'start_date_<?php echo $history_type; ?>');" />
+								<?php echo show_hour_options('start_hour', $student['start_hour']) ?> : 
+								<?php echo show_mins_options('start_mins', $student['start_mins']) ?>
+								到
+								<input type="text" name="end_date" readonly="readonly" id="end_date_<?php echo $history_type; ?>" size="12" value="<?php  echo (isset($student['end_date']) ? $student['end_date'] : '')?>" onclick="showCalendar('end_date_<?php echo $history_type; ?>', '%Y-%m-%d', false, false, 'end_date_<?php echo $history_type; ?>');" />
+								<?php echo show_hour_options('end_hour', $student['end_hour']) ?> : 
+								<?php echo show_mins_options('end_mins', $student['end_mins']) ?><br/>
+							<?php endif; ?>
 							<input type="hidden" name="history_type" value="<?php echo $history_type; ?>">
-							<input type="hidden" name="student_id" value="<?php echo $student['student_id']; ?>"><br/>
-							<input type="checkbox" name="add_calendar" value="1" <?php echo (isset($student['add_calendar']) && !empty($student['add_calendar'])) ? 'CHECKED' :''; ?>>同时添加到日程: 
-							<input type="text" name="start_date" readonly="readonly" id="start_date_<?php echo $history_type; ?>" size="12" value="<?php echo (isset($student['start_date'])) ? $student['start_date'] :''; ?>" onclick="showCalendar('start_date_<?php echo $history_type; ?>', '%Y-%m-%d', false, false, 'start_date');" />
-							<?php echo show_hour_options('start_hour', $student['start_hour']) ?> : 
-							<?php echo show_mins_options('start_mins', $student['start_mins']) ?>
-							到
-							<input type="text" name="end_date" readonly="readonly" id="end_date_<?php echo $history_type; ?>" size="12" value="<?php echo (isset($student['end_date'])) ? $student['end_date'] :''; ?>" onclick="showCalendar('end_date_<?php echo $history_type; ?>', '%Y-%m-%d', false, false, 'end_date');" />
-							<?php echo show_hour_options('end_hour', $student['end_hour']) ?> : 
-							<?php echo show_mins_options('end_mins', $student['end_mins']) ?><br/>
-						<input type="submit" class="button" value="添加" name="submit">
+							<input type="hidden" name="student_id" value="<?php echo $student['student_id']; ?>">
+							<input type="submit" class="button" value="添加" name="submit">
 						</form>
 					</td></tr>
 				</table>

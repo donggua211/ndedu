@@ -176,6 +176,9 @@ class Student extends Controller {
 				
 				$student_extra_info['this_staff_id'] = $this->staff_info['staff_id'];
 				
+				$data['header']['css_file'] = '../calendar.css';
+				$data['footer']['js_file'][] = '../calendar.js';
+		
 				$template = 'student_one_history';
 				break;
 			case 'contract':
@@ -243,8 +246,6 @@ class Student extends Controller {
 		}
 				
 		$data['header']['meta_title'] = $student_info['name'].' -查看学员 - 管理学员';
-		$data['header']['css_file'] = '../calendar.css';
-		$data['footer']['js_file'] = '../calendar.js';
 		$data['main']['student'] = array_merge($student_info, $student_extra_info);
 		$this->_load_view($template, $data);
 	}
@@ -266,11 +267,11 @@ class Student extends Controller {
 	function _get_subjects()
 	{
 		if($this->staff_info['group_id'] == GROUP_CONSULTANT_D)
-			$parrent_id = 2;
+			$parrent_id = SUBJECT_ZIXUN;
 		elseif($this->staff_info['group_id'] == GROUP_SUYANG_D)
-			$parrent_id = 3;
+			$parrent_id = SUBJECT_SUYANG;
 		elseif($this->staff_info['group_id'] == GROUP_TEACHER_D)
-			$parrent_id = 1;
+			$parrent_id = SUBJECT_XUEKE;
 		else
 			$parrent_id = 0;
 		
@@ -466,6 +467,18 @@ class Student extends Controller {
 			}
 			else
 			{
+				//ndedu 1.2.5 新加
+				if($history['history_type'] == 'learning')
+				{
+					$history_learning['subject_name'] = $this->input->post('subject_name');
+					$history_learning['finished_hours'] = $this->input->post('finished_hours');
+					$history_learning['start_date'] = $this->input->post('start_date');
+					$history_learning['version'] = $this->input->post('version');
+					$history_learning['history'] = $history['history'];
+					
+					$history['history'] = implode($history_learning, HISTORY_LEARNING_SEP);
+				}
+				
 				//add into DB
 				if($this->CRM_History_model->add_history($history, $history['history_type']))
 				{

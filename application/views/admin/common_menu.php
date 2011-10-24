@@ -11,6 +11,7 @@
 					<li class="menu-item"><a href="<?php echo site_url("admin/calendar/"); ?>" target="main-frame">这个月</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/calendar/today"); ?>" target="main-frame">今天</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/calendar/add"); ?>" target="main-frame">添加日程</a></li>
+					<li class="menu-item"><a href="<?php echo site_url("admin/timetable/index"); ?>" target="main-frame">课程表</a></li>
 				</ul>
 			</li>
 			<li class="explode" key="03_student" name="menu">
