@@ -61,10 +61,8 @@
 								<?php
 									$history_learning = explode(HISTORY_LEARNING_SEP, $history['history_'.$history_type]);
 									$title = array('科目', '课时', '日期', '教材版本', '教案');
-									echo '<table width="100%" cellspacing="1">';
 									foreach($history_learning as $key => $val)
-										echo '<tr><td width="80px">'.$title[$key].'：</td><td>'.nl2br($val).'</td></tr>';
-									echo '</table>';
+										echo '<b>'.$title[$key].'</b>：'.($key == 4 ? '<br/>' : '').nl2br($val).'<br/>';
 								?>
 							<?php else: ?>
 								<?php echo nl2br($history['history_'.$history_type]) ?>

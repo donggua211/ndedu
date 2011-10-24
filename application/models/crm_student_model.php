@@ -291,6 +291,12 @@ class CRM_Student_model extends Model {
             $where .= " AND student.name LIKE '%{$filter['name']}%' ";
         }
 		
+		//1.2.5新加
+		if (isset($filter['student_id']) && $filter['student_id'])
+        {
+            $where .= " AND student.student_id IN (".implode($filter['student_id'], ',').")";
+        }
+		
 		//student基本信息
 		$sql = "SELECT DISTINCT student.*, staff_consultant.name as consultant_name, staff_cs.name as cs_name, staff_suyang.name as suyang_name,  grade.grade_name, contract.finished_hours, contract.total_hours FROM ".$this->db->dbprefix('crm_student')." as student
 				LEFT JOIN ".$this->db->dbprefix('crm_contract')." as contract ON contract.student_id = student.student_id 

@@ -50,6 +50,8 @@ class Admin_Ac_Student extends Admin_Ac_Base
 					GROUP_SUYANG => HISTORY_R,
 					GROUP_CONSULTANT_D => HISTORY_R,
 					GROUP_SUYANG_D => HISTORY_R,
+					GROUP_TEACHER_PARTTIME => HISTORY_WR,
+					GROUP_TEACHER_FULL => HISTORY_WR,
 				),		//正在学
 				STUDENT_STATUS_FINISHED => array( GROUP_CS => HISTORY_R, GROUP_CS_D => HISTORY_R ),		//已学完
 			),
@@ -121,6 +123,18 @@ class Admin_Ac_Student extends Admin_Ac_Base
 			case GROUP_TEACHER_D:
 			case GROUP_SUYANG_D:
 			case GROUP_CS_D:
+				break;
+			case GROUP_TEACHER_FULL:
+			case GROUP_TEACHER_PARTTIME:
+				$CI =& get_instance();
+				$timetable = $CI->CRM_Timetable_model->get_staff_timetable($staff_info['staff_id']);
+				
+				$student_id = array();
+				foreach($timetable as $day)
+					foreach($day as $val)
+						$student_id[] = $val['student_id'];
+				
+				$filter['student_id'] = $student_id;
 				break;
 			default:
 				show_error_page('您没有权限查看学员列表: 请重新登录或者联系管理员!', 'admin/student');
@@ -201,6 +215,22 @@ class Admin_Ac_Student extends Admin_Ac_Base
 					return -2;
 				}
 				break;
+			case GROUP_TEACHER_FULL:
+			case GROUP_TEACHER_PARTTIME:
+				$CI =& get_instance();
+				$timetable = $CI->CRM_Timetable_model->get_staff_timetable($staff_info['staff_id']);
+				
+				$student_id = array();
+				foreach($timetable as $day)
+					foreach($day as $val)
+						$student_id[] = $val['student_id'];
+				
+				if(!in_array($student_info['student_id'], $student_id))
+				{
+					show_error_page('您没有权限查看该学员: 他/她不是您的学生!', 'admin/student');
+					return -2;
+				}
+				break;			
 			default:
 				show_error_page('您没有权限查看该学员: 他/请重新登录或者联系管理员!', 'admin/student');
 				return -4;

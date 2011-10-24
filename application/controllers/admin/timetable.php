@@ -38,6 +38,16 @@ class Timetable extends Controller {
 		$this->load->library('admin_ac/Admin_Ac_Timetable', array('group_id' => $this->staff_info['group_id']));
 	}
 	
+	function index()
+	{
+		$staff_id = $this->staff_info['staff_id'];
+		$data['main']['time_table'] = $this->CRM_Timetable_model->get_staff_timetable($staff_id);
+		
+		$data['header']['meta_title'] = '课程表 - 日程管理';
+		
+		_load_viewer($this->staff_info['group_id'], 'timetable_index', $data);
+	}
+	
 	function add()
 	{
 		//access_control
