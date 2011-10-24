@@ -19,7 +19,19 @@
 		</div>
 		<?php endif;?>
 		<form action="<?php echo site_url('admin/history/edit/'.$type.'/'.$history_info['history_id']) ?>" method="post">
-			<textarea name="history_text" cols="80" rows="5"><?php echo $history_info['history_text'] ?></textarea><br/>
+			<?php if($type == 'learning'): ?>
+				<table>
+					<?php $history_learning = explode(HISTORY_LEARNING_SEP, $history_info['history_text']); ?>
+					<tr><td>科目：</td><td><input type="text" name="subject_name" value="<?php echo $history_learning[0]; ?>"></td></tr>
+					<tr><td>课时：</td><td><input type="text" name="finished_hours" value="<?php echo $history_learning[1]; ?>" size="4"> 小时</td></tr>
+					<tr><td>日期：</td><td><input type="text" name="start_date" readonly="readonly" id="start_date_<?php echo $type; ?>" size="12" value="<?php echo $history_learning[2]; ?>" onclick="showCalendar('start_date_<?php echo $type; ?>', '%Y-%m-%d', false, false, 'start_date_<?php echo $type; ?>');" /></td></tr>
+					<tr><td>教材版本：</td><td><input type="text" name="version" value="<?php echo $history_learning[3]; ?>"></td></tr>
+					<tr><td>教案：</td><td><textarea name="history_text" cols="80" rows="5"><?php echo $history_learning[4]; ?></textarea></td></tr>
+					<input type="hidden" name="add_calendar" value="0">
+				</table>
+			<?php else: ?>
+				<textarea name="history_text" cols="80" rows="5"><?php echo $history_info['history_text'] ?></textarea><br/>
+			<?php endif; ?>
 			<input type="hidden" name="type" value="<?php echo $type?>">
 			<input type="hidden" name="history_id" value="<?php echo $history_info['history_id'] ?>">
 			<input type="hidden" name="student_id" value="<?php echo $student_info['student_id'] ?>">

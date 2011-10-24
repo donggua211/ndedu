@@ -267,8 +267,8 @@ a:hover{
 }
 .timetable_suspend {
 	padding:5px;
-	background:#666666;
-	color:#FF6666;
+	background:#6381A2;
+	color:#FFFFFF;
 }
 .operation{
 	text-align:right;
@@ -278,5 +278,5 @@ a:hover{
 	display:none;
 }
 .operation img{
-	padding-left:8px;
+	margin-left:8px;
 }

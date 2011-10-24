@@ -45,7 +45,7 @@
 					<th width="14%">星期四</th>
 					<th width="14%">星期五</th>
 					<th width="14%">星期六</th>
-					<th width="14%">星期日</th>
+					<th width="16%">星期日</th>
 				</tr>
 				
 				<?php
