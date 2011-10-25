@@ -37,6 +37,7 @@
 		</div>
 		<?php endif;?>
 		
+		<div id="listDiv" class="list-div">
 		<?php
 		//循环输出历史
 		$history = array('contact' => '联系历史', 'learning' => '学习历史', 'consult' => '咨询历史', 'suyang' => '素养历史', 'callback' => '回访历史');
@@ -46,40 +47,38 @@
 			<div class="title margin_top">
 				<span><?php echo $history_text; ?></span>
 			</div>
-			<div id="listDiv" class="list-div">
-				<table cellspacing='1' id="list-table">
-					<tr>
-						<th><?php echo $history_text; ?></th>
-						<th>添加时间</th>
-						<th>添加员工</th>
-						<th>操作</th>
-					</tr>
-					<?php foreach($student['history_'.$history_type] as $history): ?>
-					<tr>
-						<td>
-							<?php if($history_type == 'learning'): ?>
-								<?php
-									$history_learning = explode(HISTORY_LEARNING_SEP, $history['history_'.$history_type]);
-									$title = array('科目', '课时', '日期', '教材版本', '教案');
-									foreach($history_learning as $key => $val)
-										echo '<b>'.$title[$key].'</b>：'.($key == 4 ? '<br/>' : '').nl2br($val).'<br/>';
-								?>
-							<?php else: ?>
-								<?php echo nl2br($history['history_'.$history_type]) ?>
-							<?php endif; ?>
-						</td>
-						<td align="center"><?php echo $history['add_time'] ?></td>
-						<td align="center"><?php echo $history['name'] ?></td>
-						<td align="center">
-						<?php if($history['staff_id'] == $student['this_staff_id']): ?>
-							<a href="<?php echo site_url('admin/history/edit/'.$history_type.'/'.$history['history_'.$history_type.'_id']) ?>">编辑</a>
-							<a onclick="return confirm('确定要删除?');" href="<?php echo site_url('admin/history/delete/'.$history_type.'/'.$history['history_'.$history_type.'_id']) ?>">删除</a>
+			<table cellspacing='1' id="list-table">
+				<tr>
+					<th><?php echo $history_text; ?></th>
+					<th>添加时间</th>
+					<th>添加员工</th>
+					<th>操作</th>
+				</tr>
+				<?php foreach($student['history_'.$history_type] as $history): ?>
+				<tr>
+					<td>
+						<?php if($history_type == 'learning'): ?>
+							<?php
+								$history_learning = explode(HISTORY_LEARNING_SEP, $history['history_'.$history_type]);
+								$title = array('科目', '课时', '日期', '教材版本', '教案');
+								foreach($history_learning as $key => $val)
+									echo '<b>'.$title[$key].'</b>：'.($key == 4 ? '<br/>' : '').nl2br($val).'<br/>';
+							?>
+						<?php else: ?>
+							<?php echo nl2br($history['history_'.$history_type]) ?>
 						<?php endif; ?>
-						</td>
-					</tr>
-					<?php endforeach; ?>
-				</table>
-			</div>
+					</td>
+					<td align="center"><?php echo $history['add_time'] ?></td>
+					<td align="center"><?php echo $history['name'] ?></td>
+					<td align="center">
+					<?php if($history['staff_id'] == $student['this_staff_id']): ?>
+						<a href="<?php echo site_url('admin/history/edit/'.$history_type.'/'.$history['history_'.$history_type.'_id']) ?>">编辑</a>
+						<a onclick="return confirm('确定要删除?');" href="<?php echo site_url('admin/history/delete/'.$history_type.'/'.$history['history_'.$history_type.'_id']) ?>">删除</a>
+					<?php endif; ?>
+					</td>
+				</tr>
+				<?php endforeach; ?>
+			</table>
 			<!-- 添加框 -->
 			<?php if($CI->admin_ac_student->history_ac($history_type, $student['status']) >= HISTORY_WR ): //可读 ?>
 			<div class="margin_top">
@@ -122,5 +121,6 @@
 			<?php endif; ?>
 			<?php endif; ?>
 		<?php endforeach; ?>
+		</div>
 	</div>
 </div>
