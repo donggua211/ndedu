@@ -73,6 +73,26 @@ class CRM_Timetable_model extends Model {
 		}
 	}
 	
+	function check_timetable($student_id, $staff_id)
+	{
+		$sql = "SELECT timetable.* FROM ".$this->db->dbprefix('crm_timetable')." as timetable
+				WHERE (timetable.student_id = $student_id OR timetable.staff_id = $staff_id)";
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			$result = array();
+			foreach( $query->result_array() as $val )
+			{
+				$result[$val['day']][] = $val;
+			}
+			return $result;
+		}
+		else
+		{
+			return array();
+		}
+	}
+	
 	function get_one_timetable($timetable_id)
 	{
 		$sql = "SELECT student.name, timetable.* FROM ".$this->db->dbprefix('crm_timetable')." as timetable

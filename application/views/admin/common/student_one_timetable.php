@@ -199,22 +199,45 @@
 		}
 		
 		//上课时间
-		var s_h = parseInt($("select[name='start_hour'] option:selected").val());
-		var s_m = parseInt($("select[name='start_mins'] option:selected").val());
-		var e_h = parseInt($("select[name='end_hour'] option:selected").val());
-		var e_m = parseInt($("select[name='end_mins'] option:selected").val());
+		var s_h = $("select[name='start_hour'] option:selected").val();
+		var s_m = $("select[name='start_mins'] option:selected").val();
+		var e_h = $("select[name='end_hour'] option:selected").val();
+		var e_m = $("select[name='end_mins'] option:selected").val();
 		
-		if(s_h > e_h)
+		if(parseInt(s_h, 10) > parseInt(e_h, 10))
 		{
 			alert('上课的结束时间须大于开始时间');
 			return false;
 		}
-		else if(s_h == e_h && s_m >= e_m)
+		else if(parseInt(s_h, 10) == parseInt(e_h, 10) && parseInt(s_m, 10) >= parseInt(e_m, 10))
 		{
 			alert('上课的结束时间须大于开始时间');
 			return false;
 		}
 		
-		return true;
+		//检查学生和老师的时间冲突。
+		var day = $("select[name='day'] option:selected").val();
+		var staff_id = $("select[name='staff_id'] option:selected").val();
+		var student_id = $("input[name='student_id']").val();
+		
+		$.ajax({
+			async: false,
+			type: "POST",
+			url: site_url+"admin/ajax/check_timetable",
+			data: "day="+day+"&staff_id="+staff_id+"&student_id="+student_id+"&s_t="+s_h+':'+s_m+"&e_t="+e_h+':'+e_m,
+			success: function(msg){
+				result = msg;
+			}
+		});
+		
+		if(result == 'OK')
+			return true;
+		else
+		{
+			alert(result);
+			return false;
+		}
+		
+		return false;
 	});
 </script>
