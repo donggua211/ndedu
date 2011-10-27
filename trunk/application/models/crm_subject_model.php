@@ -6,10 +6,13 @@ class CRM_Subject_model extends Model {
 		parent::Model();
 	}
 	
-	function getAll()
+	function getAll($parrent_id = 0)
 	{
 		//student基本信息
-		$sql = "SELECT * FROM ".$this->db->dbprefix('crm_subject')." as subject";
+		$sql = "SELECT * FROM ".$this->db->dbprefix('crm_subject')." as subject ";
+		
+		if(!empty($parrent_id))
+			$sql .= ' WHERE ( subject_id = ' . $parrent_id .' OR parrent_id = ' . $parrent_id . ')';
 		
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)

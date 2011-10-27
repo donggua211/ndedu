@@ -199,6 +199,18 @@
 				<td><input name="address" type="text" value="<?php echo (isset($student['address'])) ? $student['address'] :''; ?>" size="40" /></td>
 			</tr>
 			<tr>
+				<td class="label" valign="top"><span class="notice-star"> * </span>星级: </td>
+				<td>
+					<select name="level">
+						<option value='1' <?php echo (isset($student['level']) && $student['level'] == 1) ? 'SELECTED' : ''  ?>>A级</option>
+						<option value='3' <?php echo (isset($student['level']) && $student['level'] == 3) ? 'SELECTED' : ''  ?>>3A级</option>
+						<option value='5' <?php echo (isset($student['level']) && $student['level'] == 5) ? 'SELECTED' : ''  ?>>5A级</option>
+					</select>
+				</td>
+			</tr>
+			
+			
+			<tr>
 				<td class="label" valign="top">备注: </td>
 				<td><textarea name="remark" cols="40" rows="5"><?php echo (isset($student['remark'])) ? $student['remark'] :''; ?></textarea></td>
 			</tr>			

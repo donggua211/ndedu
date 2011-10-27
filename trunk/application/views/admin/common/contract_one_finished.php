@@ -53,7 +53,6 @@
 			<table cellspacing='1' id="list-table">
 				<tr>
 					<th>上课老师</th>
-					<th>班主任</th>
 					<th>课时</th>
 					<th>科目</th>
 					<th>时间</th>
@@ -61,7 +60,6 @@
 				<?php foreach($contract['finished'] as $finished): ?>
 				<tr>
 					<td align="center"><?php echo $finished['teacher_name'] ?></td>
-					<td align="center"><?php echo $finished['supervisor_name'] ?></td>
 					<td align="center"><?php echo $finished['finished_hours'] ?>小时</td>
 					<td align="center"><?php echo $finished['subject_name'] ?></td>
 					<td align="center">

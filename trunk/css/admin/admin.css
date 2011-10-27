@@ -240,9 +240,7 @@ a:hover{
   font-size:15px;
   padding-right: 10px;
 }
-.hand {
-	cursor: hand;
-}
+
 .clear {
   clear: both;
   float: none;
@@ -262,4 +260,23 @@ a:hover{
 	background-color: #fbffe1;
 	margin-bottom:5px;
 	padding:2px;
+}
+
+.timetable{
+	padding:5px;
+}
+.timetable_suspend {
+	padding:5px;
+	background:#666666;
+	color:#FFFFFF;
+}
+.operation{
+	text-align:right;
+	height:15px;
+}
+.operation_inner{
+	display:none;
+}
+.operation img{
+	margin-left:8px;
 }

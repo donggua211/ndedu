@@ -25,6 +25,7 @@ class Student extends Controller {
 		$this->load->model('CRM_Subject_model');
 		$this->load->model('CRM_Sms_history_model');
 		$this->load->model('CRM_Student_from_model');
+		$this->load->model('CRM_Timetable_model');
 		
 		$this->load->helper('admin');
 		$this->load->helper('calendar');
@@ -49,6 +50,7 @@ class Student extends Controller {
 		
 		//加载权限控制类
 		$this->load->library('admin_ac/Admin_Ac_Student', array('group_id' => $this->staff_info['group_id']));
+		$this->load->library('admin_ac/Admin_Ac_Timetable', array('group_id' => $this->staff_info['group_id']));
 
 	}
 	
@@ -174,6 +176,9 @@ class Student extends Controller {
 				
 				$student_extra_info['this_staff_id'] = $this->staff_info['staff_id'];
 				
+				$data['header']['css_file'] = '../calendar.css';
+				$data['footer']['js_file'][] = '../calendar.js';
+		
 				$template = 'student_one_history';
 				break;
 			case 'contract':
@@ -185,21 +190,28 @@ class Student extends Controller {
 			case 'sms':
 				//处理手机号，优先处理妈妈的。
 				$mobile = '';
-				if(!empty($student_info['mother_phone']))
-					$mobile = $student_info['mother_phone'];
-				elseif(!empty($student_info['father_phone']))
-					$mobile = $student_info['father_phone'];
+				preg_match( "/[\d]{11}/", $student_info['mother_phone'], $matches);
+				$mother_phone = isset($matches[0]) ? $matches[0] : '';
+				preg_match( "/[\d]{11}/", $student_info['father_phone'], $matches);
+				$father_phone = isset($matches[0]) ? $matches[0] : '';
+				
+				if(!empty($mother_phone))
+					$mobile = $mother_phone;
+				elseif(!empty($father_phone))
+					$mobile = $father_phone;
+				
 				//截取电话号码
-				preg_match( "/[\d]{11}/", $mobile, $matches);
-				$data['main']['sms_mobile'] = isset($matches[0]) ? $matches[0] : '';
+				$data['main']['sms_mobile'] =$mobile;
 				
 				//获取sms历史
 				$filter = array();
-				$filter['staff_id'] = $this->staff_info['staff_id'];
-				if(!empty($student_info['father_phone']))
-					$filter['mobile'][] = $student_info['father_phone'];
-				if(!empty($student_info['mother_phone']))
-					$filter['mobile'][] = $student_info['mother_phone'];
+				if(!$this->admin_ac_student->view_student_one_see_all_sms())
+					$filter['staff_id'] = $this->staff_info['staff_id'];
+				
+				if(!empty($mother_phone))
+					$filter['mobile'][] = $mother_phone;
+				if(!empty($father_phone))
+					$filter['mobile'][] = $father_phone;
 				
 				//Page Nav
 				$total = $this->CRM_Sms_history_model->count_sms_history($filter);
@@ -212,6 +224,17 @@ class Student extends Controller {
 				$student_extra_info['this_staff_id'] = $this->staff_info['staff_id'];
 				$template = 'student_one_sms';
 				break;
+			case 'timetable':
+				$student_extra_info['time_table'] = $this->CRM_Timetable_model->get_student_timetable($student_info['student_id']);
+				
+				//如果有添加权限的话，载入老师和课程。
+				if($this->admin_ac_timetable->add_timetable())
+				{
+					$data['main']['teachers'] = $this->_get_teachers();
+					$data['main']['subjects'] = $this->_get_subjects();
+				}
+				$template = 'student_one_timetable';
+				break;
 			case 'basic':
 			default:
 				//获取student 信息.
@@ -223,11 +246,38 @@ class Student extends Controller {
 		}
 				
 		$data['header']['meta_title'] = $student_info['name'].' -查看学员 - 管理学员';
-		$data['header']['css_file'] = '../calendar.css';
-		$data['footer']['js_file'] = '../calendar.js';
 		$data['main']['student'] = array_merge($student_info, $student_extra_info);
 		$this->_load_view($template, $data);
 	}
+	
+	function _get_teachers()
+	{
+		if($this->staff_info['group_id'] == GROUP_CONSULTANT_D)
+			$group = array(GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+		elseif($this->staff_info['group_id'] == GROUP_SUYANG_D || $this->staff_info['group_id'] == GROUP_SUYANG)
+			$group = array(GROUP_SUYANG_D, GROUP_SUYANG);
+		elseif($this->staff_info['group_id'] == GROUP_TEACHER_D)
+			$group = array(GROUP_TEACHER_D, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
+		else
+			$group = array(GROUP_CONSULTANT, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG, GROUP_TEACHER_D, GROUP_CONSULTANT_D, GROUP_SUYANG_D);
+		
+		return $this->CRM_Staff_model->get_all_by_group($group);
+	}
+	
+	function _get_subjects()
+	{
+		if($this->staff_info['group_id'] == GROUP_CONSULTANT_D)
+			$parrent_id = SUBJECT_ZIXUN;
+		elseif($this->staff_info['group_id'] == GROUP_SUYANG_D || $this->staff_info['group_id'] == GROUP_SUYANG)
+			$parrent_id = SUBJECT_SUYANG;
+		elseif($this->staff_info['group_id'] == GROUP_TEACHER_D)
+			$parrent_id = SUBJECT_XUEKE;
+		else
+			$parrent_id = 0;
+		
+		return $this->CRM_Subject_model->getAll($parrent_id);
+	}
+	
 	
 	/* 
 	 * 访问权限: 全部角色
@@ -305,6 +355,9 @@ class Student extends Controller {
 			$edit_student['address'] = $this->input->post('address');
 			$edit_student['remark'] = $this->input->post('remark');
 			
+			//ndedu1.2.5 新加： 星级
+			$edit_student['level'] = $this->input->post('level');
+			
 			//检查修改项
 			$update_field = array();
 			foreach($edit_student as $key => $val)
@@ -346,7 +399,7 @@ class Student extends Controller {
 					
 					$this->CRM_Student_model->student_status_history($student_id, $student_info['status'], $update_field['status'], $consultant_id, $supervisor_id);
 				}
-				show_result_page('学员已经更新成功! ', 'admin/student/');
+				show_result_page('学员已经更新成功! ', 'admin/student/one/'.$student_id);
 			}
 			else
 			{
@@ -414,6 +467,18 @@ class Student extends Controller {
 			}
 			else
 			{
+				//ndedu 1.2.5 新加
+				if($history['history_type'] == 'learning')
+				{
+					$history_learning['subject_name'] = $this->input->post('subject_name');
+					$history_learning['finished_hours'] = $this->input->post('finished_hours');
+					$history_learning['start_date'] = $this->input->post('start_date');
+					$history_learning['version'] = $this->input->post('version');
+					$history_learning['history'] = $history['history'];
+					
+					$history['history'] = implode($history_learning, HISTORY_LEARNING_SEP);
+				}
+				
 				//add into DB
 				if($this->CRM_History_model->add_history($history, $history['history_type']))
 				{
@@ -514,7 +579,10 @@ class Student extends Controller {
 			$new_student['student_from'] = $this->input->post('student_from');
 			$new_student['student_from_text'] = $this->input->post('student_from_text');
 			
-			if(empty($new_student['name']) || empty($new_student['gender']) || empty($new_student['branch_id']) || empty($new_student['grade_id']) || empty($new_student['province_id']) || empty($new_student['city_id']) || empty($new_student['district_id']))
+			//ndedu1.2.5 新加： 星级
+			$new_student['level'] = $this->input->post('level');
+			
+			if(empty($new_student['name']) || empty($new_student['gender']) || empty($new_student['branch_id']) || empty($new_student['grade_id']) || empty($new_student['province_id']) || empty($new_student['city_id']) || empty($new_student['district_id']) || empty($new_student['level']))
 			{
 				$notify = '请填写完整的学生信息';
 				$this->_load_student_add_view($notify, $new_student);
