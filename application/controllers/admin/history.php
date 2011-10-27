@@ -91,7 +91,21 @@ class History extends Controller {
 			{
 				$notify = '历史记录不能为空!';
 				$this->_load_history_edit_view($notify, $type, $history_info);
+				return false;
 			}
+			
+			//ndedu 1.2.5 新加
+			if($type == 'learning')
+			{
+				$history_learning['subject_name'] = $this->input->post('subject_name');
+				$history_learning['finished_hours'] = $this->input->post('finished_hours');
+				$history_learning['start_date'] = $this->input->post('start_date');
+				$history_learning['version'] = $this->input->post('version');
+				$history_learning['history'] = $history_text;
+				
+				$history_text = implode($history_learning, HISTORY_LEARNING_SEP);
+			}
+			
 			//检查修改项
 			$update_field = array();
 			if(!empty($history_text) && ($history_text != $history_info['history_text']))

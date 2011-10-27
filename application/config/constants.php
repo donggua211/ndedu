@@ -141,12 +141,15 @@ define('WARNING_REMAIN_HOURS', 10);
 define('STAFF_BECOME_FULL_HOURS', 20);
 
 //科目
+define('SUBJECT_XUEKE', 1);
 define('SUBJECT_SUYANG', 2);
+define('SUBJECT_ZIXUN', 3);
 
 //历史记录
 define('HISTORY_DENY', 0);
 define('HISTORY_R', 1);
 define('HISTORY_WR', 2);
+define('HISTORY_LEARNING_SEP', 'HISTORY_LEARNING_SEP');
 
 //sms 历史
 define('SMS_HISTORY_PER_PAGE', 10);

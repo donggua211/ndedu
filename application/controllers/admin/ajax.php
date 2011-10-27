@@ -16,6 +16,7 @@ class Ajax extends Controller {
 		$this->load->model('CP_quan_model');
 		$this->load->model('guestbook_model');
 		$this->load->model('CRM_History_model');
+		$this->load->model('CRM_Timetable_model');
 		
 		$this->load->library('Services_JSON');
 	}
@@ -153,6 +154,39 @@ class Ajax extends Controller {
 		$staff_id = $this->input->Post('staff_id');
 		$result = $this->CRM_contract_model->get_classes_by_staff($staff_id);
 		echo (!empty($result)) ? $result['sum'] : 0;
+	}
+	
+	function check_timetable()
+	{
+		$day = $this->input->Post('day');
+		$student_id = $this->input->Post('student_id');
+		$staff_id = $this->input->Post('staff_id');
+		$s_t = $this->input->Post('s_t').':00';
+		$e_t = $this->input->Post('e_t').':00';
+		
+		$timetable = $this->CRM_Timetable_model->check_timetable($student_id, $staff_id);
+		
+		if(!isset($timetable[$day]))
+			echo 'OK';
+		else
+		{
+			foreach($timetable[$day] as $val)
+				if( $s_t >= $val['end_time'] || $e_t <= $val['start_time'] )
+					continue;
+				else
+				{
+					if($val['staff_id'] == $staff_id)
+						echo '该老师的时间有冲突！该老师的上课时间为：星期'.$val['day'].'，'.$val['start_time'].'至'.$val['end_time'];
+					else
+						echo '该学生的时间有冲突！该学生的上课时间为：星期'.$val['day'].'，'.$val['start_time'].'至'.$val['end_time'];
+					return false;
+				}
+			
+			echo 'OK';
+		}
+		
+		//print_r($timetable);
+	
 	}
 }
 

@@ -216,7 +216,19 @@ class Admin_Ac_Staff extends Admin_Ac_Base
 		}
 	}
 	
+	function view_staff_one_sms()
+	{
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_TEACHER_D);
+		
+		return $this->_check_role($allowed_group_id);	
+	}
 	
+	function view_staff_one_see_all_sms()
+	{
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_TEACHER_D);
+		
+		return $this->_check_role($allowed_group_id);	
+	}
 	
 	
 	

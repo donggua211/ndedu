@@ -47,7 +47,9 @@ class CRM_Student_model extends Model {
 		$data['update_time'] = date('Y-m-d H:i:s');
 		//ndedu1.2.2 新加字段： dob
 		$data['dob'] = $student['dob'];
-		
+		//ndedu1.2.5 新加： 星级
+		$data['level'] = $student['level'];
+			
 		if($this->db->insert('crm_student', $data))
 		{
 			$student_id = $this->db->insert_id();
@@ -287,6 +289,12 @@ class CRM_Student_model extends Model {
 		if (isset($filter['name']) && $filter['name'])
         {
             $where .= " AND student.name LIKE '%{$filter['name']}%' ";
+        }
+		
+		//1.2.5新加
+		if (isset($filter['student_id']) && $filter['student_id'])
+        {
+            $where .= " AND student.student_id IN (".implode($filter['student_id'], ',').")";
         }
 		
 		//student基本信息

@@ -21,6 +21,7 @@
 			?>
 			<span class="navbar-back"><a href="<?php echo site_url('admin/student/one/'.$student['student_id'].'/contract') ?>">合同信息</a></span>
 			<?php endif; ?>
+			<span class="navbar-back"><a href="<?php echo site_url('admin/student/one/'.$student['student_id'].'/timetable') ?>">课程表</a></span>
 			<?php
 			if($CI->admin_ac_student->view_student_one_sms()):
 			?>
@@ -140,6 +141,10 @@
 			<tr>
 				<td class="label" valign="top">学员来源: </td>
 				<td><?php echo (isset($student['student_from_name'])) ? $student['student_from_name'] : $student['student_from_other']; ?></td>
+			</tr>
+			<tr>
+				<td class="label" valign="top">星级: </td>
+				<td><?php echo (isset($student['level'])) ? $student['level'].'A' : 'A'; ?></td>
 			</tr>
 			
 			<tr>
