@@ -430,12 +430,4 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		
 		return false;
 	}
-	
-	function add_timetable()
-	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_TEACHER_D, GROUP_CS_D, GROUP_SUYANG_D, GROUP_CONSULTANT_D);
-		
-		return $this->_check_role($allowed_group_id);	
-	
-	}
 }

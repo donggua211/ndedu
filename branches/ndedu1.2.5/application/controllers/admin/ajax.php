@@ -184,9 +184,11 @@ class Ajax extends Controller {
 			
 			echo 'OK';
 		}
-		
-		//print_r($timetable);
+	}
 	
+	function update_schedule()
+	{
+		print_r($_POST);
 	}
 }
 

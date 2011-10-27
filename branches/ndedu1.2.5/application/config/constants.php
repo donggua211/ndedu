@@ -154,5 +154,12 @@ define('HISTORY_LEARNING_SEP', 'HISTORY_LEARNING_SEP');
 //sms ÀúÊ·
 define('SMS_HISTORY_PER_PAGE', 10);
 
+//schedule
+define('DAY_SEPERATOR', '|');
+define('DAY_HOURS_SEPERATOR', ':');
+define('H_SEPERATOR', ';');
+define('HOUR_STATUS_SEPERATOR', ' ');
+define('SHOUR_EHOUR_SEPERATOR', '-');
+
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

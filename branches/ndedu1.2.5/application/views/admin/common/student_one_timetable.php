@@ -71,7 +71,7 @@
 					echo '<tr>';
 					for($j = 1; $j <= 8; $j++)
 					{
-						echo '<td onmouseover="show_operation(\'' . $i.$j . '\')" onmouseout="hidden_operation(\'' . $i.$j . '\')">';
+						echo '<td onmouseover="show_operation(\'' . $i.$j . '\')" onmouseout="hidden_operation(\'' . $i.$j . '\')" style="background-color:#'.($i % 2 == 0 ? 'FFFFFF' : 'FFFFC8').'">';
 						if(isset($student['time_table'][$j][$i]))
 						{
 							echo '<div class="' . (($student['time_table'][$j][$i]['is_suspend'] == 0) ? 'timetable' : 'timetable_suspend') . '">';
@@ -79,12 +79,19 @@
 							echo $student['time_table'][$j][$i]['subject_name'] . '<br/>';
 							echo $student['time_table'][$j][$i]['name'];
 							
+							if($CI->admin_ac_timetable->show_mobile_sms_button())
+								echo '（'.$student['time_table'][$j][$i]['phone'].'）';
+							
 							//编辑区域
 							echo '<div class="operation">';
 							if($CI->admin_ac_timetable->view_student_timetable_opt($student['time_table'][$j][$i]['subject_id']))
 							{
-								echo '<div id="'. $i.$j.'" class="operation_inner">
-										<a href="'.site_url('admin/timetable/edit/'.$student['time_table'][$j][$i]['timetable_id']).'"><img src="images/icon/edit.png" title="编辑"></a>';
+								echo '<div id="'. $i.$j.'" class="operation_inner">';
+								
+								if($CI->admin_ac_timetable->show_mobile_sms_button())
+									echo '	<a href="'.site_url('admin/staff/one/'.$student['time_table'][$j][$i]['staff_id'].'/sms').'"><img src="images/icon/sms.png" title="发短信"></a>';
+								
+								echo '	<a href="'.site_url('admin/timetable/edit/'.$student['time_table'][$j][$i]['timetable_id']).'"><img src="images/icon/edit.png" title="编辑"></a>';
 								
 								if($student['time_table'][$j][$i]['is_suspend'] == 0)
 									echo '<a href="'.site_url('admin/timetable/suspend/'.$student['time_table'][$j][$i]['timetable_id']).'"><img src="images/icon/suspend.png" title="暂停课程" onclick="return confirm(\'确定要暂停课程?\');" ></a>';

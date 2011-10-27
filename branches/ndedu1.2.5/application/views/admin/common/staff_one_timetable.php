@@ -14,6 +14,8 @@
 		<p>
 			<span class="navbar-back"><a href="<?php echo site_url('admin/staff/one/'.$staff['staff_id']) ?>">基本信息</a></span>
 			
+			<span class="navbar-back"><a href="<?php echo site_url('admin/staff/one/'.$staff['staff_id'].'/schedule') ?>">时间表</a></span>
+			
 			<span class="navbar-front"><a href="<?php echo site_url('admin/staff/one/'.$staff['staff_id'].'/timetable') ?>">课程表</a></span>
 			
 			<?php
@@ -68,7 +70,7 @@
 					echo '<tr>';
 					for($j = 1; $j <= 8; $j++)
 					{
-						echo '<td>';
+						echo '<td style="background-color:#'.($i % 2 == 0 ? 'FFFFFF' : 'FFFFC8').'">';
 						if(isset($time_table[$j][$i]))
 						{
 							echo '<div class="' . (($time_table[$j][$i]['is_suspend'] == 0) ? 'timetable' : 'timetable_suspend') . '">';

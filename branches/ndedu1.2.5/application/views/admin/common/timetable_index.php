@@ -14,7 +14,7 @@
 		</div>
 		<?php endif;?>
 		
-		<div class="list-div">
+		<div id="listDiv" class="list-div">
 			<table cellspacing='1' id="list-table">
 				<tr>
 					<th width="14%">星期一</th>
