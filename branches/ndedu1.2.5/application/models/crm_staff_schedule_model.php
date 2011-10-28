@@ -47,7 +47,7 @@ class CRM_Staff_Schedule_model extends Model {
 	
 	function check_schedule_exists($staff_id)
 	{
-		$sql = "SELECT id FROM ".$this->db->dbprefix('crm_staff_schedule')." as schedule
+		$sql = "SELECT staff_schedule_id FROM ".$this->db->dbprefix('crm_staff_schedule')." as schedule
 				WHERE schedule.staff_id = $staff_id
 				LIMIT 1";
 		$query = $this->db->query($sql);

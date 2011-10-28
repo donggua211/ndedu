@@ -72,7 +72,7 @@
 					
 					for($day = 1; $day <=7; $day++)
 					{
-						echo '<td style="background-color:#'.($schedule[$day][$hour] == SCHEDULE_UNAVAILABLE ? ($hour % 2 == 0 ? 'FFFFFF' : 'FFFFC8') : ($schedule[$day][$hour] == SCHEDULE_AVAILABLE ? '00FF33' : 'FF0000')).'" id="'.$day.$hour.'"> ';
+						echo '<td align="center" style="background-color:#'.($schedule[$day][$hour] == SCHEDULE_UNAVAILABLE ? ($hour % 2 == 0 ? 'FFFFFF' : 'FFFFC8') : ($schedule[$day][$hour] == SCHEDULE_AVAILABLE ? '00FF33' : 'FF0000')).'" id="'.$day.$hour.'"> ';
 						if($CI->admin_ac_timetable->show_schedule_opts())
 						{
 							echo '<div class="schedule_opt operation_inner">';
@@ -121,7 +121,35 @@
 		
 		$.post(site_url+"admin/ajax/update_schedule", { staff_id: staff_id, type: type, schedule: schedule, status: status},
 		function (data, textStatus){
-			alert(data);		
-		}, "text");
+			if(data.result == 'NG')
+				alert('对不起，修改失败！请重试！');
+			else
+			{
+				$.each( data.schedule, function(day, v){
+					$.each( v, function(hour, status)
+					{
+						var color = '';
+						status = parseInt(status);
+						switch(status)
+						{
+							case <?php echo SCHEDULE_UNAVAILABLE ?>:
+								if(hour % 2 == 0 )
+									color = 'FFFFFF';
+								else
+									color = 'FFFFC8';
+								break;
+							case <?php echo SCHEDULE_AVAILABLE ?>:
+								color = '00FF33';
+								break;
+							case <?php echo SCHEDULE_HAS_CLASS ?>:
+								color = 'FF0000';
+								break;
+						}
+						$("#"+day+hour).css('background-color', '#'+color);
+						//alert(day+hour+' '+status);
+					});
+				});
+			}
+		}, "json");
 	}
 </script>
