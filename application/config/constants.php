@@ -160,6 +160,10 @@ define('DAY_HOURS_SEPERATOR', ':');
 define('H_SEPERATOR', ';');
 define('HOUR_STATUS_SEPERATOR', ' ');
 define('SHOUR_EHOUR_SEPERATOR', '-');
+define('SCHEDULE_UNAVAILABLE', 0);
+define('SCHEDULE_AVAILABLE', 1);
+define('SCHEDULE_HAS_CLASS', 2);
+
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

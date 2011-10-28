@@ -223,6 +223,8 @@
 		}
 		
 		//检查学生和老师的时间冲突。
+		//素养课
+		var subject_id = $("select[name='subject_id'] option:selected").val();
 		var day = $("select[name='day'] option:selected").val();
 		var staff_id = $("select[name='staff_id'] option:selected").val();
 		var student_id = $("input[name='student_id']").val();
@@ -231,7 +233,7 @@
 			async: false,
 			type: "POST",
 			url: site_url+"admin/ajax/check_timetable",
-			data: "day="+day+"&staff_id="+staff_id+"&student_id="+student_id+"&s_t="+s_h+':'+s_m+"&e_t="+e_h+':'+e_m,
+			data: "subject_id"+subject_id+"&day="+day+"&staff_id="+staff_id+"&student_id="+student_id+"&s_t="+s_h+':'+s_m+"&e_t="+e_h+':'+e_m,
 			success: function(msg){
 				result = msg;
 			}

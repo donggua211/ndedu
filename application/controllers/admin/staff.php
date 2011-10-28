@@ -129,7 +129,7 @@ class Staff extends Controller {
 				break;
 			case 'schedule':
 				//默认值
-				$schedule = array_fill(1, 7, array_fill(8, 15, 0));
+				$schedule = array_fill(1, 7, array_fill(8, 15, SCHEDULE_UNAVAILABLE));
 				
 				//获取时间表
 				$result = $this->CRM_Staff_Schedule_model->get_staff_schedule($staff_id);
@@ -146,7 +146,7 @@ class Staff extends Controller {
 						{
 							list($range, $status) = explode(HOUR_STATUS_SEPERATOR, $one);
 							list($s_h, $e_h) = explode(SHOUR_EHOUR_SEPERATOR, $range);
-							for(;$s_h <= $e_h; $s_h++ )
+							for(;$s_h < $e_h; $s_h++ )
 								$schedule[$day][$s_h] = $status;
 						}
 				}
@@ -166,7 +166,7 @@ class Staff extends Controller {
 							
 							for(;$s_h <= $e_h; $s_h++ )
 							{
-								$schedule[$day][$s_h] = 2;
+								$schedule[$day][$s_h] = SCHEDULE_HAS_CLASS;
 							}
 						}
 				}

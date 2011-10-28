@@ -72,12 +72,12 @@
 					
 					for($day = 1; $day <=7; $day++)
 					{
-						echo '<td style="background-color:#'.($schedule[$day][$hour] == 0 ? ($hour % 2 == 0 ? 'FFFFFF' : 'FFFFC8') : ($schedule[$day][$hour] == 1 ? '00FF33' : 'FF0000')).'" id="'.$day.$hour.'"> ';
+						echo '<td style="background-color:#'.($schedule[$day][$hour] == SCHEDULE_UNAVAILABLE ? ($hour % 2 == 0 ? 'FFFFFF' : 'FFFFC8') : ($schedule[$day][$hour] == SCHEDULE_AVAILABLE ? '00FF33' : 'FF0000')).'" id="'.$day.$hour.'"> ';
 						if($CI->admin_ac_timetable->show_schedule_opts())
 						{
 							echo '<div class="schedule_opt operation_inner">';
 							echo '	<a href="javascript:void(0);" onClick="change_schedule(\'day_hour\', \''.$day.'_'.$hour.'\', 1)"><img src="images/icon/unsuspend.png" title="有空"></a>';
-							echo '	<a href="javascript:void(0);" onClick="change_schedule(\'day_hour\', \''.$day.'_'.$hour.'\', 1)"><img src="images/icon/suspend.png" title="没空"></a>
+							echo '	<a href="javascript:void(0);" onClick="change_schedule(\'day_hour\', \''.$day.'_'.$hour.'\', 0)"><img src="images/icon/suspend.png" title="没空"></a>
 								 </div>';
 						}
 						
@@ -121,7 +121,7 @@
 		
 		$.post(site_url+"admin/ajax/update_schedule", { staff_id: staff_id, type: type, schedule: schedule, status: status},
 		function (data, textStatus){
-			alert(data);			
+			alert(data);		
 		}, "text");
 	}
 </script>
