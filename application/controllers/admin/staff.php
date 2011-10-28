@@ -133,23 +133,10 @@ class Staff extends Controller {
 				
 				//获取时间表
 				$result = $this->CRM_Staff_Schedule_model->get_staff_schedule($staff_id);
-				if(!empty($result))
-				{
-					foreach(explode(DAY_SEPERATOR, $result['staff_schedule']) as $val)
-					{
-						list($day, $day_schedule) = explode(DAY_HOURS_SEPERATOR, $val);
-						$temp[$day] = explode(H_SEPERATOR, $day_schedule);
-					}
-					
-					foreach($temp as $day => $val)
-						foreach($val as $one)
-						{
-							list($range, $status) = explode(HOUR_STATUS_SEPERATOR, $one);
-							list($s_h, $e_h) = explode(SHOUR_EHOUR_SEPERATOR, $range);
-							for(;$s_h < $e_h; $s_h++ )
-								$schedule[$day][$s_h] = $status;
-						}
-				}
+				if(empty($result))
+					$schedule = array_fill(1, 7, array_fill(8, 15, SCHEDULE_UNAVAILABLE));
+				else
+					$schedule = unserialize($result['staff_schedule']);
 				
 				//获取课程表
 				$result = $this->CRM_Timetable_model->get_staff_timetable($staff_id);
@@ -166,7 +153,8 @@ class Staff extends Controller {
 							
 							for(;$s_h <= $e_h; $s_h++ )
 							{
-								$schedule[$day][$s_h] = SCHEDULE_HAS_CLASS;
+								if($schedule[$day][$s_h] == SCHEDULE_AVAILABLE)
+									$schedule[$day][$s_h] = SCHEDULE_HAS_CLASS;
 							}
 						}
 				}

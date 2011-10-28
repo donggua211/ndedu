@@ -202,25 +202,11 @@ class Ajax extends Controller {
 		$status = $this->input->Post('status');
 		
 		//获取时间表
-		$result_timetable = $this->CRM_Staff_Schedule_model->get_staff_schedule($staff_id);
-		$my_schedule = array_fill(1, 7, array_fill(8, 15, SCHEDULE_UNAVAILABLE));
-		if(!empty($result_timetable))
-		{
-			foreach(explode(DAY_SEPERATOR, $result_timetable['staff_schedule']) as $val)
-			{
-				list($day, $day_schedule) = explode(DAY_HOURS_SEPERATOR, $val);
-				$temp[$day] = explode(H_SEPERATOR, $day_schedule);
-			}
-			
-			foreach($temp as $day => $val)
-				foreach($val as $one)
-				{
-					list($range, $one_status) = explode(HOUR_STATUS_SEPERATOR, $one);
-					list($s_h, $e_h) = explode(SHOUR_EHOUR_SEPERATOR, $range);
-					for(;$s_h < $e_h; $s_h++ )
-						$my_schedule[$day][$s_h] = $one_status;
-				}
-		}
+		$result = $this->CRM_Staff_Schedule_model->get_staff_schedule($staff_id);
+		if(empty($result))
+			$my_schedule = array_fill(1, 7, array_fill(8, 15, SCHEDULE_UNAVAILABLE));
+		else
+			$my_schedule = unserialize($result['staff_schedule']);
 		
 		switch($type)
 		{
@@ -238,52 +224,22 @@ class Ajax extends Controller {
 				$my_schedule[$day][$hour] = $status;
 				break;
 			default:
-				echo 'NG';
+				echo urldecode($this->services_json->encode(array('result' => 'NG')));
 				break;
 		}
 		
-		foreach($my_schedule as $day => $val)
-		{
-			$temp_hour = array();
-			ksort($val);
-			list($pre_hour, $last_status) = each($val);
-			end($val);
-			list($last_hour,) = each($val);
-			reset($val);
-			
-			foreach($val as $hour => $status)
-			{
-				if($hour == $last_hour)
-				{
-					$temp_hour[] = $pre_hour.'-'.($hour+1).' '.$status;
-					continue;
-				}
-				
-				if($last_status == $status)
-					continue;
-				else
-				{
-					$temp_hour[] = $pre_hour.'-'.$hour.' '.$status;
-					$pre_hour = $hour;
-					$last_status = $status;
-				}
-			}
-			
-			$temp_day[$day] = $day . DAY_HOURS_SEPERATOR;
-			$temp_day[$day] .= implode($temp_hour, H_SEPERATOR);
-		}
+		
 		
 		//update schedule 表
-		$update_schedule = implode($temp_day, DAY_SEPERATOR);
-		if(!$this->CRM_Staff_Schedule_model->get_staff_schedule($staff_id))
+		$update_field['staff_schedule'] = serialize($my_schedule);
+		if(!$this->CRM_Staff_Schedule_model->update($staff_id, $update_field))
 		{
-			echo 'NG';
+			echo urldecode($this->services_json->encode(array('result' => 'NG')));
 			return false;
 		}
 		
 		//获取课程表
 		$result = $this->CRM_Timetable_model->get_staff_timetable($staff_id);
-		$timetable = array();
 		if(!empty($result))
 		{
 			foreach($result as $day => $val)
@@ -297,10 +253,13 @@ class Ajax extends Controller {
 					
 					for(;$s_h <= $e_h; $s_h++ )
 					{
-						$timetable[$day][$s_h] = 2;
+						if($my_schedule[$day][$s_h] == SCHEDULE_AVAILABLE)
+							$my_schedule[$day][$s_h] = 2;
 					}
 				}
 		}
+		
+		echo urldecode($this->services_json->encode(array('result' => 'OK', 'schedule' => $my_schedule)));
 	}
 }
 
