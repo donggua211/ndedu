@@ -17,6 +17,7 @@ class Ajax extends Controller {
 		$this->load->model('guestbook_model');
 		$this->load->model('CRM_History_model');
 		$this->load->model('CRM_Timetable_model');
+		$this->load->model('CRM_Staff_Schedule_model');
 		
 		$this->load->library('Services_JSON');
 	}
@@ -158,6 +159,7 @@ class Ajax extends Controller {
 	
 	function check_timetable()
 	{
+		$subject_id = $this->input->Post('subject_id');
 		$day = $this->input->Post('day');
 		$student_id = $this->input->Post('student_id');
 		$staff_id = $this->input->Post('staff_id');
@@ -175,8 +177,14 @@ class Ajax extends Controller {
 					continue;
 				else
 				{
+					//素养课不对老师时间做判断。
+					if($subject_id == 2 && ($val['staff_id'] == $staff_id && $val['student_id'] != $student_id))
+						return true;
+					
 					if($val['staff_id'] == $staff_id)
+					{
 						echo '该老师的时间有冲突！该老师的上课时间为：星期'.$val['day'].'，'.$val['start_time'].'至'.$val['end_time'];
+					}
 					else
 						echo '该学生的时间有冲突！该学生的上课时间为：星期'.$val['day'].'，'.$val['start_time'].'至'.$val['end_time'];
 					return false;
@@ -188,7 +196,111 @@ class Ajax extends Controller {
 	
 	function update_schedule()
 	{
-		print_r($_POST);
+		$staff_id = $this->input->Post('staff_id');
+		$type = $this->input->Post('type');
+		$schedule = $this->input->Post('schedule');
+		$status = $this->input->Post('status');
+		
+		//获取时间表
+		$result_timetable = $this->CRM_Staff_Schedule_model->get_staff_schedule($staff_id);
+		$my_schedule = array_fill(1, 7, array_fill(8, 15, SCHEDULE_UNAVAILABLE));
+		if(!empty($result_timetable))
+		{
+			foreach(explode(DAY_SEPERATOR, $result_timetable['staff_schedule']) as $val)
+			{
+				list($day, $day_schedule) = explode(DAY_HOURS_SEPERATOR, $val);
+				$temp[$day] = explode(H_SEPERATOR, $day_schedule);
+			}
+			
+			foreach($temp as $day => $val)
+				foreach($val as $one)
+				{
+					list($range, $one_status) = explode(HOUR_STATUS_SEPERATOR, $one);
+					list($s_h, $e_h) = explode(SHOUR_EHOUR_SEPERATOR, $range);
+					for(;$s_h < $e_h; $s_h++ )
+						$my_schedule[$day][$s_h] = $one_status;
+				}
+		}
+		
+		switch($type)
+		{
+			case 'day':
+				$day = $schedule;
+				$my_schedule[$day] = array_fill(8, 15, $status);
+				break;
+			case 'hour':
+				$hour = $schedule;
+				for($day = 1; $day <= 7; $day++)
+					$my_schedule[$day][$hour] = $status;
+				break;
+			case 'day_hour':
+				list($day, $hour) = explode('_', $schedule);
+				$my_schedule[$day][$hour] = $status;
+				break;
+			default:
+				echo 'NG';
+				break;
+		}
+		
+		foreach($my_schedule as $day => $val)
+		{
+			$temp_hour = array();
+			ksort($val);
+			list($pre_hour, $last_status) = each($val);
+			end($val);
+			list($last_hour,) = each($val);
+			reset($val);
+			
+			foreach($val as $hour => $status)
+			{
+				if($hour == $last_hour)
+				{
+					$temp_hour[] = $pre_hour.'-'.($hour+1).' '.$status;
+					continue;
+				}
+				
+				if($last_status == $status)
+					continue;
+				else
+				{
+					$temp_hour[] = $pre_hour.'-'.$hour.' '.$status;
+					$pre_hour = $hour;
+					$last_status = $status;
+				}
+			}
+			
+			$temp_day[$day] = $day . DAY_HOURS_SEPERATOR;
+			$temp_day[$day] .= implode($temp_hour, H_SEPERATOR);
+		}
+		
+		//update schedule 表
+		$update_schedule = implode($temp_day, DAY_SEPERATOR);
+		if(!$this->CRM_Staff_Schedule_model->get_staff_schedule($staff_id))
+		{
+			echo 'NG';
+			return false;
+		}
+		
+		//获取课程表
+		$result = $this->CRM_Timetable_model->get_staff_timetable($staff_id);
+		$timetable = array();
+		if(!empty($result))
+		{
+			foreach($result as $day => $val)
+				foreach($val as $one)
+				{
+					list($s_h, ,) = explode(':', $one['start_time']);
+					list($e_h, $e_m,) = explode(':', $one['end_time']);
+					
+					$s_h = (int)$s_h;
+					$e_h = ($e_m == '00') ? (int)$e_h - 1 : $e_h;
+					
+					for(;$s_h <= $e_h; $s_h++ )
+					{
+						$timetable[$day][$s_h] = 2;
+					}
+				}
+		}
 	}
 }
 
