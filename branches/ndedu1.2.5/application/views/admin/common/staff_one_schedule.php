@@ -72,7 +72,7 @@
 					
 					for($day = 1; $day <=7; $day++)
 					{
-						echo '<td align="center" style="background-color:#'.($schedule[$day][$hour] == SCHEDULE_UNAVAILABLE ? ($hour % 2 == 0 ? 'FFFFFF' : 'FFFFC8') : ($schedule[$day][$hour] == SCHEDULE_AVAILABLE ? '00FF33' : 'FF0000')).'" id="'.$day.$hour.'"> ';
+						echo '<td align="center" style="background-color:#'.($schedule[$day][$hour] == SCHEDULE_UNAVAILABLE ? ($hour % 2 == 0 ? 'FFFFFF' : 'FFFFC8') : ($schedule[$day][$hour] == SCHEDULE_AVAILABLE ? '99FF66' : 'FF9966')).'" id="'.$day.$hour.'"> ';
 						if($CI->admin_ac_timetable->show_schedule_opts())
 						{
 							echo '<div class="schedule_opt operation_inner">';
@@ -139,10 +139,10 @@
 									color = 'FFFFC8';
 								break;
 							case <?php echo SCHEDULE_AVAILABLE ?>:
-								color = '00FF33';
+								color = '99FF66';
 								break;
 							case <?php echo SCHEDULE_HAS_CLASS ?>:
-								color = 'FF0000';
+								color = 'FF9966';
 								break;
 						}
 						$("#"+day+hour).css('background-color', '#'+color);
