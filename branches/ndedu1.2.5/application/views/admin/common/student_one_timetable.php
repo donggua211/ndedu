@@ -113,6 +113,12 @@
 			</table>
 		</div>
 		
+		<!--备注 -->
+		<div style="margin-top:10px;">
+			<b>备注：</b><br/>
+			<?php echo (isset($student['timetable_remark'])) ? $student['timetable_remark'] : ''; ?>
+		</div>
+		
 		<?php
 		if($CI->admin_ac_timetable->add_timetable()):
 		?>
@@ -166,6 +172,24 @@
 						时间：<?php echo show_hour_options('start_hour', '9') ?>： <?php echo show_mins_options('start_mins', '00') ?> 到 <?php echo show_hour_options('end_hour', '11') ?> ： <?php echo show_mins_options('end_mins', '00') ?>
 					</td>
 				</tr>	
+			</table>
+			<div class="button-div">
+				<input type="hidden" value="<?php echo $student['student_id']; ?>" name="student_id">
+				<input type="submit" class="button" value=" 确定 " name="submit">
+				<input type="reset" class="button" value=" 重置 " name="reset">
+			</div>
+			</form>
+		</div>
+		<div>
+			<div class="title margin_top">
+				<span>编辑备注</span>
+			</div>
+			<form action="<?php echo site_url('admin/student/update_timetable_remark')?>" method="post" id="form">
+			<table width="90%">
+				<tr>
+					<td class="label" valign="top">备注: </td>
+					<td><textarea name="timetable_remark" cols="50" rows="5"><?php echo (isset($student['timetable_remark'])) ? $student['timetable_remark'] : ''; ?></textarea></td>
+				</tr>
 			</table>
 			<div class="button-div">
 				<input type="hidden" value="<?php echo $student['student_id']; ?>" name="student_id">
