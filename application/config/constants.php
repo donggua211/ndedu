@@ -155,11 +155,6 @@ define('HISTORY_LEARNING_SEP', 'HISTORY_LEARNING_SEP');
 define('SMS_HISTORY_PER_PAGE', 10);
 
 //schedule
-define('DAY_SEPERATOR', '|');
-define('DAY_HOURS_SEPERATOR', ':');
-define('H_SEPERATOR', ';');
-define('HOUR_STATUS_SEPERATOR', ' ');
-define('SHOUR_EHOUR_SEPERATOR', '-');
 define('SCHEDULE_UNAVAILABLE', 0);
 define('SCHEDULE_AVAILABLE', 1);
 define('SCHEDULE_HAS_CLASS', 2);
