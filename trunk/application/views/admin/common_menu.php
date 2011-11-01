@@ -20,7 +20,6 @@
 					<?php endif; ?>
 				</ul>
 			</li>
-			<?php if($CI->admin_ac_entry->munu_show_student_opt() ): ?>
 			<li class="explode" key="03_student" name="menu">
 				学员管理
 				<ul>
@@ -42,7 +41,6 @@
 					<?php endif; ?>
 				</ul>
 			</li>
-			<?php endif; ?>
 			<?php if($CI->admin_ac_entry->munu_show_staff_list() ): ?>
 			<li class="explode" key="02_staff" name="menu">
 				员工管理

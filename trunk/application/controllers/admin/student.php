@@ -109,6 +109,8 @@ class Student extends Controller {
 		$data['footer']['js_file'][] = '../calendar.js';
 		$data['footer']['js_file'][] = '../ajax.js';
 		$data['footer']['js_file'][] = 'student.js';
+		$data['footer']['js_file'][] = 'region.js';
+		$data['footer']['js_file'][] = 'transport.js';
 		$data['main']['students'] = $students;
 		$data['main']['branches'] = $this->_get_branch();
 		$data['main']['provinces'] = $this->_get_province();
