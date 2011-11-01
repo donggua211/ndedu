@@ -328,6 +328,13 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		return $this->_check_role($allowed_group_id);
 	}
 	
+	function view_student_one_edit_link()
+	{
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CONSULTANT_D, GROUP_TEACHER_D, GROUP_SUYANG_D, GROUP_CS_D);
+		
+		return $this->_check_role($allowed_group_id);
+	}
+	
 	function view_student_edit_status()
 	{
 		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_CS_D);
@@ -429,5 +436,12 @@ class Admin_Ac_Student extends Admin_Ac_Base
 			return true;
 		
 		return false;
+	}
+	
+	function view_student_all_student_detail()
+	{
+		$not_allowed_group_id = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
+		
+		return !$this->_check_role($not_allowed_group_id);	
 	}
 }

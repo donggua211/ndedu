@@ -50,12 +50,14 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="label" valign="top">生日: </td>
-				<td><?php echo $student['dob']?></td>
-			</tr>
-			<tr>
 				<td class="label" valign="top">年级: </td>
 				<td><?php echo $student['grade_name']?></td>
+			</tr>
+			
+			<?php if($CI->admin_ac_student->view_student_all_student_detail()): ?>
+			<tr>
+				<td class="label" valign="top">生日: </td>
+				<td><?php echo $student['dob']?></td>
 			</tr>
 			<tr>
 				<td class="label" valign="top">爸爸电话: </td>
@@ -168,10 +170,13 @@
 			<tr>
 				<td class="label" valign="top">备注: </td>
 				<td><?php echo (isset($student['remark'])) ? $student['remark'] :''; ?></td>
-			</tr>			
+			</tr>
+			<?php endif; ?>
 		</table>
 		<div class="button-link-div">
+			<?php if($CI->admin_ac_student->view_student_one_edit_link()): ?>
 			<a href="<?php echo site_url('admin/student/edit/'.$student['student_id']) ?>">编辑</a>
+			<?php endif; ?>
 			<a href="javascript:void();" onclick="history.back(-1)">返回</a>
 		</div>
 	</div>

@@ -72,22 +72,31 @@
 		  <form action="<?php echo site_url('admin/student/sms_batch')?>" method="POST" id="sms_batch" target="_blank">
 			<table cellspacing='1' id="list-table">
 				<tr>
+					<?php if($CI->admin_ac_student->view_student_all_student_detail()): ?>
 					<th></th>
 					<th>标记</th>
+					<?php endif; ?>
+					
 					<th>姓名</th>
 					<th>性别</th>
 					<th>年级</th>
+					
+					<?php if($CI->admin_ac_student->view_student_all_student_detail()): ?>
 					<th>父母电话</th>
 					<th>住址</th>
 					<th>状态</th>
 					<th>最新联系时间</th>
+					<?php endif; ?>
+					
 					<?php if($CI->admin_ac_student->view_student_all_finished_hour_dob()): ?>
 					<th>生日</th>
 					<th>剩余课时</th>
 					<?php endif; ?>
+					
 					<?php if($CI->admin_ac_student->view_student_all_teaches()): ?>
 					<th>对应老师</th>
 					<?php endif; ?>
+					
 					<th>操作</th>
 				</tr>
 				<?php foreach($students as $student): ?>
@@ -102,6 +111,7 @@
 						//截取电话号码
 						preg_match( "/[\d]{11}/", $mobile, $matches);
 					?>
+					<?php if($CI->admin_ac_student->view_student_all_student_detail()){ ?>
 					<td><input type="checkbox" name="mobile[]" value="<?php echo isset($matches[0]) ? $matches[0] : ''; ?>"></td>
 					<td align="center">
 					<input type="hidden" id="val_<?php echo $student['student_id'] ?>" value="<?php echo $student['mark_star'];?>">
@@ -111,6 +121,8 @@
 						<a href="javascript:void(0);" onClick="mark_star(<?php echo $student['student_id']; ?>);"><img src="images/icon/sel_star.gif" border="0" id="mark_star_img<?php echo $student['student_id']; ?>"/></a>
 					<?php endif; ?>
 					</td>
+					<?php } ?>
+					
 					<td align="center"><a href="<?php echo site_url('admin/student/one/'.$student['student_id']) ?>"><?php echo $student['name'] ?></a></td>
 					<td align="center">
 						<?php
@@ -118,6 +130,8 @@
 						?>
 					</td>
 					<td align="center"><?php echo $student['grade_name'] ?></td>
+					
+					<?php if($CI->admin_ac_student->view_student_all_student_detail()): ?>
 					<td>
 						<?php
 							echo !(empty($student['father_phone'])) ? '<b>父亲电话:</b> '.$student['father_phone'].'<br/>' : '';
@@ -127,6 +141,8 @@
 					<td><?php echo $student['address'] ?></td>
 					<td align="center"><?php echo get_student_status_text($student['status']) ?></td>
 					<td align="center"><?php echo $student['last_contact_time'] ?></td>
+					<?php endif; ?>
+					
 					<?php if($CI->admin_ac_student->view_student_all_finished_hour_dob()): ?>
 					<td>
 					<?php
@@ -158,7 +174,11 @@
 						else
 							echo '<a href="'.site_url('admin/student/one/'.$student['student_id']).'">查看</a>';
 						?>
+						
+						<?php if($CI->admin_ac_student->view_student_all_student_detail()): ?>
 						<a href="<?php echo site_url('admin/student/sms/'.$student['student_id']) ?>" target="_blank">发短信</a>
+						<?php endif; ?>
+						
 						<?php
 						if($CI->admin_ac_student->view_student_all_operation())
 						{
@@ -172,10 +192,12 @@
 				</tr>
 				<?php endforeach; ?>
 				<tfoot>
+				<?php if($CI->admin_ac_student->view_student_all_student_detail()): ?>
 				<tr>
 					<td colspan="3"><img src="images/admin/arrow_ltr.png"  border="0" alt="SEARCH" /> <a href="javascript:void(0);" onclick="markAll()">全选</a> / <a href="javascript:void(0);" onclick="unMarkAll()">全不选</a></td>
 					<td colspan="9">操作：<input type="button" value="发短信" name="submit_sms"></td>
 				</tr>
+				<?php endif; ?>
 				</tfoot>
 			</table>
 		  </form>
