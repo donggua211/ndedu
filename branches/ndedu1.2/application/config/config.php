@@ -11,7 +11,7 @@
 |	http://example.com/
 |
 */
-$config['base_url']	= "http://localhost/project/ndedu.org/branch/ndedu1.2/";
+$config['base_url']	= "http://localhost/project/ndedu.org/branches/ndedu1.2/";
 
 /*
 |--------------------------------------------------------------------------
