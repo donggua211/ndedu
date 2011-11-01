@@ -16,6 +16,7 @@ class Staff extends Controller {
 		$this->load->model('CRM_Staff_model');
 		$this->load->model('CRM_Sms_history_model');
 		$this->load->model('CRM_Timetable_model');
+		$this->load->model('CRM_Staff_Schedule_model');
 		
 		$this->load->helper('admin');
 			
@@ -29,6 +30,7 @@ class Staff extends Controller {
 		
 		//加载权限控制类
 		$this->load->library('admin_ac/Admin_Ac_Staff', array('group_id' => $this->staff_info['group_id'], 'branch_id' => $this->staff_info['branch_id']));
+		$this->load->library('admin_ac/Admin_Ac_Timetable', array('group_id' => $this->staff_info['group_id'], 'branch_id' => $this->staff_info['branch_id']));
 		
 		//$this->output->enable_profiler(TRUE);
 	}
@@ -124,6 +126,41 @@ class Staff extends Controller {
 				
 				$data['main']['this_staff_id'] = $this->staff_info['staff_id'];
 				$template = 'staff_one_sms';
+				break;
+			case 'schedule':
+				//默认值
+				$schedule = array_fill(1, 7, array_fill(8, 15, SCHEDULE_UNAVAILABLE));
+				
+				//获取时间表
+				$result = $this->CRM_Staff_Schedule_model->get_staff_schedule($staff_id);
+				if(empty($result))
+					$schedule = array_fill(1, 7, array_fill(8, 15, SCHEDULE_UNAVAILABLE));
+				else
+					$schedule = unserialize($result['staff_schedule']);
+				
+				//获取课程表
+				$result = $this->CRM_Timetable_model->get_staff_timetable($staff_id);
+				if(!empty($result))
+				{
+					foreach($result as $day => $val)
+						foreach($val as $one)
+						{
+							list($s_h, ,) = explode(':', $one['start_time']);
+							list($e_h, $e_m,) = explode(':', $one['end_time']);
+							
+							$s_h = (int)$s_h;
+							$e_h = ($e_m == '00') ? (int)$e_h - 1 : $e_h;
+							
+							for(;$s_h <= $e_h; $s_h++ )
+							{
+								if($schedule[$day][$s_h] == SCHEDULE_AVAILABLE)
+									$schedule[$day][$s_h] = SCHEDULE_HAS_CLASS;
+							}
+						}
+				}
+				
+				$data['main']['schedule'] = $schedule;
+				$template = 'staff_one_schedule';
 				break;
 			case 'basic':
 			default:

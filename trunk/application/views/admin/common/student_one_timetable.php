@@ -79,12 +79,19 @@
 							echo $student['time_table'][$j][$i]['subject_name'] . '<br/>';
 							echo $student['time_table'][$j][$i]['name'];
 							
+							if($CI->admin_ac_timetable->show_mobile_sms_button())
+								echo '（'.$student['time_table'][$j][$i]['phone'].'）';
+							
 							//编辑区域
 							echo '<div class="operation">';
 							if($CI->admin_ac_timetable->view_student_timetable_opt($student['time_table'][$j][$i]['subject_id']))
 							{
-								echo '<div id="'. $i.$j.'" class="operation_inner">
-										<a href="'.site_url('admin/timetable/edit/'.$student['time_table'][$j][$i]['timetable_id']).'"><img src="images/icon/edit.png" title="编辑"></a>';
+								echo '<div id="'. $i.$j.'" class="operation_inner">';
+								
+								if($CI->admin_ac_timetable->show_mobile_sms_button())
+									echo '	<a href="'.site_url('admin/staff/one/'.$student['time_table'][$j][$i]['staff_id'].'/sms').'"><img src="images/icon/sms.png" title="发短信"></a>';
+								
+								echo '	<a href="'.site_url('admin/timetable/edit/'.$student['time_table'][$j][$i]['timetable_id']).'"><img src="images/icon/edit.png" title="编辑"></a>';
 								
 								if($student['time_table'][$j][$i]['is_suspend'] == 0)
 									echo '<a href="'.site_url('admin/timetable/suspend/'.$student['time_table'][$j][$i]['timetable_id']).'"><img src="images/icon/suspend.png" title="暂停课程" onclick="return confirm(\'确定要暂停课程?\');" ></a>';
@@ -104,6 +111,12 @@
 				}
 				?>
 			</table>
+		</div>
+		
+		<!--备注 -->
+		<div style="margin-top:10px;">
+			<b>备注：</b><br/>
+			<?php echo (isset($student['timetable_remark'])) ? $student['timetable_remark'] : ''; ?>
 		</div>
 		
 		<?php
@@ -167,6 +180,24 @@
 			</div>
 			</form>
 		</div>
+		<div>
+			<div class="title margin_top">
+				<span>编辑备注</span>
+			</div>
+			<form action="<?php echo site_url('admin/student/update_timetable_remark')?>" method="post" id="form">
+			<table width="90%">
+				<tr>
+					<td class="label" valign="top">备注: </td>
+					<td><textarea name="timetable_remark" cols="50" rows="5"><?php echo (isset($student['timetable_remark'])) ? $student['timetable_remark'] : ''; ?></textarea></td>
+				</tr>
+			</table>
+			<div class="button-div">
+				<input type="hidden" value="<?php echo $student['student_id']; ?>" name="student_id">
+				<input type="submit" class="button" value=" 确定 " name="submit">
+				<input type="reset" class="button" value=" 重置 " name="reset">
+			</div>
+			</form>
+		</div>
 		<?php endif; ?>
 	</div>
 </div>
@@ -216,6 +247,8 @@
 		}
 		
 		//检查学生和老师的时间冲突。
+		//素养课
+		var subject_id = $("select[name='subject_id'] option:selected").val();
 		var day = $("select[name='day'] option:selected").val();
 		var staff_id = $("select[name='staff_id'] option:selected").val();
 		var student_id = $("input[name='student_id']").val();
@@ -224,7 +257,7 @@
 			async: false,
 			type: "POST",
 			url: site_url+"admin/ajax/check_timetable",
-			data: "day="+day+"&staff_id="+staff_id+"&student_id="+student_id+"&s_t="+s_h+':'+s_m+"&e_t="+e_h+':'+e_m,
+			data: "subject_id"+subject_id+"&day="+day+"&staff_id="+staff_id+"&student_id="+student_id+"&s_t="+s_h+':'+s_m+"&e_t="+e_h+':'+e_m,
 			success: function(msg){
 				result = msg;
 			}

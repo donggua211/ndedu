@@ -14,7 +14,7 @@ class Admin_Ac_Timetable extends Admin_Ac_Base
 	
 	function add_timetable()
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_TEACHER_D, GROUP_CS_D, GROUP_SUYANG_D, GROUP_CONSULTANT_D);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_TEACHER_D, GROUP_SUYANG_D, GROUP_CONSULTANT_D);
 		
 		return $this->_check_role($allowed_group_id);	
 	
@@ -22,7 +22,7 @@ class Admin_Ac_Timetable extends Admin_Ac_Base
 	
 	function edit_timetable()
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_TEACHER_D, GROUP_CS_D, GROUP_SUYANG_D, GROUP_CONSULTANT_D);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_TEACHER_D, GROUP_SUYANG_D, GROUP_CONSULTANT_D);
 		
 		return $this->_check_role($allowed_group_id);	
 	
@@ -48,6 +48,17 @@ class Admin_Ac_Timetable extends Admin_Ac_Base
 		}
 		
 		return $this->_check_role($allowed_group_id);	
+	}
 	
+	function show_mobile_sms_button()
+	{
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_TEACHER_D);
+		return $this->_check_role($allowed_group_id);	
+	}
+	
+	function show_schedule_opts()
+	{
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_TEACHER_D);
+		return $this->_check_role($allowed_group_id);	
 	}
 }

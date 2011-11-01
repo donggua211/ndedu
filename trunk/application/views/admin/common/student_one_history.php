@@ -60,7 +60,7 @@
 						<?php if($history_type == 'learning'): ?>
 							<?php
 								$history_learning = explode(HISTORY_LEARNING_SEP, $history['history_'.$history_type]);
-								$title = array('科目', '课时', '日期', '教材版本', '教案');
+								$title = array('科目', '课时', '日期', '教材版本', '授课描述和总结');
 								foreach($history_learning as $key => $val)
 									echo '<b>'.$title[$key].'</b>：'.($key == 4 ? '<br/>' : '').nl2br($val).'<br/>';
 							?>
@@ -93,11 +93,11 @@
 						<form action="<?php echo site_url('admin/student/history_add')?>" method="post">
 							<?php if($history_type == 'learning'): ?>
 								<table>
-									<tr><td>科目：</td><td><input type="text" name="subject_name" value=""></td></tr>
-									<tr><td>课时：</td><td><input type="text" name="finished_hours" value="" size="4"> 小时</td></tr>
-									<tr><td>日期：</td><td><input type="text" name="start_date" readonly="readonly" id="start_date_<?php echo $history_type; ?>" size="12" value="<?php  echo (isset($student['start_date']) ? $student['start_date'] : '')?>" onclick="showCalendar('start_date_<?php echo $history_type; ?>', '%Y-%m-%d', false, false, 'start_date_<?php echo $history_type; ?>');" /></td></tr>
-									<tr><td>教材版本：</td><td><input type="text" name="version" value=""></td></tr>
-									<tr><td>教案：</td><td><textarea name="history" cols="80" rows="5"></textarea></td></tr>
+									<tr><td><b>科目：</b></td><td><input type="text" name="subject_name" value=""></td></tr>
+									<tr><td><b>课时：</b></td><td><input type="text" name="finished_hours" value="" size="4"> 小时</td></tr>
+									<tr><td><b>日期：</b></td><td><input type="text" name="start_date" readonly="readonly" id="start_date_<?php echo $history_type; ?>" size="12" value="<?php  echo (isset($student['start_date']) ? $student['start_date'] : '')?>" onclick="showCalendar('start_date_<?php echo $history_type; ?>', '%Y-%m-%d', false, false, 'start_date_<?php echo $history_type; ?>');" /></td></tr>
+									<tr><td><b>教材版本：</b></td><td><input type="text" name="version" value=""></td></tr>
+									<tr><td><b>授课描述和总结：</b><br/><span style="color:#000">（上课的情况、<br/>发现的问题、<br/>感悟与反思等）</span></td><td><textarea name="history" cols="80" rows="5"></textarea></td></tr>
 									<input type="hidden" name="add_calendar" value="0">
 								</table>
 							<?php else: ?>
