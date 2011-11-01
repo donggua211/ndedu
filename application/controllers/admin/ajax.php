@@ -17,6 +17,7 @@ class Ajax extends Controller {
 		$this->load->model('guestbook_model');
 		$this->load->model('CRM_History_model');
 		$this->load->model('CRM_Timetable_model');
+		$this->load->model('CRM_Staff_Schedule_model');
 		
 		$this->load->library('Services_JSON');
 	}
@@ -158,6 +159,7 @@ class Ajax extends Controller {
 	
 	function check_timetable()
 	{
+		$subject_id = $this->input->Post('subject_id');
 		$day = $this->input->Post('day');
 		$student_id = $this->input->Post('student_id');
 		$staff_id = $this->input->Post('staff_id');
@@ -175,8 +177,14 @@ class Ajax extends Controller {
 					continue;
 				else
 				{
+					//素养课不对老师时间做判断。
+					if($subject_id == 2 && ($val['staff_id'] == $staff_id && $val['student_id'] != $student_id))
+						return true;
+					
 					if($val['staff_id'] == $staff_id)
+					{
 						echo '该老师的时间有冲突！该老师的上课时间为：星期'.$val['day'].'，'.$val['start_time'].'至'.$val['end_time'];
+					}
 					else
 						echo '该学生的时间有冲突！该学生的上课时间为：星期'.$val['day'].'，'.$val['start_time'].'至'.$val['end_time'];
 					return false;
@@ -184,9 +192,74 @@ class Ajax extends Controller {
 			
 			echo 'OK';
 		}
-		
-		//print_r($timetable);
+	}
 	
+	function update_schedule()
+	{
+		$staff_id = $this->input->Post('staff_id');
+		$type = $this->input->Post('type');
+		$schedule = $this->input->Post('schedule');
+		$status = $this->input->Post('status');
+		
+		//获取时间表
+		$result = $this->CRM_Staff_Schedule_model->get_staff_schedule($staff_id);
+		if(empty($result))
+			$my_schedule = array_fill(1, 7, array_fill(8, 15, SCHEDULE_UNAVAILABLE));
+		else
+			$my_schedule = unserialize($result['staff_schedule']);
+		
+		switch($type)
+		{
+			case 'day':
+				$day = $schedule;
+				$my_schedule[$day] = array_fill(8, 15, $status);
+				break;
+			case 'hour':
+				$hour = $schedule;
+				for($day = 1; $day <= 7; $day++)
+					$my_schedule[$day][$hour] = $status;
+				break;
+			case 'day_hour':
+				list($day, $hour) = explode('_', $schedule);
+				$my_schedule[$day][$hour] = $status;
+				break;
+			default:
+				echo urldecode($this->services_json->encode(array('result' => 'NG')));
+				break;
+		}
+		
+		
+		
+		//update schedule 表
+		$update_field['staff_schedule'] = serialize($my_schedule);
+		if(!$this->CRM_Staff_Schedule_model->update($staff_id, $update_field))
+		{
+			echo urldecode($this->services_json->encode(array('result' => 'NG')));
+			return false;
+		}
+		
+		//获取课程表
+		$result = $this->CRM_Timetable_model->get_staff_timetable($staff_id);
+		if(!empty($result))
+		{
+			foreach($result as $day => $val)
+				foreach($val as $one)
+				{
+					list($s_h, ,) = explode(':', $one['start_time']);
+					list($e_h, $e_m,) = explode(':', $one['end_time']);
+					
+					$s_h = (int)$s_h;
+					$e_h = ($e_m == '00') ? (int)$e_h - 1 : $e_h;
+					
+					for(;$s_h <= $e_h; $s_h++ )
+					{
+						if($my_schedule[$day][$s_h] == SCHEDULE_AVAILABLE)
+							$my_schedule[$day][$s_h] = 2;
+					}
+				}
+		}
+		
+		echo urldecode($this->services_json->encode(array('result' => 'OK', 'schedule' => $my_schedule)));
 	}
 }
 

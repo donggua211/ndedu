@@ -14,6 +14,8 @@
 		<p>
 			<span class="navbar-back"><a href="<?php echo site_url('admin/staff/one/'.$staff['staff_id']) ?>">基本信息</a></span>
 			
+			<span class="navbar-back"><a href="<?php echo site_url('admin/staff/one/'.$staff['staff_id'].'/schedule') ?>">时间表</a></span>
+			
 			<span class="navbar-front"><a href="<?php echo site_url('admin/staff/one/'.$staff['staff_id'].'/timetable') ?>">课程表</a></span>
 			
 			<?php

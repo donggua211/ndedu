@@ -254,7 +254,7 @@ class Student extends Controller {
 	{
 		if($this->staff_info['group_id'] == GROUP_CONSULTANT_D)
 			$group = array(GROUP_CONSULTANT_D, GROUP_CONSULTANT);
-		elseif($this->staff_info['group_id'] == GROUP_SUYANG_D || $this->staff_info['group_id'] == GROUP_SUYANG)
+		elseif($this->staff_info['group_id'] == GROUP_SUYANG_D)
 			$group = array(GROUP_SUYANG_D, GROUP_SUYANG);
 		elseif($this->staff_info['group_id'] == GROUP_TEACHER_D)
 			$group = array(GROUP_TEACHER_D, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
@@ -268,7 +268,7 @@ class Student extends Controller {
 	{
 		if($this->staff_info['group_id'] == GROUP_CONSULTANT_D)
 			$parrent_id = SUBJECT_ZIXUN;
-		elseif($this->staff_info['group_id'] == GROUP_SUYANG_D || $this->staff_info['group_id'] == GROUP_SUYANG)
+		elseif($this->staff_info['group_id'] == GROUP_SUYANG_D)
 			$parrent_id = SUBJECT_SUYANG;
 		elseif($this->staff_info['group_id'] == GROUP_TEACHER_D)
 			$parrent_id = SUBJECT_XUEKE;
@@ -410,6 +410,49 @@ class Student extends Controller {
 		else
 		{
 			$this->_load_student_edit_view('', $student_info);
+		}
+	}
+	
+	function update_timetable_remark()
+	{
+		if(isset($_POST['submit']) && !empty($_POST['submit']))
+		{
+			//必填信息.
+			$student_id = $this->input->post('student_id');
+			$edit_student['timetable_remark'] = $this->input->post('timetable_remark');
+			
+			//判断student_id是否合法.
+			
+			if($student_id <= 0)
+			{
+				show_error_page('您输入的学员ID不合法, 请返回重试.', 'admin/student');
+				return false;
+			}
+			
+			//获取student 信息.
+			$student_info = $this->CRM_Student_model->getOne($student_id);
+			
+			//检查修改项
+			$update_field = array();
+			foreach($edit_student as $key => $val)
+			{
+				if(!empty($val) && ($val != $student_info[$key]))
+					$update_field[$key] = $val;
+			}
+						
+			if($this->CRM_Student_model->update($student_id, $update_field))
+			{
+				show_result_page('备注已经更新成功! ', 'admin/student/one/'.$student_id.'/timetable');
+			}
+			else
+			{
+				$notify = '更新失败, 请重试.';
+				show_error_page('备注更新失败, 请返回重试.', 'admin/student/one/'.$student_id.'/timetable');
+			}
+		}
+		else
+		{
+			show_error_page('您无法访问该页面, 请返回重试.', 'admin/student');
 		}
 	}
 	

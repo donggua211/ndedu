@@ -31,7 +31,7 @@ class CRM_Timetable_model extends Model {
 	
 	function get_student_timetable($student_id)
 	{
-		$sql = "SELECT staff.name, subject.subject_name, timetable.* FROM ".$this->db->dbprefix('crm_timetable')." as timetable
+		$sql = "SELECT staff.staff_id, staff.name, staff.phone, subject.subject_name, timetable.* FROM ".$this->db->dbprefix('crm_timetable')." as timetable
 				LEFT JOIN ".$this->db->dbprefix('crm_staff')." as staff ON staff.staff_id = timetable.staff_id
 				LEFT JOIN ".$this->db->dbprefix('crm_subject')." as subject ON subject.subject_id = timetable.subject_id
 				WHERE timetable.student_id = $student_id ";
