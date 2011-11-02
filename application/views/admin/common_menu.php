@@ -66,6 +66,15 @@
 			</li>
 			<?php endif; ?>
 			
+			<li class="explode" key="02_staff" name="menu">
+				内部评论
+				<ul>
+					<li class="menu-item"><a href="<?php echo site_url("admin/bbs/add"); ?>" target="main-frame">添加新评论</a></li>
+					
+					<li class="menu-item"><a href="<?php echo site_url("admin/bbs"); ?>" target="main-frame">评论列表</a></li>
+				</ul>
+			</li>
+			
 			<?php if(is_admin()): //权限: 只有超级管理员可以查看员工的工资?>
 			<li class="explode" key="02_staff" name="menu">
 				工资管理系统
