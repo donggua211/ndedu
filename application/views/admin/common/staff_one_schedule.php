@@ -60,7 +60,7 @@
 				for($hour = 8; $hour <= 22; $hour++)
 				{
 					echo '<tr>';
-					echo '<td style="background-color:#'.($hour % 2 == 0 ? 'FFFFFF' : 'FFFFC8').'" ><span>'.str_pad ($hour, 2, '0', STR_PAD_LEFT).'点</span>';
+					echo '<td style="background-color:#'.($hour % 2 == 0 ? 'FFFFFF' : 'FFFFC8').'" ><span style="float:left">'.str_pad ($hour, 2, '0', STR_PAD_LEFT).'点</span>';
 					if($CI->admin_ac_timetable->show_schedule_opts())
 					{
 						echo '<div class="schedule_opt operation_inner">';
@@ -93,8 +93,8 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("table tr td span").css('margin-left', '35%');
-		$("table tr th span").css('margin-left', '20%');
+		$("table tr td span").css('margin-left', '20px');
+		$("table tr th span").css('margin-left', '20px');
 		
 		$.each( $("table th:gt(0)"), function(i, n){
 			$(n).mouseover(function(){
