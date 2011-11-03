@@ -31,7 +31,9 @@ a:hover{
 	color:#FF6600;
 	text-decoration:underline;
 		 }
-
+img {
+	border:0;
+}
 #nav {
   background: #F4FAFB;
   border: 1px solid #BBDDE5;
