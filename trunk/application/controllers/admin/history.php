@@ -105,6 +105,15 @@ class History extends Controller {
 				
 				$history_text = implode($history_learning, HISTORY_LEARNING_SEP);
 			}
+			//ndedu 1.2.6 新加
+			elseif(in_array($type, array('consult', 'suyang')))
+			{
+				//组装历史文字
+				$history_consult_suyang['target'] = $this->input->post('target');
+				$history_consult_suyang['history'] = $history_text;
+				
+				$history_text= implode($history_consult_suyang, HISTORY_LEARNING_SEP);
+			}
 			
 			//检查修改项
 			$update_field = array();
@@ -188,7 +197,104 @@ class History extends Controller {
 			show_error_page('删除失败, 请重试.', 'admin/student/one/'.$history_info['student_id'].'/history');
 		}
 	}
+	
+	//history 下载
+	function download($history_attachment_id, $history_type)
+	{
+		//判断history_id是否合法.
+		$history_attachment_id = intval($history_attachment_id);
+		if($history_attachment_id <= 0)
+		{
+			show_error_page('您输入的历史ID不合法, 请返回重试.');
+			return false;
+		}
+		
+		$history_attachment_info = $this->CRM_History_model->get_one_history_attachment($history_attachment_id);
+		
+		//检查权限.
+		if(empty($history_attachment_info))
+		{
+			show_error_page('您所查询的历史不存在!', 'admin');
+			return false;
+		}
+		
+		if(@!require_once(APPPATH.'config/mimes'.EXT))
+		{
+			show_error_page('加载文件mines失败!', 'admin');
+			return false;
+		}
+		
+		$file_name = package_upload_file_name($history_type, $history_attachment_info['history_id'], $history_attachment_info['file_ext']);
+		
+		$mine_type = '';
+		$file_ext = substr($history_attachment_info['file_ext'], 1);
+		
+		if (isset($mimes[$file_ext]))
+		{
+			if (is_array($mimes[$file_ext]))
+			{
+				$mine_type = $mimes[$file_ext][0];
+			}
+			else
+			{
+				$mine_type = $mimes[$file_ext];	
+			}
+		}
+		else
+		{
+			show_error_page('未知的文件mines类型!', 'admin');
+			return false;
+		}	
+		
+		//file name
+		$this->load->library('user_agent');
+		
+		$attachment_name = $history_attachment_info['attachment_name'];
+		
+		switch ($this->agent->browser())
+		{
+			case 'Internet Explorer':
+			case 'MSIE':
+			case 'Safari':
+				$attachment_name = urlencode($attachment_name);  
+				break;  
+			default:
+				break;  
+		}
+		
+		//download
+		header("Content-Type: application/force-download"); 
+		header('Content-type: '.$mine_type . '; charset=utf-8');
+		header('Content-Disposition: attachment; filename='.$attachment_name);
+		readfile(base_url().'upload/attachment/'.$file_name);
+		die();
+	}
 }
 
+
+function getAttachmentHead($new_filename = "", $broswerType = "msie") 
+{  
+	switch ($broswerType)
+	{
+		case "msie" :  
+			return 'filename="' . urlencode ( $new_filename ) . '"';  
+			break;  
+		case "opera" :  
+			return "filename*=UTF-8''" . $new_filename . '"';  
+			break;  
+		case "safari" :  
+			return 'filename="' . urlencode ( $new_filename ) . '"';  
+			break;  
+		case "applewebkit" :  
+			return 'filename="'. urlencode ( $new_filename ) .'"';  
+			break;  
+		case "firefox" :  
+			return "filename*=UTF-8''" . $new_filename . '"';  
+			break;  
+		default :  
+			return 'filename="' . urlencode ( $new_filename ) . '"';  
+			break;  
+	}
+}
 /* End of file admin.php */
 /* Location: ./system/application/controllers/admin.php */

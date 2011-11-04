@@ -321,3 +321,8 @@
 		return site_url($url.'/'.$staff_id);
 	
 	}
+	
+	function package_upload_file_name($history_type, $history_id, $file_ext = '')
+	{
+		return $history_type.'_'.$history_id.$file_ext;	
+	}

@@ -82,7 +82,7 @@ function collapse_switch( id )
 	}
 }
 
-function add_form_switch( button_object, form_id )
+function add_form_switch( button_object, form_id, text )
 {
 	var form_object = document.getElementById( form_id );
 	if(form_object.style.display == 'none') {
@@ -90,6 +90,6 @@ function add_form_switch( button_object, form_id )
 		button_object.value = '隐藏表单';
 	} else {
 		form_object.style.display = 'none';
-		button_object.value = '添加新纪录';
+		button_object.value = '添加新'+text;
 	}
 }
