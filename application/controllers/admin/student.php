@@ -523,11 +523,62 @@ class Student extends Controller {
 					
 					$history['history'] = implode($history_learning, HISTORY_LEARNING_SEP);
 				}
+				//ndedu 1.2.6 新加
+				elseif(in_array($history['history_type'], array('consult', 'suyang')))
+				{
+					//组装历史文字
+					$history['target'] = $this->input->post('target');
+					$history_consult_suyang['history'] = $history['history'];
+					
+					if(empty($history_consult_suyang['target']) || empty($history_consult_suyang['history']))
+					{
+						$notify = '教学目标和教学内容不能为空';
+						$this->_load_history_view($notify, $history, $calendar);
+						return false;
+					}
+					
+					$history['history'] = implode($history_consult_suyang, HISTORY_LEARNING_SEP);
+				}
 				
 				//add into DB
-				if($this->CRM_History_model->add_history($history, $history['history_type']))
+				$insert_id = $this->CRM_History_model->add_history($history, $history['history_type']);
+				
+				if($insert_id)
 				{
 					$notify = '历史已经添加成功! ';
+					
+					//添加附件。
+					if (isset($_FILES['upload']['error']) && ($_FILES['upload']['error'] < 4))
+					{
+						//Upload attachment 
+						$config['upload_path'] = 'upload/attachment';
+						$config['allowed_types'] = 'txt|doc|docx|xlsx|xls|gif|jpg|jpeg|png|jpe';
+						$config['max_size'] = '2048';
+						$config['max_width']  = '0';
+						$config['max_height']  = '0';
+						$config['file_name']  = package_upload_file_name($history['history_type'], $insert_id);
+						
+						$this->load->library('upload', $config);
+						if (!$this->upload->do_upload('upload'))
+						{
+							$error = array('error' => $this->upload->display_errors());
+							$notify .= '上传附件失败<br/>';
+							$notify .= print_r($error, 1);
+						}
+						else
+						{
+							$file_data = $this->upload->data();
+							
+							$history_attachment['history_id'] = $insert_id;
+							$history_attachment['attachment_name'] = preg_replace("/\s+/", "_", $_FILES['upload']['name']);
+							$history_attachment['file_ext'] = $file_data['file_ext'];
+							
+							if(!$this->CRM_History_model->add_history_attachment($history_attachment))
+								$notify .= '附件上传成功，记录添加失败!';
+						}
+					}
+					
+					
 					if($calendar['add_calendar'] == '1') //添加到日程
 					{
 						$calendar['calendar_content'] = $history['history'];
@@ -536,6 +587,7 @@ class Student extends Controller {
 						else
 							$notify .= '日程添加失败!';
 					}
+					
 					show_result_page($notify, 'admin/student/one/'.$history['student_id'].'/history');
 				}
 				else
@@ -849,6 +901,7 @@ class Student extends Controller {
 		$student_info = $this->CRM_Student_model->getOne($history['student_id']);
 		$data['main']['student'] = array_merge($student_info, $student_extra_info, $history, $calendar);
 		$data['main']['notification'] = $notify;
+		$data['main']['student']['this_staff_id'] = $this->staff_info['staff_id'];
 		$this->_load_view('student_one_history', $data);
 	}
 	

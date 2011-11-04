@@ -31,8 +31,30 @@ class CRM_History_model extends Model {
 		$data['update_time'] = date('Y-m-d H:i:s');
 		if($this->db->insert($table, $data))
 		{
+			$insert_id = $this->db->insert_id();
+			
 			//更新crm_student的update_time
 			$this->_update_student_updatetime($history['student_id']);
+			return $insert_id;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	function add_history_attachment($history_attachment)
+	{
+		//必填项
+		$data['history_id'] = $history_attachment['history_id'];
+		$data['attachment_name'] = $history_attachment['attachment_name'];
+		$data['file_ext'] = $history_attachment['file_ext'];
+		
+		$data['add_time'] = date('Y-m-d H:i:s');
+		$data['update_time'] = date('Y-m-d H:i:s');
+		
+		if($this->db->insert('crm_history_attachment', $data))
+		{
 			return true;
 		}
 		else
@@ -65,11 +87,12 @@ class CRM_History_model extends Model {
 		
 		$table = 'crm_history_'.$history_type;
 		
-		$sql = "SELECT history.*, staff.name FROM " . $this->db->dbprefix($table) . " as history, " . $this->db->dbprefix('crm_staff') . " as staff
+		$sql = "SELECT history.*, staff.name, attachment.history_attachment_id, attachment.attachment_name  FROM " . $this->db->dbprefix($table) . " as history
+				LEFT JOIN " . $this->db->dbprefix('crm_staff') . " as staff ON  staff.staff_id = history.staff_id
+				LEFT JOIN " . $this->db->dbprefix('crm_history_attachment') . " as attachment ON  attachment.history_id = history.history_{$history_type}_id
 				WHERE student_id = $student_id	
 				AND history.is_delete = 0
-				AND staff.staff_id = history.staff_id
-				ORDER BY add_time";
+				ORDER BY history.add_time";
 		
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
@@ -103,6 +126,23 @@ class CRM_History_model extends Model {
 		
 		$sql = "SELECT $primary_key as history_id, student_id, staff_id, $history_text as history_text FROM " . $this->db->dbprefix($table) . " as history
 				WHERE $primary_key = $history_id	
+				LIMIT 1";
+		
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			return $query->row_array();
+		}
+		else
+		{
+			return array();
+		}
+	}
+	
+	function get_one_history_attachment($history_attachment_id)
+	{
+		$sql = "SELECT history_id, attachment_name, file_ext FROM " . $this->db->dbprefix('crm_history_attachment') . " as history_attachment
+				WHERE history_attachment_id = $history_attachment_id
 				LIMIT 1";
 		
 		$query = $this->db->query($sql);
