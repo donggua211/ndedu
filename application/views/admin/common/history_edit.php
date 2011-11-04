@@ -22,13 +22,21 @@
 			<?php if($type == 'learning'): ?>
 				<table>
 					<?php $history_learning = explode(HISTORY_LEARNING_SEP, $history_info['history_text']); ?>
-					<tr><td>科目：</td><td><input type="text" name="subject_name" value="<?php echo $history_learning[0]; ?>"></td></tr>
-					<tr><td>课时：</td><td><input type="text" name="finished_hours" value="<?php echo $history_learning[1]; ?>" size="4"> 小时</td></tr>
-					<tr><td>日期：</td><td><input type="text" name="start_date" readonly="readonly" id="start_date_<?php echo $type; ?>" size="12" value="<?php echo $history_learning[2]; ?>" onclick="showCalendar('start_date_<?php echo $type; ?>', '%Y-%m-%d', false, false, 'start_date_<?php echo $type; ?>');" /></td></tr>
-					<tr><td>教材版本：</td><td><input type="text" name="version" value="<?php echo $history_learning[3]; ?>"></td></tr>
-					<tr><td>教案：</td><td><textarea name="history_text" cols="80" rows="5"><?php echo $history_learning[4]; ?></textarea></td></tr>
+					<tr><td>科目：</td><td><input type="text" name="subject_name" value="<?php echo isset($history_learning[0]) ? $history_learning[0] : ''; ?>"></td></tr>
+					<tr><td>课时：</td><td><input type="text" name="finished_hours" value="<?php echo isset($history_learning[1]) ? $history_learning[1] : '';  ?>" size="4"> 小时</td></tr>
+					<tr><td>日期：</td><td><input type="text" name="start_date" readonly="readonly" id="start_date_<?php echo $type; ?>" size="12" value="<?php echo isset($history_learning[2]) ? $history_learning[2] : '';  ?>" onclick="showCalendar('start_date_<?php echo $type; ?>', '%Y-%m-%d', false, false, 'start_date_<?php echo $type; ?>');" /></td></tr>
+					<tr><td>教材版本：</td><td><input type="text" name="version" value="<?php echo isset($history_learning[3]) ? $history_learning[3] : '';  ?>"></td></tr>
+					<tr><td>教案：</td><td><textarea name="history_text" cols="80" rows="5"><?php echo isset($history_learning[4]) ? $history_learning[4] : '';  ?></textarea></td></tr>
 					<input type="hidden" name="add_calendar" value="0">
 				</table>
+			<?php elseif(in_array($type, array('consult', 'suyang'))): ?>
+				<table>
+					<?php $history_consult_suyang = explode(HISTORY_LEARNING_SEP, $history_info['history_text']); ?>
+					<tr><td><b>教学目标：</b></td><td><textarea name="target" cols="80" rows="5"><?php echo isset($history_consult_suyang[0]) ? $history_consult_suyang[0] : ''; ?></textarea></td></tr>
+					<tr><td><b>教学内容：</b></td><td><textarea name="history_text" cols="80" rows="5"><?php echo isset($history_consult_suyang[1]) ? $history_consult_suyang[1] : ''; ?></textarea></td></tr>
+					<tr><td><b>添加附件：</b></td><td><input type="file" name="upload"> </td></tr>
+					<input type="hidden" name="add_calendar" value="0">
+				</table>	
 			<?php else: ?>
 				<textarea name="history_text" cols="80" rows="5"><?php echo $history_info['history_text'] ?></textarea><br/>
 			<?php endif; ?>

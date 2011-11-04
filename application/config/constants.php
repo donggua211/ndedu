@@ -159,6 +159,8 @@ define('SCHEDULE_UNAVAILABLE', 0);
 define('SCHEDULE_AVAILABLE', 1);
 define('SCHEDULE_HAS_CLASS', 2);
 
+//ticket
+define('TICKET_PER_PAGE', 50);
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */
