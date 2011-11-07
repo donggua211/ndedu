@@ -72,7 +72,7 @@
 				<ul>
 					<li class="menu-item"><a href="<?php echo site_url("admin/ticket/add"); ?>" target="main-frame">添加新评论</a></li>
 					
-					<li class="menu-item"><a href="<?php echo site_url("admin/ticket"); ?>" target="main-frame">评论列表</a></li>
+					<li class="menu-item"><a href="<?php echo site_url("admin/ticket"); ?>" target="main-frame">员工评论</a></li>
 				</ul>
 			</li>
 			<?php endif; ?>
