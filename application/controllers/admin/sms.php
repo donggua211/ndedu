@@ -58,7 +58,7 @@ class sms extends Controller {
 		
 		if($status == '0')	//成功
 		{
-			show_result_page('短信发送成功', '');
+			show_result_page('短信发送成功', 'admin');
 		}
 		else
 		{
