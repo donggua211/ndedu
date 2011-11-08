@@ -61,7 +61,7 @@
 			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>生日: </td>
 				<td>
-					<input type="text" name="dob" maxlength="60" size="10" value="<?php echo (isset($student['dob'])) ? $student['dob'] :''; ?>" readonly="readonly" id="date" />
+					<input type="text" name="dob" maxlength="60" size="10" value="<?php echo (isset($student['dob'])) ? $student['dob'] :'0000-00-00'; ?>" readonly="readonly" id="date" />
 				</td>
 			</tr>
 			<tr>
@@ -84,7 +84,6 @@
 				<td class="label" valign="top"><span class="notice-star"> * </span>学阶: </td>
 				<td>
 					<select name="grade_id">
-						<option value='0'>请选择...</option>
 						<?php 
 							foreach($grades as $grade)
 								echo '<option value="'.$grade['grade_id'].'" '.((isset($staff['grade_id'])) ? ( ($grade['grade_id'] == $staff['grade_id']) ? 'SELECTED' : '' ) : '').'>'.$grade['grade_name'].'</option>';
@@ -97,7 +96,6 @@
 				<td class="label" valign="top"><span class="notice-star"> * </span>星级: </td>
 				<td>
 					<select name="level">
-						<option value='0'>请选择</option>
 						<option value='1'>A级</option>
 						<option value='3'>3A级</option>
 						<option value='5'>5A级</option>

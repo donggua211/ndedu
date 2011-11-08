@@ -41,6 +41,7 @@ class CRM_Student_model extends Model {
 		$data['supervisor_id'] = 0;
 		$data['mark_star'] = 0;
 		$data['suyang_id'] = 0;
+		$data['jiaowu_id'] = 0;
 		$data['status'] = STUDENT_STATUS_NOT_APPOINTMENT;
 		$data['is_delete'] = 0;
 		$data['add_time'] = date('Y-m-d H:i:s');
@@ -285,6 +286,11 @@ class CRM_Student_model extends Model {
         {
             $where .= " AND student.cservice_id = {$filter['cservice_id']} ";
         }
+		//教务老师
+		if (isset($filter['jiaowu_id']) && $filter['jiaowu_id'])
+        {
+            $where .= " AND student.jiaowu_id = {$filter['jiaowu_id']} ";
+        }
 		//学员姓名
 		if (isset($filter['name']) && $filter['name'])
         {
@@ -298,12 +304,13 @@ class CRM_Student_model extends Model {
         }
 		
 		//student基本信息
-		$sql = "SELECT DISTINCT student.*, staff_consultant.name as consultant_name, staff_cs.name as cs_name, staff_suyang.name as suyang_name,  grade.grade_name, contract.finished_hours, contract.total_hours FROM ".$this->db->dbprefix('crm_student')." as student
+		$sql = "SELECT DISTINCT student.*, staff_jiaowu.name as jiaowu_name, staff_consultant.name as consultant_name, staff_cs.name as cs_name, staff_suyang.name as suyang_name,  grade.grade_name, contract.finished_hours, contract.total_hours FROM ".$this->db->dbprefix('crm_student')." as student
 				LEFT JOIN ".$this->db->dbprefix('crm_contract')." as contract ON contract.student_id = student.student_id 
 				LEFT JOIN ".$this->db->dbprefix('crm_grade')." as grade ON grade.grade_id = student.grade_id
 				LEFT JOIN ".$this->db->dbprefix('crm_staff')." as staff_consultant ON staff_consultant.staff_id = student.consultant_id
 				LEFT JOIN ".$this->db->dbprefix('crm_staff')." as staff_cs ON staff_cs.staff_id = student.cservice_id
-				LEFT JOIN ".$this->db->dbprefix('crm_staff')." as staff_suyang ON staff_suyang.staff_id = student.suyang_id";
+				LEFT JOIN ".$this->db->dbprefix('crm_staff')." as staff_suyang ON staff_suyang.staff_id = student.suyang_id
+				LEFT JOIN ".$this->db->dbprefix('crm_staff')." as staff_jiaowu ON staff_jiaowu.staff_id = student.jiaowu_id";
 		
 		if(!empty($where))
 			$sql .= substr_replace($where, ' WHERE ', 0, strpos($where, 'AND') + 3);
@@ -453,6 +460,11 @@ class CRM_Student_model extends Model {
 		if (isset($filter['cservice_id']) && $filter['cservice_id'])
         {
             $where .= " AND student.cservice_id = {$filter['cservice_id']} ";
+        }
+		//客服
+		if (isset($filter['jiaowu_id']) && $filter['jiaowu_id'])
+        {
+            $where .= " AND student.jiaowu_id = {$filter['jiaowu_id']} ";
         }
 		//学员姓名
 		if ($filter['name'])

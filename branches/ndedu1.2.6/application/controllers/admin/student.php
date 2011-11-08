@@ -69,6 +69,7 @@ class Student extends Controller {
 		$filter['consultant_id'] = FALSE;
 		$filter['supervisor_id'] = FALSE;
 		$filter['suyang_id'] = FALSE;
+		$filter['jiaowu_id'] = FALSE;
 		$filter['is_delete'] = 0;
 	
 		$filter = $this->_parse_filter($filter_string, $filter);
@@ -340,6 +341,7 @@ class Student extends Controller {
 			$edit_student['supervisor_id'] = $this->input->post('supervisor_id');
 			$edit_student['consultant_id'] = $this->input->post('consultant_id');
 			$edit_student['suyang_id'] = $this->input->post('suyang_id');
+			$edit_student['jiaowu_id'] = $this->input->post('jiaowu_id');
 			$edit_student['name'] = $this->input->post('name');
 			$edit_student['gender'] = $this->input->post('gender');
 			$edit_student['dob'] = $this->input->post('dob');
@@ -885,6 +887,7 @@ class Student extends Controller {
 		$data['main']['consultants'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_CONSULTANT,GROUP_CONSULTANT_D));
 		$data['main']['supervisors'] = $this->CRM_Staff_model->get_all_by_group(GROUP_SUPERVISOR);
 		$data['main']['suyangs'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_SUYANG_D, GROUP_SUYANG));
+		$data['main']['jiaowus'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_JIAOWU_D, GROUP_JIAOWU));
 		$data['main']['notification'] = $notify;
 		$data['main']['student'] = $student;
 		$this->_load_view('student_edit', $data);
@@ -982,6 +985,7 @@ class Student extends Controller {
 				case 'consultant_id':
 				case 'supervisor_id':
 				case 'suyang_id':
+				case 'jiaowu_id':
 				case 'is_delete':
 					$input_filter[$key] = intval($input_filter[$key]);
 					break;
