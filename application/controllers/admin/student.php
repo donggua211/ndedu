@@ -234,6 +234,14 @@ class Student extends Controller {
 					$data['main']['teachers'] = $this->_get_teachers();
 					$data['main']['subjects'] = $this->_get_subjects();
 				}
+				
+				//如果有分配老师权限的话，载入对应老师
+				if($this->admin_ac_timetable->assign_teacher_to_student())
+				{
+					$data['main']['teachers'] = $this->_get_teachers();
+					$data['main']['student_teacher'] = $this->CRM_Student_model->get_student_teacher();
+					
+				}
 				$template = 'student_one_timetable';
 				break;
 			case 'basic':
@@ -464,23 +472,9 @@ class Student extends Controller {
 		if(isset($_POST['submit']) && !empty($_POST['submit']))
 		{
 			//必填信息.
-			$history['history'] = $this->input->post('history');
 			$history['history_type'] = $this->input->post('history_type');
 			$history['student_id'] = $this->input->post('student_id');
 			$history['staff_id'] = $this->staff_info['staff_id'];
-			
-			/* 添加日程 */
-			$calendar['add_calendar'] = $this->input->post('add_calendar');
-			//开始时间.
-			$calendar['start_date'] = $this->input->post('start_date');
-			$calendar['start_hour'] = $this->input->post('start_hour');
-			$calendar['start_mins'] = $this->input->post('start_mins');
-			$calendar['start_time'] = $calendar['start_date'].' '.$calendar['start_hour'].':'.$calendar['start_mins'].':00';
-			//结束时间.
-			$calendar['end_date'] = $this->input->post('end_date');
-			$calendar['end_hour'] = $this->input->post('end_hour');
-			$calendar['end_mins'] = $this->input->post('end_mins');
-			$calendar['end_time'] = $calendar['end_date'].' '.$calendar['end_hour'].':'.$calendar['end_mins'].':00';
 			
 			//access_control
 			//获取student 信息.
@@ -494,107 +488,128 @@ class Student extends Controller {
 			if(empty($history['history_type']) || empty($history['student_id']))
 			{
 				show_error_page('您提交的表单有误, 请返回重试.');
+				return false;
 			}
-			elseif(empty($history['history']))
+			
+			//add ndedu1.2.6. 根据历史的type检查更多的内容。
+			$history['history'] = $this->input->post('history');
+			if(empty($history['history']))
 			{
 				$notify = '历史内容不能为空';
-				$this->_load_history_view($notify, $history, $calendar);
+				$this->_load_history_view($notify, $history);
+				return false;
 			}
-			elseif($calendar['add_calendar'] == '1' && ( empty($calendar['start_time']) || empty($calendar['end_time']))) //添加到Calendar
+			switch($history['history_type'])
 			{
-				$notify = '开始时间或结束时间不能为空!';
-				$this->_load_history_view($notify, $history, $calendar);
-			}
-			elseif($calendar['add_calendar'] == '1' && ( $calendar['end_time'] < $calendar['start_time'])) //添加到Calendar
-			{
-				$notify = '开始时间不能小于结束时间!';
-				$this->_load_history_view($notify, $history, $calendar);
-			}
-			else
-			{
-				//ndedu 1.2.5 新加
-				if($history['history_type'] == 'learning')
-				{
-					$history_learning['subject_name'] = $this->input->post('subject_name');
-					$history_learning['finished_hours'] = $this->input->post('finished_hours');
-					$history_learning['start_date'] = $this->input->post('start_date');
-					$history_learning['version'] = $this->input->post('version');
-					$history_learning['history'] = $history['history'];
-					
-					$history['history'] = implode($history_learning, HISTORY_LEARNING_SEP);
-				}
-				//ndedu 1.2.6 新加
-				elseif(in_array($history['history_type'], array('consult', 'suyang')))
-				{
-					//组装历史文字
-					$history_consult_suyang['target'] = $this->input->post('target');
-					$history_consult_suyang['history'] = $history['history'];
-					
-					if(empty($history_consult_suyang['target']) || empty($history_consult_suyang['history']))
+				case 'learning':
+					$history['learning_subject'] = $this->input->post('learning_subject');
+					$history['learning_period'] = $this->input->post('learning_period');
+					$history['learning_date'] = $this->input->post('learning_date');
+					$history['learning_version'] = $this->input->post('learning_version');
+					if(empty($history['learning_subject']) || empty($history['learning_period']) || empty($history['learning_date']) || empty($history['learning_version']))
 					{
-						$notify = '教学目标和教学内容不能为空';
+						$notify = '历史内容不能为空';
+						$this->_load_history_view($notify, $history);
+						return false;
+					}
+					break;
+				case 'consult':
+				case 'suyang':
+					$history['target'] = $this->input->post('target');
+					if(empty($history['target']))
+					{
+						$notify = '历史内容不能为空';
+						$this->_load_history_view($notify, $history);
+						return false;
+					}
+					break;
+				case 'contact':
+					/* 添加日程 */
+					$calendar['add_calendar'] = $this->input->post('add_calendar');
+					//开始时间.
+					$calendar['start_date'] = $this->input->post('start_date');
+					$calendar['start_hour'] = $this->input->post('start_hour');
+					$calendar['start_mins'] = $this->input->post('start_mins');
+					$calendar['start_time'] = $calendar['start_date'].' '.$calendar['start_hour'].':'.$calendar['start_mins'].':00';
+					//结束时间.
+					$calendar['end_date'] = $this->input->post('end_date');
+					$calendar['end_hour'] = $this->input->post('end_hour');
+					$calendar['end_mins'] = $this->input->post('end_mins');
+					$calendar['end_time'] = $calendar['end_date'].' '.$calendar['end_hour'].':'.$calendar['end_mins'].':00';
+					if($calendar['add_calendar'] == '1' && ( empty($calendar['start_time']) || empty($calendar['end_time']))) //添加到Calendar
+					{
+						$notify = '开始时间或结束时间不能为空!';
 						$this->_load_history_view($notify, $history, $calendar);
 						return false;
 					}
-					
-					$history['history'] = implode($history_consult_suyang, HISTORY_LEARNING_SEP);
-				}
-				
-				//add into DB
-				$insert_id = $this->CRM_History_model->add_history($history, $history['history_type']);
-				
-				if($insert_id)
-				{
-					$notify = '历史已经添加成功! ';
-					
-					//添加附件。
-					if (isset($_FILES['upload']['error']) && ($_FILES['upload']['error'] < 4))
+					elseif($calendar['add_calendar'] == '1' && ( $calendar['end_time'] < $calendar['start_time'])) //添加到Calendar
 					{
-						//Upload attachment 
-						$config['upload_path'] = 'upload/attachment';
-						$config['allowed_types'] = 'txt|doc|docx|xlsx|xls|gif|jpg|jpeg|png|jpe';
-						$config['max_size'] = '2048';
-						$config['max_width']  = '0';
-						$config['max_height']  = '0';
-						$config['file_name']  = package_upload_file_name($history['history_type'], $insert_id);
+						$notify = '开始时间不能小于结束时间!';
+						$this->_load_history_view($notify, $history, $calendar);
+						return false;
+					}
+					break;
+				case 'callback':
+					$history['callback_history_type'] = $this->input->post('callback_history_type');
+					$history['callback_history_id'] = $this->input->post('callback_history_id');
+					break;
+			}
+			
+			
+			//add into DB
+			$insert_id = $this->CRM_History_model->add_history($history, $history['history_type']);
+			
+			if($insert_id)
+			{
+				$notify = '历史已经添加成功! ';
+				
+				//添加附件。
+				if (isset($_FILES['upload']['error']) && ($_FILES['upload']['error'] < 4))
+				{
+					//Upload attachment 
+					$config['upload_path'] = 'upload/attachment';
+					$config['allowed_types'] = 'txt|doc|docx|xlsx|xls|gif|jpg|jpeg|png|jpe';
+					$config['max_size'] = '2048';
+					$config['max_width']  = '0';
+					$config['max_height']  = '0';
+					$config['file_name']  = package_upload_file_name($history['history_type'], $insert_id);
+					
+					$this->load->library('upload', $config);
+					if (!$this->upload->do_upload('upload'))
+					{
+						$error = array('error' => $this->upload->display_errors());
+						$notify .= '上传附件失败<br/>';
+						$notify .= print_r($error, 1);
+					}
+					else
+					{
+						$file_data = $this->upload->data();
 						
-						$this->load->library('upload', $config);
-						if (!$this->upload->do_upload('upload'))
-						{
-							$error = array('error' => $this->upload->display_errors());
-							$notify .= '上传附件失败<br/>';
-							$notify .= print_r($error, 1);
-						}
-						else
-						{
-							$file_data = $this->upload->data();
-							
-							$history_attachment['history_id'] = $insert_id;
-							$history_attachment['attachment_name'] = preg_replace("/\s+/", "_", $_FILES['upload']['name']);
-							$history_attachment['file_ext'] = $file_data['file_ext'];
-							
-							if(!$this->CRM_History_model->add_history_attachment($history_attachment))
-								$notify .= '附件上传成功，记录添加失败!';
-						}
+						$history_attachment['history_id'] = $insert_id;
+						$history_attachment['attachment_name'] = preg_replace("/\s+/", "_", $_FILES['upload']['name']);
+						$history_attachment['file_ext'] = $file_data['file_ext'];
+						
+						if(!$this->CRM_History_model->add_history_attachment($history_attachment))
+							$notify .= '附件上传成功，记录添加失败!';
 					}
-					
-					
-					if($calendar['add_calendar'] == '1') //添加到日程
-					{
-						$calendar['calendar_content'] = $history['history'];
-						if($this->CRM_Calendar_model->add($calendar, $this->staff_info['staff_id']))
-							$notify .= '日程添加成功!';
-						else
-							$notify .= '日程添加失败!';
-					}
-					
-					show_result_page($notify, 'admin/student/one/'.$history['student_id'].'/history');
 				}
-				else
+				
+				//添加到日程
+				if(isset($calendar['add_calendar']) && $calendar['add_calendar'] == '1')
 				{
-					$notify = '添加失败, 请重试.';
-					$this->_load_history_view($notify, $history, $calendar);
+					$calendar['calendar_content'] = $history['history'];
+					if($this->CRM_Calendar_model->add($calendar, $this->staff_info['staff_id']))
+						$notify .= '日程添加成功!';
+					else
+						$notify .= '日程添加失败!';
 				}
+				
+				show_result_page($notify, 'admin/student/one/'.$history['student_id'].'/history');
+			}
+			else
+			{
+				$notify = '添加失败, 请重试.';
+				$this->_load_history_view($notify, $history, $calendar);
 			}
 		}
 	}
@@ -893,7 +908,7 @@ class Student extends Controller {
 		$this->_load_view('student_edit', $data);
 	}
 	
-	function _load_history_view($notify='', $history, $calendar)
+	function _load_history_view($notify='', $history, $calendar=array())
 	{
 		$data['header']['meta_title'] = '添加历史 - 管理学员';
 		$data['header']['css_file'] = '../calendar.css';

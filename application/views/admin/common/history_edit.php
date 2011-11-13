@@ -18,30 +18,26 @@
 			<img style="vertical-align: middle;" src="images/icon/warning.gif"> <span style="color:red;font-size:20px;line-height:22px"><?php echo $notification;?></span>
 		</div>
 		<?php endif;?>
-		<form action="<?php echo site_url('admin/history/edit/'.$type.'/'.$history_info['history_id']) ?>" method="post">
+		<form action="<?php echo site_url('admin/history/edit/'.$type.'/'.$history_info['history_'.$type.'_id']) ?>" method="post">
 			<?php if($type == 'learning'): ?>
 				<table>
-					<?php $history_learning = explode(HISTORY_LEARNING_SEP, $history_info['history_text']); ?>
-					<tr><td>科目：</td><td><input type="text" name="subject_name" value="<?php echo isset($history_learning[0]) ? $history_learning[0] : ''; ?>"></td></tr>
-					<tr><td>课时：</td><td><input type="text" name="finished_hours" value="<?php echo isset($history_learning[1]) ? $history_learning[1] : '';  ?>" size="4"> 小时</td></tr>
-					<tr><td>日期：</td><td><input type="text" name="start_date" readonly="readonly" id="start_date_<?php echo $type; ?>" size="12" value="<?php echo isset($history_learning[2]) ? $history_learning[2] : '';  ?>" onclick="showCalendar('start_date_<?php echo $type; ?>', '%Y-%m-%d', false, false, 'start_date_<?php echo $type; ?>');" /></td></tr>
-					<tr><td>教材版本：</td><td><input type="text" name="version" value="<?php echo isset($history_learning[3]) ? $history_learning[3] : '';  ?>"></td></tr>
-					<tr><td>教案：</td><td><textarea name="history_text" cols="80" rows="5"><?php echo isset($history_learning[4]) ? $history_learning[4] : '';  ?></textarea></td></tr>
-					<input type="hidden" name="add_calendar" value="0">
+					<tr><td><b>科目：</b></td><td><input type="text" name="history_learning_subject" value="<?php  echo (isset($history_info['history_learning_subject']) ? $history_info['history_learning_subject'] : '')?>"></td></tr>
+					<tr><td><b>课时：</b></td><td><input type="text" name="history_learning_period" value="<?php  echo (isset($history_info['history_learning_period']) ? $history_info['history_learning_period'] : '')?>" size="4"> 小时</td></tr>
+					<tr><td><b>日期：</b></td><td><input type="text" name="history_learning_date" readonly="readonly" id="history_learning_date" size="12" value="<?php  echo (isset($history_info['history_learning_date']) ? $history_info['history_learning_date'] : '0000-00-00')?>" onclick="showCalendar('history_learning_date', '%Y-%m-%d', false, false, 'history_learning_date');" /></td></tr>
+					<tr><td><b>教材版本：</b></td><td><input type="text" name="history_learning_version" value="<?php  echo (isset($history_info['history_learning_version']) ? $history_info['history_learning_version'] : '')?>"></td></tr>
+					<tr><td><span class="notice-star"> * </span><b>授课描述和总结：</b><br/><span style="color:#000">（上课的情况、<br/>发现的问题、<br/>感悟与反思等）</span></td><td><textarea name="history_learning" cols="80" rows="5"><?php echo (isset($history_info['history_learning']) ? $history_info['history_learning'] : '')?></textarea></td></tr>
 				</table>
 			<?php elseif(in_array($type, array('consult', 'suyang'))): ?>
 				<table>
-					<?php $history_consult_suyang = explode(HISTORY_LEARNING_SEP, $history_info['history_text']); ?>
-					<tr><td><b>教学目标：</b></td><td><textarea name="target" cols="80" rows="5"><?php echo isset($history_consult_suyang[0]) ? $history_consult_suyang[0] : ''; ?></textarea></td></tr>
-					<tr><td><b>教学内容：</b></td><td><textarea name="history_text" cols="80" rows="5"><?php echo isset($history_consult_suyang[1]) ? $history_consult_suyang[1] : ''; ?></textarea></td></tr>
-					<tr><td><b>添加附件：</b></td><td><input type="file" name="upload"> </td></tr>
-					<input type="hidden" name="add_calendar" value="0">
+					<tr><td><span class="notice-star"> * </span><b>教学目标：</b></td><td><textarea name="history_<?php echo $type ?>_target" cols="80" rows="5"><?php  echo (isset($history_info['history_'.$type.'_target']) ? $history_info['history_'.$type.'_target'] : '')?></textarea></td></tr>
+					<tr><td><span class="notice-star"> * </span><b>教学内容：</b></td><td><textarea name="history_<?php echo $type?>" cols="80" rows="5"><?php  echo (isset($history_info['history_'.$type]) ? $history_info['history_'.$type] : '')?></textarea></td></tr>
+					<tr><td><b>添加附件：</b>（2M之内）</td><td><input type="file" name="upload"> </td></tr>
 				</table>	
 			<?php else: ?>
-				<textarea name="history_text" cols="80" rows="5"><?php echo $history_info['history_text'] ?></textarea><br/>
+				<textarea name="history_<?php echo $type?>" cols="80" rows="5"><?php  echo (isset($history_info['history_'.$type]) ? $history_info['history_'.$type] : '')?></textarea><br/>
 			<?php endif; ?>
 			<input type="hidden" name="type" value="<?php echo $type?>">
-			<input type="hidden" name="history_id" value="<?php echo $history_info['history_id'] ?>">
+			<input type="hidden" name="history_id" value="<?php echo $history_info['history_'.$type.'_id'] ?>">
 			<input type="hidden" name="student_id" value="<?php echo $student_info['student_id'] ?>">
 			<input type="submit" class="button" value="更新" name="submit">
 			<input type="submit" class="button" value="取消" name="cancel">
