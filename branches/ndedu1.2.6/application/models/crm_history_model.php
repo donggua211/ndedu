@@ -26,9 +26,42 @@ class CRM_History_model extends Model {
 		$data['staff_id'] = $history['staff_id'];
 		$data['history_'.$history_type] = $history['history'];
 		
+		//4种历史的表结构各不相同。
+		switch($history['history_type'])
+		{
+			case 'learning':
+				$data['history_learning_subject'] = $history['learning_subject'];
+				$data['history_learning_period'] = $history['learning_period'];
+				$data['history_learning_date'] = $history['learning_date'];
+				$data['history_learning_version'] = $history['learning_version'];
+				break;
+			case 'consult':
+			case 'suyang':
+				$data['history_'.$history_type.'_target'] = $history['target'];
+				break;
+			case 'contact':
+				break;
+			case 'callback':
+				switch($history['callback_history_type'])
+				{
+					case 'consult':
+						$data['history_callback_type'] = HISTORY_TYPE_CONSULT;
+						break;
+					case 'suyang':
+						$data['history_callback_type'] = HISTORY_TYPE_SUYANG;
+						break;
+					case 'learning':
+						$data['history_callback_type'] = HISTORY_TYPE_LEARNING;
+						break;
+				}
+				$data['history_callback_history_id'] = $history['callback_history_id'];
+				break;
+		}
+		
 		$data['is_delete'] = 0;
 		$data['add_time'] = date('Y-m-d H:i:s');
 		$data['update_time'] = date('Y-m-d H:i:s');
+		
 		if($this->db->insert($table, $data))
 		{
 			$insert_id = $this->db->insert_id();
@@ -67,6 +100,26 @@ class CRM_History_model extends Model {
 	{
 		foreach($this->types as $type)
 			$result['history_'.$type] = $this->_get_history($student_id, $type);
+		
+		//处理callback历史		
+		foreach($result['history_callback'] as $val)
+		{
+			switch($val['history_callback_type'])
+			{
+				case HISTORY_TYPE_CONSULT:
+					$history_callback_type = 'consult';
+					break;
+				case HISTORY_TYPE_SUYANG:
+					$history_callback_type = 'suyang';
+					break;
+				case HISTORY_TYPE_LEARNING:
+					$history_callback_type = 'learning';
+					break;
+			}
+			if(isset($result['history_'.$history_callback_type][$val['history_callback_history_id']]))
+				$result['history_'.$history_callback_type][$val['history_callback_history_id']]['callback_history'][] = $val;
+		}
+		
 		return $result;
 	}
 	
@@ -97,7 +150,12 @@ class CRM_History_model extends Model {
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
-			return $query->result_array();
+			$result = array();
+			foreach($query->result_array() as $val)
+			{
+				$result[$val['history_'.$history_type.'_id']] = $val;
+			}
+			return $result;
 		}
 		else
 		{
@@ -124,7 +182,7 @@ class CRM_History_model extends Model {
 		$history_text = 'history_'.$history_type;
 		$table = 'crm_history_'.$history_type;
 		
-		$sql = "SELECT $primary_key as history_id, student_id, staff_id, $history_text as history_text FROM " . $this->db->dbprefix($table) . " as history
+		$sql = "SELECT history.* FROM " . $this->db->dbprefix($table) . " as history
 				WHERE $primary_key = $history_id	
 				LIMIT 1";
 		

@@ -50,57 +50,83 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		$this->history_group_status = array(
 			//联系历史
 			'contact' => array(
-				STUDENT_STATUS_NOT_APPOINTMENT => array( GROUP_CS => HISTORY_WR, GROUP_CS_D => HISTORY_WR, GROUP_CONSULTANT => HISTORY_WR, GROUP_CONSULTANT_D => HISTORY_WR ),		//未约访
-				STUDENT_STATUS_HAS_APPOINTMENT => array( GROUP_CS => HISTORY_WR, GROUP_CS_D => HISTORY_WR, GROUP_CONSULTANT => HISTORY_WR, GROUP_CONSULTANT_D => HISTORY_WR ),		//已约访
-				STUDENT_STATUS_SIGNUP => array( GROUP_CS => HISTORY_WR, GROUP_CS_D => HISTORY_WR ),		//已报名
-				STUDENT_STATUS_LEARNING => array( GROUP_CS => HISTORY_WR, GROUP_CS_D => HISTORY_WR ),		//正在学
-				STUDENT_STATUS_FINISHED => array( GROUP_CS => HISTORY_WR, GROUP_CS_D => HISTORY_WR ),		//已学完
-			),
-			//学习历史
-			'learning' => array(
-				STUDENT_STATUS_LEARNING => array(
-					GROUP_TEACHER_D => HISTORY_WR,
-					GROUP_CS => HISTORY_R,
-					GROUP_CS_D => HISTORY_R,
-					GROUP_CONSULTANT => HISTORY_R,
-					GROUP_SUYANG => HISTORY_R,
-					GROUP_CONSULTANT_D => HISTORY_R,
-					GROUP_SUYANG_D => HISTORY_R,
-					GROUP_TEACHER_PARTTIME => HISTORY_WR,
-					GROUP_TEACHER_FULL => HISTORY_WR,
-				),		//正在学
-				STUDENT_STATUS_FINISHED => array( GROUP_CS => HISTORY_R, GROUP_CS_D => HISTORY_R ),		//已学完
-			),
-			//咨询历史
-			'consult' => array(
-				STUDENT_STATUS_LEARNING => array(
+				'status' => array(
+					STUDENT_STATUS_NOT_APPOINTMENT,
+					STUDENT_STATUS_HAS_APPOINTMENT,
+					STUDENT_STATUS_SIGNUP,
+					STUDENT_STATUS_LEARNING,
+					STUDENT_STATUS_FINISHED,
+				),
+				'group' => array(
 					GROUP_CONSULTANT => HISTORY_WR,
 					GROUP_CONSULTANT_D => HISTORY_WR,
-					GROUP_TEACHER_D => HISTORY_R,
-					GROUP_CS => HISTORY_R,
-					GROUP_CS_D => HISTORY_R,
-					GROUP_SUYANG => HISTORY_R,
-					GROUP_SUYANG_D => HISTORY_R,
-				),		//正在学
-				STUDENT_STATUS_FINISHED => array( GROUP_CS => HISTORY_R, GROUP_CS_D => HISTORY_R ),		//已学完
+					GROUP_CS => HISTORY_WR,
+					GROUP_CS_D => HISTORY_WR,
+				),
 			),
-			//素养历史
-			'suyang' => array(
-				STUDENT_STATUS_LEARNING => array(
-					GROUP_SUYANG => HISTORY_WR,
-					GROUP_SUYANG_D => HISTORY_WR,
-					GROUP_CS => HISTORY_R,
-					GROUP_CS_D => HISTORY_R,
+			
+			//学习历史
+			'learning' => array(
+				'status' => array(
+					STUDENT_STATUS_LEARNING,
+					STUDENT_STATUS_FINISHED,
+				),
+				'group' => array(
+					GROUP_TEACHER_PARTTIME => HISTORY_WR,
+					GROUP_TEACHER_FULL => HISTORY_WR,
+					GROUP_TEACHER_D => HISTORY_WR,
 					GROUP_CONSULTANT => HISTORY_R,
 					GROUP_CONSULTANT_D => HISTORY_R,
+					GROUP_SUYANG => HISTORY_R,
+					GROUP_SUYANG_D => HISTORY_R,
+				),
+			),
+			
+			//咨询历史
+			'consult' => array(
+				'status' => array(
+					STUDENT_STATUS_LEARNING,
+					STUDENT_STATUS_FINISHED,
+				),
+				'group' => array(
+					GROUP_CONSULTANT => HISTORY_WR,
+					GROUP_CONSULTANT_D => HISTORY_WR,
+					GROUP_TEACHER_PARTTIME => HISTORY_R,
+					GROUP_TEACHER_FULL => HISTORY_R,
 					GROUP_TEACHER_D => HISTORY_R,
-				),		//正在学
-				STUDENT_STATUS_FINISHED => array( GROUP_CS => HISTORY_R, GROUP_CS_D => HISTORY_R ),		//已学完
+					GROUP_SUYANG => HISTORY_R,
+					GROUP_SUYANG_D => HISTORY_R,
+				),
+			),
+			
+			//素养历史
+			'suyang' => array(
+				'status' => array(
+					STUDENT_STATUS_LEARNING,
+					STUDENT_STATUS_FINISHED,
+				),
+				'group' => array(
+					GROUP_SUYANG => HISTORY_WR,
+					GROUP_SUYANG_D => HISTORY_WR,
+					GROUP_CONSULTANT => HISTORY_WR,
+					GROUP_CONSULTANT_D => HISTORY_WR,
+					GROUP_TEACHER_PARTTIME => HISTORY_R,
+					GROUP_TEACHER_FULL => HISTORY_R,
+					GROUP_TEACHER_D => HISTORY_R,
+				),
 			),
 			//回访历史
 			'callback' => array(
-				STUDENT_STATUS_LEARNING => array( GROUP_CS => HISTORY_WR, GROUP_CS_D => HISTORY_WR ),		//正在学
-				STUDENT_STATUS_FINISHED => array( GROUP_CS => HISTORY_WR, GROUP_CS_D => HISTORY_WR ),		//已学完
+				'status' => array(
+					STUDENT_STATUS_LEARNING,
+					STUDENT_STATUS_FINISHED,
+				),
+				'group' => array(
+					GROUP_JIAOWU => HISTORY_WR,
+					GROUP_JIAOWU_D => HISTORY_WR,
+					GROUP_CS => HISTORY_R,
+					GROUP_CS_D => HISTORY_R,
+				),
 			),
 			
 		);
@@ -335,15 +361,17 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		if($this->group_id == GROUP_ADMIN || $this->group_id == GROUP_SCHOOLADMIN)
 			return HISTORY_WR;
 		
-		if(isset($this->history_group_status[$type][$status][$this->group_id]) && !empty($this->history_group_status[$type][$status][$this->group_id]))
+		if(in_array($status, $this->history_group_status[$type]['status']))
 		{
-			//show_error_page('您没有权限查看该学员的历史记录！', 'admin/student');
-			return $this->history_group_status[$type][$status][$this->group_id];
+			//检查权限
+			if(isset($this->history_group_status[$type]['group'][$this->group_id]) && !empty($this->history_group_status[$type]['group'][$this->group_id]))
+			{
+				//show_error_page('您没有权限查看该学员的历史记录！', 'admin/student');
+				return $this->history_group_status[$type]['group'][$this->group_id];
+			}
 		}
-		else
-		{
-			return HISTORY_DENY;
-		}
+		
+		return HISTORY_DENY;
 	}
 
 	/*

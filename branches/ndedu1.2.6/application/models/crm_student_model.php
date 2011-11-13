@@ -388,9 +388,6 @@ class CRM_Student_model extends Model {
 				$students[$student_id]['last_contact_time'] = 0;
 		}
 		
-		
-		
-		
 		return $students;
 	}
 	
@@ -656,6 +653,24 @@ class CRM_Student_model extends Model {
 		{
 			return false;
 		}
+	}
+	
+	function get_student_teacher($student_id, $type)
+	{
+		//student基本信息
+		$sql = "SELECT * FROM " . $this->db->dbprefix('crm_student_teacher') . "
+				WHERE student_id = '$student_id'
+				AND student_teacher_type = $type";
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			return $query->result_array();
+		}
+		else
+		{
+			return false;
+		}
+	
 	}
 	
 	function _generate_vip_code()

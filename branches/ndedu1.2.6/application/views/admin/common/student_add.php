@@ -179,7 +179,7 @@
 			if($("#student_from option:selected").val() == 'other')
 			{
 				$("#student_from_text_span").css('display', '');
-				$("#student_from_text").focus();
+				z$("#student_from_text").focus();
 			}
 			else
 				$("#student_from_text_span").css('display', 'none');
