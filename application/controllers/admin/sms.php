@@ -89,7 +89,7 @@ class sms extends Controller {
 				$sms_history = array(
 					'staff_id' => $this->staff_info['staff_id'],
 					'sms_text' => $content,
-					'mobile' => $mobile,
+					'mobile' => $val,
 					'status' => $status,
 				);
 				$this->CRM_Sms_history_model->add($sms_history);
