@@ -261,6 +261,26 @@ class Ajax extends Controller {
 		
 		echo urldecode($this->services_json->encode(array('result' => 'OK', 'schedule' => $my_schedule)));
 	}
+	
+	function update_student_teacher()
+	{
+		$student_id = $this->input->Post('student_id');
+		$staff_id = $this->input->Post('staff_id');
+		$type = $this->input->Post('type');
+		$action = $this->input->Post('action');
+		
+		if($action == 'del')
+			$result = $this->CRM_Student_model->delete_student_teacher($student_id, $staff_id, $type);
+		elseif($action == 'add')
+			$result = $this->CRM_Student_model->insert_student_teacher($student_id, $staff_id, $type);
+		else
+			$result = false;
+		
+		if($result)
+			echo 'OK';
+		else
+			echo 'NG';
+	}
 }
 
 /* End of file admin.php */

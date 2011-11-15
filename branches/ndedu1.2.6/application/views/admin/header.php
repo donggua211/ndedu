@@ -5,6 +5,7 @@
 	<base href="<?php echo base_url() ?>" />
 	<title><?php echo (isset($meta_title) && !empty($meta_title)) ? $meta_title . ' - administrator control panel': 'administrator control panel'; ?></title>
 	<link href="css/admin/admin.css" rel="stylesheet" type="text/css" />
+	<link href="css/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
 	<?php if(isset($css_file) && $css_file):
 		if(is_array($css_file)): 
 			foreach($css_file as $css)
@@ -14,6 +15,7 @@
 		<?php endif; ?>
 	<?php endif;?>
 	<script type="text/javascript" src="js/jquery-1.6.2.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
 	<script type="text/javascript" src="js/admin/admin.common.js"></script>
 	<?php if(isset($js_file_header) && !empty($js_file_header)):?>
 		<?php 

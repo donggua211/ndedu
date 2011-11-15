@@ -120,87 +120,132 @@
 		</div>
 		
 		<?php
-		if($CI->admin_ac_timetable->add_timetable()):
+		if($CI->admin_ac_timetable->add_timetable())
+		{
 		?>
-		<!-- 添加框 -->
-		<div>
-			<div class="title margin_top">
-				<span>添加课程表</span>
+			<!-- 添加框 -->
+			<div>
+				<div class="title margin_top">
+					<span>添加课程表</span>
+				</div>
+				<form action="<?php echo site_url('admin/timetable/add')?>" method="post" id="form">
+				<table width="90%">
+					<tr>
+						<td class="label" valign="top">学员：</td>
+						<td><?php echo $student['name'] ?></td>
+					</tr>
+					<tr>
+						<td class="label" valign="top"><span class="notice-star"> * </span>科目：</td>
+						<td>
+							<select name="subject_id">
+								<option value='0'>请选择...</option>
+								<?php
+									foreach($subjects as $subject)
+										echo '<option value="'.$subject['subject_id'].'">'.$subject['subject_name'].'</option>';
+								?>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="label" valign="top"><span class="notice-star"> * </span>上课老师：</td>
+						<td>
+							<select name="staff_id">
+								<option value='0'>请选择...</option>
+								<?php
+									foreach($teachers as $staff)
+										echo '<option value="'.$staff['staff_id'].'">'.$staff['name'].'</option>';
+								?>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="label" valign="top"><span class="notice-star"> * </span>上课时间: </td>
+						<td>
+							<select name="day">
+								<option value='1'>星期一</option>
+								<option value='2'>星期二</option>
+								<option value='3'>星期三</option>
+								<option value='4'>星期四</option>
+								<option value='5'>星期五</option>
+								<option value='6'>星期六</option>
+								<option value='7'>星期日</option>
+							</select>
+							时间：<?php echo show_hour_options('start_hour', '9') ?>： <?php echo show_mins_options('start_mins', '00') ?> 到 <?php echo show_hour_options('end_hour', '11') ?> ： <?php echo show_mins_options('end_mins', '00') ?>
+						</td>
+					</tr>	
+				</table>
+				<div class="button-div">
+					<input type="hidden" value="<?php echo $student['student_id']; ?>" name="student_id">
+					<input type="submit" class="button" value=" 确定 " name="submit">
+					<input type="reset" class="button" value=" 重置 " name="reset">
+				</div>
+				</form>
 			</div>
-			<form action="<?php echo site_url('admin/timetable/add')?>" method="post" id="form">
-			<table width="90%">
+			<div>
+				<div class="title margin_top">
+					<span>编辑备注</span>
+				</div>
+				<form action="<?php echo site_url('admin/student/update_timetable_remark')?>" method="post" id="form">
+				<table width="90%">
+					<tr>
+						<td class="label" valign="top">备注: </td>
+						<td><textarea name="timetable_remark" cols="50" rows="5"><?php echo (isset($student['timetable_remark'])) ? $student['timetable_remark'] : ''; ?></textarea></td>
+					</tr>
+				</table>
+				<div class="button-div">
+					<input type="hidden" value="<?php echo $student['student_id']; ?>" name="student_id">
+					<input type="submit" class="button" value=" 确定 " name="submit">
+					<input type="reset" class="button" value=" 重置 " name="reset">
+				</div>
+				</form>
+			</div>
+		<?php 
+		}
+		
+		//分配老师
+		if($CI->admin_ac_timetable->assign_teacher_to_student())
+		{
+		?>
+			<div class="title margin_top" style="margin-bottom:10px">
+				<span>分配学员</span>
+			</div>
+			<table cellpadding="0" align="center" border="0" cellspacing="0">
 				<tr>
-					<td class="label" valign="top">学员：</td>
-					<td><?php echo $student['name'] ?></td>
-				</tr>
-				<tr>
-					<td class="label" valign="top"><span class="notice-star"> * </span>科目：</td>
-					<td>
-						<select name="subject_id">
-							<option value='0'>请选择...</option>
-							<?php
-								foreach($subjects as $subject)
-									echo '<option value="'.$subject['subject_id'].'">'.$subject['subject_name'].'</option>';
-							?>
+					<td class="black" width="30%" align="center" height="150">
+						<select id="fb_list" multiple="multiple" style="text-align:center;width:300px;height:150px;">
+						<?php
+						$student_teacher_ids = array_keys($student_teacher);
+						foreach($teachers as $val)
+						{
+							if(in_array($val['staff_id'], $student_teacher_ids))
+								continue;
+							
+							echo '<option value="'.$val['staff_id'].'">'.$val['name'].'</option>';
+						}
+						?>
+						</select>
+					</td>
+					<td align="center">
+						<input type="button" id="add" value="添加>>" /><br/>
+						<input type="button" id="delete" value="<<删除 " />
+					</td>
+					<td class="black" width="30%" align="center">
+						<select id="select_list" multiple="multiple" style=" text-align:center;width:300px;height:150px;">
+						<?php
+						foreach($student_teacher as $val)
+							echo '<option value="'.$val['staff_id'].'">'.$val['name'].'</option>';
+						?>
 						</select>
 					</td>
 				</tr>
-				<tr>
-					<td class="label" valign="top"><span class="notice-star"> * </span>上课老师：</td>
-					<td>
-						<select name="staff_id">
-							<option value='0'>请选择...</option>
-							<?php
-								foreach($teachers as $staff)
-									echo '<option value="'.$staff['staff_id'].'">'.$staff['name'].'</option>';
-							?>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td class="label" valign="top"><span class="notice-star"> * </span>上课时间: </td>
-					<td>
-						<select name="day">
-							<option value='1'>星期一</option>
-							<option value='2'>星期二</option>
-							<option value='3'>星期三</option>
-							<option value='4'>星期四</option>
-							<option value='5'>星期五</option>
-							<option value='6'>星期六</option>
-							<option value='7'>星期日</option>
-						</select>
-						时间：<?php echo show_hour_options('start_hour', '9') ?>： <?php echo show_mins_options('start_mins', '00') ?> 到 <?php echo show_hour_options('end_hour', '11') ?> ： <?php echo show_mins_options('end_mins', '00') ?>
-					</td>
-				</tr>	
 			</table>
-			<div class="button-div">
-				<input type="hidden" value="<?php echo $student['student_id']; ?>" name="student_id">
-				<input type="submit" class="button" value=" 确定 " name="submit">
-				<input type="reset" class="button" value=" 重置 " name="reset">
-			</div>
-			</form>
-		</div>
-		<div>
-			<div class="title margin_top">
-				<span>编辑备注</span>
-			</div>
-			<form action="<?php echo site_url('admin/student/update_timetable_remark')?>" method="post" id="form">
-			<table width="90%">
-				<tr>
-					<td class="label" valign="top">备注: </td>
-					<td><textarea name="timetable_remark" cols="50" rows="5"><?php echo (isset($student['timetable_remark'])) ? $student['timetable_remark'] : ''; ?></textarea></td>
-				</tr>
-			</table>
-			<div class="button-div">
-				<input type="hidden" value="<?php echo $student['student_id']; ?>" name="student_id">
-				<input type="submit" class="button" value=" 确定 " name="submit">
-				<input type="reset" class="button" value=" 重置 " name="reset">
-			</div>
-			</form>
-		</div>
-		<?php endif; ?>
+		<?php
+		}
+		?>
 	</div>
 </div>
+
+<div id="dialog-modal" title="Basic modal dialog" style="display:none"></div>
 
 <script type="text/javascript">
 	function show_operation(id)
@@ -273,4 +318,110 @@
 		
 		return false;
 	});
+	
+	
+	$(function(){
+		$("#add").click(function(){
+			$( "#dialog-modal" ).html('<img src="images/icon/wait.gif" alt="Loading..." />');
+			$( "#dialog-modal" ).dialog({
+				title: '请等待',
+				width: 500,
+				modal: true,
+				show: 'slide',
+				hide: 'fade',
+			});
+			$( "#dialog-modal" ).dialog("enable");
+			
+			if($("#fb_list option:selected").length>0)
+			{
+				var msg = '';
+				
+				$("#fb_list option:selected").each(function()
+				{
+					var result = true;
+					$.ajax({
+						async: false,
+						type: "POST",
+						url: site_url+"admin/ajax/update_student_teacher",
+						data: "student_id="+<?php echo $student['student_id']; ?>+"&staff_id="+$(this).val()+"&type="+<?php echo $student['student_teacher_type'] ?>+"&action=add",
+						success: function(data)
+						{
+							if(data != 'OK')
+								result = false;
+						}
+					});
+					
+					if(result)
+					{
+						$("#select_list").append("<option value='"+$(this).val()+"'>"+$(this).text()+"</option");
+						$(this).remove();
+					}
+					else
+						msg += $(this).text()+', ';
+					
+				})
+				
+				if(msg != '')
+					$( "#dialog-modal" ).html('<img src="images/icon/warning.gif" style="vertical-align:middle"> 部分老师没有更新成功：'+msg);
+				else
+					$( "#dialog-modal" ).html('<img src="images/icon/ok.gif" style="vertical-align:middle"> 更新成功');
+				
+			}
+			else
+			{
+				$( "#dialog-modal" ).html('<img src="images/icon/warning.gif" style="vertical-align:middle"> 请选择老师！');
+			}
+		})
+	})
+
+	$(function(){
+		$("#delete").click(function(){
+			$( "#dialog-modal" ).html('<img src="images/icon/wait.gif" alt="Loading..." />');
+			$( "#dialog-modal" ).dialog({
+				title: '处理中..',
+				width: 500,
+				modal: true,
+				show: 'slide',
+				hide: 'fade',
+			});
+			$( "#dialog-modal" ).dialog("enable");
+			
+			if($("#select_list option:selected").length>0)
+			{
+				var msg = '';
+				
+				$("#select_list option:selected").each(function()
+				{
+					var result = true;
+					$.ajax({
+						async: false,
+						type: "POST",
+						url: site_url+"admin/ajax/update_student_teacher",
+						data: "student_id="+<?php echo $student['student_id']; ?>+"&staff_id="+$(this).val()+"&type="+<?php echo $student['student_teacher_type'] ?>+"&action=del",
+						success: function(msg){
+							if(data != 'OK')
+								result = false;
+						}
+					});
+					
+					if(result)
+					{
+						$("#fb_list").append("<option value='"+$(this).val()+"'>"+$(this).text()+"</option");
+						$(this).remove();
+					}
+					else
+						msg += $(this).text()+', ';
+				})
+				
+				if(msg != '')
+					$( "#dialog-modal" ).html('<img src="images/icon/warning.gif" style="vertical-align:middle"> 部分老师没有更新成功：'+msg);
+				else
+					$( "#dialog-modal" ).html('<img src="images/icon/ok.gif" style="vertical-align:middle"> 更新成功');
+			}
+			else
+			{
+				$( "#dialog-modal" ).html('<img src="images/icon/warning.gif" style="vertical-align:middle"> 请选择老师！');
+			}
+		})
+	})
 </script>

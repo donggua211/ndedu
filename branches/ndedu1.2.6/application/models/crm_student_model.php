@@ -655,22 +655,61 @@ class CRM_Student_model extends Model {
 		}
 	}
 	
-	function get_student_teacher($student_id, $type)
+	function get_student_teacher($student_id, $type = '')
 	{
 		//student基本信息
-		$sql = "SELECT * FROM " . $this->db->dbprefix('crm_student_teacher') . "
-				WHERE student_id = '$student_id'
-				AND student_teacher_type = $type";
+		$sql = "SELECT staff.name, student_teacher.* FROM " . $this->db->dbprefix('crm_student_teacher') . " as student_teacher
+				LEFT JOIN " . $this->db->dbprefix('crm_staff') . " as staff ON student_teacher.staff_id = staff.staff_id ";
+		
+		if(is_array($student_id))
+			$sql .= " WHERE student_teacher.student_id IN ( ".implode(',', $student_id)." ) ";
+		else
+			$sql .= " WHERE student_teacher.student_id = '$student_id' ";
+		
+		if(!empty($type))
+			$sql .= " AND student_teacher.student_teacher_type = $type";
+		
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
-			return $query->result_array();
+			$result = array();
+			foreach($query->result_array() as $val)
+				$result[$val['staff_id']] = $val;
+			
+			return $result;
 		}
 		else
 		{
 			return false;
 		}
+	}
 	
+	function insert_student_teacher($student_id, $staff_id, $type)
+	{
+		$data['student_id'] = $student_id;
+		$data['staff_id'] = $staff_id;
+		$data['student_teacher_type'] = $type;
+		
+		$data['add_time'] = date('Y-m-d H:i:s');
+		
+		if($this->db->insert('crm_student_teacher', $data))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	function delete_student_teacher($student_id, $staff_id, $type)
+	{
+		$data['student_id'] = $student_id;
+		$data['staff_id'] = $staff_id;
+		$data['student_teacher_type'] = $type;
+		
+		$this->db->delete('crm_student_teacher', $data); 
+		return ($this->db->affected_rows() > 0 ) ? TRUE : FALSE;
 	}
 	
 	function _generate_vip_code()

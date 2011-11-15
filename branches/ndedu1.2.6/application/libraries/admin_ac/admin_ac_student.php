@@ -476,6 +476,14 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		return $this->_check_role($allowed_group_id);	
 	}
 	
+	//是否可看全部的短信记录。
+	function view_student_one_see_all_sms()
+	{
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
+		
+		return $this->_check_role($allowed_group_id);	
+	}
+	
 	//student one, 查看学员的 status 历史记录
 	function view_student_one_status_history()
 	{

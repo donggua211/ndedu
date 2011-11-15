@@ -1,4 +1,3 @@
-
 <div id="nav">
 	<span class="action-span"><a href="<?php echo site_url('admin') ?>"  target="_top">管理系统</a></span>
 	<span class="action-span"> » <a href="<?php echo site_url('admin/student') ?>" target="main-frame">学员管理</a></span>
@@ -206,13 +205,8 @@
 		<?php echo $page_nav; ?>
 	</div>
 </div>
-<style type="text/css">
-	#popup_wrap{
-		width:450px;
-		text-align:center;
-		padding:5px;
-	}
-</style>
+<div id="dialog-modal" title="Basic modal dialog" style="display:none"></div>
+
 <script type="text/javascript">
 	//ready function
 	$(document).ready(function(){
@@ -229,10 +223,14 @@
 
 	function show_history(student_id)
 	{
-		$("").wBox({
-			title: "最近联系历史",
-			html: '<div id="popup_wrap"><img src="images/icon/wait.gif" alt="Loading..." /></div>',
-		}).showBox();
+		$( "#dialog-modal" ).html('<img src="images/icon/wait.gif" alt="Loading..." />');
+		$( "#dialog-modal" ).dialog({
+			title: '联系历史',
+			width: 500,
+			modal: true,
+			show: 'slide',
+			hide: 'fade',
+		});
 		
 		$.post(site_url+"/admin/ajax/get_contact_history", { student_id: student_id},
 			function (data, textStatus){
@@ -252,7 +250,7 @@
 					
 					html_content += '</table>';
 				}
-				$("#popup_wrap").html(html_content);
+				$( "#dialog-modal" ).html(html_content);
 		}, "json");
 	}
 </script>

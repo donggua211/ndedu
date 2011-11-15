@@ -37,6 +37,14 @@ class Admin_Ac_Staff extends Admin_Ac_Base
 				$filter['branch_id'] = $this->branch_id;
 				$filter['group_id'] = array(GROUP_SUYANG);
 				break;
+			case GROUP_JIAOWU:
+				$filter['branch_id'] = $this->branch_id;
+				$filter['group_id'] = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+				break;
+			case GROUP_JIAOWU_D:
+				$filter['branch_id'] = $this->branch_id;
+				$filter['group_id'] = array(GROUP_JIAOWU, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+				break;
 			default:
 				show_error_page('您没有权限查看员工列表: 请重新登录或者联系管理员!', 'admin');
 				return false;
@@ -89,6 +97,22 @@ class Admin_Ac_Staff extends Admin_Ac_Base
 					return false;
 				}
 				break;
+			case GROUP_JIAOWU:
+				$allow_group = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+				if(!in_array($staff_info['group_id'], $allow_group))
+				{
+					show_error_page('您没有权限查看该员工: 他/她不是咨询老师!', 'admin/staff');
+					return false;
+				}
+				break; 
+			case GROUP_JIAOWU_D:
+				$allow_group = array(GROUP_JIAOWU, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+				if(!in_array($staff_info['group_id'], $allow_group))
+				{
+					show_error_page('您没有权限查看该员工: 他/她不是咨询老师!', 'admin/staff');
+					return false;
+				}
+				break; 
 			default:
 				show_error_page('您没有权限查看员工: 请重新登录或者联系管理员!', 'admin');
 				return false;
