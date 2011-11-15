@@ -58,7 +58,7 @@ class Admin_Ac_Timetable extends Admin_Ac_Base
 	//分配学生
 	function assign_teacher_to_student()
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_SUYANG_D, GROUP_TEACHER_D, GROUP_CONSULT_D);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_SUYANG_D, GROUP_TEACHER_D, GROUP_CONSULTANT_D);
 		
 		return $this->_check_role($allowed_group_id);	
 	

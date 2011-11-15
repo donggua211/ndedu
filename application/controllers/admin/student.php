@@ -231,17 +231,32 @@ class Student extends Controller {
 				//如果有添加权限的话，载入老师和课程。
 				if($this->admin_ac_timetable->add_timetable())
 				{
-					$data['main']['teachers'] = $this->_get_teachers();
+					$data['main']['teachers'] = $this->_get_teachers($student_id);
 					$data['main']['subjects'] = $this->_get_subjects();
 				}
 				
 				//如果有分配老师权限的话，载入对应老师
 				if($this->admin_ac_timetable->assign_teacher_to_student())
 				{
-					$data['main']['teachers'] = $this->_get_teachers();
-					$data['main']['student_teacher'] = $this->CRM_Student_model->get_student_teacher();
+					$data['main']['teachers'] = $this->_get_teachers($student_id);
 					
+					switch($this->staff_info['group_id'])
+					{
+						case GROUP_CONSULTANT_D:
+							$type = STUDENT_TEACHER_ZIXUN;
+							break;
+						case GROUP_SUYANG_D:
+							$type = STUDENT_TEACHER_SUYANG;
+							break;
+						case GROUP_TEACHER_D:
+							$type = STUDENT_TEACHER_XUEKE;
+							break;
+					}
+					
+					$data['main']['student_teacher'] = $this->CRM_Student_model->get_student_teacher($student_id, $type);
+					$student_extra_info['student_teacher_type'] = $type;
 				}
+				
 				$template = 'student_one_timetable';
 				break;
 			case 'basic':
@@ -259,18 +274,62 @@ class Student extends Controller {
 		$this->_load_view($template, $data);
 	}
 	
-	function _get_teachers()
+	function _get_teachers($student_id)
 	{
-		if($this->staff_info['group_id'] == GROUP_CONSULTANT_D)
-			$group = array(GROUP_CONSULTANT_D, GROUP_CONSULTANT);
-		elseif($this->staff_info['group_id'] == GROUP_SUYANG_D)
-			$group = array(GROUP_SUYANG_D, GROUP_SUYANG);
-		elseif($this->staff_info['group_id'] == GROUP_TEACHER_D)
-			$group = array(GROUP_TEACHER_D, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
-		else
-			$group = array(GROUP_CONSULTANT, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG, GROUP_TEACHER_D, GROUP_CONSULTANT_D, GROUP_SUYANG_D);
+		$group = array(GROUP_CONSULTANT, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG, GROUP_TEACHER_D, GROUP_CONSULTANT_D, GROUP_SUYANG_D);
 		
-		return $this->CRM_Staff_model->get_all_by_group($group);
+		switch($this->staff_info['group_id'])
+		{
+			case GROUP_CONSULTANT_D:
+				$group = array(GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+				break;
+			case GROUP_SUYANG_D:
+				$group = array(GROUP_SUYANG_D, GROUP_SUYANG);
+				break;
+			case GROUP_TEACHER_D:
+				$group = array(GROUP_TEACHER_D, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
+				break;
+			case GROUP_JIAOWU_D:
+				$group = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+				break;
+			case GROUP_JIAOWU:
+				$group = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+				$assign_teacher = $this->CRM_Student_model->get_student_teacher($student_id);
+				break;
+		}
+		
+		$filter['group_id'] = $group;
+		
+		if(isset($assign_teacher))
+		{
+			if(empty($assign_teacher))
+				$filter['available_staff'] = array();
+			else
+				$filter['available_staff'] = array_keys($assign_teacher);
+		}
+		
+		return $this->CRM_Staff_model->getAll($filter, 0,0, $order_by = 'username');
+	}
+	
+	function _get_student_teachers($student_id)
+	{
+		switch($this->staff_info['group_id'])
+		{
+			case GROUP_CONSULTANT_D:
+				$type = STUDENT_TEACHER_ZIXUN;
+				break;
+			case GROUP_SUYANG_D:
+				$type = STUDENT_TEACHER_SUYANG;
+				break;
+			case GROUP_TEACHER_D:
+				$type = STUDENT_TEACHER_XUEKE;
+				break;
+			default:
+				return array();
+				break;
+		}
+		
+		return $this->CRM_Student_model->get_student_teacher($student_id, $type);
 	}
 	
 	function _get_subjects()

@@ -8,6 +8,10 @@ class CRM_Staff_model extends Model {
 	
 	function getAll($filter, $offset = 0, $row_count = 0, $order_by = '', $order = 'ASC')
 	{
+		//可用的员工
+		if (isset($filter['available_staff']) && empty($filter['available_staff']))
+			return array();
+		
 		$where = '';
 		if(!isset($filter['is_active']))
 			$filter['is_active'] = 1;
@@ -64,6 +68,11 @@ class CRM_Staff_model extends Model {
         {
             $where .= " AND staff.name LIKE '%{$filter['name']}%' ";
         }
+		//可用的员工
+		if (isset($filter['available_staff']) && $filter['available_staff'])
+        {
+            $where .= " AND staff.staff_id IN ( ".implode(',', $filter['available_staff'])." )";
+        }
 		
 		//student基本信息
 		$sql = "SELECT staff.* FROM ".$this->db->dbprefix('crm_staff')." as staff ". $where;
@@ -79,7 +88,7 @@ class CRM_Staff_model extends Model {
         {
             $sql .= " ORDER BY $order_by $order";
         }
-				
+		
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
@@ -306,28 +315,12 @@ class CRM_Staff_model extends Model {
 		{
 			return array();
 		}
-	
 	}
 	
 	function get_all_by_group($group_id = 0)
 	{
 		$filter['group_id'] = $group_id;
 		return $this->getAll($filter, 0,0, $order_by = 'username');
-		
-		$sql = "SELECT staff_id, name FROM " . $this->db->dbprefix('crm_staff') . " as staff";
-		if($group_id > 0)
-			$sql .= " WHERE group_id = $group_id";
-		
-		$query = $this->db->query($sql);
-		
-		if ($query->num_rows() > 0)
-		{
-			return $query->result_array();
-		}
-		else
-		{
-			return array();
-		}
 	}
 	
 	function add($staff)

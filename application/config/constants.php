@@ -66,7 +66,7 @@ define('GROUP_TEACHER_D', 9);			//学科主管
 define('GROUP_CONSULTANT_D', 10);		//咨询主管
 define('GROUP_SUYANG_D', 11);			//素养主管
 define('GROUP_CS_D', 12);				//课程顾问主管
-define('GROUP_JIAOWU_D', 14);				//教务主管
+define('GROUP_JIAOWU_D', 14);			//教务主管
 
 /*region ID*/
 define('REGION_PROVINCE', 1);
@@ -156,7 +156,6 @@ define('HISTORY_TYPE_CONSULT', 1);
 define('HISTORY_TYPE_SUYANG', 2);
 define('HISTORY_TYPE_LEARNING', 3);
 
-
 //sms 历史
 define('SMS_HISTORY_PER_PAGE', 10);
 
@@ -168,5 +167,9 @@ define('SCHEDULE_HAS_CLASS', 2);
 //ticket
 define('TICKET_PER_PAGE', 50);
 
+//student teacher 对应关系
+define('STUDENT_TEACHER_XUEKE', 1);
+define('STUDENT_TEACHER_SUYANG', 2);
+define('STUDENT_TEACHER_ZIXUN', 3);
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */
