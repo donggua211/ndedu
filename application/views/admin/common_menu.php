@@ -18,6 +18,11 @@
 					?>
 					<li class="menu-item"><a href="<?php echo site_url("admin/timetable/index"); ?>" target="main-frame">我的课程表</a></li>
 					<?php endif; ?>
+					
+					<?php if($CI->admin_ac_entry->munu_show_all_timetable() ): ?>
+					<li class="menu-item"><a href="<?php echo site_url("admin/timetable/all"); ?>" target="main-frame">所有学员课程表</a></li>
+					<?php endif; ?>
+					
 				</ul>
 			</li>
 			<li class="explode" key="03_student" name="menu">

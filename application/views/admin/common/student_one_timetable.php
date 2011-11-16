@@ -93,10 +93,19 @@
 								
 								echo '	<a href="'.site_url('admin/timetable/edit/'.$student['time_table'][$j][$i]['timetable_id']).'"><img src="images/icon/edit.png" title="编辑"></a>';
 								
+								/*
 								if($student['time_table'][$j][$i]['is_suspend'] == 0)
 									echo '<a href="'.site_url('admin/timetable/suspend/'.$student['time_table'][$j][$i]['timetable_id']).'"><img src="images/icon/suspend.png" title="暂停课程" onclick="return confirm(\'确定要暂停课程?\');" ></a>';
 								else
 									echo '<a href="'.site_url('admin/timetable/unsuspend/'.$student['time_table'][$j][$i]['timetable_id']).'"><img src="images/icon/unsuspend.png" title="取消暂停" onclick="return confirm(\'确定要取消暂停?\');" ></a>';
+								*/
+								
+								if($student['time_table'][$j][$i]['is_suspend'] == 0)
+									echo '<a href="javascript:void(0);" onclick="suspend_course('.$student['time_table'][$j][$i]['timetable_id'].');"><img src="images/icon/suspend.png" title="暂停课程"></a>';
+								else
+									echo '<a href="javascript:void(0);" onclick="unsuspend_course('.$student['time_table'][$j][$i]['timetable_id'].');"><img src="images/icon/unsuspend.png" title="暂停课程"></a>';
+								
+								
 								
 								echo '<a href="'.site_url('admin/timetable/delete/'.$student['time_table'][$j][$i]['timetable_id']).'"><img src="images/icon/del.png" title="删除" onclick="return confirm(\'确定要删除?\');" ></a>
 									</div>';
@@ -211,6 +220,11 @@
 			</div>
 			<table cellpadding="0" align="center" border="0" cellspacing="0">
 				<tr>
+					<th align="center">未分配的老师</th>
+					<th></th>
+					<th align="center">已分配的老师</th>
+				</tr>
+				<tr>
 					<td class="black" width="30%" align="center" height="150">
 						<select id="fb_list" multiple="multiple" style="text-align:center;width:300px;height:150px;">
 						<?php
@@ -226,8 +240,8 @@
 						</select>
 					</td>
 					<td align="center">
-						<input type="button" id="add" value="添加>>" /><br/>
-						<input type="button" id="delete" value="<<删除 " />
+						<input type="button" id="add" value="分配老师-->" /><br/>
+						<input type="button" id="delete" value="<--取消分配老师 " />
 					</td>
 					<td class="black" width="30%" align="center">
 						<select id="select_list" multiple="multiple" style=" text-align:center;width:300px;height:150px;">
@@ -318,6 +332,63 @@
 		
 		return false;
 	});
+	
+	function check_days()
+	{
+		if($("input[name='days']").val() > 0)
+		{
+			return true;
+		}
+		else
+		{
+			$("#warning").html('<img src="images/icon/warning.gif" style="vertical-align:middle">请填写时间');
+			$("input[name='days']").focus();
+			return false;
+		}
+	}
+	
+	
+	function suspend_course(timetable_id)
+	{
+		$( "#dialog-modal" ).html('<div style="margin:10px"><form action="<?php echo site_url('admin/timetable/suspend/')?>" method="post" id="suspend_form" onSubmit="return check_days()">共暂停 <input type="text" name="days"> 天<input type="hidden" name="timetable_id" value="'+timetable_id+'"></form><div id="warning" style="margin:10px;color:red"></div></div>');
+		
+		$( "#dialog-modal" ).dialog({
+			title: '暂停课程',
+			width: 350,
+			modal: true,
+			show: 'slide',
+			hide: 'fade',
+			buttons: {
+				"确定": function() {
+					$( "#suspend_form" ).submit();
+				},
+				"取消": function() {
+					$( this ).dialog( "close" );
+				},
+			},
+		});
+	}
+	
+	function unsuspend_course(timetable_id)
+	{
+		$( "#dialog-modal" ).html('<div style="margin:10px">确定要取消暂停该课程？<form action="<?php echo site_url('admin/timetable/unsuspend/')?>" method="post" id="unsuspend_form"><input type="hidden" name="timetable_id" value="'+timetable_id+'"></form></div>');
+		
+		$( "#dialog-modal" ).dialog({
+			title: '取消暂停课程',
+			width: 350,
+			modal: true,
+			show: 'slide',
+			hide: 'fade',
+			buttons: {
+				"确定": function() {
+					$( "#unsuspend_form" ).submit();
+				},
+				"取消": function() {
+					$( this ).dialog( "close" );
+				},
+			},
+		});
+	}
 	
 	
 	$(function(){

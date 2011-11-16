@@ -73,6 +73,27 @@ class CRM_Timetable_model extends Model {
 		}
 	}
 	
+	function get_all_timetable()
+	{
+		$sql = "SELECT student.name, subject.subject_name, timetable.* FROM ".$this->db->dbprefix('crm_timetable')." as timetable
+				LEFT JOIN ".$this->db->dbprefix('crm_student')." as student ON student.student_id = timetable.student_id
+				LEFT JOIN ".$this->db->dbprefix('crm_subject')." as subject ON subject.subject_id = timetable.subject_id";
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			$result = array();
+			foreach( $query->result_array() as $val )
+			{
+				$result[$val['day']][] = $val;
+			}
+			return $result;
+		}
+		else
+		{
+			return array();
+		}
+	}
+	
 	function check_timetable($student_id, $staff_id)
 	{
 		$sql = "SELECT timetable.* FROM ".$this->db->dbprefix('crm_timetable')." as timetable
@@ -131,6 +152,75 @@ class CRM_Timetable_model extends Model {
 		if($this->db->update('crm_timetable', $data))
 		{
 			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	function add_timetable_suspend_log($new_log)
+	{
+		//必填项
+		$data['timetable_id'] = $new_log['timetable_id'];
+		$data['staff_id'] = $new_log['staff_id'];
+		$data['suspend_days'] = $new_log['days'];
+		$data['suspend_date'] = date('Y-m-d');
+		$data['unsuspend_date'] = '0000-00-00';
+		$data['add_time'] = date('Y-m-d H:i:s');
+		if($this->db->insert('crm_timetable_suspend_log', $data))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	function update_timetable_suspend_log($timetable_id)
+	{
+		//获取信息。
+		$sql = "SELECT * FROM ".$this->db->dbprefix('crm_timetable_suspend_log')."
+				WHERE timetable_id = $timetable_id
+				ORDER BY add_time DESC
+				LIMIT 1";
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			$suspend_log = $query->row_array();
+		}
+		else
+		{
+			return false;
+		}
+		
+		//更新记录
+		$data['unsuspend_date'] = date('Y-m-d');
+		$this->db->where('suspend_log_id', $suspend_log['suspend_log_id']);
+		if($this->db->update('crm_timetable_suspend_log', $data))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
+	function get_timetable_suspend_log($staff_id)
+	{
+		//获取信息。
+		$sql = "SELECT log_a.* FROM ".$this->db->dbprefix('crm_timetable_suspend_log')." as log_a, 
+				(SELECT MAX(suspend_log_id) as max_suspend_log_id FROM ".$this->db->dbprefix('crm_timetable_suspend_log')." WHERE staff_id = $staff_id GROUP BY timetable_id ) as log_b
+				WHERE log_a.suspend_log_id = log_b.max_suspend_log_id
+				GROUP BY log_a.timetable_id";
+		
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			return $query->result_array();
 		}
 		else
 		{

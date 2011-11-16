@@ -62,7 +62,7 @@
 						?>
 						<table cellspacing='1' id="list-table">
 							<tr>
-								<th colspan="3"><?php echo $callback_history_text; ?></th>
+								<th colspan="4"><?php echo $callback_history_text; ?></th>
 							</tr>
 						<?php
 						if(!empty($student['history_'.$callback_history_type]))
@@ -77,6 +77,7 @@
 										<th>'.$callback_history_text.'</th>
 										<th>添加时间</th>
 										<th>添加员工</th>
+										<th>操作</th>
 									</tr>';
 								}
 							?>
@@ -88,13 +89,14 @@
 									</td>
 									<td align="center"><?php echo $one_history['add_time'] ?></td>
 									<td align="center"><?php echo $one_history['name'] ?></td>
+									<td></td>
 									</td>
 								</tr>
 							<?php
 								$show_history_title = false;
 								if(isset($one_history['callback_history']))
 								{
-									echo '<tr><th>回访历史</th><th></th><th></th></tr>';
+									echo '<tr><th>回访历史</th><th></th><th></th><th></th></tr>';
 									
 									foreach($one_history['callback_history'] as $one_callback_history)
 									{
@@ -103,6 +105,16 @@
 											<td>'.nl2br($one_callback_history['history_callback']).'</td>
 											<td align="center">'.$one_callback_history['add_time'].'</td>
 											<td align="center">'.$one_callback_history['name'].'</td>
+											<td align="center">';
+											
+										if($one_callback_history['staff_id'] == $student['this_staff_id'])
+										{
+												echo '<a href="'.site_url('admin/history/edit/'.$history_type.'/'.$one_callback_history['history_'.$history_type.'_id']).'">编辑</a>
+												<a onclick="return confirm(\'确定要删除?\');" href="'.site_url('admin/history/delete/'.$history_type.'/'.$one_callback_history['history_'.$history_type.'_id']).'">删除</a>';
+										}
+										
+										echo '
+											</td>
 										</tr>';
 									}
 									
@@ -112,7 +124,7 @@
 							?>
 							<form action="<?php echo site_url('admin/student/history_add')?>" method="post" enctype="multipart/form-data">
 							<tr>
-								<td colspan="3">
+								<td colspan="4">
 									<b>添加回访记录：</b><br/><textarea name="history" cols="100" rows="5"><?php echo (isset($student['history']) ? $student['history'] : '')?></textarea><br/>
 									<span style="color:red">教学目标、教学氛围、老师评价、家长期望（尽可能用陈述性语句记录，避免个人情绪）</span>
 									<input type="hidden" name="callback_history_type" value="<?php echo $callback_history_type; ?>">
@@ -123,7 +135,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td colspan="3" align="center">
+								<td colspan="4" align="center">
 									<input type="submit" class="button" value="添加" name="submit">
 								</td>
 							</tr>
