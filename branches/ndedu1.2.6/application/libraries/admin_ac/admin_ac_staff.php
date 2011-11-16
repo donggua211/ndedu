@@ -23,8 +23,10 @@ class Admin_Ac_Staff extends Admin_Ac_Base
 			case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区员工的权限
 				$filter['branch_id'] = $this->branch_id;
 				break;
-			case GROUP_CS:
 			case GROUP_CS_D:
+				$filter['branch_id'] = $this->branch_id;
+				$filter['group_id'] = array(GROUP_CS);
+				break;
 			case GROUP_TEACHER_D:
 				$filter['branch_id'] = $this->branch_id;
 				$filter['group_id'] = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
@@ -66,11 +68,15 @@ class Admin_Ac_Staff extends Admin_Ac_Base
 					show_error_page('您没有权限查看该员工: 他/她不在您所在的校区!', 'admin/staff');
 					return false;
 				}
-				else
-					return true;
 				break;
-			case GROUP_CS:
 			case GROUP_CS_D:
+				$allow_group = array(GROUP_CS);
+				if(!in_array($staff_info['group_id'], $allow_group))
+				{
+					show_error_page('您没有权限查看该员工: 他/她不是课程顾问老师!', 'admin/staff');
+					return false;
+				}
+				break;
 			case GROUP_TEACHER_D:
 				$allow_group = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
 				if(!in_array($staff_info['group_id'], $allow_group))
@@ -78,8 +84,6 @@ class Admin_Ac_Staff extends Admin_Ac_Base
 					show_error_page('您没有权限查看该员工: 他/她不是学科老师!', 'admin/staff');
 					return false;
 				}
-				else
-					return true;
 				break;
 			case GROUP_CONSULTANT_D:
 				$allow_group = array(GROUP_CONSULTANT);
@@ -117,6 +121,8 @@ class Admin_Ac_Staff extends Admin_Ac_Base
 				show_error_page('您没有权限查看员工: 请重新登录或者联系管理员!', 'admin');
 				return false;
 		}
+		
+		return true;
 	}
 	
 	function staff_add_ac()

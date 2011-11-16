@@ -111,6 +111,30 @@ class Ajax extends Controller {
 		echo $count;
 	}
 	
+	/*
+	 * 根据staff_id，检查是否有暂停课程要到期了。
+	*/
+	function timetable_unsuspend_warn()
+	{
+		$staff_id = $this->input->Post('staff_id');
+		
+		//获取该老师暂停的课程表
+		$timetables = $this->CRM_Timetable_model->get_timetable_suspend_log($staff_id);
+		
+		$count = 0;
+		foreach($timetables as $val)
+		{
+			if($val['unsuspend_date'] != '0000-00-00')
+				continue;
+			
+			list($y, $m, $d) = explode('-', $val['suspend_date']);
+			$should_unsuspend_t = mktime(0, 0, 0, $m, $d, $y) + 60 * 60 * 24 * $val['suspend_days'];
+			if(date('Y-m-d', $should_unsuspend_t) == date('Y-m-d'))
+				$count++;
+		}
+		echo $count;
+	}
+	
 	function get_contracts()
 	{
 		$student_id = $this->input->Post('student_id');
