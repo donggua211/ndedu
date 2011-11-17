@@ -56,7 +56,26 @@ class Timetable extends Controller {
 			show_access_deny_page();
 		}
 		
-		$data['main']['time_table'] = $this->CRM_Timetable_model->get_all_timetable();
+		$time_table = $this->CRM_Timetable_model->get_all_timetable();
+		
+		$all_time_table = array();
+		foreach($time_table as $day => $t_t)
+		{
+			foreach($t_t as $one)
+			{
+				//上午
+				if('00:00:00' <= $one['start_time'] && $one['start_time'] < '12:00:00')
+					$all_time_table[1][$day][] = $one;
+				//中午
+				elseif('12:00:00' <= $one['start_time'] && $one['start_time'] < '18:00:00')
+					$all_time_table[2][$day][] = $one;
+				//晚上
+				else
+					$all_time_table[3][$day][] = $one;
+			}
+		}
+		
+		$data['main']['all_time_table'] = $all_time_table;
 		
 		$data['header']['meta_title'] = '所有学员的课程表 - 日程管理';
 		
