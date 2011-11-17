@@ -17,14 +17,14 @@
 		<div id="listDiv" class="list-div">
 			<table cellspacing='1' id="list-table">
 				<tr>
-					<th width="14%"></th>
-					<th width="14%">星期一</th>
-					<th width="14%">星期二</th>
-					<th width="14%">星期三</th>
-					<th width="14%">星期四</th>
-					<th width="14%">星期五</th>
-					<th width="14%">星期六</th>
-					<th width="14%">星期日</th>
+					<th width="9%"></th>
+					<th width="13%">星期一</th>
+					<th width="13%">星期二</th>
+					<th width="13%">星期三</th>
+					<th width="13%">星期四</th>
+					<th width="13%">星期五</th>
+					<th width="13%">星期六</th>
+					<th width="13%">星期日</th>
 				</tr>
 				
 				<?php
@@ -35,33 +35,54 @@
 					}
 					return ($a['start_time'] < $b['start_time']) ? -1 : 1;
 				}
-				
-				//计算出最长的day
-				$max = 0;
-				foreach($time_table as $key => $val)
+					
+				ksort($all_time_table);
+				foreach($all_time_table as $time_q => $time_table)
 				{
-					usort($time_table[$key], "cmp");
-					if(count($val) > $max)
-						$max = count($val);
-				}
-				
-				for($i = 0; $i < $max; $i++)
-				{
-					echo '<tr>';
-					for($j = 1; $j <= 8; $j++)
+					
+					//计算出最长的day
+					$max = 0;
+					foreach($time_table as $key => $val)
 					{
-						echo '<td>';
-						if(isset($time_table[$j][$i]))
-						{
-							echo '<div class="' . (($time_table[$j][$i]['is_suspend'] == 0) ? 'timetable' : 'timetable_suspend') . '">';
-							echo '<span class="subject">' . substr($time_table[$j][$i]['start_time'], 0, -3) . ' 至 ' . substr($time_table[$j][$i]['end_time'], 0, -3).'<br/>';
-							echo '<span class="subject">' . $time_table[$j][$i]['subject_name'] . '</span><br/>';
-							echo '<span class="name">' . $time_table[$j][$i]['name'] . '</span>';
-							echo '</div>';
-						}
-						echo '</td>';
+						usort($time_table[$key], "cmp");
+						if(count($val) > $max)
+							$max = count($val);
 					}
-					echo '</tr>';
+					
+					echo '<tr><th rowspan="'.($max+1).'">';
+					switch($time_q)
+					{
+						case 1:
+							echo '上午';
+							break;
+						case 2:
+							echo '下午';
+							break;
+						case 3:
+							echo '晚上';
+							break;
+					}
+					echo '</th></tr>';
+					
+					
+					for($i = 0; $i < $max; $i++)
+					{
+						echo '<tr>';
+						for($j = 1; $j <= 8; $j++)
+						{
+							echo '<td>';
+							if(isset($time_table[$j][$i]))
+							{
+								echo '<div class="' . (($time_table[$j][$i]['is_suspend'] == 0) ? 'timetable' : 'timetable_suspend') . '">';
+								echo '<span class="subject">' . substr($time_table[$j][$i]['start_time'], 0, -3) . ' 至 ' . substr($time_table[$j][$i]['end_time'], 0, -3).'<br/>';
+								echo '<span class="subject">' . $time_table[$j][$i]['subject_name'] . '</span><br/>';
+								echo '<span class="name">' . $time_table[$j][$i]['name'] . '</span>';
+								echo '</div>';
+							}
+							echo '</td>';
+						}
+						echo '</tr>';
+					}
 				}
 				?>
 			</table>
