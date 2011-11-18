@@ -392,6 +392,7 @@ class Student extends Controller {
 			$edit_student['consultant_id'] = $this->input->post('consultant_id');
 			$edit_student['suyang_id'] = $this->input->post('suyang_id');
 			$edit_student['jiaowu_id'] = $this->input->post('jiaowu_id');
+			$edit_student['cservice_id'] = $this->input->post('cservice_id');
 			$edit_student['name'] = $this->input->post('name');
 			$edit_student['gender'] = $this->input->post('gender');
 			$edit_student['dob'] = $this->input->post('dob');
@@ -945,6 +946,7 @@ class Student extends Controller {
 		$data['main']['supervisors'] = $this->CRM_Staff_model->get_all_by_group(GROUP_SUPERVISOR);
 		$data['main']['suyangs'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_SUYANG_D, GROUP_SUYANG));
 		$data['main']['jiaowus'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_JIAOWU_D, GROUP_JIAOWU));
+		$data['main']['cservices'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_CS_D, GROUP_CS));
 		$data['main']['notification'] = $notify;
 		$data['main']['student'] = $student;
 		$this->_load_view('student_edit', $data);
