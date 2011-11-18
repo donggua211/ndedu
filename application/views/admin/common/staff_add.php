@@ -103,12 +103,6 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="label" valign="top"><span class="notice-star"> * </span>试用期: </td>
-				<td>
-					<input type="checkbox" name="trial" value="1"> 选择说明员工还在试用期。
-				</td>
-			</tr>
-			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>电话: </td>
 				<td>
 					<input name="phone" type="text" value="<?php echo (isset($staff['phone'])) ? $staff['phone'] :''; ?>" size="40" />

@@ -121,26 +121,30 @@
 									$show_history_title = true;
 								}
 							}
+							
+							if($CI->admin_ac_student->history_ac($history_type, $student['status']) >= HISTORY_WR )//可读写
+							{
 							?>
-							<form action="<?php echo site_url('admin/student/history_add')?>" method="post" enctype="multipart/form-data">
-							<tr>
-								<td colspan="4">
-									<b>添加回访记录：</b><br/><textarea name="history" cols="100" rows="5"><?php echo (isset($student['history']) ? $student['history'] : '')?></textarea><br/>
-									<span style="color:red">教学目标、教学氛围、老师评价、家长期望（尽可能用陈述性语句记录，避免个人情绪）</span>
-									<input type="hidden" name="callback_history_type" value="<?php echo $callback_history_type; ?>">
-									<input type="hidden" name="callback_history_id" value="<?php echo $one_history['history_'.$callback_history_type.'_id']; ?>">
-									<input type="hidden" name="student_id" value="<?php echo $student['student_id']; ?>">
-									<input type="hidden" name="history_type" value="callback">
-									<input type="hidden" name="add_calendar" value="0">
-								</td>
-							</tr>
-							<tr>
-								<td colspan="4" align="center">
-									<input type="submit" class="button" value="添加" name="submit">
-								</td>
-							</tr>
-							</form>
+								<form action="<?php echo site_url('admin/student/history_add')?>" method="post" enctype="multipart/form-data">
+								<tr>
+									<td colspan="4">
+										<b>添加回访记录：</b><br/><textarea name="history" cols="100" rows="5"><?php echo (isset($student['history']) ? $student['history'] : '')?></textarea><br/>
+										<span style="color:red">教学目标、教学氛围、老师评价、家长期望（尽可能用陈述性语句记录，避免个人情绪）</span>
+										<input type="hidden" name="callback_history_type" value="<?php echo $callback_history_type; ?>">
+										<input type="hidden" name="callback_history_id" value="<?php echo $one_history['history_'.$callback_history_type.'_id']; ?>">
+										<input type="hidden" name="student_id" value="<?php echo $student['student_id']; ?>">
+										<input type="hidden" name="history_type" value="callback">
+										<input type="hidden" name="add_calendar" value="0">
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4" align="center">
+										<input type="submit" class="button" value="添加" name="submit">
+									</td>
+								</tr>
+								</form>
 						<?php
+							}
 						}
 						else
 						{

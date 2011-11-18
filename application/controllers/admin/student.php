@@ -242,19 +242,23 @@ class Student extends Controller {
 					
 					switch($this->staff_info['group_id'])
 					{
+						case GROUP_ADMIN:
+						case GROUP_SCHOOLADMIN:
+							$student_teacher_type = '';
+							break;
 						case GROUP_CONSULTANT_D:
-							$type = STUDENT_TEACHER_ZIXUN;
+							$student_teacher_type = STUDENT_TEACHER_ZIXUN;
 							break;
 						case GROUP_SUYANG_D:
-							$type = STUDENT_TEACHER_SUYANG;
+							$student_teacher_type = STUDENT_TEACHER_SUYANG;
 							break;
 						case GROUP_TEACHER_D:
-							$type = STUDENT_TEACHER_XUEKE;
+							$student_teacher_type = STUDENT_TEACHER_XUEKE;
 							break;
 					}
 					
-					$data['main']['student_teacher'] = $this->CRM_Student_model->get_student_teacher($student_id, $type);
-					$student_extra_info['student_teacher_type'] = $type;
+					$data['main']['student_teacher'] = $this->CRM_Student_model->get_student_teacher($student_id, $student_teacher_type);
+					$student_extra_info['student_teacher_type'] = $student_teacher_type;
 				}
 				
 				$template = 'student_one_timetable';
@@ -309,27 +313,6 @@ class Student extends Controller {
 		}
 		
 		return $this->CRM_Staff_model->getAll($filter, 0,0, $order_by = 'username');
-	}
-	
-	function _get_student_teachers($student_id)
-	{
-		switch($this->staff_info['group_id'])
-		{
-			case GROUP_CONSULTANT_D:
-				$type = STUDENT_TEACHER_ZIXUN;
-				break;
-			case GROUP_SUYANG_D:
-				$type = STUDENT_TEACHER_SUYANG;
-				break;
-			case GROUP_TEACHER_D:
-				$type = STUDENT_TEACHER_XUEKE;
-				break;
-			default:
-				return array();
-				break;
-		}
-		
-		return $this->CRM_Student_model->get_student_teacher($student_id, $type);
 	}
 	
 	function _get_subjects()
