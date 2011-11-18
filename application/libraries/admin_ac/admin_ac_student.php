@@ -460,12 +460,32 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		return false;
 	}
 	
+	//student edit, 编辑课程顾问
+	function view_student_edit_cs($student_status)
+	{
+		if($this->group_id == GROUP_ADMIN || $this->group_id == GROUP_SCHOOLADMIN)
+				return true;
+		
+		if($this->group_id == GROUP_CS_D)
+			return true;
+	
+		return false;
+	}
+	
 	//student one, 显示 合同信息 tab
 	function view_student_one_contract()
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_CS_D);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
 		
 		return $this->_check_role($allowed_group_id);	
+	}
+	
+	//student one, 显示 课程表 tab
+	function view_student_one_timetable()
+	{
+		$not_allowed_group_id = array(GROUP_CS, GROUP_CS_D);
+		
+		return !$this->_check_role($not_allowed_group_id);	
 	}
 	
 	//student one, 显示 短信记录 tab

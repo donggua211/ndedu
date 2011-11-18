@@ -159,7 +159,7 @@
 					<?php if($CI->admin_ac_student->view_student_all_teaches()): ?>
 					<td>
 					<?php
-						echo '客服老师：'.( empty($student['cs_name']) ? '无' : $student['cs_name'] ).'<br/>';
+						echo '课程顾问：'.( empty($student['cs_name']) ? '无' : $student['cs_name'] ).'<br/>';
 						echo '咨询老师：'.( empty($student['consultant_name']) ? '无' : $student['consultant_name'] ).'<br/>';
 						echo '素养老师：'.( empty($student['suyang_name']) ? '无' : $student['suyang_name'] ).'<br/>';
 					?>

@@ -174,7 +174,6 @@ class CRM_Student_model extends Model {
 			$student['supervisor'] = array();
 		}
 		
-		
 		//获取student对应的素养老师
 		if(!empty($student['suyang_id']))
 		{
@@ -193,6 +192,26 @@ class CRM_Student_model extends Model {
 		else
 		{
 			$student['suyang'] = array();
+		}
+		
+		//获取student对应的课程顾问
+		if(!empty($student['cservice_id']))
+		{
+			$sql = "SELECT staff_id, name FROM " . $this->db->dbprefix('crm_staff') . " as staff
+				WHERE staff_id = ".$student['cservice_id'];
+			$query = $this->db->query($sql);
+			if ($query->num_rows() > 0)
+			{
+				$student['cservice'] = $query->row_array();
+			}
+			else
+			{
+				$student['cservice'] = array();
+			}
+		}
+		else
+		{
+			$student['cservice'] = array();
 		}
 		return $student;
 	}
