@@ -57,23 +57,10 @@
 					<th>姓名</th>
 					<th>电话</th>
 					<th>籍贯/住址</th>
-					<th>已上课时</th>
 					<th>备注</th>
 					<th>操作</th>
 				</tr>
-				<script type="text/javascript">
-					var trial_staffs = new Array();
-				</script>
-				<?php $counter = 0;foreach($staffs as $staff): ?>
-				
-				<script type="text/javascript">
-				<?php
-					if($staff['in_trial'] == 1)
-						echo 'trial_staffs['.$counter.'] = "'.$staff['staff_id'].'";';
-					$counter ++;
-				?>
-				</script>
-				
+				<?php foreach($staffs as $staff): ?>
 				<tr>
 					<?php 
 						$mobile = $staff['phone'];
@@ -85,13 +72,6 @@
 					<td class="first-cell" align="center"><a href="<?php echo site_url('admin/staff/one/'.$staff['staff_id']) ?>"><?php echo $staff['name'] ?></a></td>
 					<td><?php echo $staff['phone'] ?></td>
 					<td><?php echo $staff['address'] ?></td>
-					<td>
-						<?php if( $staff['in_trial'] == 1 ):?>
-							<span id="h_<?php echo $staff['staff_id'] ?>"></span>
-						<?php else: ?>
-							--
-						<?php endif; ?>
-					</td>
 					<td><span title="<?php echo $staff['remark'] ?>"><?php echo utf_substr($staff['remark'], 45); ?></span></td>
 					<td align="center"  id="option_<?php echo $staff['staff_id']; ?>">
 					<?php if(is_admin() || is_school_admin()): ?>

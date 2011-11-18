@@ -20,11 +20,6 @@ class CRM_Staff_model extends Model {
 			$filter['is_delete'] = 0;
         $where .= " AND staff.is_delete = {$filter['is_delete']} ";//是否删除
 		
-		//是否在试用期
-        if (isset($filter['in_trial']))
-        {
-            $where .= " AND staff.in_trial = {$filter['in_trial']} ";
-        }
 		//添加的时间段: 开始时间
         if (isset($filter['start_time']) && $filter['start_time'])
         {
@@ -111,11 +106,6 @@ class CRM_Staff_model extends Model {
 		$where .= " WHERE staff.is_active = {$filter['is_active']} ";//是否注销
         $where .= " AND staff.is_delete = {$filter['is_delete']} ";//是否删除
 		
-		//是否在试用期
-        if (isset($filter['in_trial']))
-        {
-            $where .= " AND staff.in_trial = {$filter['in_trial']} ";
-        }
 		//添加的时间段: 开始时间
         if (isset($filter['start_time']) && $filter['start_time'])
         {

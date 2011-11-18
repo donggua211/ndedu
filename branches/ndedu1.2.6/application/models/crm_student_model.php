@@ -37,7 +37,9 @@ class CRM_Student_model extends Model {
 		$data['email'] = $student['email'];
 		$data['address'] = $student['address'];
 		$data['remark'] = $student['remark'];
+		
 		//×´Ì¬×Ö¶Î
+		$data['timetable_remark'] = '';
 		$data['supervisor_id'] = 0;
 		$data['mark_star'] = 0;
 		$data['suyang_id'] = 0;
@@ -667,7 +669,7 @@ class CRM_Student_model extends Model {
 			$sql .= " WHERE student_teacher.student_id = '$student_id' ";
 		
 		if(!empty($type))
-			$sql .= " AND student_teacher.student_teacher_type = $type";
+			$sql .= " AND student_teacher.student_teacher_type = '$type'";
 		
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)

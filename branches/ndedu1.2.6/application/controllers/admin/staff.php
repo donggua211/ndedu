@@ -197,11 +197,6 @@ class Staff extends Controller {
 		$this->index('page=1&is_delete=1');
 	}
 	
-	function trial_staff()
-	{
-		$this->index('page=1&is_active=1&is_delete=0&in_trial=1');
-	}
-	
 	/*
 	Delete from ndedu1.2.3. 新的绩效系统： admin/pms
 	function performance($filter_string = '')
@@ -358,7 +353,7 @@ class Staff extends Controller {
 			$new_staff['dob'] = $this->input->post('dob');
 			$new_staff['gender'] = $this->input->post('gender');
 			$new_staff['level'] = $this->input->post('level');
-			$new_staff['in_trial'] = $this->input->post('trial') ?  1 : 0;
+			$new_staff['in_trial'] = 1;
 			
 			if(empty($new_staff['username']) || empty($new_staff['password']) || empty($new_staff['password_c']) || empty($new_staff['name']) || empty($new_staff['phone']) || empty($new_staff['qq']) || empty($new_staff['email']) || empty($new_staff['group_id']) || empty($new_staff['branch_id']) || empty($new_staff['grade_id']) || empty($new_staff['dob']) || empty($new_staff['gender']) || empty($new_staff['level']))
 			{
