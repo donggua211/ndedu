@@ -12,79 +12,121 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		parent::Admin_Ac_Base($params);
 		
 		$this->group_student_status = array(
-			GROUP_ADMIN => array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_SIGNUP, STUDENT_STATUS_LEARNING, STUDENT_STATUS_FINISHED, STUDENT_STATUS_INACTIVE),			//管理员
-			GROUP_SCHOOLADMIN => array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_SIGNUP, STUDENT_STATUS_LEARNING, STUDENT_STATUS_FINISHED, STUDENT_STATUS_INACTIVE),		//校区管理员
-			GROUP_CS => array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_SIGNUP, STUDENT_STATUS_LEARNING, STUDENT_STATUS_FINISHED),			//客服老师
-			GROUP_CS_D => array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_SIGNUP, STUDENT_STATUS_LEARNING, STUDENT_STATUS_FINISHED),			//客服老师
-			GROUP_CONSULTANT => array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_LEARNING),	//咨询师
-			GROUP_CONSULTANT_D => array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_LEARNING),	//咨询主管
-			GROUP_SUPERVISOR => array(),		//班主任
-			GROUP_TEACHER_PARTTIME => array(STUDENT_STATUS_LEARNING),	//学科老师（兼职）
-			GROUP_TEACHER_FULL => array(STUDENT_STATUS_LEARNING),		//学科老师（全职）
-			GROUP_SUYANG => array(STUDENT_STATUS_LEARNING),		//素养课老师
-			GROUP_TEACHER_D => array(STUDENT_STATUS_LEARNING),	//学科主管
-			GROUP_SUYANG_D => array(STUDENT_STATUS_LEARNING),	//素养课主管
+			//管理员
+			GROUP_ADMIN => array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_SIGNUP, STUDENT_STATUS_LEARNING, STUDENT_STATUS_FINISHED, STUDENT_STATUS_INACTIVE),	
+			//校区管理员
+			GROUP_SCHOOLADMIN => array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_SIGNUP, STUDENT_STATUS_LEARNING, STUDENT_STATUS_FINISHED, STUDENT_STATUS_INACTIVE),
+			//客服老师
+			GROUP_CS => array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_SIGNUP, STUDENT_STATUS_FINISHED),
+			//客服主管
+			GROUP_CS_D => array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_SIGNUP, STUDENT_STATUS_FINISHED),
+			//咨询师
+			GROUP_CONSULTANT => array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_LEARNING),	
+			//咨询主管
+			GROUP_CONSULTANT_D => array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_SIGNUP, STUDENT_STATUS_LEARNING),
+			//素养课老师
+			GROUP_SUYANG => array(STUDENT_STATUS_LEARNING),
+			//素养课主管
+			GROUP_SUYANG_D => array(STUDENT_STATUS_SIGNUP, STUDENT_STATUS_LEARNING),
+			//教务老师
+			GROUP_JIAOWU => array(STUDENT_STATUS_SIGNUP, STUDENT_STATUS_LEARNING, STUDENT_STATUS_FINISHED),
+			//教务主管
+			GROUP_JIAOWU_D => array(STUDENT_STATUS_SIGNUP, STUDENT_STATUS_LEARNING, STUDENT_STATUS_FINISHED),
+			//学科主管			
+			GROUP_TEACHER_D => array(STUDENT_STATUS_SIGNUP, STUDENT_STATUS_LEARNING),
+			//学科老师（兼职）
+			GROUP_TEACHER_PARTTIME => array(STUDENT_STATUS_LEARNING),
+			//学科老师（全职）
+			GROUP_TEACHER_FULL => array(STUDENT_STATUS_LEARNING),
+			//班主任
+			GROUP_SUPERVISOR => array(),
 		);
 				
 		/*
 		 * 不可读写： 0
-		 * 可读，不可写： HISTORY_R
+		 * 可读, 不可写： HISTORY_R
 		 * 可读写： HISTORY_WR
 		 */
 		$this->history_group_status = array(
 			//联系历史
 			'contact' => array(
-				STUDENT_STATUS_NOT_APPOINTMENT => array( GROUP_CS => HISTORY_WR, GROUP_CS_D => HISTORY_WR, GROUP_CONSULTANT => HISTORY_WR, GROUP_CONSULTANT_D => HISTORY_WR ),		//未约访
-				STUDENT_STATUS_HAS_APPOINTMENT => array( GROUP_CS => HISTORY_WR, GROUP_CS_D => HISTORY_WR, GROUP_CONSULTANT => HISTORY_WR, GROUP_CONSULTANT_D => HISTORY_WR ),		//已约访
-				STUDENT_STATUS_SIGNUP => array( GROUP_CS => HISTORY_WR, GROUP_CS_D => HISTORY_WR ),		//已报名
-				STUDENT_STATUS_LEARNING => array( GROUP_CS => HISTORY_WR, GROUP_CS_D => HISTORY_WR ),		//正在学
-				STUDENT_STATUS_FINISHED => array( GROUP_CS => HISTORY_WR, GROUP_CS_D => HISTORY_WR ),		//已学完
-			),
-			//学习历史
-			'learning' => array(
-				STUDENT_STATUS_LEARNING => array(
-					GROUP_TEACHER_D => HISTORY_WR,
-					GROUP_CS => HISTORY_R,
-					GROUP_CS_D => HISTORY_R,
-					GROUP_CONSULTANT => HISTORY_R,
-					GROUP_SUYANG => HISTORY_R,
-					GROUP_CONSULTANT_D => HISTORY_R,
-					GROUP_SUYANG_D => HISTORY_R,
-					GROUP_TEACHER_PARTTIME => HISTORY_WR,
-					GROUP_TEACHER_FULL => HISTORY_WR,
-				),		//正在学
-				STUDENT_STATUS_FINISHED => array( GROUP_CS => HISTORY_R, GROUP_CS_D => HISTORY_R ),		//已学完
-			),
-			//咨询历史
-			'consult' => array(
-				STUDENT_STATUS_LEARNING => array(
+				'status' => array(
+					STUDENT_STATUS_NOT_APPOINTMENT,
+					STUDENT_STATUS_HAS_APPOINTMENT,
+					STUDENT_STATUS_SIGNUP,
+					STUDENT_STATUS_LEARNING,
+					STUDENT_STATUS_FINISHED,
+				),
+				'group' => array(
 					GROUP_CONSULTANT => HISTORY_WR,
 					GROUP_CONSULTANT_D => HISTORY_WR,
-					GROUP_TEACHER_D => HISTORY_R,
-					GROUP_CS => HISTORY_R,
-					GROUP_CS_D => HISTORY_R,
-					GROUP_SUYANG => HISTORY_R,
-					GROUP_SUYANG_D => HISTORY_R,
-				),		//正在学
-				STUDENT_STATUS_FINISHED => array( GROUP_CS => HISTORY_R, GROUP_CS_D => HISTORY_R ),		//已学完
+					GROUP_CS => HISTORY_WR,
+					GROUP_CS_D => HISTORY_WR,
+				),
 			),
-			//素养历史
-			'suyang' => array(
-				STUDENT_STATUS_LEARNING => array(
-					GROUP_SUYANG => HISTORY_WR,
-					GROUP_SUYANG_D => HISTORY_WR,
-					GROUP_CS => HISTORY_R,
-					GROUP_CS_D => HISTORY_R,
+			
+			//学习历史
+			'learning' => array(
+				'status' => array(
+					STUDENT_STATUS_LEARNING,
+					STUDENT_STATUS_FINISHED,
+				),
+				'group' => array(
+					GROUP_TEACHER_PARTTIME => HISTORY_WR,
+					GROUP_TEACHER_FULL => HISTORY_WR,
+					GROUP_TEACHER_D => HISTORY_WR,
 					GROUP_CONSULTANT => HISTORY_R,
 					GROUP_CONSULTANT_D => HISTORY_R,
+					GROUP_SUYANG => HISTORY_R,
+					GROUP_SUYANG_D => HISTORY_R,
+				),
+			),
+			
+			//咨询历史
+			'consult' => array(
+				'status' => array(
+					STUDENT_STATUS_LEARNING,
+					STUDENT_STATUS_FINISHED,
+				),
+				'group' => array(
+					GROUP_CONSULTANT => HISTORY_WR,
+					GROUP_CONSULTANT_D => HISTORY_WR,
+					GROUP_TEACHER_PARTTIME => HISTORY_R,
+					GROUP_TEACHER_FULL => HISTORY_R,
 					GROUP_TEACHER_D => HISTORY_R,
-				),		//正在学
-				STUDENT_STATUS_FINISHED => array( GROUP_CS => HISTORY_R, GROUP_CS_D => HISTORY_R ),		//已学完
+					GROUP_SUYANG => HISTORY_R,
+					GROUP_SUYANG_D => HISTORY_R,
+				),
+			),
+			
+			//素养历史
+			'suyang' => array(
+				'status' => array(
+					STUDENT_STATUS_LEARNING,
+					STUDENT_STATUS_FINISHED,
+				),
+				'group' => array(
+					GROUP_SUYANG => HISTORY_WR,
+					GROUP_SUYANG_D => HISTORY_WR,
+					GROUP_CONSULTANT => HISTORY_WR,
+					GROUP_CONSULTANT_D => HISTORY_WR,
+					GROUP_TEACHER_PARTTIME => HISTORY_R,
+					GROUP_TEACHER_FULL => HISTORY_R,
+					GROUP_TEACHER_D => HISTORY_R,
+				),
 			),
 			//回访历史
 			'callback' => array(
-				STUDENT_STATUS_LEARNING => array( GROUP_CS => HISTORY_WR, GROUP_CS_D => HISTORY_WR ),		//正在学
-				STUDENT_STATUS_FINISHED => array( GROUP_CS => HISTORY_WR, GROUP_CS_D => HISTORY_WR ),		//已学完
+				'status' => array(
+					STUDENT_STATUS_LEARNING,
+					STUDENT_STATUS_FINISHED,
+				),
+				'group' => array(
+					GROUP_JIAOWU => HISTORY_WR,
+					GROUP_JIAOWU_D => HISTORY_WR,
+					GROUP_CS => HISTORY_R,
+					GROUP_CS_D => HISTORY_R,
+				),
 			),
 			
 		);
@@ -119,10 +161,14 @@ class Admin_Ac_Student extends Admin_Ac_Base
 			case GROUP_SUYANG: //shooladmin只有查看本校区的, 自己分配的, 状态为正在学的学员的权限
 				$filter['suyang_id'] = $staff_info['staff_id'];
 				break;
+			case GROUP_JIAOWU: //shooladmin只有查看本校区的, 自己分配的, 状态为正在学的学员的权限
+				$filter['jiaowu_id'] = $staff_info['staff_id'];
+				break;
 			case GROUP_CONSULTANT_D:
 			case GROUP_TEACHER_D:
 			case GROUP_SUYANG_D:
 			case GROUP_CS_D:
+			case GROUP_JIAOWU_D:
 				break;
 			case GROUP_TEACHER_FULL:
 			case GROUP_TEACHER_PARTTIME:
@@ -180,6 +226,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 			case GROUP_TEACHER_D:
 			case GROUP_SUYANG_D:
 			case GROUP_CS_D:
+			case GROUP_JIAOWU_D:
 			case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区学员的权限
 				if($student_info['branch_id'] != $staff_info['branch_id'])
 				{
@@ -215,6 +262,13 @@ class Admin_Ac_Student extends Admin_Ac_Base
 					return -2;
 				}
 				break;
+			case GROUP_JIAOWU:
+				if($student_info['jiaowu_id'] != $staff_info['staff_id'])
+				{
+					show_error_page('您没有权限查看该学员: 他/她不是您所创建的!', 'admin/student');
+					return -2;
+				}
+				break;
 			case GROUP_TEACHER_FULL:
 			case GROUP_TEACHER_PARTTIME:
 				$CI =& get_instance();
@@ -240,6 +294,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 	
 	}
 
+	//student contract 添加合同
 	function contract_add_ac()
 	{
 		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_CS_D);
@@ -250,6 +305,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		}
 	}
 
+	//student add, 添加学员。
 	function add_ac()
 	{
 		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_CS_D, GROUP_CONSULTANT, GROUP_CONSULTANT_D);
@@ -260,6 +316,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		}
 	}
 	
+	//student delete 删除学员
 	function delete_ac()
 	{
 		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
@@ -270,6 +327,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		}
 	}
 	
+	//student add_finished_hour, 添加完成课时。
 	function add_finished_hour_ac()
 	{
 		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
@@ -280,6 +338,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		}
 	}
 	
+	//导出未报名的家长电话。
 	function extra_not_signup_student_phone_ac()
 	{
 		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
@@ -293,34 +352,38 @@ class Admin_Ac_Student extends Admin_Ac_Base
 	/*
 	 * 判断历史的access control。 
 	 * 不可读写： 0
-	 * 可读，不可写： HISTORY_R
+	 * 可读, 不可写： HISTORY_R
 	 * 可读写： HISTORY_WR
 	 */
 	function history_ac($type, $status, $return = '')
 	{
-		//管理员，校区管理员：无所不能
+		//管理员, 校区管理员：无所不能
 		if($this->group_id == GROUP_ADMIN || $this->group_id == GROUP_SCHOOLADMIN)
 			return HISTORY_WR;
 		
-		if(isset($this->history_group_status[$type][$status][$this->group_id]) && !empty($this->history_group_status[$type][$status][$this->group_id]))
+		if(in_array($status, $this->history_group_status[$type]['status']))
 		{
-			//show_error_page('您没有权限查看该学员的历史记录！', 'admin/student');
-			return $this->history_group_status[$type][$status][$this->group_id];
+			//检查权限
+			if(isset($this->history_group_status[$type]['group'][$this->group_id]) && !empty($this->history_group_status[$type]['group'][$this->group_id]))
+			{
+				//show_error_page('您没有权限查看该学员的历史记录！', 'admin/student');
+				return $this->history_group_status[$type]['group'][$this->group_id];
+			}
 		}
-		else
-		{
-			return HISTORY_DENY;
-		}
+		
+		return HISTORY_DENY;
 	}
 
 	/*
 	 * viewer 权限分布
 	 */
+	 //student edit 页面, 按照状态的搜索下来菜单选项。
 	function get_group_status()
 	{
 		return $this->group_student_status[$this->group_id];
 	}
 	
+	//student all 页面, 学员列表页, 显示删除/取消删除链接。
 	function view_student_all_operation()
 	{
 		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
@@ -328,16 +391,18 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		return $this->_check_role($allowed_group_id);
 	}
 	
+	//student one, 显示 编辑 链接。
 	function view_student_one_edit_link()
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CONSULTANT_D, GROUP_TEACHER_D, GROUP_SUYANG_D, GROUP_CS_D);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CONSULTANT_D, GROUP_TEACHER_D, GROUP_SUYANG_D, GROUP_CS_D, GROUP_JIAOWU_D, GROUP_CS, GROUP_JIAOWU);
 		
 		return $this->_check_role($allowed_group_id);
 	}
 	
+	//student edit, 显示 状态的下来菜单。
 	function view_student_edit_status()
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_CS_D);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_CS_D, GROUP_JIAOWU, GROUP_JIAOWU_D);
 		
 		if($this->_check_role($allowed_group_id))
 			return array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_SIGNUP, STUDENT_STATUS_LEARNING, STUDENT_STATUS_FINISHED, STUDENT_STATUS_INACTIVE);
@@ -345,34 +410,37 @@ class Admin_Ac_Student extends Admin_Ac_Base
 			return false;
 	}
 	
+	//student edit, 编辑素养课老师
 	function view_student_edit_suyang($student_status)
 	{
 		if($this->group_id == GROUP_ADMIN || $this->group_id == GROUP_SCHOOLADMIN)
-				return true;
+			return true;
 		
 		if(in_array($this->group_id, array(GROUP_CS, GROUP_CS_D)) && in_array($student_status, array(STUDENT_STATUS_SIGNUP, STUDENT_STATUS_LEARNING)))
 			return true;
 		
-		if($this->group_id == GROUP_SUYANG_D && in_array($student_status, array(STUDENT_STATUS_LEARNING)))
+		if($this->group_id == GROUP_SUYANG_D)
 			return true;
 		
 		return false;
 	}
 	
+	//student edit, 编辑咨询师
 	function view_student_edit_consultant($student_status)
 	{
 		if($this->group_id == GROUP_ADMIN || $this->group_id == GROUP_SCHOOLADMIN)
-				return true;
+			return true;
 		
 		if(in_array($this->group_id, array(GROUP_CS, GROUP_CS_D)) && $student_status == STUDENT_STATUS_NOT_APPOINTMENT)
 			return true;
 		
-		if($this->group_id == GROUP_CONSULTANT_D && in_array($student_status, array(STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_LEARNING)))
+		if($this->group_id == GROUP_CONSULTANT_D)
 			return true;
 	
 		return false;
 	}
 	
+	//student edit, 编辑班主任
 	function view_student_edit_supervisor()
 	{
 		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
@@ -380,6 +448,31 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		return $this->_check_role($allowed_group_id);	
 	}
 	
+	//student edit, 编辑教务老师
+	function view_student_edit_jiaowu($student_status)
+	{
+		if($this->group_id == GROUP_ADMIN || $this->group_id == GROUP_SCHOOLADMIN)
+				return true;
+		
+		if($this->group_id == GROUP_JIAOWU_D)
+			return true;
+	
+		return false;
+	}
+	
+	//student edit, 编辑课程顾问
+	function view_student_edit_cs($student_status)
+	{
+		if($this->group_id == GROUP_ADMIN || $this->group_id == GROUP_SCHOOLADMIN)
+				return true;
+		
+		if($this->group_id == GROUP_CS_D)
+			return true;
+	
+		return false;
+	}
+	
+	//student one, 显示 合同信息 tab
 	function view_student_one_contract()
 	{
 		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_CS_D);
@@ -387,21 +480,31 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		return $this->_check_role($allowed_group_id);	
 	}
 	
+	//student one, 显示 课程表 tab
+	function view_student_one_timetable()
+	{
+		$not_allowed_group_id = array(GROUP_CS, GROUP_CS_D);
+		
+		return !$this->_check_role($not_allowed_group_id);	
+	}
+	
+	//student one, 显示 短信记录 tab
 	function view_student_one_sms()
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_CS_D, GROUP_CONSULTANT, GROUP_CONSULTANT_D, GROUP_TEACHER_D);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_CS_D, GROUP_JIAOWU, GROUP_JIAOWU_D, GROUP_CONSULTANT, GROUP_CONSULTANT_D, GROUP_TEACHER_D);
 		
 		return $this->_check_role($allowed_group_id);	
 	}
 	
-	
+	//是否可看全部的短信记录。
 	function view_student_one_see_all_sms()
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS_D, GROUP_CONSULTANT_D, GROUP_TEACHER_D);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
 		
 		return $this->_check_role($allowed_group_id);	
 	}
 	
+	//student one, 查看学员的 status 历史记录
 	function view_student_one_status_history()
 	{
 		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
@@ -409,6 +512,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		return $this->_check_role($allowed_group_id);	
 	}
 	
+	//student one contract, 可对合同进行编辑的链接：添加退费，添加完成课时。
 	function view_student_one_contract_operation()
 	{
 		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
@@ -416,19 +520,22 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		return $this->_check_role($allowed_group_id);	
 	}
 	
+	//student all, 学员列表页，显示学员的已完成课时数和生日。
 	function view_student_all_finished_hour_dob()
 	{
-		if(in_array($this->group_id, array(GROUP_CS, GROUP_CS_D)))
+		if(in_array($this->group_id, array(GROUP_JIAOWU, GROUP_JIAOWU_D)))
 			return true;
 	}
 	
+	//student all，学员列表页，显示学员的所有对应老师。
 	function view_student_all_teaches()
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS_D, GROUP_CONSULTANT_D);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_JIAOWU_D, GROUP_CONSULTANT_D);
 		
 		return $this->_check_role($allowed_group_id);	
 	}
 	
+	//student all，学员列表页，显示 历史记录 的链接。
 	function view_student_all_contact_history($student_status)
 	{
 		if(in_array($this->group_id, array(GROUP_CONSULTANT_D, GROUP_CONSULTANT, GROUP_CS_D, GROUP_CS)) 
@@ -438,6 +545,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		return false;
 	}
 	
+	//student all, student one ，学员列表和详情页，显示学员的详细情况。
 	function view_student_all_student_detail()
 	{
 		$not_allowed_group_id = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);

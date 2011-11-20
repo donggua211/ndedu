@@ -17,6 +17,12 @@ class Admin_Ac_Entry extends Admin_Ac_Base
 		$allowed_group_id = array(GROUP_CS, GROUP_CS_D);
 		return ($this->_check_role($allowed_group_id)) ? TRUE : FALSE;
 	}
+	
+	function timetable_unsuspend_warn()
+	{
+		$allowed_group_id = array(GROUP_JIAOWU, GROUP_JIAOWU_D);
+		return ($this->_check_role($allowed_group_id)) ? TRUE : FALSE;
+	}
 
 	function munu_show_add_student()
 	{
@@ -26,7 +32,7 @@ class Admin_Ac_Entry extends Admin_Ac_Base
 
 	function munu_show_staff_list()
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_CS_D, GROUP_TEACHER_D, GROUP_SUYANG_D, GROUP_CONSULTANT_D);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS_D, GROUP_TEACHER_D, GROUP_SUYANG_D, GROUP_CONSULTANT_D, GROUP_JIAOWU, GROUP_JIAOWU_D);
 		return ($this->_check_role($allowed_group_id)) ? TRUE : FALSE;
 	}
 	
@@ -36,15 +42,15 @@ class Admin_Ac_Entry extends Admin_Ac_Base
 		return ($this->_check_role($allowed_group_id)) ? TRUE : FALSE;
 	}
 	
-	function munu_show_trial_staff()
-	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_TEACHER_D, GROUP_SUYANG_D, GROUP_CONSULTANT_D);
-		return ($this->_check_role($allowed_group_id)) ? TRUE : FALSE;
-	}
-	
 	function munu_show_my_timetable()
 	{
 		$allowed_group_id = array(GROUP_TEACHER_D, GROUP_SUYANG_D, GROUP_CONSULTANT_D, GROUP_CONSULTANT, GROUP_SUPERVISOR, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG);
+		return ($this->_check_role($allowed_group_id)) ? TRUE : FALSE;
+	}
+	
+	function munu_show_all_timetable()
+	{
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
 		return ($this->_check_role($allowed_group_id)) ? TRUE : FALSE;
 	}
 	

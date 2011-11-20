@@ -57,14 +57,16 @@ define('GROUP_ADMIN', 1);				//管理员
 define('GROUP_SCHOOLADMIN', 2);			//校区管理员
 define('GROUP_CONSULTANT', 3);			//咨询师
 define('GROUP_SUPERVISOR', 4);			//班主任
-define('GROUP_TEACHER_PARTTIME', 5);	//学科老师（兼职）
-define('GROUP_TEACHER_FULL', 6);		//学科老师（全职）
 define('GROUP_CS', 7);					//课程顾问
 define('GROUP_SUYANG', 8);				//素养课老师
+define('GROUP_JIAOWU', 13);				//教务老师
+define('GROUP_TEACHER_PARTTIME', 5);	//学科老师（兼职）
+define('GROUP_TEACHER_FULL', 6);		//学科老师（全职）
 define('GROUP_TEACHER_D', 9);			//学科主管
 define('GROUP_CONSULTANT_D', 10);		//咨询主管
 define('GROUP_SUYANG_D', 11);			//素养主管
 define('GROUP_CS_D', 12);				//课程顾问主管
+define('GROUP_JIAOWU_D', 14);			//教务主管
 
 /*region ID*/
 define('REGION_PROVINCE', 1);
@@ -150,6 +152,9 @@ define('HISTORY_DENY', 0);
 define('HISTORY_R', 1);
 define('HISTORY_WR', 2);
 define('HISTORY_LEARNING_SEP', 'HISTORY_LEARNING_SEP');
+define('HISTORY_TYPE_CONSULT', 1);
+define('HISTORY_TYPE_SUYANG', 2);
+define('HISTORY_TYPE_LEARNING', 3);
 
 //sms 历史
 define('SMS_HISTORY_PER_PAGE', 10);
@@ -162,5 +167,9 @@ define('SCHEDULE_HAS_CLASS', 2);
 //ticket
 define('TICKET_PER_PAGE', 50);
 
+//student teacher 对应关系
+define('STUDENT_TEACHER_XUEKE', 1);
+define('STUDENT_TEACHER_SUYANG', 2);
+define('STUDENT_TEACHER_ZIXUN', 3);
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

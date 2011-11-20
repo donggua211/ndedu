@@ -69,6 +69,7 @@ class Student extends Controller {
 		$filter['consultant_id'] = FALSE;
 		$filter['supervisor_id'] = FALSE;
 		$filter['suyang_id'] = FALSE;
+		$filter['jiaowu_id'] = FALSE;
 		$filter['is_delete'] = 0;
 	
 		$filter = $this->_parse_filter($filter_string, $filter);
@@ -230,9 +231,36 @@ class Student extends Controller {
 				//如果有添加权限的话，载入老师和课程。
 				if($this->admin_ac_timetable->add_timetable())
 				{
-					$data['main']['teachers'] = $this->_get_teachers();
+					$data['main']['teachers'] = $this->_get_teachers($student_id);
 					$data['main']['subjects'] = $this->_get_subjects();
 				}
+				
+				//如果有分配老师权限的话，载入对应老师
+				if($this->admin_ac_timetable->assign_teacher_to_student())
+				{
+					$data['main']['teachers'] = $this->_get_teachers($student_id);
+					
+					switch($this->staff_info['group_id'])
+					{
+						case GROUP_ADMIN:
+						case GROUP_SCHOOLADMIN:
+							$student_teacher_type = '';
+							break;
+						case GROUP_CONSULTANT_D:
+							$student_teacher_type = STUDENT_TEACHER_ZIXUN;
+							break;
+						case GROUP_SUYANG_D:
+							$student_teacher_type = STUDENT_TEACHER_SUYANG;
+							break;
+						case GROUP_TEACHER_D:
+							$student_teacher_type = STUDENT_TEACHER_XUEKE;
+							break;
+					}
+					
+					$data['main']['student_teacher'] = $this->CRM_Student_model->get_student_teacher($student_id, $student_teacher_type);
+					$student_extra_info['student_teacher_type'] = $student_teacher_type;
+				}
+				
 				$template = 'student_one_timetable';
 				break;
 			case 'basic':
@@ -250,18 +278,41 @@ class Student extends Controller {
 		$this->_load_view($template, $data);
 	}
 	
-	function _get_teachers()
+	function _get_teachers($student_id)
 	{
-		if($this->staff_info['group_id'] == GROUP_CONSULTANT_D)
-			$group = array(GROUP_CONSULTANT_D, GROUP_CONSULTANT);
-		elseif($this->staff_info['group_id'] == GROUP_SUYANG_D)
-			$group = array(GROUP_SUYANG_D, GROUP_SUYANG);
-		elseif($this->staff_info['group_id'] == GROUP_TEACHER_D)
-			$group = array(GROUP_TEACHER_D, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
-		else
-			$group = array(GROUP_CONSULTANT, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG, GROUP_TEACHER_D, GROUP_CONSULTANT_D, GROUP_SUYANG_D);
+		$group = array(GROUP_CONSULTANT, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG, GROUP_TEACHER_D, GROUP_CONSULTANT_D, GROUP_SUYANG_D);
 		
-		return $this->CRM_Staff_model->get_all_by_group($group);
+		switch($this->staff_info['group_id'])
+		{
+			case GROUP_CONSULTANT_D:
+				$group = array(GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+				break;
+			case GROUP_SUYANG_D:
+				$group = array(GROUP_SUYANG_D, GROUP_SUYANG);
+				break;
+			case GROUP_TEACHER_D:
+				$group = array(GROUP_TEACHER_D, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
+				break;
+			case GROUP_JIAOWU_D:
+				$group = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+				break;
+			case GROUP_JIAOWU:
+				$group = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+				$assign_teacher = $this->CRM_Student_model->get_student_teacher($student_id);
+				break;
+		}
+		
+		$filter['group_id'] = $group;
+		
+		if(isset($assign_teacher))
+		{
+			if(empty($assign_teacher))
+				$filter['available_staff'] = array();
+			else
+				$filter['available_staff'] = array_keys($assign_teacher);
+		}
+		
+		return $this->CRM_Staff_model->getAll($filter, 0,0, $order_by = 'username');
 	}
 	
 	function _get_subjects()
@@ -340,6 +391,8 @@ class Student extends Controller {
 			$edit_student['supervisor_id'] = $this->input->post('supervisor_id');
 			$edit_student['consultant_id'] = $this->input->post('consultant_id');
 			$edit_student['suyang_id'] = $this->input->post('suyang_id');
+			$edit_student['jiaowu_id'] = $this->input->post('jiaowu_id');
+			$edit_student['cservice_id'] = $this->input->post('cservice_id');
 			$edit_student['name'] = $this->input->post('name');
 			$edit_student['gender'] = $this->input->post('gender');
 			$edit_student['dob'] = $this->input->post('dob');
@@ -462,23 +515,9 @@ class Student extends Controller {
 		if(isset($_POST['submit']) && !empty($_POST['submit']))
 		{
 			//必填信息.
-			$history['history'] = $this->input->post('history');
 			$history['history_type'] = $this->input->post('history_type');
 			$history['student_id'] = $this->input->post('student_id');
 			$history['staff_id'] = $this->staff_info['staff_id'];
-			
-			/* 添加日程 */
-			$calendar['add_calendar'] = $this->input->post('add_calendar');
-			//开始时间.
-			$calendar['start_date'] = $this->input->post('start_date');
-			$calendar['start_hour'] = $this->input->post('start_hour');
-			$calendar['start_mins'] = $this->input->post('start_mins');
-			$calendar['start_time'] = $calendar['start_date'].' '.$calendar['start_hour'].':'.$calendar['start_mins'].':00';
-			//结束时间.
-			$calendar['end_date'] = $this->input->post('end_date');
-			$calendar['end_hour'] = $this->input->post('end_hour');
-			$calendar['end_mins'] = $this->input->post('end_mins');
-			$calendar['end_time'] = $calendar['end_date'].' '.$calendar['end_hour'].':'.$calendar['end_mins'].':00';
 			
 			//access_control
 			//获取student 信息.
@@ -492,107 +531,128 @@ class Student extends Controller {
 			if(empty($history['history_type']) || empty($history['student_id']))
 			{
 				show_error_page('您提交的表单有误, 请返回重试.');
+				return false;
 			}
-			elseif(empty($history['history']))
+			
+			//add ndedu1.2.6. 根据历史的type检查更多的内容。
+			$history['history'] = $this->input->post('history');
+			if(empty($history['history']))
 			{
 				$notify = '历史内容不能为空';
-				$this->_load_history_view($notify, $history, $calendar);
+				$this->_load_history_view($notify, $history);
+				return false;
 			}
-			elseif($calendar['add_calendar'] == '1' && ( empty($calendar['start_time']) || empty($calendar['end_time']))) //添加到Calendar
+			switch($history['history_type'])
 			{
-				$notify = '开始时间或结束时间不能为空!';
-				$this->_load_history_view($notify, $history, $calendar);
-			}
-			elseif($calendar['add_calendar'] == '1' && ( $calendar['end_time'] < $calendar['start_time'])) //添加到Calendar
-			{
-				$notify = '开始时间不能小于结束时间!';
-				$this->_load_history_view($notify, $history, $calendar);
-			}
-			else
-			{
-				//ndedu 1.2.5 新加
-				if($history['history_type'] == 'learning')
-				{
-					$history_learning['subject_name'] = $this->input->post('subject_name');
-					$history_learning['finished_hours'] = $this->input->post('finished_hours');
-					$history_learning['start_date'] = $this->input->post('start_date');
-					$history_learning['version'] = $this->input->post('version');
-					$history_learning['history'] = $history['history'];
-					
-					$history['history'] = implode($history_learning, HISTORY_LEARNING_SEP);
-				}
-				//ndedu 1.2.6 新加
-				elseif(in_array($history['history_type'], array('consult', 'suyang')))
-				{
-					//组装历史文字
-					$history_consult_suyang['target'] = $this->input->post('target');
-					$history_consult_suyang['history'] = $history['history'];
-					
-					if(empty($history_consult_suyang['target']) || empty($history_consult_suyang['history']))
+				case 'learning':
+					$history['learning_subject'] = $this->input->post('learning_subject');
+					$history['learning_period'] = $this->input->post('learning_period');
+					$history['learning_date'] = $this->input->post('learning_date');
+					$history['learning_version'] = $this->input->post('learning_version');
+					if(empty($history['learning_subject']) || empty($history['learning_period']) || empty($history['learning_date']) || empty($history['learning_version']))
 					{
-						$notify = '教学目标和教学内容不能为空';
+						$notify = '历史内容不能为空';
+						$this->_load_history_view($notify, $history);
+						return false;
+					}
+					break;
+				case 'consult':
+				case 'suyang':
+					$history['target'] = $this->input->post('target');
+					if(empty($history['target']))
+					{
+						$notify = '历史内容不能为空';
+						$this->_load_history_view($notify, $history);
+						return false;
+					}
+					break;
+				case 'contact':
+					/* 添加日程 */
+					$calendar['add_calendar'] = $this->input->post('add_calendar');
+					//开始时间.
+					$calendar['start_date'] = $this->input->post('start_date');
+					$calendar['start_hour'] = $this->input->post('start_hour');
+					$calendar['start_mins'] = $this->input->post('start_mins');
+					$calendar['start_time'] = $calendar['start_date'].' '.$calendar['start_hour'].':'.$calendar['start_mins'].':00';
+					//结束时间.
+					$calendar['end_date'] = $this->input->post('end_date');
+					$calendar['end_hour'] = $this->input->post('end_hour');
+					$calendar['end_mins'] = $this->input->post('end_mins');
+					$calendar['end_time'] = $calendar['end_date'].' '.$calendar['end_hour'].':'.$calendar['end_mins'].':00';
+					if($calendar['add_calendar'] == '1' && ( empty($calendar['start_time']) || empty($calendar['end_time']))) //添加到Calendar
+					{
+						$notify = '开始时间或结束时间不能为空!';
 						$this->_load_history_view($notify, $history, $calendar);
 						return false;
 					}
-					
-					$history['history'] = implode($history_consult_suyang, HISTORY_LEARNING_SEP);
-				}
-				
-				//add into DB
-				$insert_id = $this->CRM_History_model->add_history($history, $history['history_type']);
-				
-				if($insert_id)
-				{
-					$notify = '历史已经添加成功! ';
-					
-					//添加附件。
-					if (isset($_FILES['upload']['error']) && ($_FILES['upload']['error'] < 4))
+					elseif($calendar['add_calendar'] == '1' && ( $calendar['end_time'] < $calendar['start_time'])) //添加到Calendar
 					{
-						//Upload attachment 
-						$config['upload_path'] = 'upload/attachment';
-						$config['allowed_types'] = 'txt|doc|docx|xlsx|xls|gif|jpg|jpeg|png|jpe';
-						$config['max_size'] = '2048';
-						$config['max_width']  = '0';
-						$config['max_height']  = '0';
-						$config['file_name']  = package_upload_file_name($history['history_type'], $insert_id);
+						$notify = '开始时间不能小于结束时间!';
+						$this->_load_history_view($notify, $history, $calendar);
+						return false;
+					}
+					break;
+				case 'callback':
+					$history['callback_history_type'] = $this->input->post('callback_history_type');
+					$history['callback_history_id'] = $this->input->post('callback_history_id');
+					break;
+			}
+			
+			
+			//add into DB
+			$insert_id = $this->CRM_History_model->add_history($history, $history['history_type']);
+			
+			if($insert_id)
+			{
+				$notify = '历史已经添加成功! ';
+				
+				//添加附件。
+				if (isset($_FILES['upload']['error']) && ($_FILES['upload']['error'] < 4))
+				{
+					//Upload attachment 
+					$config['upload_path'] = 'upload/attachment';
+					$config['allowed_types'] = 'txt|doc|docx|xlsx|xls|gif|jpg|jpeg|png|jpe';
+					$config['max_size'] = '2048';
+					$config['max_width']  = '0';
+					$config['max_height']  = '0';
+					$config['file_name']  = package_upload_file_name($history['history_type'], $insert_id);
+					
+					$this->load->library('upload', $config);
+					if (!$this->upload->do_upload('upload'))
+					{
+						$error = array('error' => $this->upload->display_errors());
+						$notify .= '上传附件失败<br/>';
+						$notify .= print_r($error, 1);
+					}
+					else
+					{
+						$file_data = $this->upload->data();
 						
-						$this->load->library('upload', $config);
-						if (!$this->upload->do_upload('upload'))
-						{
-							$error = array('error' => $this->upload->display_errors());
-							$notify .= '上传附件失败<br/>';
-							$notify .= print_r($error, 1);
-						}
-						else
-						{
-							$file_data = $this->upload->data();
-							
-							$history_attachment['history_id'] = $insert_id;
-							$history_attachment['attachment_name'] = preg_replace("/\s+/", "_", $_FILES['upload']['name']);
-							$history_attachment['file_ext'] = $file_data['file_ext'];
-							
-							if(!$this->CRM_History_model->add_history_attachment($history_attachment))
-								$notify .= '附件上传成功，记录添加失败!';
-						}
+						$history_attachment['history_id'] = $insert_id;
+						$history_attachment['attachment_name'] = preg_replace("/\s+/", "_", $_FILES['upload']['name']);
+						$history_attachment['file_ext'] = $file_data['file_ext'];
+						
+						if(!$this->CRM_History_model->add_history_attachment($history_attachment))
+							$notify .= '附件上传成功，记录添加失败!';
 					}
-					
-					
-					if($calendar['add_calendar'] == '1') //添加到日程
-					{
-						$calendar['calendar_content'] = $history['history'];
-						if($this->CRM_Calendar_model->add($calendar, $this->staff_info['staff_id']))
-							$notify .= '日程添加成功!';
-						else
-							$notify .= '日程添加失败!';
-					}
-					
-					show_result_page($notify, 'admin/student/one/'.$history['student_id'].'/history');
 				}
-				else
+				
+				//添加到日程
+				if(isset($calendar['add_calendar']) && $calendar['add_calendar'] == '1')
 				{
-					$notify = '添加失败, 请重试.';
-					$this->_load_history_view($notify, $history, $calendar);
+					$calendar['calendar_content'] = $history['history'];
+					if($this->CRM_Calendar_model->add($calendar, $this->staff_info['staff_id']))
+						$notify .= '日程添加成功!';
+					else
+						$notify .= '日程添加失败!';
 				}
+				
+				show_result_page($notify, 'admin/student/one/'.$history['student_id'].'/history');
+			}
+			else
+			{
+				$notify = '添加失败, 请重试.';
+				$this->_load_history_view($notify, $history, $calendar);
 			}
 		}
 	}
@@ -885,12 +945,14 @@ class Student extends Controller {
 		$data['main']['consultants'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_CONSULTANT,GROUP_CONSULTANT_D));
 		$data['main']['supervisors'] = $this->CRM_Staff_model->get_all_by_group(GROUP_SUPERVISOR);
 		$data['main']['suyangs'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_SUYANG_D, GROUP_SUYANG));
+		$data['main']['jiaowus'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_JIAOWU_D, GROUP_JIAOWU));
+		$data['main']['cservices'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_CS_D, GROUP_CS));
 		$data['main']['notification'] = $notify;
 		$data['main']['student'] = $student;
 		$this->_load_view('student_edit', $data);
 	}
 	
-	function _load_history_view($notify='', $history, $calendar)
+	function _load_history_view($notify='', $history, $calendar=array())
 	{
 		$data['header']['meta_title'] = '添加历史 - 管理学员';
 		$data['header']['css_file'] = '../calendar.css';
@@ -982,6 +1044,7 @@ class Student extends Controller {
 				case 'consultant_id':
 				case 'supervisor_id':
 				case 'suyang_id':
+				case 'jiaowu_id':
 				case 'is_delete':
 					$input_filter[$key] = intval($input_filter[$key]);
 					break;
