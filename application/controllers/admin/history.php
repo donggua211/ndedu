@@ -49,6 +49,7 @@ class History extends Controller {
 			show_error_page('您输入的历史种类不合法, 请返回重试.');
 			return false;
 		}
+		
 		//判断history_id是否合法.
 		$history_id = intval($history_id);
 		if($history_id <= 0)
@@ -84,42 +85,32 @@ class History extends Controller {
 		if(isset($_POST['submit']) && !empty($_POST['submit']))
 		{
 			//必填信息.
-			$history_text = $this->input->post('history_text');
 			$student_id = $this->input->post('student_id');
 			
-			if(empty($history_text))
+			//add ndedu1.2.6. 根据历史的type检查更多的内容。
+			$history['history_'.$type] = $this->input->post('history_'.$type);
+			switch($type)
 			{
-				$notify = '历史记录不能为空!';
-				$this->_load_history_edit_view($notify, $type, $history_info);
-				return false;
-			}
-			
-			//ndedu 1.2.5 新加
-			if($type == 'learning')
-			{
-				$history_learning['subject_name'] = $this->input->post('subject_name');
-				$history_learning['finished_hours'] = $this->input->post('finished_hours');
-				$history_learning['start_date'] = $this->input->post('start_date');
-				$history_learning['version'] = $this->input->post('version');
-				$history_learning['history'] = $history_text;
-				
-				$history_text = implode($history_learning, HISTORY_LEARNING_SEP);
-			}
-			//ndedu 1.2.6 新加
-			elseif(in_array($type, array('consult', 'suyang')))
-			{
-				//组装历史文字
-				$history_consult_suyang['target'] = $this->input->post('target');
-				$history_consult_suyang['history'] = $history_text;
-				
-				$history_text= implode($history_consult_suyang, HISTORY_LEARNING_SEP);
+				case 'learning':
+					$history['history_learning_subject'] = $this->input->post('history_learning_subject');
+					$history['history_learning_period'] = $this->input->post('history_learning_period');
+					$history['history_learning_date'] = $this->input->post('history_learning_date');
+					$history['history_learning_version'] = $this->input->post('history_learning_version');
+					break;
+				case 'consult':
+				case 'suyang':
+					$history['history_'.$type.'_target'] = $this->input->post('history_'.$type.'_target');
+					break;
+				case 'contact':
+					break;
 			}
 			
 			//检查修改项
 			$update_field = array();
-			if(!empty($history_text) && ($history_text != $history_info['history_text']))
+			foreach($history as $key => $val)
+			if(!empty($val) && ($val != $history_info[$key]))
 			{
-				$update_field['history_'.$type] = $history_text;
+				$update_field[$key] = $val;
 			}
 			
 			if($this->CRM_History_model->_update($history_id, $type, $update_field))

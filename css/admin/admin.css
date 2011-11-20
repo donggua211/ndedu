@@ -287,3 +287,10 @@ img {
 	height:100%;
 	float:right;
 }
+
+.display_yes {
+	display:inline;
+}
+.display_no {
+	display:none;
+}

@@ -9,7 +9,8 @@ class CRM_Group_model extends Model {
 	function get_groups($group_id = 0)
 	{
 		$sql = "SELECT group_id, group_name FROM " . $this->db->dbprefix('crm_group') ."
-				WHERE group_id >= $group_id";
+				WHERE group_id >= $group_id
+				ORDER BY `order`";
 		
 		$query = $this->db->query($sql);
 		

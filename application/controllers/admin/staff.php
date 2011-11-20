@@ -17,6 +17,7 @@ class Staff extends Controller {
 		$this->load->model('CRM_Sms_history_model');
 		$this->load->model('CRM_Timetable_model');
 		$this->load->model('CRM_Staff_Schedule_model');
+		$this->load->model('CRM_Student_model');
 		
 		$this->load->helper('admin');
 			
@@ -47,13 +48,25 @@ class Staff extends Controller {
 		$filter['name'] = $this->input->post('name');
 		$filter['is_active'] = 1;
 		$filter['is_delete'] = 0;
-		$filter['in_trial'] = 0;
 	
 		$filter = $this->_parse_filter($filter_string, $filter);
 		
 		//access control
 		$filter_ac = $this->admin_ac_staff->staff_index_ac();
 		$filter = array_merge($filter, $filter_ac);
+		
+		//add ndedu1.2.6, 判断已分配的老师。
+		if($this->staff_info['group_id'] == GROUP_JIAOWU)
+		{
+			//获取该老师分配的学员：
+			$assigned_student_ids = array_keys($this->CRM_Student_model->getAll(array('jiaowu_id' => $this->staff_info['staff_id'])));
+			$assign_teacher = $this->CRM_Student_model->get_student_teacher($assigned_student_ids);
+			
+			if(empty($assign_teacher))
+				$filter['available_staff'] = array();
+			else
+				$filter['available_staff'] = array_keys($assign_teacher);
+		}
 		
 		//Page Nav
 		$total = $this->CRM_Staff_model->getAll_count($filter);
@@ -182,11 +195,6 @@ class Staff extends Controller {
 	function delete_staff()
 	{
 		$this->index('page=1&is_delete=1');
-	}
-	
-	function trial_staff()
-	{
-		$this->index('page=1&is_active=1&is_delete=0&in_trial=1');
 	}
 	
 	/*
@@ -345,7 +353,7 @@ class Staff extends Controller {
 			$new_staff['dob'] = $this->input->post('dob');
 			$new_staff['gender'] = $this->input->post('gender');
 			$new_staff['level'] = $this->input->post('level');
-			$new_staff['in_trial'] = $this->input->post('trial') ?  1 : 0;
+			$new_staff['in_trial'] = 1;
 			
 			if(empty($new_staff['username']) || empty($new_staff['password']) || empty($new_staff['password_c']) || empty($new_staff['name']) || empty($new_staff['phone']) || empty($new_staff['qq']) || empty($new_staff['email']) || empty($new_staff['group_id']) || empty($new_staff['branch_id']) || empty($new_staff['grade_id']) || empty($new_staff['dob']) || empty($new_staff['gender']) || empty($new_staff['level']))
 			{

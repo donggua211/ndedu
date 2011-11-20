@@ -56,10 +56,6 @@
 				<td><?php echo $staff['level']?>星级</td>
 			</tr>
 			<tr>
-				<td class="label" valign="top">试用期: </td>
-				<td><?php echo ($staff['in_trial'] ? '是' : '否');?></td>
-			</tr>
-			<tr>
 				<td class="label" valign="top">年级: </td>
 				<td><?php echo $staff['grade_name']?></td>
 			</tr>

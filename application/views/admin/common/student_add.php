@@ -53,7 +53,7 @@
 			<tr>
 				<td class="label" valign="top">生日: </td>
 				<td>
-					<input type="text" name="dob" maxlength="60" size="10" value="<?php echo (isset($student['dob'])) ? $student['dob'] :''; ?>" readonly="readonly" id="date" />
+					<input type="text" name="dob" maxlength="60" size="10" value="<?php echo (isset($student['dob'])) ? $student['dob'] :'0000-00-00'; ?>" readonly="readonly" id="date" />
 				</td>
 			</tr>
 			<tr>
@@ -179,7 +179,7 @@
 			if($("#student_from option:selected").val() == 'other')
 			{
 				$("#student_from_text_span").css('display', '');
-				$("#student_from_text").focus();
+				z$("#student_from_text").focus();
 			}
 			else
 				$("#student_from_text_span").css('display', 'none');

@@ -32,6 +32,41 @@
 			</tr>
 			<?php endif; ?>
 			
+			
+			<?php if($CI->admin_ac_student->view_student_edit_cs($student['status'])): ?>
+			<tr>
+				<td class="label" valign="top"><span class="notice-star"> * </span>课程顾问: </td>
+				<td>
+					<select name="cservice_id">
+						<option value='0'>请选择...</option>
+						<?php
+							foreach($cservices as $cs)
+							{
+								echo '<option value="'.$cs['staff_id'].'" '.((isset($student['cservice_id']) && $cs['staff_id'] == $student['cservice_id']) ? 'SELECTED' : '' ).'>'.$cs['name'].'</option>';
+							}
+						?>
+					</select>
+				</td>
+			</tr>
+			<?php endif; ?>
+			
+			<?php if($CI->admin_ac_student->view_student_edit_jiaowu($student['status'])): ?>
+			<tr>
+				<td class="label" valign="top"><span class="notice-star"> * </span>教务老师: </td>
+				<td>
+					<select name="jiaowu_id">
+						<option value='0'>请选择...</option>
+						<?php
+							foreach($jiaowus as $jiaowu)
+							{
+								echo '<option value="'.$jiaowu['staff_id'].'" '.((isset($student['jiaowu_id']) && $jiaowu['staff_id'] == $student['jiaowu_id']) ? 'SELECTED' : '' ).'>'.$jiaowu['name'].'</option>';
+							}
+						?>
+					</select>
+				</td>
+			</tr>
+			<?php endif; ?>
+			
 			<?php if($CI->admin_ac_student->view_student_edit_consultant($student['status'])): ?>
 			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>咨询师: </td>

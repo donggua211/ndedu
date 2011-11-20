@@ -48,6 +48,41 @@ class Timetable extends Controller {
 		_load_viewer($this->staff_info['group_id'], 'timetable_index', $data);
 	}
 	
+	function all()
+	{
+		//access_control
+		if(!$this->admin_ac_timetable->all_timetable())
+		{
+			show_access_deny_page();
+		}
+		
+		$time_table = $this->CRM_Timetable_model->get_all_timetable();
+		
+		$all_time_table = array();
+		foreach($time_table as $day => $t_t)
+		{
+			foreach($t_t as $one)
+			{
+				//上午
+				if('00:00:00' <= $one['start_time'] && $one['start_time'] < '12:00:00')
+					$all_time_table[1][$day][] = $one;
+				//中午
+				elseif('12:00:00' <= $one['start_time'] && $one['start_time'] < '18:00:00')
+					$all_time_table[2][$day][] = $one;
+				//晚上
+				else
+					$all_time_table[3][$day][] = $one;
+			}
+		}
+		
+		$data['main']['all_time_table'] = $all_time_table;
+		
+		$data['header']['meta_title'] = '所有学员的课程表 - 日程管理';
+		
+		_load_viewer($this->staff_info['group_id'], 'timetable_all', $data);
+	}
+	
+	
 	function add()
 	{
 		//access_control
@@ -93,7 +128,7 @@ class Timetable extends Controller {
 		}
 	}
 	
-	function suspend($timetable_id)
+	function suspend()
 	{
 		//access_control
 		if(!$this->admin_ac_timetable->edit_timetable())
@@ -102,10 +137,18 @@ class Timetable extends Controller {
 		}
 		
 		//判断staff_id是否合法.
-		$timetable_id = intval($timetable_id);
+		$timetable_id = intval($this->input->post('timetable_id'));
+		$days = intval($this->input->post('days'));
 		if($timetable_id <= 0)
 		{
 			show_error_page('您输入的课程表ID不合法, 请返回重试.', '');
+			return false;
+		}
+		
+		$days = intval($this->input->post('days'));
+		if(empty($days))
+		{
+			show_error_page('请输入要暂定的天数, 请返回重试.', '');
 			return false;
 		}
 		
@@ -120,6 +163,10 @@ class Timetable extends Controller {
 		$update_field['is_suspend'] = 1;
 		if($this->CRM_Timetable_model->update($timetable_id, $update_field))
 		{
+			//添加暂停记录
+			$days = intval($this->input->post('days'));
+			$this->CRM_Timetable_model->add_timetable_suspend_log(array('timetable_id' => $timetable_id, 'days' => $days, 'staff_id' => $this->staff_info['staff_id']));
+			
 			show_result_page('课程已经成功暂停! ', 'admin/student/one/'.$timetable_info['student_id'].'/timetable');
 		}
 		else
@@ -128,7 +175,7 @@ class Timetable extends Controller {
 		}
 	}
 	
-	function unsuspend($timetable_id)
+	function unsuspend()
 	{
 		//access_control
 		if(!$this->admin_ac_timetable->edit_timetable())
@@ -137,7 +184,7 @@ class Timetable extends Controller {
 		}
 		
 		//判断staff_id是否合法.
-		$timetable_id = intval($timetable_id);
+		$timetable_id = intval($this->input->post('timetable_id'));
 		if($timetable_id <= 0)
 		{
 			show_error_page('您输入的课程表ID不合法, 请返回重试.', '');
@@ -155,6 +202,10 @@ class Timetable extends Controller {
 		$update_field['is_suspend'] = 0;
 		if($this->CRM_Timetable_model->update($timetable_id, $update_field))
 		{
+			//添加取消的暂停记录
+			$days = intval($this->input->post('days'));
+			$this->CRM_Timetable_model->update_timetable_suspend_log($timetable_id);
+			
 			show_result_page('课程已经成功取消暂停! ', 'admin/student/one/'.$timetable_info['student_id'].'/timetable');
 		}
 		else
