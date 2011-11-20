@@ -39,17 +39,7 @@
 				ksort($all_time_table);
 				foreach($all_time_table as $time_q => $time_table)
 				{
-					
-					//计算出最长的day
-					$max = 0;
-					foreach($time_table as $key => $val)
-					{
-						usort($time_table[$key], "cmp");
-						if(count($val) > $max)
-							$max = count($val);
-					}
-					
-					echo '<tr><th rowspan="'.($max+1).'">';
+					echo '<tr><th>';
 					switch($time_q)
 					{
 						case 1:
@@ -62,27 +52,45 @@
 							echo '晚上';
 							break;
 					}
-					echo '</th></tr>';
+					echo '</th>';
 					
-					
-					for($i = 0; $i < $max; $i++)
+					for($i = 1; $i <= 7; $i++)
 					{
-						echo '<tr>';
-						for($j = 1; $j <= 8; $j++)
+						echo '<td>';
+						
+						if(isset($time_table[$i]))
 						{
-							echo '<td>';
-							if(isset($time_table[$j][$i]))
+							echo '<a href="javascript:void(0)" onclick="show_timetable('.$time_q.', '.$i.')">共:'.count($time_table[$i]).'次课。';
+							
+							$suspend_count = 0;
+							$hour = 0;
+							$mins = 0;
+							foreach($time_table[$i] as $val)
 							{
-								echo '<div class="' . (($time_table[$j][$i]['is_suspend'] == 0) ? 'timetable' : 'timetable_suspend') . '">';
-								echo '<span class="subject">' . substr($time_table[$j][$i]['start_time'], 0, -3) . ' 至 ' . substr($time_table[$j][$i]['end_time'], 0, -3).'<br/>';
-								echo '<span class="subject">' . $time_table[$j][$i]['subject_name'] . '</span><br/>';
-								echo '<span class="name">' . $time_table[$j][$i]['name'] . '</span>';
-								echo '</div>';
+								if($val['is_suspend'] == 1)
+								{
+									$suspend_count++;
+									continue;
+								}
+								
+								list($s_h, $s_m) = explode(':', $val['start_time']);
+								list($e_h, $e_m) = explode(':', $val['end_time']);
+								$hour += $e_h - $s_h;
+								$mins += $e_m - $s_m;
 							}
-							echo '</td>';
+							
+							if($suspend_count > 0)
+								echo '(其中暂停的课程为:'.$suspend_count.'次课)';
+							
+							
+							$hour += (floor($mins / 60) > 0) ? (floor($mins / 60)) : 0;
+							$mins = $mins % 60;
+							
+							echo '<br/>共:'.$hour.'小时'.(($mins > 0) ? $mins.'分钟' : '').'课时';
 						}
-						echo '</tr>';
+						echo '</td>';
 					}
+					echo '</tr>';
 				}
 				?>
 			</table>
@@ -90,3 +98,50 @@
 		
 	</div>
 </div>
+<?php
+foreach($all_time_table as $time_q => $time_table)
+{
+	for($i = 1; $i <= 7; $i++)
+	{
+		echo '<td>';
+		
+		if(isset($time_table[$i]))
+		{
+			echo '
+			<div id="dialog-modal-'.$time_q.$i.'" title="Basic modal dialog" style="display:none">
+				<table cellspacing="1" class="list-div">
+					<tr>
+						<th>学员</th>
+						<th>老师</th>
+						<th>学科</th>
+						<th>上课时间</th>
+					</tr>';
+					foreach($time_table[$i] as $val)
+					{
+						echo '<tr>';
+							echo '<td '.(($val['is_suspend'] == 1) ? 'style="background:#666;color:#FFF"' : '').'>'.$val['name'].'</td>';
+							echo '<td '.(($val['is_suspend'] == 1) ? 'style="background:#666;color:#FFF"' : '').'>'.$val['staff_name'].'</td>';
+							echo '<td '.(($val['is_suspend'] == 1) ? 'style="background:#666;color:#FFF"' : '').'>'.$val['subject_name'].'</td>';
+							echo '<td '.(($val['is_suspend'] == 1) ? 'style="background:#666;color:#FFF"' : '').'>'.$val['start_time'].'至'.$val['end_time'].'</td>';
+						echo '</tr>';
+					}
+			echo '
+				</table>
+			</div>';
+		}
+	}
+}
+?>
+
+<script type="text/javascript">
+	function show_timetable(time_q, day)
+	{
+		$( "#dialog-modal-"+time_q+day ).dialog({
+			title: '课程表',
+			width: 500,
+			modal: true,
+			show: 'slide',
+			hide: 'fade',
+		});
+	}
+</script>
