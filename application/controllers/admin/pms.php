@@ -14,6 +14,7 @@ class Pms extends Controller {
 		$this->load->model('CRM_Branch_model');
 		$this->load->model('CRM_Group_model');
 		$this->load->model('CRM_Contract_model');
+		$this->load->model('CRM_Timetable_model');
 		
 		$this->load->helper('admin');
 			
@@ -84,7 +85,55 @@ class Pms extends Controller {
 	
 	function index($filter_string = '')
 	{
-		$this->class_fee($filter_string);
+		$this->class_count($filter_string);
+	}
+	
+	function class_count($filter_string = '')
+	{
+		//默认值
+		$filter['page'] = 1;
+		$filter['branch_id'] = $this->input->post('branch_id');
+		
+		$filter = $this->_parse_filter($filter_string, $filter);
+		
+		switch($this->staff_info['group_id'])
+		{
+			case GROUP_ADMIN: //admin管理有权限
+				break;
+			case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区员工的权限
+				$filter['branch_id'] = $this->staff_info['branch_id'];
+				break;
+			default:
+				show_error_page('您没有权限查看员工列表: 请重新登录或者联系管理员!', 'admin');
+				return false;
+		}
+		
+		//处理时间
+		$year = $this->input->post('year') ? $this->input->post('year') : date('Y');
+		$month = $this->input->post('month') ? $this->input->post('month') : date('m');
+		$week = $this->input->post('week');
+		if(!empty($filter['week']))
+		{
+			$start_end_st = get_week_start_end_day($year, $month, $week);
+			$filter['start_date'] = date('Y-m-d H:i:s', $start_end_st['start_date_ts']);
+			$filter['end_date'] = date('Y-m-d H:i:s', $start_end_st['end_date_ts']);
+		}
+		else
+		{
+			$filter['start_date'] = date('Y-m-d H:i:s', mktime(0, 0, 0, $month, 1, $year));
+			$filter['end_date'] = date('Y-m-d H:i:s', mktime(0, 0, 0, $month, date('t', strtotime($filter['start_date'])), $year));
+		}
+		
+		//获取课程表数据源。
+		$time_table = array();
+		
+		
+		
+		//获取课时单数据源。
+		$finished = array();
+		
+		
+		
 	}
 	
 	function class_fee($filter_string = '')
