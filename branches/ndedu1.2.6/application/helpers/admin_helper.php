@@ -326,3 +326,33 @@
 	{
 		return $history_type.'_'.$history_id.$file_ext;	
 	}
+	
+	//获取某一周开始的日期和结束的日期.
+	function get_week_start_end_day($year, $month, $week_num)
+	{
+		//第一周的第一天。
+		$result['start_date_ts'] = mktime(0, 0, 0, $month, 1, $year) - 60 * 60 * 24 * (date('N', mktime(0, 0, 0, $month, 1, $year)) - 1) + 60 * 60 * 24 * 7 * ($week_num - 1);
+		
+		$result['end_date_ts'] = $result['start_date_ts'] + 60 * 60 * 24 * 6;		
+		return $result;
+	}
+	
+	//每周始于星期一，结束于星期天。
+	function week_count($year, $month)
+	{
+		$total_day = date('t', mktime(0, 0, 0, $month, 1, $year));
+		$week_count = 0;
+		
+		for($i = 1; $i <= $total_day; $i++)
+		{
+			$this_ts = mktime(0, 0, 0, $month, $i, $year);
+			//每周始于周一。如果星期天的话，则加一。
+			if(date('w', $this_ts) == 0)
+				$week_count ++;
+		}
+		
+		if(date('w', $this_ts) != 0)
+			$week_count ++;
+		
+		return $week_count;
+	}
