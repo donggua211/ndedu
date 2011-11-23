@@ -341,20 +341,20 @@ class CRM_Contract_model extends Model {
 	function get_all_finished($filter = '')
 	{
 		//获取合同列表信息
-		$sql = "SELECT contract_finished.*, as supervisor_name, teacher.name as teacher_name, subject.subject_name FROM " . $this->db->dbprefix('crm_contract_finished') . " as contract_finished
-				LEFT JOIN ".$this->db->dbprefix('crm_staff')." as teacher ON teacher.staff_id =  contract_finished.teacher_id
-				LEFT JOIN ".$this->db->dbprefix('crm_subject')." as subject ON subject.subject_id =  contract_finished.subject_id ";
+		$sql = "SELECT contract_finished.*, contract.student_id, staff.name as staff_name, subject.subject_name FROM " . $this->db->dbprefix('crm_contract_finished') . " as contract_finished
+				LEFT JOIN ".$this->db->dbprefix('crm_staff')." as staff ON staff.staff_id =  contract_finished.teacher_id
+				LEFT JOIN ".$this->db->dbprefix('crm_subject')." as subject ON subject.subject_id =  contract_finished.subject_id
+				LEFT JOIN ".$this->db->dbprefix('crm_contract')." as contract ON contract.contract_id =  contract_finished.contract_id";
 		
 		if (isset($filter['start_date']) && $filter['start_date'])
         {
-            $sql .= " where contract_finished.add_time <= '{$filter['start_date']} 00:00:00' ";
+            $sql .= " where contract_finished.add_time >= '{$filter['start_date']}' ";
         }
 		
 		if (isset($filter['end_date']) && $filter['end_date'])
         {
-            $sql .= " where contract_finished.add_time <= '{$filter['end_date']} 23:59:59' ";
+            $sql .= " and contract_finished.add_time <= '{$filter['end_date']}' ";
         }
-		
 		
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)

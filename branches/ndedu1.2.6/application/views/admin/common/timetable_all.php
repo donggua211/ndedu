@@ -103,8 +103,6 @@ foreach($all_time_table as $time_q => $time_table)
 {
 	for($i = 1; $i <= 7; $i++)
 	{
-		echo '<td>';
-		
 		if(isset($time_table[$i]))
 		{
 			echo '

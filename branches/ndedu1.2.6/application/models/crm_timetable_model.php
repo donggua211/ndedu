@@ -82,9 +82,9 @@ class CRM_Timetable_model extends Model {
 		
 		if (isset($filter['end_date']) && $filter['end_date'])
         {
-            $sql .= " where timetable.add_time <= '{$filter['end_date']} 23:59:59' ";
+            $sql .= " where timetable.add_time <= '{$filter['end_date']}' ";
         }
-		echo $sql;
+		
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
@@ -215,7 +215,6 @@ class CRM_Timetable_model extends Model {
 		}
 	}
 	
-	
 	function get_timetable_suspend_log($staff_id)
 	{
 		//获取信息。
@@ -228,6 +227,34 @@ class CRM_Timetable_model extends Model {
 		if ($query->num_rows() > 0)
 		{
 			return $query->result_array();
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
+	function get_all_suspend_log($filter)
+	{
+		//获取信息。
+		$sql = "SELECT log.* FROM ".$this->db->dbprefix('crm_timetable_suspend_log')." as log ";
+		
+		if (isset($filter['start_date']) && isset($filter['end_date']) && $filter['start_date'])
+        {
+            $sql .= " WHERE log.suspend_date <= '{$filter['end_date']}' ";
+            $sql .= " AND ( log.unsuspend_date >= '{$filter['start_date']}' OR log.unsuspend_date = '0000-00-00 00:00:00' )";
+        }
+		
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			$result;
+			foreach( $query->result_array() as $val)
+			{
+				$result[$val['timetable_id']][] = $val;
+			}
+			return $result;
 		}
 		else
 		{

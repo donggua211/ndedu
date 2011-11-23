@@ -1,7 +1,7 @@
 <div id="nav">
 	<span class="action-span"><a href="<?php echo site_url('admin') ?>"  target="_top">管理系统</a></span>
-	<span class="action-span"> » <a href="<?php echo site_url('admin/staff') ?>" target="main-frame">员工管理</a></span>
-	 » 查看员工
+	<span class="action-span"> » <a href="<?php echo site_url('admin/pms') ?>" target="main-frame">工资管理系统 </a></span>
+	 » 员工工资管理系统
 	<div style="clear:both"></div>
 </div>
 <div id="main">

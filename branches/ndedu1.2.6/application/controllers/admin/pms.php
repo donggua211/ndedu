@@ -115,25 +115,74 @@ class Pms extends Controller {
 		if(!empty($filter['week']))
 		{
 			$start_end_st = get_week_start_end_day($year, $month, $week);
-			$filter['start_date'] = date('Y-m-d H:i:s', $start_end_st['start_date_ts']);
-			$filter['end_date'] = date('Y-m-d H:i:s', $start_end_st['end_date_ts']);
+			$filter['start_date'] = date('Y-m-d 00:00:00', $start_end_st['start_date_ts']);
+			$filter['end_date'] = date('Y-m-d 23:59:59', $start_end_st['end_date_ts']);
 		}
 		else
 		{
-			$filter['start_date'] = date('Y-m-d H:i:s', mktime(0, 0, 0, $month, 1, $year));
-			$filter['end_date'] = date('Y-m-d H:i:s', mktime(0, 0, 0, $month, date('t', strtotime($filter['start_date'])), $year));
+			$filter['start_date'] = date('Y-m-d 00:00:00', mktime(0, 0, 0, $month, 1, $year));
+			$filter['end_date'] = date('Y-m-d 23:59:59', mktime(0, 0, 0, $month, date('t', strtotime($filter['start_date'])), $year));
 		}
 		
 		//获取课程表数据源。
 		$time_table = $this->CRM_Timetable_model->get_all_timetable($filter);
-		print_r($time_table);
+		$tt_suspend_log = $this->CRM_Timetable_model->get_all_suspend_log($filter);
+		//处理数据
+		$tt_res_arr = array();
+		$student_info = array();
+		$staff_info = array();
+		$subject_info = array();
+		$start_ts = strtotime($filter['start_date']);
+		$end_ts = strtotime($filter['end_date']);
+		for($i = $start_ts; $i <= $end_ts; $i += 60 * 60 * 24)
+		{
+			$this_day = date('N', $i);
+			if(isset($time_table[$this_day]))
+				foreach($time_table[$this_day] as $val)
+				{
+					$val['class_date'] = date('Y-m-d', $i);
+					$tt_res_arr[$val['staff_id']][$val['student_id']][] = $val;
+					
+					//学生，老师，科目的信息
+					$subject_info[$val['staff_id'].$val['student_id']] = $val['subject_name'];
+					if(!isset($student_info[$val['student_id']]))
+						$student_info[$val['student_id']] = $val['name'];
+					if(!isset($staff_info[$val['student_id']]))
+						$staff_info[$val['staff_id']] = $val['staff_name'];
+				}
 		
+		}
 		
 		//获取课时单数据源。
-		$finished = $this->CRM_Contract_model->get_one_finished_class_detail($staff_id, $filter);
+		$finished = $this->CRM_Contract_model->get_all_finished($filter);
 		
+		foreach($finished as $val)
+		{
+			$cf_res_arr[$val['teacher_id']][$val['student_id']][] = $val;
+			
+			//对课程表数据进行补充
+			if(!isset($tt_res_arr[$val['teacher_id']][$val['student_id']]))
+			{
+				$tt_res_arr[$val['teacher_id']][$val['student_id']] = array();
+				
+				//学生，老师，科目的信息
+				if(!isset($subject_info[$val['teacher_id'].$val['student_id']]))
+					$subject_info[$val['teacher_id'].$val['student_id']] = $val['subject_name'];
+				if(!isset($staff_info[$val['student_id']]))
+					$staff_info[$val['teacher_id']] = $val['staff_name'];
+			}
+		}
 		
+		$data['header']['meta_title'] = '课时统计系统 - 员工工资管理系统';
+		$data['main']['tt_res_arr'] = $tt_res_arr;
+		$data['main']['cf_res_arr'] = $cf_res_arr;
 		
+		$data['main']['student_info'] = $student_info;
+		$data['main']['staff_info'] = $staff_info;
+		$data['main']['subject_info'] = $subject_info;
+		$data['main']['filter'] = $filter;
+		
+		_load_viewer($this->staff_info['group_id'], 'pms_class_count', $data);
 	}
 	
 	function class_fee($filter_string = '')
@@ -187,7 +236,7 @@ class Pms extends Controller {
 		$data['main']['branches'] = $this->_get_branch();
 		$data['main']['groups'] = $this->_get_groups();
 		$data['main']['filter'] = $filter;
-		_load_viewer($this->staff_info['group_id'], 'pms_class_fee', $data);
+		_load_viewer($this->staff_info['group_id'], 'pms_class_count', $data);
 	}
 	
 	function one($staff_id)
