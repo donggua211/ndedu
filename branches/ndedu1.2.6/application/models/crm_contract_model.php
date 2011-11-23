@@ -336,6 +336,36 @@ class CRM_Contract_model extends Model {
 		$query = $this->db->query($sql);
 		return ($this->db->affected_rows() > 0) ? true : false;
 	}
+	
+	
+	function get_all_finished($filter = '')
+	{
+		//获取合同列表信息
+		$sql = "SELECT contract_finished.*, as supervisor_name, teacher.name as teacher_name, subject.subject_name FROM " . $this->db->dbprefix('crm_contract_finished') . " as contract_finished
+				LEFT JOIN ".$this->db->dbprefix('crm_staff')." as teacher ON teacher.staff_id =  contract_finished.teacher_id
+				LEFT JOIN ".$this->db->dbprefix('crm_subject')." as subject ON subject.subject_id =  contract_finished.subject_id ";
+		
+		if (isset($filter['start_date']) && $filter['start_date'])
+        {
+            $sql .= " where contract_finished.add_time <= '{$filter['start_date']} 00:00:00' ";
+        }
+		
+		if (isset($filter['end_date']) && $filter['end_date'])
+        {
+            $sql .= " where contract_finished.add_time <= '{$filter['end_date']} 23:59:59' ";
+        }
+		
+		
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			return $query->result_array();
+		}
+		else
+		{
+			return array();
+		}
+	}
 }
 
 /* End of file admin.php */

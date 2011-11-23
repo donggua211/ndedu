@@ -125,12 +125,12 @@ class Pms extends Controller {
 		}
 		
 		//获取课程表数据源。
-		$time_table = array();
-		
+		$time_table = $this->CRM_Timetable_model->get_all_timetable($filter);
+		print_r($time_table);
 		
 		
 		//获取课时单数据源。
-		$finished = array();
+		$finished = $this->CRM_Contract_model->get_one_finished_class_detail($staff_id, $filter);
 		
 		
 		
