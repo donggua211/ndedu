@@ -73,12 +73,18 @@ class CRM_Timetable_model extends Model {
 		}
 	}
 	
-	function get_all_timetable()
+	function get_all_timetable($filter = array())
 	{
 		$sql = "SELECT student.name,staff.name as staff_name, subject.subject_name, timetable.* FROM ".$this->db->dbprefix('crm_timetable')." as timetable
 				LEFT JOIN ".$this->db->dbprefix('crm_student')." as student ON student.student_id = timetable.student_id
 				LEFT JOIN ".$this->db->dbprefix('crm_staff')." as staff ON staff.staff_id = timetable.staff_id
 				LEFT JOIN ".$this->db->dbprefix('crm_subject')." as subject ON subject.subject_id = timetable.subject_id";
+		
+		if (isset($filter['end_date']) && $filter['end_date'])
+        {
+            $sql .= " where timetable.add_time <= '{$filter['end_date']} 23:59:59' ";
+        }
+		echo $sql;
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
