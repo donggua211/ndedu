@@ -138,7 +138,7 @@ foreach($all_time_table as $time_q => $time_table)
 			width: 500,
 			modal: true,
 			show: 'slide',
-			hide: 'fade',
+			hide: 'fade'
 		});
 	}
 </script>
