@@ -73,12 +73,18 @@ class CRM_Timetable_model extends Model {
 		}
 	}
 	
-	function get_all_timetable()
+	function get_all_timetable($filter = array())
 	{
 		$sql = "SELECT student.name,staff.name as staff_name, subject.subject_name, timetable.* FROM ".$this->db->dbprefix('crm_timetable')." as timetable
 				LEFT JOIN ".$this->db->dbprefix('crm_student')." as student ON student.student_id = timetable.student_id
 				LEFT JOIN ".$this->db->dbprefix('crm_staff')." as staff ON staff.staff_id = timetable.staff_id
 				LEFT JOIN ".$this->db->dbprefix('crm_subject')." as subject ON subject.subject_id = timetable.subject_id";
+		
+		if (isset($filter['end_date']) && $filter['end_date'])
+        {
+            $sql .= " where timetable.add_time <= '{$filter['end_date']}' ";
+        }
+		
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
@@ -209,7 +215,6 @@ class CRM_Timetable_model extends Model {
 		}
 	}
 	
-	
 	function get_timetable_suspend_log($staff_id)
 	{
 		//获取信息。
@@ -222,6 +227,34 @@ class CRM_Timetable_model extends Model {
 		if ($query->num_rows() > 0)
 		{
 			return $query->result_array();
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
+	function get_all_suspend_log($filter)
+	{
+		//获取信息。
+		$sql = "SELECT log.* FROM ".$this->db->dbprefix('crm_timetable_suspend_log')." as log ";
+		
+		if (isset($filter['start_date']) && isset($filter['end_date']) && $filter['start_date'])
+        {
+            $sql .= " WHERE log.suspend_date <= '{$filter['end_date']}' ";
+            $sql .= " AND ( log.unsuspend_date >= '{$filter['start_date']}' OR log.unsuspend_date = '0000-00-00 00:00:00' )";
+        }
+		
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			$result;
+			foreach( $query->result_array() as $val)
+			{
+				$result[$val['timetable_id']][] = $val;
+			}
+			return $result;
 		}
 		else
 		{

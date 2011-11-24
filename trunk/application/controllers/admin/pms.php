@@ -14,6 +14,8 @@ class Pms extends Controller {
 		$this->load->model('CRM_Branch_model');
 		$this->load->model('CRM_Group_model');
 		$this->load->model('CRM_Contract_model');
+		$this->load->model('CRM_Timetable_model');
+		$this->load->model('CRM_History_model');
 		
 		$this->load->helper('admin');
 			
@@ -84,7 +86,115 @@ class Pms extends Controller {
 	
 	function index($filter_string = '')
 	{
-		$this->class_fee($filter_string);
+		$this->class_count($filter_string);
+	}
+	
+	function class_count($filter_string = '')
+	{
+		switch($this->staff_info['group_id'])
+		{
+			case GROUP_ADMIN: //admin管理有权限
+				break;
+			case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区员工的权限
+				$filter['branch_id'] = $this->staff_info['branch_id'];
+				break;
+			default:
+				show_error_page('您没有权限查看员工列表: 请重新登录或者联系管理员!', 'admin');
+				return false;
+		}
+		
+		//处理时间
+		$filter['year'] = $this->input->post('year') ? $this->input->post('year') : date('Y');
+		$filter['month'] = $this->input->post('month') ? $this->input->post('month') : date('m');
+		$filter['week'] = $this->input->post('week');
+		
+		if(!empty($filter['week']))
+		{
+			$start_end_st = get_week_start_end_day($filter['year'], $filter['month'], $filter['week']);
+			$filter['start_date'] = date('Y-m-d 00:00:00', $start_end_st['start_date_ts']);
+			$filter['end_date'] = date('Y-m-d 23:59:59', $start_end_st['end_date_ts']);
+		}
+		else
+		{
+			$filter['start_date'] = date('Y-m-d 00:00:00', mktime(0, 0, 0, $filter['month'], 1, $filter['year']));
+			$filter['end_date'] = date('Y-m-d 23:59:59', mktime(0, 0, 0, $filter['month'], date('t', strtotime($filter['start_date'])), $filter['year']));
+		}
+		
+		//获取课程表数据源。
+		$time_table = $this->CRM_Timetable_model->get_all_timetable($filter);
+		$tt_suspend_log = $this->CRM_Timetable_model->get_all_suspend_log($filter);
+		//处理数据
+		$tt_res_arr = array();
+		$student_info = array();
+		$staff_info = array();
+		$subject_info = array();
+		$start_ts = strtotime($filter['start_date']);
+		$end_ts = strtotime($filter['end_date']);
+		
+		for($i = $start_ts; $i <= $end_ts; $i += 60 * 60 * 24)
+		{
+			$this_day = date('N', $i);
+			if(isset($time_table[$this_day]))
+				foreach($time_table[$this_day] as $val)
+				{
+					$val['class_date'] = date('Y-m-d', $i);
+					
+					//判断 暂停的 log
+					if(isset($tt_suspend_log[$val['timetable_id']]))
+						foreach($tt_suspend_log[$val['timetable_id']] as $one_log)
+						{
+							if($one_log['suspend_date'] <= $val['class_date'] 
+								&& ($one_log['unsuspend_date'] == '0000-00-00' || $one_log['unsuspend_date'] >= $val['class_date'] ))
+								continue 2;
+						}
+					
+					$tt_res_arr[$val['staff_id']][$val['student_id']][] = $val;
+					
+					//学生，老师，科目的信息
+					$subject_info[$val['staff_id'].$val['student_id']] = $val['subject_name'];
+					if(!isset($student_info[$val['student_id']]))
+						$student_info[$val['student_id']] = $val['name'];
+					if(!isset($staff_info[$val['student_id']]))
+						$staff_info[$val['staff_id']] = $val['staff_name'];
+				}
+		
+		}
+		
+		//获取课时单数据源。
+		$finished = $this->CRM_Contract_model->get_all_finished($filter);
+		$cf_res_arr = array();
+		foreach($finished as $val)
+		{
+			$cf_res_arr[$val['teacher_id']][$val['student_id']][] = $val;
+			
+			//对课程表数据进行补充
+			if(!isset($tt_res_arr[$val['teacher_id']][$val['student_id']]))
+			{
+				$tt_res_arr[$val['teacher_id']][$val['student_id']] = array();
+				
+				//学生，老师，科目的信息
+				if(!isset($subject_info[$val['teacher_id'].$val['student_id']]))
+					$subject_info[$val['teacher_id'].$val['student_id']] = $val['subject_name'];
+				if(!isset($staff_info[$val['student_id']]))
+					$staff_info[$val['teacher_id']] = $val['staff_name'];
+			}
+		}
+		
+		
+		//教案数据源
+		$history_res_arr = $this->CRM_History_model->get_all_xueke_history($filter);
+		
+		$data['header']['meta_title'] = '课时统计系统 - 员工工资管理系统';
+		$data['main']['tt_res_arr'] = $tt_res_arr;
+		$data['main']['cf_res_arr'] = $cf_res_arr;
+		$data['main']['history_res_arr'] = $history_res_arr;
+		
+		$data['main']['student_info'] = $student_info;
+		$data['main']['staff_info'] = $staff_info;
+		$data['main']['subject_info'] = $subject_info;
+		$data['main']['filter'] = $filter;
+		
+		_load_viewer($this->staff_info['group_id'], 'pms_class_count', $data);
 	}
 	
 	function class_fee($filter_string = '')

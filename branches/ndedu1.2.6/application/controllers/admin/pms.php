@@ -248,7 +248,7 @@ class Pms extends Controller {
 		$data['main']['branches'] = $this->_get_branch();
 		$data['main']['groups'] = $this->_get_groups();
 		$data['main']['filter'] = $filter;
-		_load_viewer($this->staff_info['group_id'], 'pms_class_count', $data);
+		_load_viewer($this->staff_info['group_id'], 'pms_class_fee', $data);
 	}
 	
 	function one($staff_id)

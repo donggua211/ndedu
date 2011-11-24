@@ -82,7 +82,8 @@
 			<li class="explode" key="02_staff" name="menu">
 				工资管理系统
 				<ul>
-					<li class="menu-item"><a href="<?php echo site_url("admin/pms"); ?>" target="main-frame">员工工资管理系统</a></li>
+					<li class="menu-item"><a href="<?php echo site_url("admin/pms"); ?>" target="main-frame">课时核对系统</a></li>
+					<li class="menu-item"><a href="<?php echo site_url("admin/pms/class_fee"); ?>" target="main-frame">员工工资管理系统</a></li>
 				</ul>
 			</li>
 			<?php endif; ?>
