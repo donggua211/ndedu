@@ -229,7 +229,7 @@
 			width: 500,
 			modal: true,
 			show: 'slide',
-			hide: 'fade',
+			hide: 'fade'
 		});
 		
 		$.post(site_url+"/admin/ajax/get_contact_history", { student_id: student_id},

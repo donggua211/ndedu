@@ -255,6 +255,8 @@ class Student extends Controller {
 						case GROUP_TEACHER_D:
 							$student_teacher_type = STUDENT_TEACHER_XUEKE;
 							break;
+						default:
+							$student_teacher_type = 0;
 					}
 					
 					$data['main']['student_teacher'] = $this->CRM_Student_model->get_student_teacher($student_id, $student_teacher_type);

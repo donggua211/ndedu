@@ -24,7 +24,7 @@ class Admin_Ac_Timetable extends Admin_Ac_Base
 	//所有学员的课程表
 	function all_timetable()
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_JIAOWU_D);
 		
 		return $this->_check_role($allowed_group_id);	
 	

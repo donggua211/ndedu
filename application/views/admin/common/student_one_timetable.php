@@ -230,11 +230,13 @@
 					<td class="black" width="30%" align="center" height="150">
 						<select id="fb_list" multiple="multiple" style="text-align:center;width:300px;height:150px;">
 						<?php
-						$student_teacher_ids = array_keys($student_teacher);
+						if(is_array($student_teacher))
+							$student_teacher_ids = array_keys($student_teacher);
+						
 						foreach($teachers as $val)
 						{
-							if(in_array($val['staff_id'], $student_teacher_ids))
-								continue;
+							if(isset($student_teacher_ids) && is_array($student_teacher_ids) && in_array($val['staff_id'], $student_teacher_ids))
+									continue;
 							
 							echo '<option value="'.$val['staff_id'].'">'.$val['name'].'</option>';
 						}
@@ -248,8 +250,11 @@
 					<td class="black" width="30%" align="center">
 						<select id="select_list" multiple="multiple" style=" text-align:center;width:300px;height:150px;">
 						<?php
-						foreach($student_teacher as $val)
-							echo '<option value="'.$val['staff_id'].'">'.$val['name'].'</option>';
+						if(is_array($student_teacher))
+						{
+							foreach($student_teacher as $val)
+								echo '<option value="'.$val['staff_id'].'">'.$val['name'].'</option>';
+						}
 						?>
 						</select>
 					</td>
@@ -366,8 +371,8 @@
 				},
 				"取消": function() {
 					$( this ).dialog( "close" );
-				},
-			},
+				}
+			}
 		});
 	}
 	
@@ -387,8 +392,8 @@
 				},
 				"取消": function() {
 					$( this ).dialog( "close" );
-				},
-			},
+				}
+			}
 		});
 	}
 	
@@ -401,7 +406,7 @@
 				width: 500,
 				modal: true,
 				show: 'slide',
-				hide: 'fade',
+				hide: 'fade'
 			});
 			$( "#dialog-modal" ).dialog("enable");
 			
@@ -416,7 +421,7 @@
 						async: false,
 						type: "POST",
 						url: site_url+"admin/ajax/update_student_teacher",
-						data: "student_id="+<?php echo $student['student_id']; ?>+"&staff_id="+$(this).val()+"&type="+<?php echo $student['student_teacher_type'] ?>+"&action=add",
+						data: "student_id="+<?php echo $student['student_id']; ?>+"&staff_id="+$(this).val()+"&type="+"<?php echo isset($student['student_teacher_type']) ? $student['student_teacher_type'] : 0 ?>"+"&action=add",
 						success: function(data)
 						{
 							if(data != 'OK')
@@ -455,7 +460,7 @@
 				width: 500,
 				modal: true,
 				show: 'slide',
-				hide: 'fade',
+				hide: 'fade'
 			});
 			$( "#dialog-modal" ).dialog("enable");
 			
@@ -470,7 +475,7 @@
 						async: false,
 						type: "POST",
 						url: site_url+"admin/ajax/update_student_teacher",
-						data: "student_id="+<?php echo $student['student_id']; ?>+"&staff_id="+$(this).val()+"&type="+<?php echo $student['student_teacher_type'] ?>+"&action=del",
+						data: "student_id="+<?php echo $student['student_id']; ?>+"&staff_id="+$(this).val()+"&type="+"<?php echo isset($student['student_teacher_type']) ? $student['student_teacher_type'] : 0 ?>"+"&action=del",
 						success: function(msg){
 							if(data != 'OK')
 								result = false;
