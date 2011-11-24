@@ -13,7 +13,37 @@
 		</div>
 		<?php endif;?>
 		
+		 <form action="<?php echo site_url('admin/pms/class_count')?>" method="POST" name="searchForm">
+			<img src="images/admin/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" />
+			<select name="year">
+				<?php
+					for($i = 2010; $i <= date('Y'); $i++)
+						echo '<option value="'.$i.'" '.($i == $filter['year'] ? 'SELECTED' : '').'>'.$i.'</option>';
+				?>
+			</select>
+			
+			<select name="month">
+				<?php
+					for($i = 1; $i <= 12; $i++)
+						echo '<option value="'.$i.'" '.($i == $filter['month'] ? 'SELECTED' : '').'>'.$i.'月</option>';
+				?>
+			</select>
+			
+			<select name="week">
+				<option value="0">不选择</option>
+				<?php
+					for($i = 1; $i <= 6; $i++)
+						echo '<option value="'.$i.'" '.($i == $filter['week'] ? 'SELECTED' : '').'>第'.$i.'周</option>';
+				?>
+			</select>
+			
+			<input type="submit" value=" 搜索 " class="button" />
+		  </form>
+		
 		<div id="listDiv" class="list-div">
+			<div >
+				<?php echo '查询时间是：'.$filter['start_date'].'至'.$filter['end_date'];?>
+			</div>
 			<table cellspacing='1' id="list-table" style="width:600px; text-align:center" align="center">
 				<tr>
 					<th></th>

@@ -90,12 +90,6 @@ class Pms extends Controller {
 	
 	function class_count($filter_string = '')
 	{
-		//默认值
-		$filter['page'] = 1;
-		$filter['branch_id'] = $this->input->post('branch_id');
-		
-		$filter = $this->_parse_filter($filter_string, $filter);
-		
 		switch($this->staff_info['group_id'])
 		{
 			case GROUP_ADMIN: //admin管理有权限
@@ -109,19 +103,20 @@ class Pms extends Controller {
 		}
 		
 		//处理时间
-		$year = $this->input->post('year') ? $this->input->post('year') : date('Y');
-		$month = $this->input->post('month') ? $this->input->post('month') : date('m');
-		$week = $this->input->post('week');
+		$filter['year'] = $this->input->post('year') ? $this->input->post('year') : date('Y');
+		$filter['month'] = $this->input->post('month') ? $this->input->post('month') : date('m');
+		$filter['week'] = $this->input->post('week');
+		
 		if(!empty($filter['week']))
 		{
-			$start_end_st = get_week_start_end_day($year, $month, $week);
+			$start_end_st = get_week_start_end_day($filter['year'], $filter['month'], $filter['week']);
 			$filter['start_date'] = date('Y-m-d 00:00:00', $start_end_st['start_date_ts']);
 			$filter['end_date'] = date('Y-m-d 23:59:59', $start_end_st['end_date_ts']);
 		}
 		else
 		{
-			$filter['start_date'] = date('Y-m-d 00:00:00', mktime(0, 0, 0, $month, 1, $year));
-			$filter['end_date'] = date('Y-m-d 23:59:59', mktime(0, 0, 0, $month, date('t', strtotime($filter['start_date'])), $year));
+			$filter['start_date'] = date('Y-m-d 00:00:00', mktime(0, 0, 0, $filter['month'], 1, $filter['year']));
+			$filter['end_date'] = date('Y-m-d 23:59:59', mktime(0, 0, 0, $filter['month'], date('t', strtotime($filter['start_date'])), $filter['year']));
 		}
 		
 		//获取课程表数据源。
