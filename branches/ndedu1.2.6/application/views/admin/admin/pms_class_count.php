@@ -60,8 +60,21 @@
 								$cf_hour += $val['finished_hours'];
 								
 								list($class_date, $start_time) = explode(' ', $val['start_time']);
-								$pop_window_data[$staff_id][$student_id][$class_date][$start_time]['cf'] = $val;
+								$has_used = false;
+								if(isset($pop_window_data[$staff_id][$student_id][$class_date]))
+									foreach($pop_window_data[$staff_id][$student_id][$class_date] as $time => $temp)
+									{
+										if(abs($start_time - $time) <= 1)
+										{
+											$pop_window_data[$staff_id][$student_id][$class_date][$time]['cf'] = $val;
+											$has_used = true;
+											break 1;
+										}
+									}
+								if(!$has_used)
+									$pop_window_data[$staff_id][$student_id][$class_date][$start_time]['cf'] = $val;
 							}
+						
 						$cf_mins = floor(($cf_hour - floor($cf_hour)) * 6);
 						$cf_hour = floor($cf_hour);
 						
@@ -78,7 +91,6 @@
 				
 			</table>
 		</div>
-		
 	</div>
 </div>
 <?php
@@ -92,16 +104,45 @@ foreach($pop_window_data as $staff_id => $student_data)
 			老师：'.$staff_info[$staff_id].'<br/>
 			<table cellspacing="1" class="list-div">
 				<tr>
+					<th>日期</th>
 					<th>学科</th>
 					<th>课程表数据</th>
 					<th>课时单数据源</th>
 				</tr>';
 		
-		foreach($one_student as $date => $val)
+		foreach($one_student as $date => $time)
 		{
-			var_dump($val);
+			echo '<tr><td rowspan="'.(count($time)+1).'">'.$date.'</td></tr>';
 			
-		
+			foreach($time as $one)
+			{
+				echo '<tr>';
+				echo '<td>'.$subject_info[$staff_id.$student_id].'</td>';
+				
+				if(isset($one['tt']))
+				{
+					list($s_hour, $s_mins,) = explode(':', $one['tt']['start_time']);
+					list($e_hour, $e_mins,) = explode(':', $one['tt']['end_time']);
+					echo '<td>'.$s_hour.':'.$s_mins.'分至'.$e_hour.':'.$e_mins.'分'.'</td>';
+				}
+				else
+					echo '<td></td>';
+				
+				if(isset($one['cf']))
+				{
+					list($s_day, $s_time) = explode(' ', $one['cf']['start_time']);
+					list($e_day, $e_time) = explode(' ', $one['cf']['end_time']);
+					
+					list($s_hour, $s_mins,) = explode(':', $s_time);
+					list($e_hour, $e_mins,) = explode(':', $e_time);
+					
+					echo '<td>'.$s_hour.':'.$s_mins.'分至'.$e_hour.':'.$e_mins.'分'.'</td>';
+				}
+				else
+					echo '<td></td>';
+				
+				echo '</tr>';
+			}
 		}
 		
 		echo '
