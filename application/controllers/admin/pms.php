@@ -15,6 +15,7 @@ class Pms extends Controller {
 		$this->load->model('CRM_Group_model');
 		$this->load->model('CRM_Contract_model');
 		$this->load->model('CRM_Timetable_model');
+		$this->load->model('CRM_History_model');
 		
 		$this->load->helper('admin');
 			
@@ -181,13 +182,12 @@ class Pms extends Controller {
 		
 		
 		//教案数据源
-		$history = $this->CRM_Contract_model->get_all_finished($filter);
-		$history_res_arr = array();
-		
+		$history_res_arr = $this->CRM_History_model->get_all_xueke_history($filter);
 		
 		$data['header']['meta_title'] = '课时统计系统 - 员工工资管理系统';
 		$data['main']['tt_res_arr'] = $tt_res_arr;
 		$data['main']['cf_res_arr'] = $cf_res_arr;
+		$data['main']['history_res_arr'] = $history_res_arr;
 		
 		$data['main']['student_info'] = $student_info;
 		$data['main']['staff_info'] = $staff_info;

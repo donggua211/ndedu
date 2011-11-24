@@ -274,6 +274,33 @@ class CRM_History_model extends Model {
 			return array();
 		}
 	}
+	
+	function get_all_xueke_history($filter = '')
+	{
+		$xueke_history = array('learning', 'consult', 'suyang');
+		foreach($xueke_history as $history_type)
+		{
+			$sql = "SELECT history.student_id, history.staff_id, history.add_time FROM " . $this->db->dbprefix('crm_history_'.$history_type) . " as history
+				WHERE history.is_delete = 0 ";
+			
+			if (isset($filter['start_date']) && $filter['start_date'])
+			{
+				$sql .= " AND history.add_time >= '{$filter['start_date']}' ";
+			}
+			if (isset($filter['end_date']) && $filter['end_date'])
+			{
+				$sql .= " AND history.add_time <= '{$filter['end_date']}' ";
+			}
+			
+			$query = $this->db->query($sql);
+			if ($query->num_rows() > 0)
+			{
+				foreach($query->result_array() as $val)
+					$result[$val['staff_id']][$val['student_id']][] = $val;
+			}
+		}
+		return $result;
+	}
 }
 
 /* End of file admin.php */

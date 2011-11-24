@@ -108,11 +108,25 @@
 						$cf_mins = floor(($cf_hour - floor($cf_hour)) * 6);
 						$cf_hour = floor($cf_hour);
 						
+						
+						//教案数据
+						$history_count = 0;
+						if(isset($history_res_arr[$staff_id][$student_id]) && !empty($history_res_arr[$staff_id][$student_id]))
+							foreach($history_res_arr[$staff_id][$student_id] as $val)
+							{
+								$history_count ++;
+							}
+						
+						$cf_mins = floor(($cf_hour - floor($cf_hour)) * 6);
+						$cf_hour = floor($cf_hour);
+						
+						
+						
 						echo '<td><a href="javascript:void(0)" onclick="show_detail('.$staff_id.', '.$student_id.')">'.$tt_hour.'小时'.(($tt_mins > 0) ? $tt_mins.'分钟' : '').'</a></td>';
 						echo '<td><a href="javascript:void(0)" onclick="show_detail('.$staff_id.', '.$student_id.')">'.$cf_hour.'小时'.(($cf_mins > 0) ? $cf_mins.'分钟' : '').'</a></td>';
 						
 						echo '<td>'.abs($tt_hour - $cf_hour).'小时'.'</td>';
-						echo '<td>0</td>';
+						echo '<td>'.$history_count.'次'.'</td>';
 						
 						echo '</tr>'; 
 					}
