@@ -129,6 +129,7 @@ class Pms extends Controller {
 		$subject_info = array();
 		$start_ts = strtotime($filter['start_date']);
 		$end_ts = strtotime($filter['end_date']);
+		
 		for($i = $start_ts; $i <= $end_ts; $i += 60 * 60 * 24)
 		{
 			$this_day = date('N', $i);
@@ -136,6 +137,16 @@ class Pms extends Controller {
 				foreach($time_table[$this_day] as $val)
 				{
 					$val['class_date'] = date('Y-m-d', $i);
+					
+					//判断 暂停的 log
+					if(isset($tt_suspend_log[$val['timetable_id']]))
+						foreach($tt_suspend_log[$val['timetable_id']] as $one_log)
+						{
+							if($one_log['suspend_date'] <= $val['class_date'] 
+								&& ($one_log['unsuspend_date'] == '0000-00-00' || $one_log['unsuspend_date'] >= $val['class_date'] ))
+								continue 2;
+						}
+					
 					$tt_res_arr[$val['staff_id']][$val['student_id']][] = $val;
 					
 					//学生，老师，科目的信息
@@ -150,7 +161,7 @@ class Pms extends Controller {
 		
 		//获取课时单数据源。
 		$finished = $this->CRM_Contract_model->get_all_finished($filter);
-		
+		$cf_res_arr = array();
 		foreach($finished as $val)
 		{
 			$cf_res_arr[$val['teacher_id']][$val['student_id']][] = $val;
@@ -167,6 +178,12 @@ class Pms extends Controller {
 					$staff_info[$val['teacher_id']] = $val['staff_name'];
 			}
 		}
+		
+		
+		//教案数据源
+		$history = $this->CRM_Contract_model->get_all_finished($filter);
+		$history_res_arr = array();
+		
 		
 		$data['header']['meta_title'] = '课时统计系统 - 员工工资管理系统';
 		$data['main']['tt_res_arr'] = $tt_res_arr;

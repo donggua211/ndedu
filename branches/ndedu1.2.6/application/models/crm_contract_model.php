@@ -348,12 +348,12 @@ class CRM_Contract_model extends Model {
 		
 		if (isset($filter['start_date']) && $filter['start_date'])
         {
-            $sql .= " where contract_finished.add_time >= '{$filter['start_date']}' ";
+            $sql .= " where contract_finished.start_time >= '{$filter['start_date']}' ";
         }
 		
 		if (isset($filter['end_date']) && $filter['end_date'])
         {
-            $sql .= " and contract_finished.add_time <= '{$filter['end_date']}' ";
+            $sql .= " and contract_finished.start_time <= '{$filter['end_date']}' ";
         }
 		
 		$query = $this->db->query($sql);

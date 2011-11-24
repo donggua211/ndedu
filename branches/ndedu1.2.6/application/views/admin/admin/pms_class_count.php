@@ -41,7 +41,7 @@
 		  </form>
 		
 		<div id="listDiv" class="list-div">
-			<div >
+			<div style="margin:10px; font-size:16px; color:#333; text-align:center">
 				<?php echo '查询时间是：'.$filter['start_date'].'至'.$filter['end_date'];?>
 			</div>
 			<table cellspacing='1' id="list-table" style="width:600px; text-align:center" align="center">
@@ -111,27 +111,29 @@
 						echo '<td><a href="javascript:void(0)" onclick="show_detail('.$staff_id.', '.$student_id.')">'.$tt_hour.'小时'.(($tt_mins > 0) ? $tt_mins.'分钟' : '').'</a></td>';
 						echo '<td><a href="javascript:void(0)" onclick="show_detail('.$staff_id.', '.$student_id.')">'.$cf_hour.'小时'.(($cf_mins > 0) ? $cf_mins.'分钟' : '').'</a></td>';
 						
-						echo '<td>'.($tt_hour - $cf_hour).'小时'.'</td>';
+						echo '<td>'.abs($tt_hour - $cf_hour).'小时'.'</td>';
 						echo '<td>0</td>';
 						
 						echo '</tr>'; 
 					}
 				}
 				?>
-				
 			</table>
 		</div>
 	</div>
 </div>
 <?php
+if(isset($pop_window_data) && !empty($pop_window_data))
 foreach($pop_window_data as $staff_id => $student_data)
 {
 	foreach($student_data as $student_id => $one_student)
 	{
 		echo '
 		<div id="dialog-modal-'.$staff_id.$student_id.'" title="Basic modal dialog" style="display:none">
-			学员：'.$student_info[$student_id].'<br/>
-			老师：'.$staff_info[$staff_id].'<br/>
+			<div style="margin:5px; color:#333; text-align:center">
+				学员：'.$student_info[$student_id].' 
+				<span style="margin-left:30px">老师：'.$staff_info[$staff_id].'</span>
+			</div>
 			<table cellspacing="1" class="list-div">
 				<tr>
 					<th>日期</th>
@@ -153,7 +155,7 @@ foreach($pop_window_data as $staff_id => $student_data)
 				{
 					list($s_hour, $s_mins,) = explode(':', $one['tt']['start_time']);
 					list($e_hour, $e_mins,) = explode(':', $one['tt']['end_time']);
-					echo '<td>'.$s_hour.':'.$s_mins.'分至'.$e_hour.':'.$e_mins.'分'.'</td>';
+					echo '<td>'.$s_hour.':'.$s_mins.'至'.$e_hour.':'.$e_mins.'</td>';
 				}
 				else
 					echo '<td></td>';
@@ -166,7 +168,7 @@ foreach($pop_window_data as $staff_id => $student_data)
 					list($s_hour, $s_mins,) = explode(':', $s_time);
 					list($e_hour, $e_mins,) = explode(':', $e_time);
 					
-					echo '<td>'.$s_hour.':'.$s_mins.'分至'.$e_hour.':'.$e_mins.'分'.'</td>';
+					echo '<td>'.$s_hour.':'.$s_mins.'至'.$e_hour.':'.$e_mins.'</td>';
 				}
 				else
 					echo '<td></td>';
