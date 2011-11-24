@@ -336,23 +336,3 @@
 		$result['end_date_ts'] = $result['start_date_ts'] + 60 * 60 * 24 * 6;		
 		return $result;
 	}
-	
-	//每周始于星期一，结束于星期天。
-	function week_count($year, $month)
-	{
-		$total_day = date('t', mktime(0, 0, 0, $month, 1, $year));
-		$week_count = 0;
-		
-		for($i = 1; $i <= $total_day; $i++)
-		{
-			$this_ts = mktime(0, 0, 0, $month, $i, $year);
-			//每周始于周一。如果星期天的话，则加一。
-			if(date('w', $this_ts) == 0)
-				$week_count ++;
-		}
-		
-		if(date('w', $this_ts) != 0)
-			$week_count ++;
-		
-		return $week_count;
-	}
