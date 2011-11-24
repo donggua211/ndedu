@@ -58,7 +58,7 @@
 					{ 
 					?>
 						<?php
-						$callback_history = array('consult' => '咨询历史', 'suyang' => '素养历史'); 
+						$callback_history = array('learning' => '学习历史', 'consult' => '咨询历史', 'suyang' => '素养历史'); 
 						foreach($callback_history as $callback_history_type => $callback_history_text)
 						{
 						?>
@@ -86,7 +86,10 @@
 								<tr>
 									<td>
 										<?php
-											echo '<b>教学目标：</b><br/>'.nl2br($one_history['history_'.$callback_history_type.'_target']).'<br/>';
+											if($callback_history_type == 'learning')
+												echo '<b>科目：</b><br/>'.$one_history['history_'.$callback_history_type.'_subject'].'<br/><b>授课描述和总结：</b><br/>'.nl2br($one_history['history_'.$callback_history_type.'']).'<br/>';
+											else
+												echo '<b>教学目标：</b><br/>'.nl2br($one_history['history_'.$callback_history_type.'_target']).'<br/>';
 										?>
 									</td>
 									<td align="center"><?php echo $one_history['add_time'] ?></td>

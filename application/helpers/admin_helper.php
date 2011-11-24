@@ -326,3 +326,13 @@
 	{
 		return $history_type.'_'.$history_id.$file_ext;	
 	}
+	
+	//获取某一周开始的日期和结束的日期.
+	function get_week_start_end_day($year, $month, $week_num)
+	{
+		//第一周的第一天。
+		$result['start_date_ts'] = mktime(0, 0, 0, $month, 1, $year) - 60 * 60 * 24 * (date('N', mktime(0, 0, 0, $month, 1, $year)) - 1) + 60 * 60 * 24 * 7 * ($week_num - 1);
+		
+		$result['end_date_ts'] = $result['start_date_ts'] + 60 * 60 * 24 * 6;		
+		return $result;
+	}
