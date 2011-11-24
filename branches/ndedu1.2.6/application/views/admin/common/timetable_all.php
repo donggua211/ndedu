@@ -60,33 +60,32 @@
 						
 						if(isset($time_table[$i]))
 						{
-							echo '<a href="javascript:void(0)" onclick="show_timetable('.$time_q.', '.$i.')">共:'.count($time_table[$i]).'次课。';
-							
-							$suspend_count = 0;
+							$suspend_hour = 0;
+							$suspend_mins = 0;
 							$hour = 0;
 							$mins = 0;
 							foreach($time_table[$i] as $val)
 							{
-								if($val['is_suspend'] == 1)
-								{
-									$suspend_count++;
-									continue;
-								}
-								
 								list($s_h, $s_m) = explode(':', $val['start_time']);
 								list($e_h, $e_m) = explode(':', $val['end_time']);
+								
+								if($val['is_suspend'] == 1)
+								{
+									$suspend_hour += $e_h - $s_h;
+									$suspend_mins += $e_m - $s_m;
+								}
+								
 								$hour += $e_h - $s_h;
 								$mins += $e_m - $s_m;
 							}
 							
-							if($suspend_count > 0)
-								echo '(其中暂停的课程为:'.$suspend_count.'次课)';
-							
-							
 							$hour += (floor($mins / 60) > 0) ? (floor($mins / 60)) : 0;
 							$mins = $mins % 60;
 							
-							echo '<br/>共:'.$hour.'小时'.(($mins > 0) ? $mins.'分钟' : '').'课时';
+							echo '<a href="javascript:void(0)" onclick="show_timetable('.$time_q.', '.$i.')">共: <b>'.$hour.'</b> 小时'.(($mins > 0) ? '<b>'.$mins.'</b>分钟' : '').'课时。';
+							if($suspend_hour >0 || $suspend_mins > 0)
+								echo '<br/>已暂停的课时：<b>'.$suspend_hour.'</b> 小时'.(($suspend_mins > 0) ? '<b>'.$suspend_mins.'</b>分钟' : '').'课时。';
+							echo '</a>';
 						}
 						echo '</td>';
 					}
