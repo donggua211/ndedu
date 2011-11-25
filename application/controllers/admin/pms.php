@@ -139,6 +139,10 @@ class Pms extends Controller {
 				{
 					$val['class_date'] = date('Y-m-d', $i);
 					
+					//判断 课程的添加时间
+					if($val['class_date'].' 00:00:00' <= $val['add_time'])
+						continue 2;
+					
 					//判断 暂停的 log
 					if(isset($tt_suspend_log[$val['timetable_id']]))
 						foreach($tt_suspend_log[$val['timetable_id']] as $one_log)

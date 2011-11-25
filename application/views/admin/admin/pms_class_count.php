@@ -61,7 +61,7 @@
 					
 					foreach($one_teacher_tt as $student_id => $one_student_tt)
 					{
-						echo '<tr><td>'.$student_info[$student_id].'</td>';
+						echo '<tr><td>'.(isset($student_info[$student_id]) ? $student_info[$student_id] : '').'</td>';
 						
 						//课程表数据
 						$tt_hour = 0;
@@ -145,7 +145,7 @@ foreach($pop_window_data as $staff_id => $student_data)
 		echo '
 		<div id="dialog-modal-'.$staff_id.$student_id.'" title="Basic modal dialog" style="display:none">
 			<div style="margin:5px; color:#333; text-align:center">
-				学员：'.$student_info[$student_id].' 
+				学员：'.(isset($student_info[$student_id]) ? $student_info[$student_id] : '').' 
 				<span style="margin-left:30px">老师：'.$staff_info[$staff_id].'</span>
 			</div>
 			<table cellspacing="1" class="list-div">
@@ -156,10 +156,10 @@ foreach($pop_window_data as $staff_id => $student_data)
 					<th>课时单数据源</th>
 				</tr>';
 		
+		ksort($one_student);
 		foreach($one_student as $date => $time)
 		{
 			echo '<tr><td rowspan="'.(count($time)+1).'">'.$date.'</td></tr>';
-			
 			foreach($time as $one)
 			{
 				echo '<tr>';
