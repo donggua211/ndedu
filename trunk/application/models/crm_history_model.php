@@ -278,6 +278,7 @@ class CRM_History_model extends Model {
 	function get_all_xueke_history($filter = '')
 	{
 		$xueke_history = array('learning', 'consult', 'suyang');
+		$result = array();
 		foreach($xueke_history as $history_type)
 		{
 			$sql = "SELECT history.student_id, history.staff_id, history.add_time FROM " . $this->db->dbprefix('crm_history_'.$history_type) . " as history
