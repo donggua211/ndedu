@@ -336,3 +336,11 @@
 		$result['end_date_ts'] = $result['start_date_ts'] + 60 * 60 * 24 * 6;		
 		return $result;
 	}
+	
+	function sent_mail($subject, $message, $to = 'admin_alert@ndedu.org', $from = 'admin@ndedu.org')
+	{
+		$headers = 'From: '.$from. "\r\n";
+		$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";;
+		
+		mail ($to, $subject, $message, $headers);
+	}

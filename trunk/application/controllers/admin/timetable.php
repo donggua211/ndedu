@@ -48,7 +48,7 @@ class Timetable extends Controller {
 		_load_viewer($this->staff_info['group_id'], 'timetable_index', $data);
 	}
 	
-	function all()
+	function all($type='count')
 	{
 		//access_control
 		if(!$this->admin_ac_timetable->all_timetable())
@@ -79,7 +79,12 @@ class Timetable extends Controller {
 		
 		$data['header']['meta_title'] = '所有学员的课程表 - 日程管理';
 		
-		_load_viewer($this->staff_info['group_id'], 'timetable_all', $data);
+		if($type == 'list')
+			$template = 'timetable_all_list';
+		else
+			$template = 'timetable_all_count';
+		
+		_load_viewer($this->staff_info['group_id'], $template, $data);
 	}
 	
 	
@@ -166,6 +171,9 @@ class Timetable extends Controller {
 			//添加暂停记录
 			$days = intval($this->input->post('days'));
 			$this->CRM_Timetable_model->add_timetable_suspend_log(array('timetable_id' => $timetable_id, 'days' => $days, 'staff_id' => $this->staff_info['staff_id']));
+			
+			//发送报警email
+			sent_mail('【timetable, suspend】有课程暂停：timetable_id:'.$timetable_id, '【timetable, suspend】有课程暂停：timetable_id:'.$timetable_id);
 			
 			show_result_page('课程已经成功暂停! ', 'admin/student/one/'.$timetable_info['student_id'].'/timetable');
 		}

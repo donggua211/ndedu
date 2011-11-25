@@ -13,7 +13,9 @@
 			<img style="vertical-align: middle;" src="images/icon/warning.gif"> <span style="color:red;font-size:20px;line-height:22px"><?php echo $notification;?></span>
 		</div>
 		<?php endif;?>
-		
+		<div style="margin:10px; text-align:right">
+			<a href="<?php echo site_url('admin/timetable/all/list') ?>">切换至所有课程列表模式</a>
+		</div>
 		<div id="listDiv" class="list-div">
 			<table cellspacing='1' id="list-table">
 				<tr>
