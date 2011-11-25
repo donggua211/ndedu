@@ -145,7 +145,7 @@ class CRM_History_model extends Model {
 				LEFT JOIN " . $this->db->dbprefix('crm_history_attachment') . " as attachment ON  attachment.history_id = history.history_{$history_type}_id
 				WHERE student_id = $student_id	
 				AND history.is_delete = 0
-				ORDER BY history.add_time";
+				ORDER BY history.add_time DESC";
 		
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)

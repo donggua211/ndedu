@@ -139,7 +139,7 @@
 					</td>
 					<td><?php echo $student['address'] ?></td>
 					<td align="center"><?php echo get_student_status_text($student['status']) ?></td>
-					<td align="center"><?php echo $student['last_contact_time'] ?></td>
+					<td align="center"><?php echo ($student['last_contact_time'] ? $student['last_contact_time'] : $student['add_time'] )?></td>
 					<?php endif; ?>
 					
 					<?php if($CI->admin_ac_student->view_student_all_finished_hour_dob()): ?>
