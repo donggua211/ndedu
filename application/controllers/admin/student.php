@@ -177,6 +177,8 @@ class Student extends Controller {
 				
 				$student_extra_info['this_staff_id'] = $this->staff_info['staff_id'];
 				
+				$data['main']['subjects'] = $this->_get_subjects(SUBJECT_XUEKE);
+				
 				$data['header']['css_file'] = '../calendar.css';
 				$data['footer']['js_file'][] = '../calendar.js';
 		
@@ -317,7 +319,7 @@ class Student extends Controller {
 		return $this->CRM_Staff_model->getAll($filter, 0,0, $order_by = 'username');
 	}
 	
-	function _get_subjects()
+	function _get_subjects($parrent_id = 0)
 	{
 		if($this->staff_info['group_id'] == GROUP_CONSULTANT_D)
 			$parrent_id = SUBJECT_ZIXUN;
@@ -325,8 +327,6 @@ class Student extends Controller {
 			$parrent_id = SUBJECT_SUYANG;
 		elseif($this->staff_info['group_id'] == GROUP_TEACHER_D)
 			$parrent_id = SUBJECT_XUEKE;
-		else
-			$parrent_id = 0;
 		
 		return $this->CRM_Subject_model->getAll($parrent_id);
 	}

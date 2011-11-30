@@ -69,19 +69,28 @@ class CRM_Staff_model extends Model {
             $where .= " AND staff.staff_id IN ( ".implode(',', $filter['available_staff'])." )";
         }
 		
-		//student基本信息
-		$sql = "SELECT staff.* FROM ".$this->db->dbprefix('crm_staff')." as staff ". $where;
-		
-		//LIMIT
-		if (!empty($row_count))
+		//按照学科
+		if (isset($filter['subject_id']) && $filter['subject_id'])
         {
-            $sql .= " LIMIT $offset, $row_count";
+            $where .= " AND subject.subject_id = " . $filter['subject_id'];
         }
+		
+		//student基本信息
+		$sql = "SELECT staff.*, subject.subject_name, subject.subject_id FROM ".$this->db->dbprefix('crm_staff')." as staff
+				LEFT JOIN ".$this->db->dbprefix('crm_staff_extra')." as staff_extra ON staff_extra.staff_id = staff.staff_id
+				LEFT JOIN ".$this->db->dbprefix('crm_subject')." as subject ON staff_extra.subject_id = subject.subject_id
+				". $where;
 		
 		//order by
 		if (!empty($order_by))
         {
             $sql .= " ORDER BY $order_by $order";
+        }
+		
+		//LIMIT
+		if (!empty($row_count))
+        {
+            $sql .= " LIMIT $offset, $row_count";
         }
 		
 		$query = $this->db->query($sql);
@@ -149,8 +158,17 @@ class CRM_Staff_model extends Model {
             $where .= " AND staff.name LIKE '%{$filter['name']}%' ";
         }
 		
+		//按照学科
+		if (isset($filter['subject_id']) && $filter['subject_id'])
+        {
+            $where .= " AND subject.subject_id = " . $filter['subject_id'];
+        }
+		
 		//student基本信息
-		$sql = "SELECT COUNT(staff.staff_id) AS total FROM ".$this->db->dbprefix('crm_staff')." as staff ".$where;
+		$sql = "SELECT COUNT(staff.staff_id) AS total FROM ".$this->db->dbprefix('crm_staff')." as staff 
+				LEFT JOIN ".$this->db->dbprefix('crm_staff_extra')." as staff_extra ON staff_extra.staff_id = staff.staff_id
+				LEFT JOIN ".$this->db->dbprefix('crm_subject')." as subject ON staff_extra.subject_id = subject.subject_id
+				" . $where;
 		$query = $this->db->query($sql);
 		$row = $query->row_array();
 		return $row['total'];
@@ -292,10 +310,12 @@ class CRM_Staff_model extends Model {
 	function getOne($staff_id)
 	{
 		//staff基本信息
-		$sql = "SELECT staff.*, grade.grade_name, branch.branch_name FROM " . $this->db->dbprefix('crm_staff') . " as staff, " . $this->db->dbprefix('crm_grade') . " as grade, " . $this->db->dbprefix('crm_branch') . " as branch
-				WHERE staff.staff_id = $staff_id
-				AND staff.grade_id = grade.grade_id
-				AND staff.branch_id 	 = branch.branch_id";
+		$sql = "SELECT staff.*, grade.grade_name, branch.branch_name, subject.subject_id, subject.subject_name FROM " . $this->db->dbprefix('crm_staff') . " as staff
+				LEFT JOIN ".$this->db->dbprefix('crm_staff_extra')." as staff_extra ON staff_extra.staff_id = staff.staff_id
+				LEFT JOIN ".$this->db->dbprefix('crm_subject')." as subject ON staff_extra.subject_id = subject.subject_id
+				LEFT JOIN ".$this->db->dbprefix('crm_grade')." as grade ON grade.grade_id = staff.grade_id
+				LEFT JOIN ".$this->db->dbprefix('crm_branch')." as branch ON branch.branch_id = staff.branch_id
+				WHERE staff.staff_id = $staff_id";
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
 		{
@@ -346,28 +366,61 @@ class CRM_Staff_model extends Model {
 		
 		if($this->db->insert('crm_staff', $data))
 		{
-			return $this->db->insert_id();
+			$staff_id = $this->db->insert_id();
 		}
 		else
 		{
 			return false;
 		}
+		
+		/*
+		 * ndedu 1.2.4
+		 * 插入crm_student_extra表.
+		 */
+		$data = array();
+		$data['staff_id'] = $staff_id;
+		$data['subject_id'] = $staff['subject_id'];
+		$data['add_time'] = date('Y-m-d H:i:s');
+		if(!$this->db->insert('crm_staff_extra', $data))
+		{
+			return false;
+		}
+		
+		return true;
 	}
 	
-	function update($staff_id, $update_field = array())
+	function update($staff_id, $update_field = array(), $update_extra_field = array())
 	{
-		if(empty($update_field))
-			return true;
-		
-		//更新student表
-		foreach($update_field as $key => $val)
+		if(!empty($update_field))
 		{
+			//更新student表
+			foreach($update_field as $key => $val)
+			{
 				$data[$key] = $val;
+			}
+			$data['update_time'] = date('Y-m-d H:i:s');
+			
+			$this->db->where('staff_id', $staff_id);
+			if(!$this->db->update('crm_staff', $data))
+				return false;
 		}
-		$data['update_time'] = date('Y-m-d H:i:s');
 		
-		$this->db->where('staff_id', $staff_id);
-		return $this->db->update('crm_staff', $data);
+		if(!empty($update_extra_field))
+		{
+			$update_field_arr = array();
+			$update_extra_field['staff_id'] = $staff_id;
+			foreach($update_extra_field as $key => $val)
+				$update_field_arr[] = "`$key`='$val'";
+			
+			$sql = 'INSERT INTO ' . $this->db->dbprefix('crm_staff_extra') . ' SET '.implode(',', $update_field_arr).' ON DUPLICATE KEY UPDATE `add_time`=`add_time`, '.implode(',', $update_field_arr);
+			
+			if (!$this->db->query($sql))
+			{
+				return false;
+			}
+		}
+		
+		return true;
 	}
 	
 	/*

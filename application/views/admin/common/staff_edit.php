@@ -46,6 +46,24 @@
 				</td>
 			</tr>
 			<tr>
+				<td class="label" valign="top"></span>科目: </td>
+				<td>
+					<select name="subject_id">
+						<option value='0'>请选择...</option>
+						<?php 
+							foreach($subjects as $subject)
+							{
+								if($subject['subject_id'] == SUBJECT_XUEKE)
+									continue;
+								
+								echo '<option value="'.$subject['subject_id'].'" '.((isset($staff['subject_id'])) ? ( ($subject['subject_id'] == $staff['subject_id']) ? 'SELECTED' : '' ) : '').'>'.$subject['subject_name'].'</option>';
+							}
+						?>
+					</select><br/>					
+					<span class="notice-span" style="display:block"  id="noticeskype">员工为学科老师时，请选择科目.</span>
+				</td>
+			</tr>
+			<tr>
 				<td class="label" valign="top">学阶: </td>
 				<td>
 					<select name="grade_id">

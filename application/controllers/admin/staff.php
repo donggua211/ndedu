@@ -18,6 +18,7 @@ class Staff extends Controller {
 		$this->load->model('CRM_Timetable_model');
 		$this->load->model('CRM_Staff_Schedule_model');
 		$this->load->model('CRM_Student_model');
+		$this->load->model('CRM_Subject_model');
 		
 		$this->load->helper('admin');
 			
@@ -45,11 +46,26 @@ class Staff extends Controller {
 		$filter['branch_id'] = $this->input->post('branch_id');
 		$filter['grade_id'] = $this->input->post('grade_id');
 		$filter['group_id'] = $this->input->post('group_id');
+		$filter['subject_id'] = $this->input->post('subject_id');
 		$filter['name'] = $this->input->post('name');
 		$filter['is_active'] = 1;
 		$filter['is_delete'] = 0;
 	
 		$filter = $this->_parse_filter($filter_string, $filter);
+		
+		if($filter['subject_id'])
+		{
+			if($filter['subject_id'] == STUDENT_TEACHER_SUYANG)
+			{
+				$filter['group_id'] = array(GROUP_SUYANG, GROUP_SUYANG_D);
+				$filter['subject_id'] = false;
+			}
+			elseif($filter['subject_id'] == STUDENT_TEACHER_ZIXUN)
+			{
+				$filter['group_id'] = array(GROUP_CONSULTANT, GROUP_CONSULTANT_D);
+				$filter['subject_id'] = false;
+			}
+		}
 		
 		//access control
 		$filter_ac = $this->admin_ac_staff->staff_index_ac();
@@ -75,7 +91,7 @@ class Staff extends Controller {
 		$page_nav['filter'] = $filter;
 		$data['main']['page_nav'] = $this->load->view('admin/common_page_nav', $page_nav, true);
 		
-		$staffs = $this->CRM_Staff_model->getAll($filter, $page_nav['start'], STAFF_PER_PAGE);
+		$staffs = $this->CRM_Staff_model->getAll($filter, $page_nav['start'], STAFF_PER_PAGE, 'staff_extra.subject_id');
 		
 		$data['header']['css_file'] = '../calendar.css';
 		$data['header']['meta_title'] = '查看员工 - 管理员工';
@@ -83,7 +99,7 @@ class Staff extends Controller {
 		$data['main']['staffs'] = $staffs;
 		$data['main']['branches'] = $this->_get_branch();
 		$data['main']['grades'] = $this->_get_grade();
-		$data['main']['groups'] = $this->_get_groups();
+		$data['main']['subjects'] = $this->_get_subjects();
 		$data['main']['filter'] = $filter;
 		_load_viewer($this->staff_info['group_id'], 'staff_all', $data);
 	}
@@ -283,6 +299,9 @@ class Staff extends Controller {
 			$edit_staff['address'] = $this->input->post('address');
 			$edit_staff['remark'] = $this->input->post('remark');
 			
+			//ndedu1.2.6 新加：学科属性
+			$edit_staff_extra['subject_id'] = $this->input->post('subject_id');
+			
 			if($edit_staff['password'] != $edit_staff['password_c'])
 			{
 				$notify = '两次输入密码不一致, 请重新输入.';
@@ -292,6 +311,7 @@ class Staff extends Controller {
 			
 			//检查修改项
 			$update_field = array();
+			$update_extra_field = array();
 			foreach($edit_staff as $key => $val)
 			{
 				if($key == 'password_c')
@@ -303,8 +323,13 @@ class Staff extends Controller {
 				if(!empty($val) && ($val != $staff_info[$key]))
 					$update_field[$key] = $val;
 			}
+			foreach($edit_staff_extra as $key => $val)
+			{
+				if(!empty($val) && ($val != $staff_info[$key]))
+					$update_extra_field[$key] = $val;
+			}
 			
-			if($this->CRM_Staff_model->update($staff_id, $update_field))
+			if($this->CRM_Staff_model->update($staff_id, $update_field, $update_extra_field))
 			{
 				show_result_page('员工已经更新成功! ', 'admin/staff');
 			}
@@ -355,6 +380,9 @@ class Staff extends Controller {
 			$new_staff['level'] = $this->input->post('level');
 			$new_staff['in_trial'] = 1;
 			
+			//ndedu1.2.6 新加：学科属性
+			$new_staff['subject_id'] = $this->input->post('subject_id');
+			
 			if(empty($new_staff['username']) || empty($new_staff['password']) || empty($new_staff['password_c']) || empty($new_staff['name']) || empty($new_staff['phone']) || empty($new_staff['qq']) || empty($new_staff['email']) || empty($new_staff['group_id']) || empty($new_staff['branch_id']) || empty($new_staff['grade_id']) || empty($new_staff['dob']) || empty($new_staff['gender']) || empty($new_staff['level']))
 			{
 				$notify = '请填写完整的员工信息';
@@ -373,6 +401,12 @@ class Staff extends Controller {
 			elseif($this->CRM_Staff_model->username_has_exist($new_staff['username'])) //检查重名.
 			{
 				$notify = '员工名已经存在, 请重新输入.';
+				$this->_load_staff_add_view($notify, $new_staff);
+			}
+			//ndedu1.2.6 新加：学科属性，如果员工为学科老师，则必须选择科目.
+			elseif(($new_staff['group_id'] == GROUP_TEACHER_PARTTIME || $new_staff['group_id'] == GROUP_TEACHER_FULL) && empty($new_staff['subject_id']))
+			{
+				$notify = '员工为学科老师时，请选择科目.';
 				$this->_load_staff_add_view($notify, $new_staff);
 			}
 			else
@@ -593,6 +627,7 @@ class Staff extends Controller {
 		$data['main']['branches'] = $this->_get_branch();
 		$data['main']['groups'] = $this->_get_groups();
 		$data['main']['grades'] = $this->_get_grade();
+		$data['main']['subjects'] = $this->_get_subjects();
 		$data['main']['notification'] = $notify;
 		$data['main']['staff'] = $staff;
 		_load_viewer($this->staff_info['group_id'], 'staff_add', $data);
@@ -604,6 +639,7 @@ class Staff extends Controller {
 		$data['main']['branches'] = $this->_get_branch();
 		$data['main']['groups'] = $this->_get_groups();
 		$data['main']['grades'] = $this->_get_grade();
+		$data['main']['subjects'] = $this->_get_subjects();
 		$data['main']['notification'] = $notify;
 		$data['main']['staff'] = $staff;
 		_load_viewer($this->staff_info['group_id'], 'staff_edit', $data);
@@ -656,6 +692,18 @@ class Staff extends Controller {
 		return $this->CRM_Grade_model->get_grades(GRADE_PARENT);
 	}
 	
+	function _get_subjects($parrent_id = 0)
+	{
+		if($this->staff_info['group_id'] == GROUP_CONSULTANT_D)
+			$parrent_id = SUBJECT_ZIXUN;
+		elseif($this->staff_info['group_id'] == GROUP_SUYANG_D)
+			$parrent_id = SUBJECT_SUYANG;
+		elseif($this->staff_info['group_id'] == GROUP_TEACHER_D)
+			$parrent_id = SUBJECT_XUEKE;
+		
+		return $this->CRM_Subject_model->getAll($parrent_id);
+	}
+	
 	function _parse_filter($filter_string, $filter)
 	{
 		$input_filter = parse_filter($filter_string);
@@ -678,6 +726,7 @@ class Staff extends Controller {
 				case 'branch_id':
 				case 'grade_id':
 				case 'group_id':
+				case 'subject_id':
 				case 'is_active':
 				case 'is_delete':
 				case 'in_trial':

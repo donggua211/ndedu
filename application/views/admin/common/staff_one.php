@@ -55,6 +55,12 @@
 				<td class="label" valign="top">星级: </td>
 				<td><?php echo $staff['level']?>星级</td>
 			</tr>
+			<?php if(!empty($staff['subject_name'])): ?>
+			<tr>
+				<td class="label" valign="top">学科: </td>
+				<td><?php echo $staff['subject_name']?></td>
+			</tr>
+			<?php endif; ?>
 			<tr>
 				<td class="label" valign="top">年级: </td>
 				<td><?php echo $staff['grade_name']?></td>

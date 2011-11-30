@@ -135,7 +135,7 @@
 			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>学员来源: </td>
 				<td>
-					<select id="student_from" name="student_from">
+					<select id="student_from" name="student_from" onChange="change_from(this)">
 						<option value="0">请选择...</option>
 						<?php 
 							foreach($froms as $from)
@@ -174,15 +174,18 @@
 		$("#date").click(function(){
 			showCalendar('date', '%Y-%m-%d', false, false, 'date');
 		});
-		
-		$("#student_from").change(function(){
-			if($("#student_from option:selected").val() == 'other')
-			{
-				$("#student_from_text_span").css('display', '');
-				z$("#student_from_text").focus();
-			}
-			else
-				$("#student_from_text_span").css('display', 'none');
-		});
 	});
+	
+	function change_from(obj)
+	{
+		if(obj.options[obj.selectedIndex].value == 'other')
+		{
+			$("#student_from_text_span").css('display', '');
+			$("#student_from_text").focus();
+		}
+		else
+		{
+			$("#student_from_text_span").css('display', 'none');
+		}
+	}
 </script>

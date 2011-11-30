@@ -25,6 +25,7 @@
 				?>
 			</select>
 			<?php endif; ?>
+			
 			<!-- 学阶 -->
 			<select name="grade_id">
 				<option value='0'>全部学阶</option>
@@ -33,16 +34,20 @@
 						echo '<option value="'.$grade['grade_id'].'" ' . ( ($grade['grade_id'] == $filter['grade_id']) ? 'SELECTED' : '' ) . '>'.$grade['grade_name'].'</option>';
 				?>
 			</select>
-			<!-- 角色 -->
-			<?php if(is_admin() || is_school_admin()): //权限: 只有超级管理员可以按校区搜索?>
-			<select name="group_id">
-				<option value='0'>所有员工角色</option>
+			<!-- 所有学科 -->
+			<select name="subject_id">
+				<option value='0'>所有学科</option>
 				<?php
-					foreach($groups as $group)
-						echo '<option value="'.$group['group_id'].'" '. (($group['group_id'] == $filter['group_id']) ? 'SELECTED' : '' ) .'>'.$group['group_name'].'</option>';
+					foreach($subjects as $subject)
+					{
+						if($subject['subject_id'] == SUBJECT_XUEKE)
+							continue;
+						
+						echo '<option value="'.$subject['subject_id'].'" '. (($subject['subject_id'] == $filter['subject_id']) ? 'SELECTED' : '' ) .'>'.$subject['subject_name'].'</option>';
+					}
 				?>
 			</select>
-			<?php endif; ?>
+			
 			<!-- 姓名 -->
 			员工姓名 <input type="text" name="name" size="15" />
 			<input type="submit" value=" 搜索 " class="button" />
@@ -56,6 +61,7 @@
 					<th></th>
 					<th>姓名</th>
 					<th>电话</th>
+					<th>学科</th>
 					<th>籍贯/住址</th>
 					<th>备注</th>
 					<th>操作</th>
@@ -71,6 +77,7 @@
 					<td><input type="checkbox" name="mobile[]" value="<?php echo isset($matches[0]) ? $matches[0] : ''; ?>"></td>
 					<td class="first-cell" align="center"><a href="<?php echo site_url('admin/staff/one/'.$staff['staff_id']) ?>"><?php echo $staff['name'] ?></a></td>
 					<td><?php echo $staff['phone'] ?></td>
+					<td><?php echo $staff['subject_name'] ?></td>
 					<td><?php echo $staff['address'] ?></td>
 					<td><span title="<?php echo $staff['remark'] ?>"><?php echo utf_substr($staff['remark'], 45); ?></span></td>
 					<td align="center"  id="option_<?php echo $staff['staff_id']; ?>">
