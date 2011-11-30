@@ -236,10 +236,28 @@
 									{ 
 									?>
 										<table>
-											<tr><td><b>科目：</b></td><td><input type="text" name="learning_subject" value="<?php  echo (isset($student['learning_subject']) ? $student['learning_subject'] : '')?>"></td></tr>
-											<tr><td><b>课时：</b></td><td><input type="text" name="learning_period" value="<?php  echo (isset($student['learning_period']) ? $student['learning_period'] : '')?>" size="4"> 小时</td></tr>
-											<tr><td><b>日期：</b></td><td><input type="text" name="learning_date" readonly="readonly" id="learning_date" size="12" value="<?php  echo (isset($student['learning_date']) ? $student['learning_date'] : '0000-00-00')?>" onclick="showCalendar('learning_date', '%Y-%m-%d', false, false, 'learning_date');" /></td></tr>
-											<tr><td><b>教材版本：</b></td><td><input type="text" name="learning_version" value="<?php  echo (isset($student['learning_version']) ? $student['learning_version'] : '')?>"></td></tr>
+											<tr><td><b>科目：</b></td>
+												<td><select name="learning_subject">
+													<option value='0'>请选择...</option>
+													<?php
+														foreach($subjects as $subject)
+														{
+															if($subject['subject_id'] == SUBJECT_XUEKE)
+																continue;
+															echo '<option value="'.$subject['subject_name'].'">'.$subject['subject_name'].'</option>';
+														}
+													?>
+												</select></td>
+											</tr>
+											<tr><td><b>课时：</b></td><td><input type="text" name="learning_period" value="<?php  echo (isset($student['learning_period']) ? $student['learning_period'] : '2')?>" size="4"> 小时</td></tr>
+											<tr><td><b>日期：</b></td><td><input type="text" name="learning_date" readonly="readonly" id="learning_date" size="12" value="<?php  echo (isset($student['learning_date']) ? $student['learning_date'] : date('Y-m-d'))?>" onclick="showCalendar('learning_date', '%Y-%m-%d', false, false, 'learning_date');" /></td></tr>
+											<tr><td><b>教材版本：</b></td>
+											<td><select name="learning_version">
+													<option value='0'>请选择...</option>
+													<option value="苏教版">苏教版</option>
+													<option value="人教版">人教版</option>
+													<option value="北师大版">北师大版</option>
+												</select></td></tr>
 											<tr><td><span class="notice-star"> * </span><b>授课描述和总结：</b><br/><span style="color:#000">（上课的情况、<br/>发现的问题、<br/>感悟与反思等）</span></td><td><textarea name="history" cols="80" rows="5"><?php echo (isset($student['history']) ? $student['history'] : '')?></textarea></td></tr>
 											<input type="hidden" name="add_calendar" value="0">
 										</table>

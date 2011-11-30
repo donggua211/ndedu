@@ -55,6 +55,14 @@
 				</tr>
 				
 				<?php
+				$count_tt_hour = 0;
+				$count_tt_mins = 0;
+				$count_cf_hour = 0;
+				$count_cf_mins = 0;
+				$count_diff_hour = 0;
+				$count_diff_mins = 0;
+				$count_history_all = 0;
+				
 				foreach($tt_res_arr as $staff_id => $one_teacher_tt)
 				{
 					echo '<tr><td rowspan="'.(count($one_teacher_tt)+1).'">'.$staff_info[$staff_id].'</td></tr>';
@@ -73,13 +81,18 @@
 								list($e_h, $e_m) = explode(':', $val['end_time']);
 								$tt_hour += $e_h - $s_h;
 								$tt_mins += $e_m - $s_m;
+								if($tt_mins < 0)
+								{
+									$tt_hour -= 1;
+									$tt_mins += 60;
+								}
 								
 								$pop_window_data[$staff_id][$student_id][$val['class_date']][$val['start_time']]['tt'] = $val;
 							
 							}
-						$tt_hour += (floor($tt_hour / 60) > 0) ? (floor($tt_hour / 60)) : 0;
-						$tt_mins = $tt_mins % 60;
 						
+						$count_tt_hour += $tt_hour;
+						$count_tt_mins += $tt_mins;
 						
 						//课时单数据
 						$cf_hour = 0;
@@ -105,9 +118,11 @@
 									$pop_window_data[$staff_id][$student_id][$class_date][$start_time]['cf'] = $val;
 							}
 						
-						$cf_mins = floor(($cf_hour - floor($cf_hour)) * 6);
+						$cf_mins = floor(($cf_hour - floor($cf_hour)) * 60);
 						$cf_hour = floor($cf_hour);
 						
+						$count_cf_hour += $cf_hour;
+						$count_cf_mins += $cf_mins;
 						
 						//教案数据
 						$history_count = 0;
@@ -116,22 +131,47 @@
 							{
 								$history_count ++;
 							}
+						$count_history_all += $history_count;
 						
-						$cf_mins = floor(($cf_hour - floor($cf_hour)) * 6);
-						$cf_hour = floor($cf_hour);
-						
-						
+						//比较结果
+						$diff_hour = abs($tt_hour - $cf_hour);
+						$diff_mins = $tt_mins - $cf_mins;
+						if($diff_mins < 0)
+						{
+							$diff_hour -= 1;
+							$diff_mins += 60;
+						}
+						$count_diff_hour += $diff_hour;
+						$count_diff_mins += $diff_mins;
 						
 						echo '<td><a href="javascript:void(0)" onclick="show_detail('.$staff_id.', '.$student_id.')">'.$tt_hour.'小时'.(($tt_mins > 0) ? $tt_mins.'分钟' : '').'</a></td>';
 						echo '<td><a href="javascript:void(0)" onclick="show_detail('.$staff_id.', '.$student_id.')">'.$cf_hour.'小时'.(($cf_mins > 0) ? $cf_mins.'分钟' : '').'</a></td>';
 						
-						echo '<td>'.abs($tt_hour - $cf_hour).'小时'.'</td>';
+						echo '<td>'.$diff_hour.'小时'.(($diff_mins > 0) ? $diff_mins.'分钟' : '').'</td>';
 						echo '<td>'.$history_count.'次'.'</td>';
 						
 						echo '</tr>'; 
 					}
 				}
+				
+				$count_tt_hour += (floor($count_tt_mins / 60) > 0) ? (floor($count_tt_mins / 60)) : 0;
+				$count_tt_mins = $count_tt_mins % 60;
+				
+				$count_cf_hour += (floor($count_cf_mins / 60) > 0) ? (floor($count_cf_mins / 60)) : 0;
+				$count_cf_mins = $count_cf_mins % 60;
+				
+				$count_diff_hour += (floor($count_diff_mins / 60) > 0) ? (floor($count_diff_mins / 60)) : 0;
+				$count_diff_mins = $count_diff_mins % 60;
+				
 				?>
+				
+				<tr>
+					<th colspan="2">总结</th>
+					<th><?php echo $count_tt_hour.'小时'.($count_tt_mins > 0 ? $count_tt_mins.'分' : ''); ?></th>
+					<th><?php echo $count_cf_hour.'小时'.($count_cf_mins > 0 ? $count_cf_mins.'分' : ''); ?></th>
+					<th><?php echo $count_diff_hour.'小时'.($count_diff_mins > 0 ? $count_diff_mins.'分' : ''); ?></th>
+					<th><?php echo $count_history_all ?>次</th>
+				</tr>
 			</table>
 		</div>
 	</div>
