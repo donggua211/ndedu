@@ -416,7 +416,7 @@ class CRM_Student_model extends Model {
 	{
 		//添加的时间段: 开始时间
 		$where = '';
-		$where .= " AND student.is_delete = '{$filter['is_delete']}' ";
+		$where .= " WHERE student.is_delete = '{$filter['is_delete']}' ";
         if ($filter['start_time'])
         {
             $where .= " AND student.add_time >= '{$filter['start_time']}' ";
@@ -437,9 +437,9 @@ class CRM_Student_model extends Model {
             $where .= " AND student.grade_id = {$filter['grade_id']} ";
         }
 		//学员状态
-		if ($filter['status'] !== FALSE)
+		if (isset($filter['status']) && $filter['status'])
         {
-            if(is_array($filter['status']))
+			if(is_array($filter['status']))
 			{
 				foreach($filter['status'] as $val)
 					$where_status[] = " student.status = {$val} ";
@@ -491,8 +491,7 @@ class CRM_Student_model extends Model {
         }
 				
 		//student基本信息
-		$sql = "SELECT count(DISTINCT student.student_id) as total FROM ".$this->db->dbprefix('crm_student')." as student, ".$this->db->dbprefix('crm_grade')." as grade
-				WHERE student.grade_id = grade.grade_id ".$where;
+		$sql = "SELECT count(DISTINCT student.student_id) as total FROM ".$this->db->dbprefix('crm_student')." as student ".$where;
 		
 		$query = $this->db->query($sql);
 		$row = $query->row_array();
