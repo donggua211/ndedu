@@ -17,6 +17,7 @@ class sms_api extends Controller {
 		$this->serialNumber = '3SDK-EMY-0130-MEXLO';
 		$this->password = '518301';
 		$this->sessionKey = '521314';
+		$this->tefu = '026431';
 	}
 	
 	function send()

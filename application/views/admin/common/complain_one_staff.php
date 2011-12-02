@@ -33,5 +33,30 @@
 				</tr>
 			</table>
 		</div>
+		
+		<div class="title margin_top">
+			<span>添加投诉</span>
+		</div>
+		<form action="<?php echo site_url('admin/complain/add')?>" method="post">
+		<table width="90%">
+			<tr>
+				<td class="label" valign="top"><span class="notice-star"> * </span>投诉员工: </td>
+				<td>
+					<?php echo $staff_info['name']; ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="label" valign="top"><span class="notice-star"> * </span>投诉原因: </td>
+				<td>
+					<textarea name="complain_reason" cols="50" rows="5"><?php echo (isset($complain['complain_reason'])) ? $complain['complain_reason'] :''; ?></textarea>
+				</td>
+			</tr>	
+		</table>
+		<div class="button-div">
+			<input type="hidden" value="<?php echo $staff_info['staff_id']; ?>" name="staff_id">
+			<input type="submit" class="button" value=" 确定 " name="submit">
+			<input type="reset" class="button" value=" 重置 " name="reset">
+		</div>
+		</form>
 	</div>
 </div>
