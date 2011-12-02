@@ -315,7 +315,7 @@ class CRM_Student_model extends Model {
 		//学员姓名
 		if (isset($filter['name']) && $filter['name'])
         {
-            $where .= " AND student.name LIKE '%{$filter['name']}%' ";
+            $where .= " AND (student.name LIKE '%{$filter['name']}%' OR student.father_phone LIKE '%{$filter['name']}%' OR student.mother_phone LIKE '%{$filter['name']}%' )";
         }
 		
 		//1.2.5新加
@@ -487,7 +487,7 @@ class CRM_Student_model extends Model {
 		//学员姓名
 		if ($filter['name'])
         {
-            $where .= " AND student.name LIKE '%{$filter['name']}%' ";
+            $where .= " AND (student.name LIKE '%{$filter['name']}%' OR student.father_phone LIKE '%{$filter['name']}%' OR student.mother_phone LIKE '%{$filter['name']}%' )";
         }
 				
 		//student基本信息

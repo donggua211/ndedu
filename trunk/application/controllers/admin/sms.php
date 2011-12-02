@@ -27,6 +27,7 @@ class sms extends Controller {
 	{
 		$mobile = trim($this->input->post('mobile'));
 		$content = trim($this->input->post('content'));
+		$back_url = trim($this->input->post('back_url'));
 		
 		//检查输入为空
 		if(empty($mobile) || empty($content))
@@ -58,7 +59,10 @@ class sms extends Controller {
 		
 		if($status == '0')	//成功
 		{
-			show_result_page('短信发送成功', 'admin');
+			if(empty($back_url))
+				$back_url = 'admin';
+			
+			show_result_page('短信发送成功', $back_url);
 		}
 		else
 		{
@@ -147,6 +151,10 @@ class sms extends Controller {
 	 */
 	function _send($mobile, $content)
 	{
+		//test
+		return '<font>test</font>';
+		
+		
 		$url = "http://www.donggua211.com/ndedu/index.php/admin/sms_api/send";
 		$post_data = array (
 			"mobile" => $mobile,

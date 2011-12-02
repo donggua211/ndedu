@@ -143,7 +143,7 @@ class Student extends Controller {
 	/* 
 	 * 访问权限: 全部角色
 	*/
-	function one($student_id = 0, $type = 'basic', $page = 1)
+	function one($student_id = 0, $type = 'basic', $filter_string = '')
 	{
 		//判断student_id是否合法.
 		$student_id = intval($student_id);
@@ -191,6 +191,10 @@ class Student extends Controller {
 				$template = 'student_one_contract';
 				break;
 			case 'sms':
+				//默认值
+				$filter_arr['page'] = 1;
+				$filter_arr = $this->_parse_filter($filter_string, $filter_arr);
+				
 				//处理手机号，优先处理妈妈的。
 				$mobile = '';
 				preg_match( "/[\d]{11}/", $student_info['mother_phone'], $matches);
@@ -207,7 +211,6 @@ class Student extends Controller {
 				$data['main']['sms_mobile'] =$mobile;
 				
 				//获取sms历史
-				$filter = array();
 				if(!$this->admin_ac_student->view_student_one_see_all_sms())
 					$filter['staff_id'] = $this->staff_info['staff_id'];
 				
@@ -218,9 +221,9 @@ class Student extends Controller {
 				
 				//Page Nav
 				$total = $this->CRM_Sms_history_model->count_sms_history($filter);
-				$page_nav = page_nav($total, SMS_HISTORY_PER_PAGE, $page);
+				$page_nav = page_nav($total, SMS_HISTORY_PER_PAGE, $filter_arr['page']);
 				$page_nav['base_url'] = 'admin/student/one/'.$student_id.'/sms';
-				$page_nav['filter'] = array();
+				$page_nav['filter'] = $filter_arr;
 				$data['main']['page_nav'] = $this->load->view('admin/common_page_nav', $page_nav, true);
 				$student_extra_info['sms_history'] = $this->CRM_Sms_history_model->get_sms_history($filter, $page_nav['start'], SMS_HISTORY_PER_PAGE, 'mobile, update_time', 'DESC');
 				

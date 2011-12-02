@@ -57,6 +57,7 @@
 			</tr>
 		</table>
 		<div class="button-div">
+			<input type="hidden" name="back_url" value="<?php echo 'admin/student/one/'.$student['student_id'].'/sms'; ?>">
 			<input type="hidden" name="resend" value="0">
 			<input type="hidden" name="sms_history_id" value="0">
 			<input type="submit" class="button" value=" 确定 " name="submit">

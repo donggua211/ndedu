@@ -54,6 +54,7 @@
 		</table>
 		<div class="button-div">
 			<input type="hidden" name="resend" value="0">
+			<input type="hidden" name="back_url" value="<?php echo 'admin/staff/one/'.$staff['staff_id'].'/sms'; ?>">
 			<input type="hidden" name="sms_history_id" value="0">
 			<input type="submit" class="button" value=" 确定 " name="submit">
 			<input type="reset" class="button" value=" 重置 " name="reset">

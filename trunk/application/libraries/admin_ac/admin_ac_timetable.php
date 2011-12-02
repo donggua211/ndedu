@@ -75,7 +75,7 @@ class Admin_Ac_Timetable extends Admin_Ac_Base
 	
 	function show_mobile_sms_button()
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_TEACHER_D);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_JIAOWU, GROUP_JIAOWU_D);
 		return $this->_check_role($allowed_group_id);	
 	}
 	

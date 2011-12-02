@@ -104,7 +104,7 @@ class Staff extends Controller {
 		_load_viewer($this->staff_info['group_id'], 'staff_all', $data);
 	}
 	
-	function one($staff_id, $type = 'basic', $page = 1)
+	function one($staff_id, $type = 'basic', $filter_string = '')
 	{
 		//判断student_id是否合法.
 		$staff_id = intval($staff_id);
@@ -135,6 +135,10 @@ class Staff extends Controller {
 				$template = 'staff_one_timetable';
 				break;
 			case 'sms':
+				//默认值
+				$filter_arr['page'] = 1;
+				$filter_arr = $this->_parse_filter($filter_string, $filter_arr);
+				
 				//截取电话号码
 				preg_match( "/[\d]{11}/", $staff_info['phone'], $matches);
 				$data['main']['sms_mobile'] = isset($matches[0]) ? $matches[0] : '';
@@ -147,9 +151,9 @@ class Staff extends Controller {
 				
 				//Page Nav
 				$total = $this->CRM_Sms_history_model->count_sms_history($filter);
-				$page_nav = page_nav($total, SMS_HISTORY_PER_PAGE, $page);
+				$page_nav = page_nav($total, SMS_HISTORY_PER_PAGE, $filter_arr['page']);
 				$page_nav['base_url'] = 'admin/staff/one/'.$staff_id.'/sms';
-				$page_nav['filter'] = array();
+				$page_nav['filter'] = $filter_arr;
 				$data['main']['page_nav'] = $this->load->view('admin/common_page_nav', $page_nav, true);
 				$data['main']['sms_history'] = $this->CRM_Sms_history_model->get_sms_history($filter, $page_nav['start'], SMS_HISTORY_PER_PAGE, 'mobile, update_time', 'DESC');
 				
