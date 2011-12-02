@@ -30,6 +30,7 @@
 			</tr>
 		</table>
 		<div class="button-div">
+			<input type="hidden" name="back_url" value="<?php echo 'admin/student/'; ?>">
 			<input type="submit" class="button" value=" 确定 " name="submit">
 			<input type="reset" class="button" value=" 重置 " name="reset">
 		</div>

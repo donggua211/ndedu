@@ -173,7 +173,7 @@ class Timetable extends Controller {
 			$this->CRM_Timetable_model->add_timetable_suspend_log(array('timetable_id' => $timetable_id, 'days' => $days, 'staff_id' => $this->staff_info['staff_id']));
 			
 			//发送报警email
-			sent_mail('【timetable, suspend】有课程暂停：timetable_id:'.$timetable_id, '【timetable, suspend】有课程暂停：timetable_id:'.$timetable_id);
+			//sent_mail('【timetable, suspend】有课程暂停：timetable_id:'.$timetable_id, '【timetable, suspend】有课程暂停：timetable_id:'.$timetable_id);
 			
 			show_result_page('课程已经成功暂停! ', 'admin/student/one/'.$timetable_info['student_id'].'/timetable');
 		}

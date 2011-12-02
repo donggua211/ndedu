@@ -62,7 +62,7 @@
 				?>
 			</select>
 			<!-- 姓名 -->
-			学员姓名 <input type="text" name="name" size="15" />
+			学员姓名或电话 <input type="text" name="name" size="15" value="<?php echo isset($filter['name']) ? $filter['name'] : ''; ?>"/>
 			<input type="submit" value=" 搜索 " class="button" />
 		  </form>
 		</div>
