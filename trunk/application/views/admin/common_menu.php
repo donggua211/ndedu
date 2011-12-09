@@ -69,11 +69,11 @@
 			
 			<?php if($CI->admin_ac_entry->munu_show_ticket_list() ): ?>
 			<li class="explode" key="02_staff" name="menu">
-				内部评论
+				内部提案
 				<ul>
-					<li class="menu-item"><a href="<?php echo site_url("admin/ticket/add"); ?>" target="main-frame">添加新评论</a></li>
+					<li class="menu-item"><a href="<?php echo site_url("admin/ticket/add"); ?>" target="main-frame">添加新提案</a></li>
 					
-					<li class="menu-item"><a href="<?php echo site_url("admin/ticket"); ?>" target="main-frame">员工评论</a></li>
+					<li class="menu-item"><a href="<?php echo site_url("admin/ticket"); ?>" target="main-frame">内部提案列表</a></li>
 				</ul>
 			</li>
 			<?php endif; ?>

@@ -67,6 +67,8 @@ class CRM_Ticket_model extends Model {
 		//必填信息.
 		$data['ticket_title'] = $new_ticket['ticket_title'];
 		$data['ticket_content'] = $new_ticket['ticket_content'];
+		$data['ticket_why'] = $new_ticket['ticket_why'];
+		$data['ticket_how'] = $new_ticket['ticket_how'];
 		$data['staff_id'] = $new_ticket['staff_id'];
 		
 		//选填信息.

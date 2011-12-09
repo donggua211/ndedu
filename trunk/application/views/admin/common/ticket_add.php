@@ -1,7 +1,7 @@
 <div id="nav">
 	<span class="action-span"><a href="<?php echo site_url('admin') ?>"  target="_top">管理系统</a></span>
-	<span class="action-span"> » <a href="<?php echo site_url('admin/ticket') ?>" target="main-frame">内部评论</a></span>
-	<span class="action-span"> » 添加评论</span>
+	<span class="action-span"> » <a href="<?php echo site_url('admin/ticket') ?>" target="main-frame">内部提案</a></span>
+	<span class="action-span"> » 添加内部提案</span>
 	<div style="clear:both"></div>
 </div>
 <div id="main">
@@ -21,8 +21,16 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="label" valign="top"><span class="notice-star"> * </span>内容: </td>
-				<td><textarea name="ticket_content" cols="60" rows="10"><?php echo (isset($ticket['ticket_content'])) ? $ticket['ticket_content'] :''; ?></textarea></td>
+				<td class="label" valign="top"><span class="notice-star"> * </span>提案是什么: </td>
+				<td><textarea name="ticket_content" cols="60" rows="3"><?php echo (isset($ticket['ticket_content'])) ? $ticket['ticket_content'] :''; ?></textarea></td>
+			</tr>
+			<tr>
+				<td class="label" valign="top"><span class="notice-star"> * </span>为什么提出该提案: </td>
+				<td><textarea name="ticket_why" cols="60" rows="5"><?php echo (isset($ticket['ticket_why'])) ? $ticket['ticket_why'] :''; ?></textarea></td>
+			</tr>
+			<tr>
+				<td class="label" valign="top"><span class="notice-star"> * </span>如何执行这个提案: </td>
+				<td><textarea name="ticket_how" cols="60" rows="5"><?php echo (isset($ticket['ticket_how'])) ? $ticket['ticket_how'] :''; ?></textarea></td>
 			</tr>			
 		</table>
 		<div class="button-div">

@@ -1,7 +1,7 @@
 <div id="nav">
 	<span class="action-span"><a href="<?php echo site_url('admin') ?>"  target="_top">管理系统</a></span>
-	<span class="action-span"> » <a href="<?php echo site_url('admin/ticket') ?>" target="main-frame">内部评论</a></span>
-	 » 评论列表
+	<span class="action-span"> » <a href="<?php echo site_url('admin/ticket') ?>" target="main-frame">内部提案</a></span>
+	 » 内部提案列表
 	<div style="clear:both"></div>
 </div>
 <div id="main">
@@ -16,7 +16,9 @@
 			<table cellspacing='1' id="list-table">
 				<tr>
 					<th>标题</th>
-					<th>内容</th>
+					<th>提案</th>
+					<th>为什么提出该提案</th>
+					<th>如何执行这个提案</th>
 					<th>添加人</th>
 					<th>添加时间</th>
 					<th>操作</th>
@@ -25,6 +27,8 @@
 				<tr>
 					<td><?php echo $val['ticket_title']; ?></td>
 					<td><?php echo utf_substr($val['ticket_content'], 45); ?></td>
+					<td><?php echo utf_substr($val['ticket_why'], 45); ?></td>
+					<td><?php echo utf_substr($val['ticket_how'], 45); ?></td>
 					<td align="center"><?php echo $val['name']; ?></td>
 					<td align="center"><?php echo $val['add_time']; ?></td>
 					<td align="center">
@@ -44,7 +48,7 @@
 	</div>
 	
 	<div class="title margin_top">
-		<span>添加评价</span>
+		<span>添加内部提案</span>
 	</div>
 	<form action="<?php echo site_url('admin/ticket/add') ?>" method="post">
 	<table width="90%" id="shop_info-table">
@@ -56,9 +60,17 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="label" valign="top"><span class="notice-star"> * </span>内容: </td>
-			<td><textarea name="ticket_content" cols="60" rows="10"><?php echo (isset($ticket['ticket_content'])) ? $ticket['ticket_content'] :''; ?></textarea></td>
-		</tr>			
+			<td class="label" valign="top"><span class="notice-star"> * </span>提案是什么: </td>
+			<td><textarea name="ticket_content" cols="60" rows="3"><?php echo (isset($ticket['ticket_content'])) ? $ticket['ticket_content'] :''; ?></textarea></td>
+		</tr>
+		<tr>
+			<td class="label" valign="top"><span class="notice-star"> * </span>为什么提出该提案: </td>
+			<td><textarea name="ticket_why" cols="60" rows="5"><?php echo (isset($ticket['ticket_why'])) ? $ticket['ticket_why'] :''; ?></textarea></td>
+		</tr>
+		<tr>
+			<td class="label" valign="top"><span class="notice-star"> * </span>如何执行这个提案: </td>
+			<td><textarea name="ticket_how" cols="60" rows="5"><?php echo (isset($ticket['ticket_how'])) ? $ticket['ticket_how'] :''; ?></textarea></td>
+		</tr>
 	</table>
 	<div class="button-div">
 		<input type="submit" class="button" value=" 确定 " name="submit">

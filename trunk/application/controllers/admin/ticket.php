@@ -46,7 +46,7 @@ class Ticket extends Controller {
 		
 		$ticket = $this->CRM_Ticket_model->getAll($filter, $page_nav['start'], TICKET_PER_PAGE, 'ticket.add_time', 'DESC');
 		
-		$data['header']['meta_title'] = '查看评论 - 内部评论';
+		$data['header']['meta_title'] = '查看内部提案 - 内部提案';
 		$data['main']['ticket'] = $ticket;
 		$data['main']['this_staff_id'] = $this->staff_info['staff_id'];
 		_load_viewer($this->staff_info['group_id'], 'ticket_all', $data);
@@ -65,7 +65,7 @@ class Ticket extends Controller {
 		//获取 ticket 信息.
 		$ticket_info = $this->CRM_Ticket_model->getOne($ticket_id);
 		
-		$data['header']['meta_title'] = $ticket_info['ticket_title'] . ' - 内部评论';
+		$data['header']['meta_title'] = $ticket_info['ticket_title'] . ' - 内部提案';
 		$data['main']['this_staff_id'] = $this->staff_info['staff_id'];
 		$data['main']['ticket_info'] = $ticket_info;
 		
@@ -125,9 +125,11 @@ class Ticket extends Controller {
 			//必填信息.
 			$new_ticket['ticket_title'] = $this->input->post('ticket_title');
 			$new_ticket['ticket_content'] = $this->input->post('ticket_content');
+			$new_ticket['ticket_why'] = $this->input->post('ticket_why');
+			$new_ticket['ticket_how'] = $this->input->post('ticket_how');
 			$new_ticket['staff_id'] = $this->staff_info['staff_id'];
 			
-			if(empty($new_ticket['ticket_title']) || empty($new_ticket['ticket_content']))
+			if(empty($new_ticket['ticket_title']) || empty($new_ticket['ticket_content']) || empty($new_ticket['ticket_why']) || empty($new_ticket['ticket_how']))
 			{
 				$notify = '请填写完整的评论信息';
 				$this->_load_ticket_add_view($notify, $new_ticket);
@@ -176,7 +178,7 @@ class Ticket extends Controller {
 	
 	function _load_ticket_add_view($notify = '', $ticket = array())
 	{
-		$data['header']['meta_title'] = '添加评论 - 内部评论';
+		$data['header']['meta_title'] = '添加内部提案 - 内部提案';
 		$data['main']['notification'] = $notify;
 		$data['main']['ticket'] = $ticket;
 		_load_viewer($this->staff_info['group_id'], 'ticket_add', $data);
@@ -184,7 +186,7 @@ class Ticket extends Controller {
 	
 	function _load_ticket_edit_view($notify = '', $ticket_info = array())
 	{
-		$data['header']['meta_title'] = '编辑评论 - 内部评论';
+		$data['header']['meta_title'] = '编辑内部提案 - 内部提案';
 		$data['main']['notification'] = $notify;
 		$data['main']['ticket_info'] = $ticket_info;
 		_load_viewer($this->staff_info['group_id'], 'ticket_edit', $data);

@@ -28,8 +28,16 @@
 				<td><?php echo $ticket_info['add_time'] ?></td>
 			</tr>
 			<tr>
-				<td class="label" valign="top">内容: </td>
+				<td class="label" valign="top">提案是什么: </td>
 				<td><?php echo nl2br($ticket_info['ticket_content']) ?></td>
+			</tr>	
+			<tr>
+				<td class="label" valign="top">为什么提出该提案: </td>
+				<td><?php echo nl2br($ticket_info['ticket_why']) ?></td>
+			</tr>	
+			<tr>
+				<td class="label" valign="top">如何执行这个提案: </td>
+				<td><?php echo nl2br($ticket_info['ticket_how']) ?></td>
 			</tr>		
 		</table>
 		<div class="button-link-div">
