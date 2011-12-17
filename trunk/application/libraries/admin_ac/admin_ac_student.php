@@ -122,6 +122,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 					STUDENT_STATUS_FINISHED,
 				),
 				'group' => array(
+					GROUP_TEACHER_D => HISTORY_WR,
 					GROUP_JIAOWU => HISTORY_WR,
 					GROUP_JIAOWU_D => HISTORY_WR,
 					GROUP_CS => HISTORY_R,

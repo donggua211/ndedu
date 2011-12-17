@@ -617,7 +617,7 @@ class Student extends Controller {
 					//Upload attachment 
 					$config['upload_path'] = 'upload/attachment';
 					$config['allowed_types'] = 'txt|doc|docx|xlsx|xls|gif|jpg|jpeg|png|jpe';
-					$config['max_size'] = '2048';
+					$config['max_size'] = '10240';
 					$config['max_width']  = '0';
 					$config['max_height']  = '0';
 					$config['file_name']  = package_upload_file_name($history['history_type'], $insert_id);
