@@ -111,6 +111,10 @@ class CRM_Staff_model extends Model {
 	
 	function getAll_count($filter)
 	{
+		//可用的员工
+		if (isset($filter['available_staff']) && empty($filter['available_staff']))
+			return 0;
+		
 		$where = '';
 		$where .= " WHERE staff.is_active = {$filter['is_active']} ";//是否注销
         $where .= " AND staff.is_delete = {$filter['is_delete']} ";//是否删除
@@ -156,6 +160,11 @@ class CRM_Staff_model extends Model {
 		if ($filter['name'])
         {
             $where .= " AND staff.name LIKE '%{$filter['name']}%' ";
+        }
+		//可用的员工
+		if (isset($filter['available_staff']) && $filter['available_staff'])
+        {
+            $where .= " AND staff.staff_id IN ( ".implode(',', $filter['available_staff'])." )";
         }
 		
 		//按照学科

@@ -89,7 +89,7 @@
 											if($callback_history_type == 'learning')
 												echo '<b>科目：</b><br/>'.$one_history['history_'.$callback_history_type.'_subject'].'<br/><b>授课描述和总结：</b><br/>'.nl2br($one_history['history_'.$callback_history_type.'']).'<br/>';
 											else
-												echo '<b>教学目标：</b><br/>'.nl2br($one_history['history_'.$callback_history_type.'_target']).'<br/>';
+												echo '<b>教学目标：</b><br/>'.nl2br($one_history['history_'.$callback_history_type.'_target']).'<br/><b>教学内容：</b><br/>'.nl2br($one_history['history_'.$callback_history_type]);
 										?>
 									</td>
 									<td align="center"><?php echo $one_history['add_time'] ?></td>
