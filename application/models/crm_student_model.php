@@ -677,6 +677,9 @@ class CRM_Student_model extends Model {
 	
 	function get_student_teacher($student_id, $type = '')
 	{
+		if(empty($student_id))
+			return array();
+		
 		//student基本信息
 		$sql = "SELECT staff.name, student_teacher.* FROM " . $this->db->dbprefix('crm_student_teacher') . " as student_teacher
 				LEFT JOIN " . $this->db->dbprefix('crm_staff') . " as staff ON student_teacher.staff_id = staff.staff_id ";

@@ -62,6 +62,8 @@ class Admin_Ac_Student extends Admin_Ac_Base
 					GROUP_CONSULTANT_D => HISTORY_WR,
 					GROUP_CS => HISTORY_WR,
 					GROUP_CS_D => HISTORY_WR,
+					GROUP_JIAOWU => HISTORY_WR,
+					GROUP_JIAOWU_D => HISTORY_WR,
 				),
 			),
 			
