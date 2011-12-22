@@ -124,7 +124,13 @@ class Admin_Ac_Student extends Admin_Ac_Base
 					STUDENT_STATUS_FINISHED,
 				),
 				'group' => array(
-					GROUP_TEACHER_D => HISTORY_WR,
+					GROUP_SUYANG => HISTORY_R,
+					GROUP_SUYANG_D => HISTORY_R,
+					GROUP_CONSULTANT => HISTORY_R,
+					GROUP_CONSULTANT_D => HISTORY_R,
+					GROUP_TEACHER_PARTTIME => HISTORY_R,
+					GROUP_TEACHER_FULL => HISTORY_R,
+					GROUP_TEACHER_D => HISTORY_R,
 					GROUP_JIAOWU => HISTORY_WR,
 					GROUP_JIAOWU_D => HISTORY_WR,
 					GROUP_CS => HISTORY_R,
@@ -132,6 +138,36 @@ class Admin_Ac_Student extends Admin_Ac_Base
 				),
 			),
 			
+		);
+		
+		$this->history_callback_group = array(
+			//联系历史
+			'learning' => array(
+				GROUP_TEACHER_PARTTIME => HISTORY_R,
+				GROUP_TEACHER_FULL => HISTORY_R,
+				GROUP_TEACHER_D => HISTORY_R,
+				GROUP_JIAOWU => HISTORY_WR,
+				GROUP_JIAOWU_D => HISTORY_WR,
+				GROUP_CS => HISTORY_R,
+				GROUP_CS_D => HISTORY_R,
+				
+			),
+			'suyang' => array(
+				GROUP_SUYANG => HISTORY_R,
+				GROUP_SUYANG_D => HISTORY_R,
+				GROUP_JIAOWU => HISTORY_WR,
+				GROUP_JIAOWU_D => HISTORY_WR,
+				GROUP_CS => HISTORY_R,
+				GROUP_CS_D => HISTORY_R,
+			),
+			'consult' => array(
+				GROUP_CONSULTANT => HISTORY_R,
+				GROUP_CONSULTANT_D => HISTORY_R,
+				GROUP_JIAOWU => HISTORY_WR,
+				GROUP_JIAOWU_D => HISTORY_WR,
+				GROUP_CS => HISTORY_R,
+				GROUP_CS_D => HISTORY_R,
+			),
 		);
 	}
 	
@@ -372,6 +408,22 @@ class Admin_Ac_Student extends Admin_Ac_Base
 				//show_error_page('您没有权限查看该学员的历史记录！', 'admin/student');
 				return $this->history_group_status[$type]['group'][$this->group_id];
 			}
+		}
+		
+		return HISTORY_DENY;
+	}
+	
+	function history_callback_ac($callback_history_type)
+	{
+		//管理员, 校区管理员：无所不能
+		if($this->group_id == GROUP_ADMIN || $this->group_id == GROUP_SCHOOLADMIN)
+			return HISTORY_WR;
+		
+		//检查权限
+		if(isset($this->history_callback_group[$callback_history_type][$this->group_id]) && !empty($this->history_callback_group[$callback_history_type][$this->group_id]))
+		{
+			//show_error_page('您没有权限查看该学员的历史记录！', 'admin/student');
+			return $this->history_callback_group[$callback_history_type][$this->group_id];
 		}
 		
 		return HISTORY_DENY;
