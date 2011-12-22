@@ -151,10 +151,6 @@ class sms extends Controller {
 	 */
 	function _send($mobile, $content)
 	{
-		//test
-		return '<font>test</font>';
-		
-		
 		$url = "http://www.donggua211.com/ndedu/index.php/admin/sms_api/send";
 		$post_data = array (
 			"mobile" => $mobile,
