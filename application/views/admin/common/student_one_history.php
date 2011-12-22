@@ -61,103 +61,106 @@
 						$callback_history = array('learning' => '学习历史', 'consult' => '咨询历史', 'suyang' => '素养历史'); 
 						foreach($callback_history as $callback_history_type => $callback_history_text)
 						{
+							if($CI->admin_ac_student->history_callback_ac($callback_history_type) >= HISTORY_R )
+							{ //可读
 						?>
-						<table cellspacing='1' id="list-table">
-							<tr>
-								<th colspan="4"><?php echo $callback_history_text; ?></th>
-							</tr>
-						<?php
-						if(!empty($student['history_'.$callback_history_type]))
-						{
-							$show_history_title = true;
-							foreach($student['history_'.$callback_history_type] as $one_history)
-							{
-								if($show_history_title == true)
-								{
-									echo '
+								<table cellspacing='1' id="list-table">
 									<tr>
-										<th>'.$callback_history_text.'</th>
-										<th>添加时间</th>
-										<th>添加员工</th>
-										<th>操作</th>
-									</tr>';
-								}
-							?>
-								<tr>
-									<td>
-										<?php
-											if($callback_history_type == 'learning')
-												echo '<b>科目：</b><br/>'.$one_history['history_'.$callback_history_type.'_subject'].'<br/><b>授课描述和总结：</b><br/>'.nl2br($one_history['history_'.$callback_history_type.'']).'<br/>';
-											else
-												echo '<b>教学目标：</b><br/>'.nl2br($one_history['history_'.$callback_history_type.'_target']).'<br/><b>教学内容：</b><br/>'.nl2br($one_history['history_'.$callback_history_type]);
-										?>
-									</td>
-									<td align="center"><?php echo $one_history['add_time'] ?></td>
-									<td align="center"><?php echo $one_history['name'] ?></td>
-									<td></td>
-									</td>
-								</tr>
-							<?php
-								$show_history_title = false;
-								if(isset($one_history['callback_history']))
+										<th colspan="4"><?php echo $callback_history_text; ?></th>
+									</tr>
+								<?php
+								if(!empty($student['history_'.$callback_history_type]))
 								{
-									echo '<tr><th>回访历史</th><th></th><th></th><th></th></tr>';
-									
-									foreach($one_history['callback_history'] as $one_callback_history)
+									$show_history_title = true;
+									foreach($student['history_'.$callback_history_type] as $one_history)
 									{
-										echo '
-										<tr>
-											<td>'.nl2br($one_callback_history['history_callback']).'</td>
-											<td align="center">'.$one_callback_history['add_time'].'</td>
-											<td align="center">'.$one_callback_history['name'].'</td>
-											<td align="center">';
-											
-										if($one_callback_history['staff_id'] == $student['this_staff_id'])
+										if($show_history_title == true)
 										{
-												echo '<a href="'.site_url('admin/history/edit/'.$history_type.'/'.$one_callback_history['history_'.$history_type.'_id']).'">编辑</a>
-												<a onclick="return confirm(\'确定要删除?\');" href="'.site_url('admin/history/delete/'.$history_type.'/'.$one_callback_history['history_'.$history_type.'_id']).'">删除</a>';
+											echo '
+											<tr>
+												<th>'.$callback_history_text.'</th>
+												<th>添加时间</th>
+												<th>添加员工</th>
+												<th>操作</th>
+											</tr>';
 										}
-										
-										echo '
+									?>
+										<tr>
+											<td>
+												<?php
+													if($callback_history_type == 'learning')
+														echo '<b>科目：</b><br/>'.$one_history['history_'.$callback_history_type.'_subject'].'<br/><b>授课描述和总结：</b><br/>'.nl2br($one_history['history_'.$callback_history_type.'']).'<br/>';
+													else
+												echo '<b>教学目标：</b><br/>'.nl2br($one_history['history_'.$callback_history_type.'_target']).'<br/><b>教学内容：</b><br/>'.nl2br($one_history['history_'.$callback_history_type]);
+												?>
 											</td>
-										</tr>';
+											<td align="center"><?php echo $one_history['add_time'] ?></td>
+											<td align="center"><?php echo $one_history['name'] ?></td>
+											<td></td>
+											</td>
+										</tr>
+									<?php
+										$show_history_title = false;
+										if(isset($one_history['callback_history']))
+										{
+											echo '<tr><th>回访历史</th><th></th><th></th><th></th></tr>';
+											
+											foreach($one_history['callback_history'] as $one_callback_history)
+											{
+												echo '
+												<tr>
+													<td>'.nl2br($one_callback_history['history_callback']).'</td>
+													<td align="center">'.$one_callback_history['add_time'].'</td>
+													<td align="center">'.$one_callback_history['name'].'</td>
+													<td align="center">';
+													
+												if($one_callback_history['staff_id'] == $student['this_staff_id'])
+												{
+														echo '<a href="'.site_url('admin/history/edit/'.$history_type.'/'.$one_callback_history['history_'.$history_type.'_id']).'">编辑</a>
+														<a onclick="return confirm(\'确定要删除?\');" href="'.site_url('admin/history/delete/'.$history_type.'/'.$one_callback_history['history_'.$history_type.'_id']).'">删除</a>';
+												}
+												
+												echo '
+													</td>
+												</tr>';
+											}
+											
+											$show_history_title = true;
+										}
 									}
 									
-									$show_history_title = true;
+									if($CI->admin_ac_student->history_ac($history_type, $student['status']) >= HISTORY_WR )//可读写
+									{
+									?>
+										<form action="<?php echo site_url('admin/student/history_add')?>" method="post" enctype="multipart/form-data">
+										<tr>
+											<td colspan="4">
+												<b>添加回访记录：</b><br/><textarea name="history" cols="100" rows="5"><?php echo (isset($student['history']) ? $student['history'] : '')?></textarea><br/>
+												<span style="color:red">教学目标、教学氛围、老师评价、家长期望（尽可能用陈述性语句记录，避免个人情绪）</span>
+												<input type="hidden" name="callback_history_type" value="<?php echo $callback_history_type; ?>">
+												<input type="hidden" name="callback_history_id" value="<?php echo $one_history['history_'.$callback_history_type.'_id']; ?>">
+												<input type="hidden" name="student_id" value="<?php echo $student['student_id']; ?>">
+												<input type="hidden" name="history_type" value="callback">
+												<input type="hidden" name="add_calendar" value="0">
+											</td>
+										</tr>
+										<tr>
+											<td colspan="4" align="center">
+												<input type="submit" class="button" value="添加" name="submit">
+											</td>
+										</tr>
+										</form>
+								<?php
+									}
 								}
+								else
+								{
+									echo '<tr><td colspan="3">暂无记录</td></tr>';
+								}
+								?>
+								</table>
+					<?php
 							}
-							
-							if($CI->admin_ac_student->history_ac($history_type, $student['status']) >= HISTORY_WR )//可读写
-							{
-							?>
-								<form action="<?php echo site_url('admin/student/history_add')?>" method="post" enctype="multipart/form-data">
-								<tr>
-									<td colspan="4">
-										<b>添加回访记录：</b><br/><textarea name="history" cols="100" rows="5"><?php echo (isset($student['history']) ? $student['history'] : '')?></textarea><br/>
-										<span style="color:red">教学目标、教学氛围、老师评价、家长期望（尽可能用陈述性语句记录，避免个人情绪）</span>
-										<input type="hidden" name="callback_history_type" value="<?php echo $callback_history_type; ?>">
-										<input type="hidden" name="callback_history_id" value="<?php echo $one_history['history_'.$callback_history_type.'_id']; ?>">
-										<input type="hidden" name="student_id" value="<?php echo $student['student_id']; ?>">
-										<input type="hidden" name="history_type" value="callback">
-										<input type="hidden" name="add_calendar" value="0">
-									</td>
-								</tr>
-								<tr>
-									<td colspan="4" align="center">
-										<input type="submit" class="button" value="添加" name="submit">
-									</td>
-								</tr>
-								</form>
-						<?php
-							}
-						}
-						else
-						{
-							echo '<tr><td colspan="3">暂无记录</td></tr>';
-						}
-						?>
-						</table>
-					<?php 
 						}
 					}
 					//回访历史 处理结束
