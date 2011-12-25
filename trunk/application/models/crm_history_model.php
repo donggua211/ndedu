@@ -36,8 +36,11 @@ class CRM_History_model extends Model {
 				$data['history_learning_version'] = $history['learning_version'];
 				break;
 			case 'consult':
+				$data['history_'.$history_type.'_target'] = $history['target'];
+				break;
 			case 'suyang':
 				$data['history_'.$history_type.'_target'] = $history['target'];
+				$data['history_'.$history_type.'_points'] = $history['points'];
 				break;
 			case 'contact':
 				break;

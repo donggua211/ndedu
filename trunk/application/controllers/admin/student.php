@@ -562,9 +562,18 @@ class Student extends Controller {
 					}
 					break;
 				case 'consult':
-				case 'suyang':
 					$history['target'] = $this->input->post('target');
 					if(empty($history['target']))
+					{
+						$notify = '历史内容不能为空';
+						$this->_load_history_view($notify, $history);
+						return false;
+					}
+					break;
+				case 'suyang':
+					$history['target'] = $this->input->post('target');
+					$history['points'] = $this->input->post('points');
+					if(empty($history['target']) || empty($history['points']))
 					{
 						$notify = '历史内容不能为空';
 						$this->_load_history_view($notify, $history);
@@ -617,7 +626,7 @@ class Student extends Controller {
 					//Upload attachment 
 					$config['upload_path'] = 'upload/attachment';
 					$config['allowed_types'] = 'txt|doc|docx|xlsx|xls|gif|jpg|jpeg|png|jpe';
-					$config['max_size'] = '10240';
+					$config['max_size'] = '2048';
 					$config['max_width']  = '0';
 					$config['max_height']  = '0';
 					$config['file_name']  = package_upload_file_name($history['history_type'], $insert_id);

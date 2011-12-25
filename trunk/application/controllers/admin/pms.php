@@ -158,7 +158,7 @@ class Pms extends Controller {
 					$subject_info[$val['staff_id'].$val['student_id']] = $val['subject_name'];
 					if(!isset($student_info[$val['student_id']]))
 						$student_info[$val['student_id']] = $val['name'];
-					if(!isset($staff_info[$val['student_id']]))
+					if(!isset($staff_info[$val['staff_id']]))
 						$staff_info[$val['staff_id']] = $val['staff_name'];
 				}
 		
@@ -179,8 +179,10 @@ class Pms extends Controller {
 				//学生，老师，科目的信息
 				if(!isset($subject_info[$val['teacher_id'].$val['student_id']]))
 					$subject_info[$val['teacher_id'].$val['student_id']] = $val['subject_name'];
-				if(!isset($staff_info[$val['student_id']]))
+				if(!isset($staff_info[$val['teacher_id']]))
 					$staff_info[$val['teacher_id']] = $val['staff_name'];
+				if(!isset($student_info[$val['student_id']]))
+						$student_info[$val['student_id']] = $val['name'];
 			}
 		}
 		
