@@ -190,10 +190,19 @@
 										echo '<b>教材版本：</b>'.$history['history_learning_version'].'<br/>';
 										echo '<b>授课描述和总结：</b><br/>'.nl2br($history['history_'.$history_type]);
 									}
-									elseif(in_array($history_type, array('consult', 'suyang')))
+									elseif($history_type == 'consult')
 									{
 										echo '<b>教学目标：</b><br/>'.nl2br($history['history_'.$history_type.'_target']).'<br/>';
 										echo '<b>教学内容：</b><br/>'.nl2br($history['history_'.$history_type]);
+										
+										if(!empty($history['history_attachment_id']))
+											echo '<b>附件：</b><a href="'.site_url('admin/history/download/'.$history['history_attachment_id'].'/'.$history_type).'" target="_blank">'.$history['attachment_name'].'</a>';
+									}
+									elseif($history_type == 'suyang')
+									{
+										echo '<b>教学目标：</b><br/>'.nl2br($history['history_'.$history_type.'_target']).'<br/>';
+										echo '<b>教学内容：</b><br/>'.nl2br($history['history_'.$history_type]).'<br/>';
+										echo '<b>回访重点：</b><br/>'.nl2br($history['history_'.$history_type.'_points']);
 										
 										if(!empty($history['history_attachment_id']))
 											echo '<b>附件：</b><a href="'.site_url('admin/history/download/'.$history['history_attachment_id'].'/'.$history_type).'" target="_blank">'.$history['attachment_name'].'</a>';
@@ -266,12 +275,24 @@
 										</table>
 									<?php
 									}
-									elseif(in_array($history_type, array('consult', 'suyang')))
+									elseif($history_type == 'consult')
 									{
 									?>
 										<table>
 											<tr><td><span class="notice-star"> * </span><b>教学目标：</b></td><td><textarea name="target" cols="80" rows="5"></textarea></td></tr>
 											<tr><td><span class="notice-star"> * </span><b>教学内容：</b></td><td><textarea name="history" cols="80" rows="5"><?php echo (isset($student['history']) ? $student['history'] : '')?></textarea></td></tr>
+											<tr><td><b>添加附件：</b>（2M之内）</td><td><input type="file" name="upload"> </td></tr>
+											<input type="hidden" name="add_calendar" value="0">
+										</table>							
+									<?php 
+									}
+									elseif($history_type == 'suyang')
+									{
+									?>
+										<table>
+											<tr><td><span class="notice-star"> * </span><b>教学目标：</b></td><td><textarea name="target" cols="80" rows="5"></textarea></td></tr>
+											<tr><td><span class="notice-star"> * </span><b>教学内容：</b></td><td><textarea name="history" cols="80" rows="5"><?php echo (isset($student['history']) ? $student['history'] : '')?></textarea></td></tr>
+											<tr><td><span class="notice-star"> * </span><b>回访重点：</b></td><td><textarea name="points" cols="80" rows="5"><?php echo (isset($student['history']) ? $student['history'] : '')?></textarea></td></tr>
 											<tr><td><b>添加附件：</b>（2M之内）</td><td><input type="file" name="upload"> </td></tr>
 											<input type="hidden" name="add_calendar" value="0">
 										</table>							

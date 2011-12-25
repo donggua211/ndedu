@@ -341,10 +341,11 @@ class CRM_Contract_model extends Model {
 	function get_all_finished($filter = '')
 	{
 		//获取合同列表信息
-		$sql = "SELECT contract_finished.*, contract.student_id, staff.name as staff_name, subject.subject_name FROM " . $this->db->dbprefix('crm_contract_finished') . " as contract_finished
+		$sql = "SELECT contract_finished.*, contract.student_id, staff.name as staff_name, subject.subject_name, student.name FROM " . $this->db->dbprefix('crm_contract_finished') . " as contract_finished
 				LEFT JOIN ".$this->db->dbprefix('crm_staff')." as staff ON staff.staff_id =  contract_finished.teacher_id
 				LEFT JOIN ".$this->db->dbprefix('crm_subject')." as subject ON subject.subject_id =  contract_finished.subject_id
-				LEFT JOIN ".$this->db->dbprefix('crm_contract')." as contract ON contract.contract_id =  contract_finished.contract_id";
+				LEFT JOIN ".$this->db->dbprefix('crm_contract')." as contract ON contract.contract_id =  contract_finished.contract_id
+				LEFT JOIN ".$this->db->dbprefix('crm_student')." as student ON student.student_id =  contract.student_id";
 		
 		if (isset($filter['start_date']) && $filter['start_date'])
         {
