@@ -49,7 +49,10 @@
 					</select>
 				</td>
 			</tr>
-			
+			<tr>
+				<td class="label" valign="top"><span class="notice-star"> * </span>备注: </td>
+				<td><textarea name="remark" cols="40" rows="5"><?php echo (isset($interviewer['remark'])) ? $interviewer['remark'] :''; ?></textarea></td>
+			</tr>
 		</table>
 		<div class="button-div">
 			<input type="submit" class="button" value=" 确定 " name="submit">

@@ -101,6 +101,7 @@ class hr extends Controller {
 			$edit_interviewer['mobile'] = $this->input->post('mobile');
 			$edit_interviewer['email'] = $this->input->post('email');
 			$edit_interviewer['status'] = $this->input->post('status');
+			$edit_interviewer['remark'] = $this->input->post('remark');
 			$edit_interviewer['position_id'] = $this->input->post('position_id');
 			
 			//检查修改项
@@ -138,6 +139,7 @@ class hr extends Controller {
 			$interviewer['name'] = $this->input->post('name');
 			$interviewer['mobile'] = $this->input->post('mobile');
 			$interviewer['email'] = $this->input->post('email');
+			$interviewer['remark'] = $this->input->post('remark');
 			$interviewer['position_id'] = $this->input->post('position_id');
 			
 			if(empty($interviewer['name']) || empty($interviewer['mobile']) || empty($interviewer['email']) || empty($interviewer['position_id']))
