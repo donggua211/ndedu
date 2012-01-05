@@ -40,16 +40,13 @@ class Hr_model extends Model {
 			$sql .= substr_replace($where, ' WHERE ', 0, strpos($where, 'AND') + 3);
 		
 		//ORDER BY
-        $sql .= " ORDER BY interviewer.status, interviewer.add_time ";
+        $sql .= " ORDER BY interviewer.status, interviewer.interviewer_time ";
 		
 		//LIMIT
 		if (!empty($row_count))
         {
             $sql .= " LIMIT $offset, $row_count";
         }
-		
-		
-		
 		
 		$query = $this->db->query($sql);
 		if ($query->num_rows() > 0)
@@ -139,6 +136,7 @@ class Hr_model extends Model {
 		$data['name'] = $interviewer['name'];
 		$data['mobile'] = $interviewer['mobile'];
 		$data['email'] = $interviewer['email'];
+		$data['remark'] = $interviewer['remark'];
 		$data['position_id'] = $interviewer['position_id'];
 		$data['status'] = HR_STATUS_NEW;
 		$data['contact_num'] = 0;
@@ -164,7 +162,9 @@ class Hr_model extends Model {
 		$data['add_time'] = date('Y-m-d H:i:s');
 		if($this->db->insert('hr_interview_time', $data))
 		{
-			return $this->db->insert_id();
+			//更新 interview 表
+			$this->update($interview_time['interviewer_id'], array('interviewer_time' => $interview_time['interviewer_time']));
+			return true;
 		}
 		else
 		{

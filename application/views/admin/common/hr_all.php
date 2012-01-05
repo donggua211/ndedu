@@ -16,32 +16,32 @@
 			<table cellspacing='1' id="list-table">
 				<tr>
 					<th>姓名</th>
-					<th>电话</th>
-					<th>邮箱</th>
+					<th>电话邮箱</th>
 					<th>部门</th>
 					<th>职位</th>
-					<th>通知次数</th>
+					<th>通知<br/>次数</th>
 					<th>面试时间</th>
 					<th>通知时间</th>
-					<th>面试方式</th>
+					<th>通知<br/>方式</th>
 					<th>状态</th>
+					<th>备注</th>
 					<th>操作</th>
 				</tr>
 				<?php foreach($lists as $val): ?>
 				<tr>
 					<td><?php echo $val['name']; ?></td>
-					<td><?php echo $val['mobile'] ?></td>
-					<td><?php echo $val['email'] ?></td>
+					<td><?php echo $val['mobile'].'<br/>'.$val['email'] ?></td>
 					<td align="center"><?php echo mb_substr($val['group_name'], 0, mb_strpos($val['group_name'], '主管') )?>组</td>
 					<td align="center"><?php echo $val['position_name'] ?></td>
 					<td align="center"><?php echo $val['contact_num']; ?></td>
 					
-					<td align="center"><?php echo (isset($val['interview_time']['interviewer_time'])) ? $val['interview_time']['interviewer_time'] : ''; ?></td>
+					<td align="center"><?php echo (isset($val['interview_time']['interviewer_time'])) ? $val['interview_time']['interviewer_time'].' (周'.date('N', strtotime($val['interview_time']['interviewer_time'])).')' : ''; ?></td>
 					<td align="center"><?php echo (isset($val['interview_time']['add_time'])) ? $val['interview_time']['add_time'] : ''; ?></td>
 					<td align="center"><?php echo (isset($val['interview_time']['notice_method'])) ? get_hr_interview_notice_mothed_text($val['interview_time']['notice_method']) : ''; ?></td>
 					
 					
 					<td align="center"><?php echo get_hr_interview_status_text($val['status']); ?></td>
+					<td align="center"><span title="<?php echo $val['remark'] ?>"><?php echo utf_substr($val['remark'], 45); ?></span></td>
 					<td align="center">
 					<?php
 						$CI = & get_instance();

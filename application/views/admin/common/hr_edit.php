@@ -64,7 +64,10 @@
 					</select>
 				</td>
 			</tr>
-			
+			<tr>
+				<td class="label" valign="top"><span class="notice-star"> * </span>备注: </td>
+				<td><textarea name="remark" cols="40" rows="5"><?php echo (isset($interviewer['remark'])) ? $interviewer['remark'] :''; ?></textarea></td>
+			</tr>
 		</table>
 		<div class="button-div">
 			<input type="hidden" value="<?php echo $interviewer['interviewer_id'] ?>" name="interviewer_id">

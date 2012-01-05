@@ -179,12 +179,12 @@ define('HR_NOTICE_METHOD_SMS', 2);
 define('HR_NOTICE_METHOD_EMAIL', 3);
 define('HR_NOTICE_METHOD_SELF', 4);
 
-define('HR_STATUS_NEW', 1);//新加
-define('HR_STATUS_APPOINTMENT', 2);//已约访
-define('HR_STATUS_NOT_COME', 3);//没来
-define('HR_STATUS_COME', 4);//已来
-define('HR_STATUS_OK', 5);//已来
-define('HR_STATUS_NG', 6);//已来
+define('HR_STATUS_NEW', 10);//新加
+define('HR_STATUS_APPOINTMENT', 20);//已约访
+define('HR_STATUS_NOT_COME', 30);//没来
+define('HR_STATUS_COME', 40);//已来
+define('HR_STATUS_OK', 50);//已来
+define('HR_STATUS_NG', 60);//已来
 
 
 
