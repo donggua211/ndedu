@@ -56,10 +56,14 @@ class Admin_Ac_Student extends Admin_Ac_Base
 					STUDENT_STATUS_SIGNUP,
 					STUDENT_STATUS_LEARNING,
 					STUDENT_STATUS_FINISHED,
+					STUDENT_STATUS_INACTIVE,
 				),
 				'group' => array(
 					GROUP_CONSULTANT => HISTORY_WR,
 					GROUP_CONSULTANT_D => HISTORY_WR,
+					GROUP_SUYANG => HISTORY_WR,
+					GROUP_SUYANG_D => HISTORY_WR,
+					GROUP_TEACHER_D => HISTORY_WR,
 					GROUP_CS => HISTORY_WR,
 					GROUP_CS_D => HISTORY_WR,
 					GROUP_JIAOWU => HISTORY_WR,
@@ -396,6 +400,11 @@ class Admin_Ac_Student extends Admin_Ac_Base
 	 */
 	function history_ac($type, $status, $return = '')
 	{
+		//联系历史开放给所有状态，所有角色. 2011-12-29, zhaoyuan
+		if($type == 'type')
+			return HISTORY_WR;
+		
+		
 		//管理员, 校区管理员：无所不能
 		if($this->group_id == GROUP_ADMIN || $this->group_id == GROUP_SCHOOLADMIN)
 			return HISTORY_WR;
@@ -593,8 +602,8 @@ class Admin_Ac_Student extends Admin_Ac_Base
 	//student all，学员列表页，显示 历史记录 的链接。
 	function view_student_all_contact_history($student_status)
 	{
-		if(in_array($this->group_id, array(GROUP_CONSULTANT_D, GROUP_CONSULTANT, GROUP_CS_D, GROUP_CS)) 
-			&& in_array($student_status, array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_SIGNUP)))
+		//联系历史开放给所有状态，所有角色. 2011-12-29, zhaoyuan
+		if(!in_array($this->group_id, array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL)))
 			return true;
 		
 		return false;

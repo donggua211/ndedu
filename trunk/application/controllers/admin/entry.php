@@ -20,7 +20,7 @@ class Entry extends Controller {
 		$this->staff_info = get_staff_info();
 		
 		//加载权限控制类
-		$this->load->library('admin_ac/Admin_Ac_Entry', array('group_id' => $this->staff_info['group_id']));
+		$this->load->library('admin_ac/Admin_Ac_Entry', array('group_id' => $this->staff_info['group_id'], 'staff_id' => $this->staff_info['staff_id']));
 	}
 	
 	function index()

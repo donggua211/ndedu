@@ -10,6 +10,7 @@ class Admin_Ac_Entry extends Admin_Ac_Base
 	function Admin_Ac_Entry($params)
 	{
 		parent::Admin_Ac_Base($params);
+		$this->staff_id = $params['staff_id'];
 	}
 	
 	function show_less_10_warn()
@@ -58,5 +59,17 @@ class Admin_Ac_Entry extends Admin_Ac_Base
 	{
 		$not_allowed_group_id = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
 		return (!$this->_check_role($not_allowed_group_id)) ? TRUE : FALSE;
+	}
+	
+	function munu_show_hr_add()
+	{
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
+		return ($this->_check_role($allowed_group_id) || $this->staff_id == 35) ? TRUE : FALSE;
+	}
+	
+	function munu_show_hr_position()
+	{
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
+		return ($this->_check_role($allowed_group_id) || $this->staff_id == 35) ? TRUE : FALSE;
 	}
 }

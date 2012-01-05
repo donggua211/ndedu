@@ -78,6 +78,23 @@
 			</li>
 			<?php endif; ?>
 			
+			
+			<?php if($CI->admin_ac_entry->munu_show_ticket_list() ): ?>
+			<li class="explode" key="02_staff" name="menu">
+				HR系统
+				<ul>
+					<?php if($CI->admin_ac_entry->munu_show_hr_add() ): ?>
+					<li class="menu-item"><a href="<?php echo site_url("admin/hr/add"); ?>" target="main-frame">添加新面试</a></li>
+					<?php endif; ?>
+					<li class="menu-item"><a href="<?php echo site_url("admin/hr"); ?>" target="main-frame">面试列表</a></li>
+					<?php if($CI->admin_ac_entry->munu_show_hr_position() ): ?>
+					<li class="menu-item"><a href="<?php echo site_url("admin/hr_position/add"); ?>" target="main-frame">添加新职位</a></li>
+					<li class="menu-item"><a href="<?php echo site_url("admin/hr_position"); ?>" target="main-frame">职位列表</a></li>
+					<?php endif; ?>
+				</ul>
+			</li>
+			<?php endif; ?>
+			
 			<?php if(is_admin()): //权限: 只有超级管理员可以查看员工的工资?>
 			<li class="explode" key="02_staff" name="menu">
 				工资管理系统

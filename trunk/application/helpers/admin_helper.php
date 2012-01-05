@@ -190,6 +190,41 @@
 			return $groups_text[$group_id];
 	}
 	
+	function get_hr_interview_notice_mothed_text($status = 1)
+	{
+		$status = intval($status);
+		$status_text = array(
+			HR_NOTICE_METHOD_MOBILE => '电话',
+			HR_NOTICE_METHOD_SMS => '短信',
+			HR_NOTICE_METHOD_EMAIL => '邮件',
+			HR_NOTICE_METHOD_SELF => '自来',
+		);
+		
+		if(!array_key_exists($status, $status_text))
+			return '';
+		else
+			return $status_text[$status];
+	}
+	
+	
+	function get_hr_interview_status_text($status = 1)
+	{
+		$status = intval($status);
+		$status_text = array(
+			HR_STATUS_NEW => '新加',
+			HR_STATUS_APPOINTMENT => '已约',
+			HR_STATUS_NOT_COME => '没有来',
+			HR_STATUS_COME => '已来',
+			HR_STATUS_OK => '面试通过',
+			HR_STATUS_NG => '面试没通过',
+		);
+		
+		if(!array_key_exists($status, $status_text))
+			return '';
+		else
+			return $status_text[$status];
+	}
+	
 	function _load_viewer($group_id, $template, $data = array())
 	{
 		//处理 template EXT后缀.

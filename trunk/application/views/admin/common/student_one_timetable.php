@@ -476,7 +476,7 @@
 						type: "POST",
 						url: site_url+"admin/ajax/update_student_teacher",
 						data: "student_id="+<?php echo $student['student_id']; ?>+"&staff_id="+$(this).val()+"&type="+"<?php echo isset($student['student_teacher_type']) ? $student['student_teacher_type'] : 0 ?>"+"&action=del",
-						success: function(msg){
+						success: function(data){
 							if(data != 'OK')
 								result = false;
 						}

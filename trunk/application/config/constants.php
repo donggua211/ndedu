@@ -39,34 +39,34 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 /*
  * Constans for Admin Panel
  */
-define('STUDENT_PER_PAGE', 15); //Ã¿Ò³ÏÔÊ¾15¸öÑ§Ô±
-define('STAFF_PER_PAGE', 15); //Ã¿Ò³ÏÔÊ¾15¸öÔ±¹¤
-define('DOCUMENT_PER_PAGE', 10); //Ã¿Ò³ÏÔÊ¾15¸öÑ§Ô±
+define('STUDENT_PER_PAGE', 15); //æ¯é¡µæ˜¾ç¤º15ä¸ªå­¦å‘˜
+define('STAFF_PER_PAGE', 15); //æ¯é¡µæ˜¾ç¤º15ä¸ªå‘˜å·¥
+define('DOCUMENT_PER_PAGE', 10); //æ¯é¡µæ˜¾ç¤º15ä¸ªå­¦å‘˜
 
 /*student status*/
-define('STUDENT_STATUS_NOT_APPOINTMENT', 1); //Î´Ô¼·Ã
-define('STUDENT_STATUS_HAS_APPOINTMENT', 7); //ÒÑÔ¼·Ã
-define('STUDENT_STATUS_SIGNUP', 2); //ÒÑ±¨Ãû
-define('STUDENT_STATUS_LEARNING', 3); //ÕıÔÚÑ§
-define('STUDENT_STATUS_FINISHED', 4); //ÒÑÑ§Íê
-define('STUDENT_STATUS_INACTIVE', 5); //×¢Ïú
+define('STUDENT_STATUS_NOT_APPOINTMENT', 1); //æœªçº¦è®¿
+define('STUDENT_STATUS_HAS_APPOINTMENT', 7); //å·²çº¦è®¿
+define('STUDENT_STATUS_SIGNUP', 2); //å·²æŠ¥å
+define('STUDENT_STATUS_LEARNING', 3); //æ­£åœ¨å­¦
+define('STUDENT_STATUS_FINISHED', 4); //å·²å­¦å®Œ
+define('STUDENT_STATUS_INACTIVE', 5); //æ³¨é”€
 
 
 /*GROUP ID for admin panel */
-define('GROUP_ADMIN', 1);				//¹ÜÀíÔ±
-define('GROUP_SCHOOLADMIN', 2);			//Ğ£Çø¹ÜÀíÔ±
-define('GROUP_CONSULTANT', 3);			//×ÉÑ¯Ê¦
-define('GROUP_SUPERVISOR', 4);			//°àÖ÷ÈÎ
-define('GROUP_CS', 7);					//¿Î³Ì¹ËÎÊ
-define('GROUP_SUYANG', 8);				//ËØÑø¿ÎÀÏÊ¦
-define('GROUP_JIAOWU', 13);				//½ÌÎñÀÏÊ¦
-define('GROUP_TEACHER_PARTTIME', 5);	//Ñ§¿ÆÀÏÊ¦£¨¼æÖ°£©
-define('GROUP_TEACHER_FULL', 6);		//Ñ§¿ÆÀÏÊ¦£¨È«Ö°£©
-define('GROUP_TEACHER_D', 9);			//Ñ§¿ÆÖ÷¹Ü
-define('GROUP_CONSULTANT_D', 10);		//×ÉÑ¯Ö÷¹Ü
-define('GROUP_SUYANG_D', 11);			//ËØÑøÖ÷¹Ü
-define('GROUP_CS_D', 12);				//¿Î³Ì¹ËÎÊÖ÷¹Ü
-define('GROUP_JIAOWU_D', 14);			//½ÌÎñÖ÷¹Ü
+define('GROUP_ADMIN', 1);				//ç®¡ç†å‘˜
+define('GROUP_SCHOOLADMIN', 2);			//æ ¡åŒºç®¡ç†å‘˜
+define('GROUP_CONSULTANT', 3);			//å’¨è¯¢å¸ˆ
+define('GROUP_SUPERVISOR', 4);			//ç­ä¸»ä»»
+define('GROUP_CS', 7);					//è¯¾ç¨‹é¡¾é—®
+define('GROUP_SUYANG', 8);				//ç´ å…»è¯¾è€å¸ˆ
+define('GROUP_JIAOWU', 13);				//æ•™åŠ¡è€å¸ˆ
+define('GROUP_TEACHER_PARTTIME', 5);	//å­¦ç§‘è€å¸ˆï¼ˆå…¼èŒï¼‰
+define('GROUP_TEACHER_FULL', 6);		//å­¦ç§‘è€å¸ˆï¼ˆå…¨èŒï¼‰
+define('GROUP_TEACHER_D', 9);			//å­¦ç§‘ä¸»ç®¡
+define('GROUP_CONSULTANT_D', 10);		//å’¨è¯¢ä¸»ç®¡
+define('GROUP_SUYANG_D', 11);			//ç´ å…»ä¸»ç®¡
+define('GROUP_CS_D', 12);				//è¯¾ç¨‹é¡¾é—®ä¸»ç®¡
+define('GROUP_JIAOWU_D', 14);			//æ•™åŠ¡ä¸»ç®¡
 
 /*region ID*/
 define('REGION_PROVINCE', 1);
@@ -83,7 +83,7 @@ define('CONTRACT_STATUS_EXPIRED', 2);
 define('CONTRACT_STATUS_FINISHED', 3);
 
 /* Calendar */
-define('DAY_OF_WEEK_START', 1); //ÊÊÓÚÖÜÒ»
+define('DAY_OF_WEEK_START', 1); //é€‚äºå‘¨ä¸€
 
 /* Guestbook */
 define('GUESTBOOK_MESSAGE_PER_PAGE', 20);
@@ -107,21 +107,21 @@ define('CP_CARD_STATUS_FINISHED', 4);
 define('CP_LEVEL_ADVANCED', 1);
 define('CP_LEVEL_LUXURY', 2);
 //ceping comment status
-define('CP_COMMENT_STATUS_NEW', 1); //ĞÂÆÀÂÛ
-define('CP_COMMENT_STATUS_REVIEWED', 2); //ÆÀÂÛ, ÒÑÑéÖ¤
+define('CP_COMMENT_STATUS_NEW', 1); //æ–°è¯„è®º
+define('CP_COMMENT_STATUS_REVIEWED', 2); //è¯„è®º, å·²éªŒè¯
 //ceping order status
-define('CP_ORDER_STATUS_NEW', 1); //ĞÂ¶©µ¥
-define('CP_ORDER_STATUS_CONFIRMED', 2); //¶©µ¥ÒÔÈ·ÈÏ
-define('CP_ORDER_STATUS_SHIPPED', 3); //¶©µ¥ÒÑ·¢»õ
+define('CP_ORDER_STATUS_NEW', 1); //æ–°è®¢å•
+define('CP_ORDER_STATUS_CONFIRMED', 2); //è®¢å•ä»¥ç¡®è®¤
+define('CP_ORDER_STATUS_SHIPPED', 3); //è®¢å•å·²å‘è´§
 //ceping order delivery type
-define('CP_ORDER_DELIVERY_TYPE_PINGYOU', 1); //Æ½ÓÊ
-define('CP_ORDER_DELIVERY_TYPE_KUAIDI', 2); //¿ìµİ¹«Ë¾
+define('CP_ORDER_DELIVERY_TYPE_PINGYOU', 1); //å¹³é‚®
+define('CP_ORDER_DELIVERY_TYPE_KUAIDI', 2); //å¿«é€’å…¬å¸
 define('CP_ORDER_DELIVERY_TYPE_EMS', 3); //EMS
-define('CP_ORDER_DELIVERY_TYPE_HUODAO', 4); //»õµ½¸¶¿î
+define('CP_ORDER_DELIVERY_TYPE_HUODAO', 4); //è´§åˆ°ä»˜æ¬¾
 //ceping order type
-define('CP_ORDER_TYPE_NORMAL', 1); //ÆÕÍ¨¹ºÂò¿¨
-define('CP_ORDER_TYPE_PROMO', 2); //´ÙÏú
-define('CP_ORDER_TYPE_UPDATE', 3); //Éı¼¶
+define('CP_ORDER_TYPE_NORMAL', 1); //æ™®é€šè´­ä¹°å¡
+define('CP_ORDER_TYPE_PROMO', 2); //ä¿ƒé”€
+define('CP_ORDER_TYPE_UPDATE', 3); //å‡çº§
 //ceping quan
 define('CP_QUAN_STATUS_NEW', 1);
 define('CP_QUAN_STATUS_USED', 2);
@@ -136,18 +136,18 @@ define('JOIN_STATUS_SURVEY', 2);
 define('JOIN_STATUS_FINISHED', 3);
 define('JOIN_PER_PAGE', 20);
 
-//¸øÑ§¹ÜÀÏÊ¦±¨¾¯µÄÊ£Óà¿ÎÊıÊı
+//ç»™å­¦ç®¡è€å¸ˆæŠ¥è­¦çš„å‰©ä½™è¯¾æ•°æ•°
 define('WARNING_REMAIN_HOURS', 10);
 
-//Ô±¹¤×ªÕıµÄ¿ÎÊ±Êı
+//å‘˜å·¥è½¬æ­£çš„è¯¾æ—¶æ•°
 define('STAFF_BECOME_FULL_HOURS', 20);
 
-//¿ÆÄ¿
+//ç§‘ç›®
 define('SUBJECT_XUEKE', 1);
 define('SUBJECT_SUYANG', 2);
 define('SUBJECT_ZIXUN', 3);
 
-//ÀúÊ·¼ÇÂ¼
+//å†å²è®°å½•
 define('HISTORY_DENY', 0);
 define('HISTORY_R', 1);
 define('HISTORY_WR', 2);
@@ -156,7 +156,7 @@ define('HISTORY_TYPE_CONSULT', 1);
 define('HISTORY_TYPE_SUYANG', 2);
 define('HISTORY_TYPE_LEARNING', 3);
 
-//sms ÀúÊ·
+//sms å†å²
 define('SMS_HISTORY_PER_PAGE', 10);
 
 //schedule
@@ -167,9 +167,26 @@ define('SCHEDULE_HAS_CLASS', 2);
 //ticket
 define('TICKET_PER_PAGE', 50);
 
-//student teacher ¶ÔÓ¦¹ØÏµ
+//student teacher å¯¹åº”å…³ç³»
 define('STUDENT_TEACHER_XUEKE', 1);
 define('STUDENT_TEACHER_SUYANG', 2);
 define('STUDENT_TEACHER_ZIXUN', 3);
+
+//HRç³»ç»ŸçŠ¶æ€è¡¨
+define('HR_PER_PAGE', 20);
+define('HR_NOTICE_METHOD_MOBILE', 1);
+define('HR_NOTICE_METHOD_SMS', 2);
+define('HR_NOTICE_METHOD_EMAIL', 3);
+define('HR_NOTICE_METHOD_SELF', 4);
+
+define('HR_STATUS_NEW', 1);//æ–°åŠ 
+define('HR_STATUS_APPOINTMENT', 2);//å·²çº¦è®¿
+define('HR_STATUS_NOT_COME', 3);//æ²¡æ¥
+define('HR_STATUS_COME', 4);//å·²æ¥
+define('HR_STATUS_OK', 5);//å·²æ¥
+define('HR_STATUS_NG', 6);//å·²æ¥
+
+
+
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

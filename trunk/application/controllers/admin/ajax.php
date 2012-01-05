@@ -18,6 +18,7 @@ class Ajax extends Controller {
 		$this->load->model('CRM_History_model');
 		$this->load->model('CRM_Timetable_model');
 		$this->load->model('CRM_Staff_Schedule_model');
+		$this->load->model('HR_model');
 		
 		$this->load->library('Services_JSON');
 	}
@@ -174,6 +175,27 @@ class Ajax extends Controller {
 		echo urldecode($this->services_json->encode($arr));
 	}
 	
+	function get_interview_time()
+	{
+		$interviewer_id = $this->input->Post('interviewer_id');
+		$interview_time = $this->HR_model->get_one_times($interviewer_id);
+		
+		if(empty($interview_time))
+		{
+			echo '-1';
+			return false;
+		}
+		
+		foreach($interview_time as $val)
+		{
+			$arr[$val['interview_time_id']]['interviewer_time'] = $val['interviewer_time'];
+			$arr[$val['interview_time_id']]['notice_method'] = $val['notice_method'];
+			$arr[$val['interview_time_id']]['add_time'] = $val['add_time'];
+		}
+		
+		echo urldecode($this->services_json->encode($arr));
+	}
+	
 	function count_staff_finished_hours()
 	{
 		$staff_id = $this->input->Post('staff_id');
@@ -197,6 +219,10 @@ class Ajax extends Controller {
 		else
 		{
 			foreach($timetable[$day] as $val)
+			{
+				if($val['is_suspend'] == 1)
+					continue;
+				
 				if( $s_t >= $val['end_time'] || $e_t <= $val['start_time'] )
 					continue;
 				else
@@ -206,13 +232,13 @@ class Ajax extends Controller {
 						return true;
 					
 					if($val['staff_id'] == $staff_id)
-					{
 						echo '该老师的时间有冲突！该老师的上课时间为：星期'.$val['day'].'，'.$val['start_time'].'至'.$val['end_time'];
-					}
 					else
 						echo '该学生的时间有冲突！该学生的上课时间为：星期'.$val['day'].'，'.$val['start_time'].'至'.$val['end_time'];
+					
 					return false;
 				}
+			}
 			
 			echo 'OK';
 		}
