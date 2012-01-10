@@ -214,6 +214,8 @@
 			HR_STATUS_NEW => '新加',
 			HR_STATUS_APPOINTMENT => '已约',
 			HR_STATUS_NOT_COME => '没有来',
+			HR_STATUS_LATER => '以后再联系',
+			HR_STATUS_GONE => '不来了',
 			HR_STATUS_COME => '已来',
 			HR_STATUS_OK => '面试通过',
 			HR_STATUS_NG => '面试没通过',

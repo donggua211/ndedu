@@ -12,12 +12,12 @@ class Hr_model extends Model {
 		//订单添加的开始时间
 		if (isset($filter['add_time_a']) && $filter['add_time_a'])
         {
-            $where .= " AND interviewer.add_time >= '{$filter['add_time_a']}' ";
+            $where .= " AND interviewer.interviewer_time >= '{$filter['add_time_a']}' ";
         }
 		//订单添加的结束时间
 		if (isset($filter['add_time_b']) && $filter['add_time_b'])
         {
-            $where .= " AND interviewer.add_time <= '{$filter['add_time_b']}' ";
+            $where .= " AND interviewer.interviewer_time <= '{$filter['add_time_b']}' ";
         }
 		//订单添加的结束时间
 		if (isset($filter['position_id']) && $filter['position_id'])
@@ -128,6 +128,24 @@ class Hr_model extends Model {
 		}
 	}
 	
+	function get_one_interview_time($nterview_time_id)
+	{
+		$sql = "SELECT interview_time.*
+				FROM ".$this->db->dbprefix('hr_interview_time')." as interview_time
+				WHERE interview_time.interview_time_id = $nterview_time_id
+				LIMIT 1";
+		
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			return $query->row_array();
+		}
+		else
+		{
+			return array();
+		}
+	}
+	
 	function add($interviewer)
 	{
 		/*
@@ -213,6 +231,28 @@ class Hr_model extends Model {
 		
 		$this->db->where('interviewer_id', $interviewer_id);
 		return $this->db->update('hr_interviewer');
+	}
+	
+	function update_interview_time($interview_time_id, $update_field = array())
+	{
+		if(empty($update_field))
+			return true;
+		
+		//更新card表
+		foreach($update_field as $key => $val)
+		{
+			$this->db->set($key, $val);
+		}
+		
+		$this->db->where('interview_time_id', $interview_time_id);
+		return $this->db->update('hr_interview_time');
+	}
+	
+	function delete_interview_time($interview_time_id)
+	{
+		$this->db->where('interview_time_id', $interview_time_id);
+		$this->db->delete(array('hr_interview_time')); 
+		return ($this->db->affected_rows() > 0 ) ? TRUE : FALSE;
 	}
 	
 	function delete($interviewer_id)

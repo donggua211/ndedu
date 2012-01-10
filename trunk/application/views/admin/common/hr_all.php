@@ -12,6 +12,17 @@
 		</div>
 		<?php endif;?>
 		
+		<div class="form-div">
+		  <form action="<?php echo site_url('admin/hr')?>" method="POST" name="searchForm">
+			<img src="images/admin/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" />
+			面试时间: <input name="add_time_a" id="add_time_a" type="text" value="<?php echo $filter['add_time_b'] ?>" size='10'/>
+			和<input name="add_time_b" id="add_time_b" type="text" value="<?php echo $filter['add_time_b'] ?>" size='10'/>之间
+			<!-- 姓名 -->
+			姓名 <input type="text" name="name" size="15" />
+			<input type="submit" value=" 搜索 " class="button" />
+		  </form>
+		</div>
+		
 		<div id="listDiv" class="list-div">
 			<table cellspacing='1' id="list-table">
 				<tr>
@@ -41,7 +52,7 @@
 					
 					
 					<td align="center"><?php echo get_hr_interview_status_text($val['status']); ?></td>
-					<td align="center"><span title="<?php echo $val['remark'] ?>"><?php echo utf_substr($val['remark'], 45); ?></span></td>
+					<td><span title="<?php echo $val['remark'] ?>"><?php echo utf_substr($val['remark'], 45); ?></span></td>
 					<td align="center">
 					<?php
 						$CI = & get_instance();
@@ -103,6 +114,18 @@
 			dateFormat: 'yy-mm-dd'
 	});
 	
+	$( "#add_time_a" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			dateFormat: 'yy-mm-dd'
+	});
+	
+	$( "#add_time_b" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			dateFormat: 'yy-mm-dd'
+	});
+	
 	function shw_add_interview_time(interviewer_id)
 	{
 		$( "#dialog-modal" ).dialog({
@@ -126,20 +149,21 @@
 			hide: 'fade'
 		});
 		
-		$.post(site_url+"/admin/ajax/get_interview_time", { interviewer_id: interviewer_id},
+		$.post(site_url+"admin/ajax/get_interview_time", { interviewer_id: interviewer_id},
 			function (data, textStatus){
 				var html_content = '';
 				if(data == '-1')
 					html_content += '<img src="images/icon/warning2.gif" style="vertical-align:middle"> 无记录';
 				else
 				{
-					html_content += '<table width="100%" cellspacing="1"><tr><th align="center">通知时间</th><th align="center">面试时间</th><th align="center">通知方式</th>';
+					html_content += '<table width="100%" cellspacing="1"><tr><th align="center">通知时间</th><th align="center">面试时间</th><th align="center">通知方式</th><th align="center">操作</th>';
 
 					$.each(data, function(i, field){
 						html_content += '<tr>';
 						html_content += '<td align="center" style="padding:4px 0 4px 0">' + UrlDecode(field.interviewer_time) + '</td>';
 						html_content += '<td align="center">' + UrlDecode(field.add_time) + '</td>';
 						html_content += '<td align="center">' + get_hr_interview_notice_mothed_text(UrlDecode(field.notice_method)) + '</td>';
+						html_content += '<td align="center"><a href="'+site_url+'admin/hr/edit_interview_time/'+field.interview_time_id+'">编辑</a> <a href="'+site_url+'admin/hr/delete_interview_time/'+field.interview_time_id+'">删除</a></td>';
 						html_content += '</tr>';
 					});
 					

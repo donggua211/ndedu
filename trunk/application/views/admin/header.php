@@ -28,7 +28,7 @@
 	<?php endif;?>
 	<script>
 	<!--
-	site_url = '<?php echo site_url();?>/';
+	site_url = '<?php echo site_url();?>';
 	base_url = '<?php echo base_url();?>';
 	thisURL = '<?php echo $_SERVER['REQUEST_URI'];?>';
 	-->

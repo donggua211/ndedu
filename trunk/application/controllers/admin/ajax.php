@@ -188,6 +188,7 @@ class Ajax extends Controller {
 		
 		foreach($interview_time as $val)
 		{
+			$arr[$val['interview_time_id']]['interview_time_id'] = $val['interview_time_id'];
 			$arr[$val['interview_time_id']]['interviewer_time'] = $val['interviewer_time'];
 			$arr[$val['interview_time_id']]['notice_method'] = $val['notice_method'];
 			$arr[$val['interview_time_id']]['add_time'] = $val['add_time'];

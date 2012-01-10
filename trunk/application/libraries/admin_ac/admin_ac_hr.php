@@ -15,6 +15,9 @@ class Admin_Ac_hr extends Admin_Ac_Base
 	
 	function hr_index_ac($filter)
 	{
+		if($this->staff_id == 35)
+			return $filter;
+		
 		$CI = & get_instance();
 		switch($this->group_id)
 		{

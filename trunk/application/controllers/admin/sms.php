@@ -51,6 +51,7 @@ class sms extends Controller {
 		
 		//发送短信
 		$result = $this->_send($mobile, $content);
+		
 		preg_match('/<font>(.*?)<\/font>/', $result, $matches);
 		$status = (int)$matches[1];
 		

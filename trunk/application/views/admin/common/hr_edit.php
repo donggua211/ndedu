@@ -55,7 +55,7 @@
 					<select name="status">
 						<option value='0'>请选择...</option>
 						<?php
-							$status = array(HR_STATUS_NEW=>'新加', HR_STATUS_APPOINTMENT=>'已约访', HR_STATUS_NOT_COME=>'没来', HR_STATUS_COME=>'已来', HR_STATUS_OK=>'面试通过', HR_STATUS_NG=>'面试没通过');
+							$status = array(HR_STATUS_NEW=>'新加', HR_STATUS_APPOINTMENT=>'已约访', HR_STATUS_NOT_COME=>'没来', HR_STATUS_LATER=>'以后再联系', HR_STATUS_GONE=>'不来了', HR_STATUS_COME=>'已来', HR_STATUS_OK=>'面试通过', HR_STATUS_NG=>'面试没通过');
 							foreach($status as $key => $text)
 							{
 								echo '<option value="'.$key.'" '.((isset($interviewer['status'])) ? ( ($key == $interviewer['status']) ? 'SELECTED' : '' ) : '').'>'.$text.'</option>';
