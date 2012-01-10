@@ -182,6 +182,8 @@ define('HR_NOTICE_METHOD_SELF', 4);
 define('HR_STATUS_NEW', 10);//新加
 define('HR_STATUS_APPOINTMENT', 20);//已约访
 define('HR_STATUS_NOT_COME', 30);//没来
+define('HR_STATUS_LATER', 32);//以后再联系
+define('HR_STATUS_GONE', 35);//不来了
 define('HR_STATUS_COME', 40);//已来
 define('HR_STATUS_OK', 50);//已来
 define('HR_STATUS_NG', 60);//已来

@@ -29,8 +29,9 @@ class hr extends Controller {
 	{
 		//默认值
 		$filter['page'] = 1;
-		$filter['add_time_a'] = $this->input->post('add_time_a');
-		$filter['add_time_b'] = $this->input->post('add_time_b');
+		$filter['add_time_a'] = ($this->input->post('add_time_a')) ? $this->input->post('add_time_a').' 00:00:00' : '';
+		$filter['add_time_b'] = ($this->input->post('add_time_b')) ? $this->input->post('add_time_a').' 23:59:59' : '';
+		$filter['name'] = $this->input->post('name');
 		
 		$filter = $this->_parse_filter($filter_string, $filter);
 		
@@ -40,7 +41,7 @@ class hr extends Controller {
 		//Page Nav
 		$total = $this->Hr_model->getAll_count($filter);
 		$page_nav = page_nav($total, HR_PER_PAGE, $filter['page']);
-		$page_nav['base_url'] = 'admin/join/index';
+		$page_nav['base_url'] = 'admin/hr/index';
 		$page_nav['filter'] = $filter;
 		$data['main']['page_nav'] = $this->load->view('admin/common_page_nav', $page_nav, true);
 		
@@ -49,6 +50,7 @@ class hr extends Controller {
 		$data['header']['meta_title'] = '面试列表';
 		$data['main']['filter'] = $filter;
 		$data['main']['lists'] = $lists;
+		$data['main']['positions'] = $this->_get_positions();
 		_load_viewer($this->staff_info['group_id'], 'hr_all', $data);
 	}
 	
@@ -188,9 +190,6 @@ class hr extends Controller {
 		}
 	}
 	
-	/* 
-	 * 访问权限: 超级管理员, 校区管理员, 咨询师
-	*/
 	function add_interview_time()
 	{
 		if(isset($_POST['submit']) && !empty($_POST['submit']))
@@ -234,6 +233,73 @@ class hr extends Controller {
 		}
 	}
 	
+	
+	function edit_interview_time($interview_time_id = 0)
+	{
+		//判断staff_id是否合法.
+		$interview_time_id = (empty($interview_time_id))? $this->input->post('interview_time_id') : intval($interview_time_id);
+		if($interview_time_id <= 0)
+		{
+			show_error_page('您输入的参数不合法, 请返回重试.', 'admin/hr');
+			return false;
+		}
+		
+		
+		//获取 interviewer 信息.
+		$interview_time_info = $this->Hr_model->get_one_interview_time($interview_time_id);
+		
+		if(isset($_POST['submit']) && !empty($_POST['submit']))
+		{
+			//必填信息.
+			$edit_interview_time['notice_method'] = $this->input->post('notice_method');
+			$edit_interview_time['interviewer_time'] =$this->input->post('interviewer_date').' '.$this->input->post('hour').':'.$this->input->post('mins').':00';
+			
+			//检查修改项
+			$update_field = array();
+			foreach($edit_interview_time as $key => $val)
+			{
+				if(!empty($val) && ($val != $interview_time_info[$key]))
+					$update_field[$key] = $val;
+			}
+			
+			if($this->Hr_model->update_interview_time($interview_time_id, $update_field))
+			{
+				show_result_page('已经更新成功! ', 'admin/hr');
+			}
+			else
+			{
+				$notify = '更新失败, 请重试.';
+				$this->_load_interviewer_time_edit_view($notify, $interview_time_info);
+			}
+		}
+		else
+		{
+			$this->_load_interviewer_time_edit_view('', $interview_time_info);
+		}
+	}
+	
+	
+	function delete_interview_time($interview_time_id)
+	{
+		//判断staff_id是否合法.
+		$interview_time_id = intval($interview_time_id);
+		if($interview_time_id <= 0)
+		{
+			show_error_page('您输入的参数不合法, 请返回重试.', 'admin/hr');
+			return false;
+		}
+		
+		
+		if($this->Hr_model->delete_interview_time($interview_time_id))
+		{
+			show_result_page('面试人员已经删除! ', 'admin/hr');
+		}
+		else
+		{
+			show_error_page('删除失败, 请重试.', 'admin/hr');
+		}
+	}
+	
 	function _load_hr_add_view($notify = '', $interviewer = array())
 	{
 		$data['header']['meta_title'] = '添加新面试 - HR系统';
@@ -250,6 +316,14 @@ class hr extends Controller {
 		$data['main']['positions'] = $this->_get_positions();
 		$data['main']['interviewer'] = $interviewer;
 		_load_viewer($this->staff_info['group_id'], 'hr_edit', $data);
+	}
+	
+	function _load_interviewer_time_edit_view($notify = '', $interview_time_info = array())
+	{
+		$data['header']['meta_title'] = '编辑面试时间 - HR系统';
+		$data['main']['notification'] = $notify;
+		$data['main']['interview_time'] = $interview_time_info;
+		_load_viewer($this->staff_info['group_id'], 'hr_interviewer_time_edit', $data);
 	}
 	
 	function _get_positions()
@@ -273,11 +347,15 @@ class hr extends Controller {
 						continue;
 					$filter[$key] = $input_filter[$key];
 					break;
+				case 'position_id':
 				case 'page':
 				case 'cat_id':
 				case 'level':
 				case 'status':
 					$input_filter[$key] = intval($input_filter[$key]);
+					break;
+				case 'name':
+					$input_filter[$key] = trim($input_filter[$key]);
 					break;
 				default:
 					break;

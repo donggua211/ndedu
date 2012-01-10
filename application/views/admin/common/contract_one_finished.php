@@ -57,10 +57,12 @@
 					<th>科目</th>
 					<th>时间</th>
 				</tr>
-				<?php foreach($contract['finished'] as $finished): ?>
+				<?php 
+				$total_hour = 0;
+				foreach($contract['finished'] as $finished): ?>
 				<tr>
 					<td align="center"><?php echo $finished['teacher_name'] ?></td>
-					<td align="center"><?php echo $finished['finished_hours'] ?>小时</td>
+					<td align="center"><?php echo $finished['finished_hours']; $total_hour += $finished['finished_hours']; ?>小时</td>
 					<td align="center"><?php echo $finished['subject_name'] ?></td>
 					<td align="center">
 						<?php 
@@ -73,8 +75,15 @@
 								echo $start_date.' '.$start_time.' 至 '.$end_date.' '.$end_time;
 						?>
 					</td>
-				<?php endforeach; ?>
 				</tr>
+				<?php endforeach; ?>
+				
+				<tr>
+					<td align="right"><b>总计：</b></td>
+					<td align="center"><b><?php echo $total_hour ?>小时</b></td>
+					<td colspan="2"></td>
+				</tr>
+				
 			</table>
 		</div>
 	</div>

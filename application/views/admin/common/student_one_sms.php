@@ -71,6 +71,7 @@
 					<th>短信内容</th>
 					<th>电话</th>
 					<th>发送时间</th>
+					<th>发信任</th>
 					<th>状态</th>
 					<th>操作</th>
 				</tr>
@@ -79,6 +80,7 @@
 					<td><span id="sms_text_<?php echo $history['sms_history_id']; ?>"><?php echo $history['sms_text'] ?></span></td>
 					<td width="80px"><span id="mobile_<?php echo $history['sms_history_id']; ?>"><?php echo $history['mobile'] ?></span></td>
 					<td width="150px" align="center" ><?php echo $history['update_time'] ?></td>
+					<td width="150px" align="center" ><?php echo $history['name'] ?></td>
 					<td width="100px" align="center">
 						<?php echo $history['status'] == 1 ? '发送成功' : '状态码：'.$history['status']; ?>
 					</td>
