@@ -166,6 +166,21 @@ class CRM_Timetable_model extends Model {
 		}
 	}
 	
+	
+	function suspend_all_by_student($student_id)
+	{
+		$data['is_suspend'] = 1;
+		$this->db->where('student_id', $student_id);
+		if($this->db->update('crm_timetable', $data))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 	function add_timetable_suspend_log($new_log)
 	{
 		//±ØÌîÏî

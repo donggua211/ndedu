@@ -455,6 +455,9 @@ class Student extends Controller {
 					if($update_field['status'] == STUDENT_STATUS_LEARNING)
 						$supervisor_id = (!empty($update_field['supervisor_id'])) ? $update_field['supervisor_id'] : $student_info['supervisor_id'];
 					
+					//如果学员状态改为已学完，暂停所有课程
+					$this->CRM_Timetable_model->suspend_all_by_student($student_id);
+					
 					$this->CRM_Student_model->student_status_history($student_id, $student_info['status'], $update_field['status'], $consultant_id, $supervisor_id);
 				}
 				show_result_page('学员已经更新成功! ', 'admin/student/one/'.$student_id);

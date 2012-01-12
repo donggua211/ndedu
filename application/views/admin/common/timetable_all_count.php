@@ -14,7 +14,14 @@
 		</div>
 		<?php endif;?>
 		<div style="margin:10px; text-align:right">
-			<a href="<?php echo site_url('admin/timetable/all/list') ?>">切换至所有课程列表模式</a>
+			<div style="float:left;padding-left:20px">
+				<select name="show">
+					<option value='all' <?php echo ($show == 'all') ? 'SELECTED' : ''?>>全部课程</option>
+					<option value='active' <?php echo ($show == 'active') ? 'SELECTED' : ''?>>有效的课程</option>
+					<option value='suspend' <?php echo ($show == 'suspend') ? 'SELECTED' : ''?>>暂停的课程</option>
+				</select>
+			</div>
+			<a href="<?php echo site_url('admin/timetable/all/list/'.$show) ?>">切换至所有课程列表模式</a>
 		</div>
 		<div id="listDiv" class="list-div">
 			<table cellspacing='1' id="list-table">
@@ -133,6 +140,12 @@ foreach($all_time_table as $time_q => $time_table)
 ?>
 
 <script type="text/javascript">
+	$(document).ready(function(){
+		$("select[name='show']").change(function(){
+			window.location.href='<?php echo site_url('admin/timetable/all/count') ?>'+'/'+$("select[name='show'] option:selected").val();
+		});
+	});
+	
 	function show_timetable(time_q, day)
 	{
 		$( "#dialog-modal-"+time_q+day ).dialog({
