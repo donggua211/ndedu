@@ -13,8 +13,15 @@
 			<img style="vertical-align: middle;" src="images/icon/warning.gif"> <span style="color:red;font-size:20px;line-height:22px"><?php echo $notification;?></span>
 		</div>
 		<?php endif;?>
-		<div style="margin:10px; text-align:right">
-			<a href="<?php echo site_url('admin/timetable/all') ?>">切换至课时数模式</a>
+		<div style="margin:10px 10px 20px 10px; text-align:right">
+			<div style="float:left;padding-left:20px">
+				<select name="show">
+					<option value='all' <?php echo ($show == 'all') ? 'SELECTED' : ''?>>全部课程</option>
+					<option value='active' <?php echo ($show == 'active') ? 'SELECTED' : ''?>>有效的课程</option>
+					<option value='suspend' <?php echo ($show == 'suspend') ? 'SELECTED' : ''?>>暂停的课程</option>
+				</select>
+			</div>
+			<a href="<?php echo site_url('admin/timetable/all/count/'.$show) ?>">切换至课时数模式</a>
 		</div>
 		<div id="listDiv" class="list-div">
 			<table cellspacing='1' id="list-table">
@@ -89,6 +96,15 @@
 				?>
 			</table>
 		</div>
-		
 	</div>
 </div>
+
+<script type="text/javascript">
+	//ready function
+	$(document).ready(function(){
+		//发短信按钮
+		$("select[name='show']").change(function(){
+			window.location.href='<?php echo site_url('admin/timetable/all/list') ?>'+'/'+$("select[name='show'] option:selected").val();
+		});
+	});
+</script>

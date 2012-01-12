@@ -48,7 +48,7 @@ class Timetable extends Controller {
 		_load_viewer($this->staff_info['group_id'], 'timetable_index', $data);
 	}
 	
-	function all($type='count')
+	function all($type='count', $show = 'active')
 	{
 		//access_control
 		if(!$this->admin_ac_timetable->all_timetable())
@@ -63,6 +63,11 @@ class Timetable extends Controller {
 		{
 			foreach($t_t as $one)
 			{
+				if($show == 'active' && $one['is_suspend'] == 1)
+					continue;
+				if($show == 'suspend' && $one['is_suspend'] == 0)
+					continue;
+				
 				//上午
 				if('00:00:00' <= $one['start_time'] && $one['start_time'] < '12:00:00')
 					$all_time_table[1][$day][] = $one;
@@ -75,6 +80,7 @@ class Timetable extends Controller {
 			}
 		}
 		
+		$data['main']['show'] = $show;
 		$data['main']['all_time_table'] = $all_time_table;
 		
 		$data['header']['meta_title'] = '所有学员的课程表 - 日程管理';
