@@ -233,6 +233,9 @@ class Student extends Controller {
 			case 'timetable':
 				$student_extra_info['time_table'] = $this->CRM_Timetable_model->get_student_timetable($student_info['student_id']);
 				
+				//课程表备注信息
+				$student_extra_info['timetable_remark'] = $this->CRM_Timetable_model->get_timetable_remark($student_info['student_id']);
+				
 				//如果有添加权限的话，载入老师和课程。
 				if($this->admin_ac_timetable->add_timetable())
 				{
@@ -265,6 +268,7 @@ class Student extends Controller {
 					}
 					
 					$data['main']['student_teacher'] = $this->CRM_Student_model->get_student_teacher($student_id, $student_teacher_type);
+					$student_extra_info['this_staff_id'] = $this->staff_info['staff_id'];
 					$student_extra_info['student_teacher_type'] = $student_teacher_type;
 				}
 				
@@ -474,46 +478,60 @@ class Student extends Controller {
 		}
 	}
 	
+	function add_timetable_remark()
+	{
+		if(isset($_POST['submit']) && !empty($_POST['submit']))
+		{
+			//必填信息.
+			$new_remark['student_id'] = $this->input->post('student_id');
+			$new_remark['timetable_remark'] = $this->input->post('timetable_remark');
+			$new_remark['staff_id'] = $this->staff_info['staff_id'];
+			
+			if(empty($new_remark['timetable_remark']))
+			{
+				$notify = '请填备注';
+				show_error_page($notify, site_url('admin/student/one/'.$new_remark['student_id'].'/timetable'));
+			}
+			else
+			{
+				//add into DB
+				if($this->CRM_Timetable_model->add_timetable_remark($new_remark))
+				{
+					show_result_page('已经添加成功! ', 'admin/student/one/'.$new_remark['student_id'].'/timetable');
+				}
+				else
+				{
+					$notify = '添加失败, 请重试.';
+					show_error_page($notify, site_url('admin/student/one/'.$new_remark['student_id'].'/timetable'));
+				}
+			}
+		}
+	}
+	
 	function update_timetable_remark()
 	{
 		if(isset($_POST['submit']) && !empty($_POST['submit']))
 		{
 			//必填信息.
 			$student_id = $this->input->post('student_id');
-			$edit_student['timetable_remark'] = $this->input->post('timetable_remark');
-			
-			//判断student_id是否合法.
-			
-			if($student_id <= 0)
-			{
-				show_error_page('您输入的学员ID不合法, 请返回重试.', 'admin/student');
-				return false;
-			}
-			
-			//获取student 信息.
-			$student_info = $this->CRM_Student_model->getOne($student_id);
-			
-			//检查修改项
+			$timetable_remark_id = $this->input->post('timetable_remark_id');
+			$edit_remark['timetable_remark'] = $this->input->post('timetable_remark');
 			$update_field = array();
-			foreach($edit_student as $key => $val)
+			foreach($edit_remark as $key => $val)
 			{
-				if(!empty($val) && ($val != $student_info[$key]))
+				if(!empty($val))
 					$update_field[$key] = $val;
 			}
-						
-			if($this->CRM_Student_model->update($student_id, $update_field))
+			//add into DB
+			if($this->CRM_Timetable_model->update_timetable_remark($timetable_remark_id, $update_field))
 			{
-				show_result_page('备注已经更新成功! ', 'admin/student/one/'.$student_id.'/timetable');
+				show_result_page('内容已经添加成功! ', 'admin/student/one/'.$student_id.'/timetable');
 			}
 			else
 			{
 				$notify = '更新失败, 请重试.';
-				show_error_page('备注更新失败, 请返回重试.', 'admin/student/one/'.$student_id.'/timetable');
+				show_error_page($notify, site_url('admin/student/one/'.$student_id.'/timetable'));
 			}
-		}
-		else
-		{
-			show_error_page('您无法访问该页面, 请返回重试.', 'admin/student');
 		}
 	}
 	

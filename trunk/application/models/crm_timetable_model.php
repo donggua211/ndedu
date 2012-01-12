@@ -276,5 +276,64 @@ class CRM_Timetable_model extends Model {
 			return false;
 		}
 	}
+	
+	function add_timetable_remark($remark)
+	{
+		//±ØÌîÏî
+		$data['timetable_remark'] = $remark['timetable_remark'];
+		$data['staff_id'] = $remark['staff_id'];
+		$data['student_id'] = $remark['student_id'];
+		$data['add_time'] = date('Y-m-d H:i:s');
+		$data['update_time'] = date('Y-m-d H:i:s');
+		
+		if($this->db->insert('crm_timetable_remark', $data))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
+	function update_timetable_remark($timetable_remark_id, $update_field = array())
+	{
+		if(empty($update_field))
+			return true;
+		
+		foreach($update_field as $key => $val)
+		{
+				$data[$key] = $val;
+		}
+		$data['update_time'] = date('Y-m-d H:i:s');
+		$this->db->where('timetable_remark_id', $timetable_remark_id);
+		if($this->db->update('crm_timetable_remark', $data))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	function get_timetable_remark($student_id)
+	{
+		$sql = "SELECT remark.*, staff.name FROM ".$this->db->dbprefix('crm_timetable_remark')." as remark 
+				LEFT JOIN ".$this->db->dbprefix('crm_staff')." as staff ON staff.staff_id = remark.staff_id
+				WHERE remark.student_id = $student_id 
+				ORDER BY remark.update_time DESC ";
+		
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			return $query->result_array();
+		}
+		else
+		{
+			return false;
+		}
+	}
 }
 ?>

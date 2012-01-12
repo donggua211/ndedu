@@ -125,9 +125,31 @@
 		</div>
 		
 		<!--备注 -->
-		<div style="margin-top:10px;">
-			<b>备注：</b><br/>
-			<?php echo (isset($student['timetable_remark'])) ? $student['timetable_remark'] : ''; ?>
+		<div class="list-div">
+			<div class="title margin_top" style="text-align:left">
+				<span>备注</span>
+			</div>
+			<table>
+				<tr>
+					<th>备注</th>
+					<th>添加人</th>
+					<th>操作</th>
+				</tr>
+			<?php
+			foreach($student['timetable_remark'] as $val)
+			{
+				echo '<tr class="timetable_remark_tr"><td id="remark_text_'.$val['timetable_remark_id'].'">'.$val['timetable_remark'].'</td><td align="center">'.$val['name'].'</td><td align="center">';
+				if($student['this_staff_id'] == $val['staff_id'])
+					echo '<a href="javascript:void(0);" value="'.$val['timetable_remark_id'].'" class="edit_remark">编辑</a>';
+				echo '</td></tr>';
+			}
+			?>
+			<?php if(count($student['timetable_remark']) > 3): ?>
+			<tr>
+				<td colspan="3" align="right" style="padding-right:20px;font-weight:bold"><a href="javascript:void(0);" id="show_hide_remark" value="show">全部显示</td>
+			</tr>
+			<?php endif; ?>
+			</table>
 		</div>
 		
 		<?php
@@ -194,13 +216,13 @@
 			</div>
 			<div>
 				<div class="title margin_top">
-					<span>编辑备注</span>
+					<span>添加备注</span>
 				</div>
-				<form action="<?php echo site_url('admin/student/update_timetable_remark')?>" method="post" id="form">
+				<form action="<?php echo site_url('admin/student/add_timetable_remark')?>" method="post" id="form">
 				<table width="90%">
 					<tr>
 						<td class="label" valign="top">备注: </td>
-						<td><textarea name="timetable_remark" cols="50" rows="5"><?php echo (isset($student['timetable_remark'])) ? $student['timetable_remark'] : ''; ?></textarea></td>
+						<td><textarea name="timetable_remark" cols="50" rows="5"></textarea></td>
 					</tr>
 				</table>
 				<div class="button-div">
@@ -268,7 +290,70 @@
 
 <div id="dialog-modal" title="Basic modal dialog" style="display:none"></div>
 
+<div id="remark_edit" title="Basic modal dialog" style="display:none">
+<form action="<?php echo site_url('admin/student/update_timetable_remark')?>" method="post" id="form">
+	<table width="90%">
+		<tr>
+			<td class="label" valign="top">备注: </td>
+			<td><textarea id="update_timetable_remark" name="timetable_remark" cols="50" rows="5"></textarea></td>
+		</tr>
+		</table>
+		<div class="button-div">
+			<input type="hidden" value="0" name="timetable_remark_id">
+			<input type="hidden" value="<?php echo $student['student_id']; ?>" name="student_id">
+			<input type="submit" class="button" value=" 确定 " name="submit">
+			<input type="reset" class="button" value=" 重置 " name="reset">
+		</div>
+	</form>
+</div>
+
 <script type="text/javascript">
+	$(document).ready(function(){
+		$(".edit_remark").click(function(){
+			var timetable_remark_id = $(this).attr('value');
+			$("input[name=timetable_remark_id]").attr('value', timetable_remark_id);
+			$("#update_timetable_remark").html($("#remark_text_"+timetable_remark_id).html());
+			$( "#remark_edit" ).dialog({
+				title: '编辑备注',
+				modal: true,
+				width: 500,
+				show: 'slide',
+				hide: 'fade'
+			});
+		});
+		
+		$("#show_hide_remark").click(function(){
+			if($(this).attr("value") == 'show') {
+				$(this).attr("value", "hide");
+				$(this).html("收起");
+				show_more_remark();
+			} else {
+				$(this).attr("value", "show");
+				$(this).html("全部显示");
+				hide_more_remark();
+			}
+		});
+		
+		hide_more_remark();
+		
+	});
+	
+	function show_more_remark()
+	{
+		$(".timetable_remark_tr").each(function(i, tr){
+			if(i > 2)
+				$(tr).show()
+		})
+	}
+	
+	function hide_more_remark()
+	{
+		$(".timetable_remark_tr").each(function(i, tr){
+			if(i > 2)
+				$(tr).hide()
+		})
+	}
+	
 	function show_operation(id)
 	{
 		$("#"+id).removeClass("operation_inner");
