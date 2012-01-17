@@ -272,7 +272,7 @@
 													<option value="人教版">人教版</option>
 													<option value="北师大版">北师大版</option>
 												</select></td></tr>
-											<tr><td><span class="notice-star"> * </span><b>授课描述和总结：</b><br/><span style="color:#000">（上课的情况、<br/>发现的问题、<br/>感悟与反思等）</span></td><td><textarea name="history" cols="80" rows="5"><?php echo (isset($student['history']) ? $student['history'] : '')?></textarea></td></tr>
+											<tr><td><span class="notice-star"> * </span><b>授课描述和总结：</b><br/><span style="color:#000">（上课的情况、<br/>发现的问题、<br/>感悟与反思等）</span></td><td><textarea name="history" cols="80" rows="5"><?php echo (isset($_COOKIE['history']) ? $_COOKIE['history'] : '')?></textarea></td></tr>
 											<input type="hidden" name="add_calendar" value="0">
 										</table>
 									<?php
@@ -281,8 +281,8 @@
 									{
 									?>
 										<table>
-											<tr><td><span class="notice-star"> * </span><b>教学目标：</b></td><td><textarea name="target" cols="80" rows="5"></textarea></td></tr>
-											<tr><td><span class="notice-star"> * </span><b>教学内容：</b></td><td><textarea name="history" cols="80" rows="5"><?php echo (isset($student['history']) ? $student['history'] : '')?></textarea></td></tr>
+											<tr><td><span class="notice-star"> * </span><b>教学目标：</b></td><td><textarea name="target" cols="80" rows="5"><?php echo (isset($_COOKIE['target']) ? $_COOKIE['target'] : '')?></textarea></td></tr>
+											<tr><td><span class="notice-star"> * </span><b>教学内容：</b></td><td><textarea name="history" cols="80" rows="5"><?php echo (isset($_COOKIE['history']) ? $_COOKIE['history'] : '')?></textarea></td></tr>
 											<tr><td><b>添加附件：</b>（2M之内）</td><td><input type="file" name="upload"> </td></tr>
 											<input type="hidden" name="add_calendar" value="0">
 										</table>							
@@ -292,9 +292,9 @@
 									{
 									?>
 										<table>
-											<tr><td><span class="notice-star"> * </span><b>教学目标：</b></td><td><textarea name="target" cols="80" rows="5"></textarea></td></tr>
-											<tr><td><span class="notice-star"> * </span><b>教学内容：</b></td><td><textarea name="history" cols="80" rows="5"><?php echo (isset($student['history']) ? $student['history'] : '')?></textarea></td></tr>
-											<tr><td><span class="notice-star"> * </span><b>回访重点：</b></td><td><textarea name="points" cols="80" rows="5"><?php echo (isset($student['history']) ? $student['history'] : '')?></textarea></td></tr>
+											<tr><td><span class="notice-star"> * </span><b>教学目标：</b></td><td><textarea name="target" cols="80" rows="5"><?php echo (isset($_COOKIE['target']) ? $_COOKIE['target'] : '')?></textarea></td></tr>
+											<tr><td><span class="notice-star"> * </span><b>教学内容：</b></td><td><textarea name="history" cols="80" rows="5"><?php echo (isset($_COOKIE['history']) ? $_COOKIE['history'] : '')?></textarea></td></tr>
+											<tr><td><span class="notice-star"> * </span><b>回访重点：</b></td><td><textarea name="points" cols="80" rows="5"></textarea></td></tr>
 											<tr><td><b>添加附件：</b>（2M之内）</td><td><input type="file" name="upload"> </td></tr>
 											<input type="hidden" name="add_calendar" value="0">
 										</table>							
@@ -331,3 +331,16 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	//ready function
+	$(document).ready(function(){
+		//保存内容
+		$("textarea[name='history']").change(function(){
+			$.cookies.set( 'history', $(this).val() );
+		});
+		$("textarea[name='target']").change(function(){
+			$.cookies.set( 'target', $(this).val() );
+		});
+	});
+</script>

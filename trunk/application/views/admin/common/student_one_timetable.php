@@ -136,6 +136,7 @@
 					<th>操作</th>
 				</tr>
 			<?php
+			if(!empty($student['timetable_remark']))
 			foreach($student['timetable_remark'] as $val)
 			{
 				echo '<tr class="timetable_remark_tr"><td id="remark_text_'.$val['timetable_remark_id'].'">'.$val['timetable_remark'].'</td><td align="center">'.$val['name'].'</td><td align="center">';
