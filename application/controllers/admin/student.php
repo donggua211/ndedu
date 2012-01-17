@@ -181,7 +181,8 @@ class Student extends Controller {
 				
 				$data['header']['css_file'] = '../calendar.css';
 				$data['footer']['js_file'][] = '../calendar.js';
-		
+				$data['footer']['js_file'][] = '../jquery-pugin/jquery.cookies.2.2.0.js';
+				
 				$template = 'student_one_history';
 				break;
 			case 'contract':
@@ -268,10 +269,9 @@ class Student extends Controller {
 					}
 					
 					$data['main']['student_teacher'] = $this->CRM_Student_model->get_student_teacher($student_id, $student_teacher_type);
-					$student_extra_info['this_staff_id'] = $this->staff_info['staff_id'];
 					$student_extra_info['student_teacher_type'] = $student_teacher_type;
 				}
-				
+				$student_extra_info['this_staff_id'] = $this->staff_info['staff_id'];
 				$template = 'student_one_timetable';
 				break;
 			case 'basic':
