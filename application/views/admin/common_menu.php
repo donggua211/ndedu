@@ -41,7 +41,7 @@
 					<li class="menu-item"><a href="<?php echo site_url("admin/student/delete_student"); ?>" target="main-frame">删除的学员</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/student/extra_not_signup_student_phone"); ?>" target="main-frame">导出未报名学员家长电话</a></li>
 					<?php endif; ?>
-					<?php if(is_admin() || is_school_admin()): //权限: 超级管理员, 校区管理员 可以添加已完成课时?>
+					<?php if($CI->admin_ac_entry->contract_finished_add() ): ?>
 					<li class="menu-item"><a href="<?php echo site_url("admin/student/add_finished_hour"); ?>" target="main-frame">添加完成课时</a></li>
 					<?php endif; ?>
 				</ul>

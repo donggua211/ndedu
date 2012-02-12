@@ -369,17 +369,6 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		}
 	}
 	
-	//student add_finished_hour, 添加完成课时。
-	function add_finished_hour_ac()
-	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
-		
-		if(!$this->_check_role($allowed_group_id))
-		{
-			show_access_deny_page();
-		}
-	}
-	
 	//导出未报名的家长电话。
 	function extra_not_signup_student_phone_ac()
 	{
@@ -538,7 +527,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 	//student one, 显示 合同信息 tab
 	function view_student_one_contract()
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_CS_D);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_CS_D, GROUP_JIAOWU, GROUP_JIAOWU_D);
 		
 		return $this->_check_role($allowed_group_id);	
 	}
