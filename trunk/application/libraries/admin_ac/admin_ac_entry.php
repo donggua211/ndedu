@@ -72,4 +72,11 @@ class Admin_Ac_Entry extends Admin_Ac_Base
 		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
 		return ($this->_check_role($allowed_group_id) || $this->staff_id == 35) ? TRUE : FALSE;
 	}
+	
+	function contract_finished_add()
+	{
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_JIAOWU, GROUP_JIAOWU_D);
+		
+		return $this->_check_role($allowed_group_id);
+	}
 }

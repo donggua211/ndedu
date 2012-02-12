@@ -26,6 +26,8 @@ class Admin_Ac_Contract extends Admin_Ac_Base
 		{
 			case GROUP_ADMIN: //admin管理有权限
 				break;
+			case GROUP_JIAOWU:
+			case GROUP_JIAOWU_D:
 			case GROUP_CONSULTANT_D:
 			case GROUP_CS_D:
 			case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区学员的权限

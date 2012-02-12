@@ -913,9 +913,6 @@ class Student extends Controller {
 	//添加已完成课时
 	function add_finished_hour()
 	{
-		//access control
-		$this->admin_ac_student->add_finished_hour_ac();
-		
 		$data['header']['css_file'] = '../calendar.css';
 		$data['footer']['js_file'] = '../calendar.js';
 		$data['header']['meta_title'] = '添加已完成课时 - 管理学员';
