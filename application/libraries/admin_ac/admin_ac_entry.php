@@ -45,7 +45,7 @@ class Admin_Ac_Entry extends Admin_Ac_Base
 	
 	function munu_show_my_timetable()
 	{
-		$allowed_group_id = array(GROUP_TEACHER_D, GROUP_SUYANG_D, GROUP_CONSULTANT_D, GROUP_CONSULTANT, GROUP_SUPERVISOR, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG);
+		$allowed_group_id = array(GROUP_TEACHER_D, GROUP_SUYANG_D, GROUP_CONSULTANT_D, GROUP_CONSULTANT, GROUP_SUPERVISOR, GROUP_TEACHER_PARTTIME,  GROUP_CONSULTANT_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG);
 		return ($this->_check_role($allowed_group_id)) ? TRUE : FALSE;
 	}
 	
@@ -57,7 +57,7 @@ class Admin_Ac_Entry extends Admin_Ac_Base
 	
 	function munu_show_ticket_list()
 	{
-		$not_allowed_group_id = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
+		$not_allowed_group_id = array(GROUP_CONSULTANT_PARTTIME, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
 		return (!$this->_check_role($not_allowed_group_id)) ? TRUE : FALSE;
 	}
 	
@@ -74,6 +74,13 @@ class Admin_Ac_Entry extends Admin_Ac_Base
 	}
 	
 	function contract_finished_add()
+	{
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_JIAOWU, GROUP_JIAOWU_D);
+		
+		return $this->_check_role($allowed_group_id);
+	}
+	
+	function menu_show_pms_index()
 	{
 		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_JIAOWU, GROUP_JIAOWU_D);
 		

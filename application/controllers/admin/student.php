@@ -291,12 +291,12 @@ class Student extends Controller {
 	
 	function _get_teachers($student_id)
 	{
-		$group = array(GROUP_CONSULTANT, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG, GROUP_TEACHER_D, GROUP_CONSULTANT_D, GROUP_SUYANG_D);
+		$group = array(GROUP_CONSULTANT, GROUP_CONSULTANT_PARTTIME, GROUP_CONSULTANT_PARTTIME, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG, GROUP_TEACHER_D, GROUP_CONSULTANT_D, GROUP_SUYANG_D);
 		
 		switch($this->staff_info['group_id'])
 		{
 			case GROUP_CONSULTANT_D:
-				$group = array(GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+				$group = array(GROUP_CONSULTANT_D, GROUP_CONSULTANT, GROUP_CONSULTANT_PARTTIME);
 				break;
 			case GROUP_SUYANG_D:
 				$group = array(GROUP_SUYANG_D, GROUP_SUYANG);
@@ -305,10 +305,10 @@ class Student extends Controller {
 				$group = array(GROUP_TEACHER_D, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
 				break;
 			case GROUP_JIAOWU_D:
-				$group = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+				$group = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT, GROUP_CONSULTANT_PARTTIME);
 				break;
 			case GROUP_JIAOWU:
-				$group = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+				$group = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT, GROUP_CONSULTANT_PARTTIME);
 				$assign_teacher = $this->CRM_Student_model->get_student_teacher($student_id);
 				break;
 		}
@@ -917,7 +917,7 @@ class Student extends Controller {
 		$data['footer']['js_file'] = '../calendar.js';
 		$data['header']['meta_title'] = '添加已完成课时 - 管理学员';
 		$data['main']['student'] = $this->CRM_Student_model->getAll(array('status' => STUDENT_STATUS_LEARNING));
-		$data['main']['staffs'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_CONSULTANT, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG, GROUP_TEACHER_D, GROUP_CONSULTANT_D, GROUP_SUYANG_D));
+		$data['main']['staffs'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_CONSULTANT, GROUP_CONSULTANT_PARTTIME, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG, GROUP_TEACHER_D, GROUP_CONSULTANT_D, GROUP_SUYANG_D));
 		$data['main']['subjects'] = $this->CRM_Subject_model->getAll();
 		$this->_load_view('student_add_finished_hour', $data);
 	}
@@ -974,7 +974,7 @@ class Student extends Controller {
 		$data['main']['districts'] = $this->CRM_Region_model->get_regions(REGION_DISTRICT, $student['city_id']);
 		$data['main']['grades'] = $this->_get_grade();
 		$data['main']['branches'] = $this->_get_branch();
-		$data['main']['consultants'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_CONSULTANT,GROUP_CONSULTANT_D));
+		$data['main']['consultants'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_CONSULTANT,GROUP_CONSULTANT_D, GROUP_CONSULTANT_PARTTIME));
 		$data['main']['supervisors'] = $this->CRM_Staff_model->get_all_by_group(GROUP_SUPERVISOR);
 		$data['main']['suyangs'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_SUYANG_D, GROUP_SUYANG));
 		$data['main']['jiaowus'] = $this->CRM_Staff_model->get_all_by_group(array(GROUP_JIAOWU_D, GROUP_JIAOWU));

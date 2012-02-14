@@ -28,7 +28,7 @@
 	{
 		$CI =& get_instance();
 		$staff_group_if = $CI->session->userdata('group_id');
-		return ($staff_group_if == GROUP_CONSULTANT) ? true : false;
+		return ($staff_group_if == GROUP_CONSULTANT || $staff_group_if == GROUP_CONSULTANT_PARTTIME) ? true : false;
 	}
 	function is_supervisor()
 	{
@@ -173,6 +173,7 @@
 			GROUP_ADMIN => '超级管理员',
 			GROUP_SCHOOLADMIN => '校区管理员',
 			GROUP_CONSULTANT => '咨询师',
+			GROUP_CONSULTANT_PARTTIME => '咨询师(兼职)',
 			GROUP_SUPERVISOR => '班主任',
 			GROUP_TEACHER_PARTTIME => '任课老师(兼职)',
 			GROUP_TEACHER_FULL => '任课老师(全职)',

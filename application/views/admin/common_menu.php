@@ -95,12 +95,16 @@
 			</li>
 			<?php endif; ?>
 			
-			<?php if(is_admin()): //权限: 只有超级管理员可以查看员工的工资?>
+			<?php if($CI->admin_ac_entry->menu_show_pms_index() ): ?>
 			<li class="explode" key="02_staff" name="menu">
 				工资管理系统
 				<ul>
+					<?php if($CI->admin_ac_entry->menu_show_pms_index() ): ?>
 					<li class="menu-item"><a href="<?php echo site_url("admin/pms"); ?>" target="main-frame">课时核对系统</a></li>
+					<?php endif; ?>
+					<?php if(is_admin()): //权限: 只有超级管理员可以查看员工的工资?>
 					<li class="menu-item"><a href="<?php echo site_url("admin/pms/class_fee"); ?>" target="main-frame">员工工资管理系统</a></li>
+					<?php endif; ?>
 				</ul>
 			</li>
 			<?php endif; ?>

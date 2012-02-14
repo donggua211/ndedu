@@ -26,8 +26,9 @@ class Pms extends Controller {
 		}
 		
 		$this->staff_info = get_staff_info();
+		
 		//检查权限.
-		if(!check_role(array(GROUP_ADMIN), $this->staff_info['group_id']))
+		if(!check_role(array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_JIAOWU, GROUP_JIAOWU_D), $this->staff_info['group_id']))
 		{
 			show_access_deny_page();
 		}
@@ -96,11 +97,9 @@ class Pms extends Controller {
 			case GROUP_ADMIN: //admin管理有权限
 				break;
 			case GROUP_SCHOOLADMIN: //shooladmin只有查看本校区员工的权限
+			default:
 				$filter['branch_id'] = $this->staff_info['branch_id'];
 				break;
-			default:
-				show_error_page('您没有权限查看员工列表: 请重新登录或者联系管理员!', 'admin');
-				return false;
 		}
 		
 		//处理时间
@@ -409,7 +408,7 @@ class Pms extends Controller {
 	
 	function _is_teacher($group_id)
 	{
-		return check_role(array(GROUP_SUYANG, GROUP_SUYANG_D, GROUP_CONSULTANT_D, GROUP_CONSULTANT, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_TEACHER_D), $group_id);
+		return check_role(array(GROUP_SUYANG, GROUP_SUYANG_D, GROUP_CONSULTANT_D, GROUP_CONSULTANT, GROUP_TEACHER_PARTTIME, GROUP_CONSULTANT_PARTTIME,GROUP_TEACHER_FULL, GROUP_TEACHER_D), $group_id);
 	}
 	
 	function _parse_filter($filter_string, $filter)

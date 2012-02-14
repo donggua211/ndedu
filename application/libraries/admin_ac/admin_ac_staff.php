@@ -33,7 +33,7 @@ class Admin_Ac_Staff extends Admin_Ac_Base
 				break;
 			case GROUP_CONSULTANT_D:
 				$filter['branch_id'] = $this->branch_id;
-				$filter['group_id'] = array(GROUP_CONSULTANT);
+				$filter['group_id'] = array(GROUP_CONSULTANT, GROUP_CONSULTANT_PARTTIME);
 				break;
 			case GROUP_SUYANG_D:
 				$filter['branch_id'] = $this->branch_id;
@@ -41,11 +41,11 @@ class Admin_Ac_Staff extends Admin_Ac_Base
 				break;
 			case GROUP_JIAOWU:
 				$filter['branch_id'] = $this->branch_id;
-				$filter['group_id'] = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+				$filter['group_id'] = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT, GROUP_CONSULTANT_PARTTIME);
 				break;
 			case GROUP_JIAOWU_D:
 				$filter['branch_id'] = $this->branch_id;
-				$filter['group_id'] = array(GROUP_JIAOWU, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+				$filter['group_id'] = array(GROUP_JIAOWU, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT, GROUP_CONSULTANT_PARTTIME);
 				break;
 			default:
 				show_error_page('您没有权限查看员工列表: 请重新登录或者联系管理员!', 'admin');
@@ -86,7 +86,7 @@ class Admin_Ac_Staff extends Admin_Ac_Base
 				}
 				break;
 			case GROUP_CONSULTANT_D:
-				$allow_group = array(GROUP_CONSULTANT);
+				$allow_group = array(GROUP_CONSULTANT, GROUP_CONSULTANT_PARTTIME);
 				if(!in_array($staff_info['group_id'], $allow_group))
 				{
 					show_error_page('您没有权限查看该员工: 他/她不是咨询老师!', 'admin/staff');
@@ -102,7 +102,7 @@ class Admin_Ac_Staff extends Admin_Ac_Base
 				}
 				break;
 			case GROUP_JIAOWU:
-				$allow_group = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+				$allow_group = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT, GROUP_CONSULTANT_PARTTIME);
 				if(!in_array($staff_info['group_id'], $allow_group))
 				{
 					show_error_page('您没有权限查看该员工: 他/她不是咨询老师!', 'admin/staff');
@@ -110,7 +110,7 @@ class Admin_Ac_Staff extends Admin_Ac_Base
 				}
 				break; 
 			case GROUP_JIAOWU_D:
-				$allow_group = array(GROUP_JIAOWU, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+				$allow_group = array(GROUP_JIAOWU, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG_D, GROUP_SUYANG, GROUP_CONSULTANT_D, GROUP_CONSULTANT, GROUP_CONSULTANT_PARTTIME, GROUP_CONSULTANT_PARTTIME);
 				if(!in_array($staff_info['group_id'], $allow_group))
 				{
 					show_error_page('您没有权限查看该员工: 他/她不是咨询老师!', 'admin/staff');
@@ -167,7 +167,7 @@ class Admin_Ac_Staff extends Admin_Ac_Base
 				$group = array(GROUP_TEACHER_FULL, GROUP_TEACHER_PARTTIME);
 				break;
 			case GROUP_CONSULTANT_D:
-				$group = array(GROUP_CONSULTANT);
+				$group = array(GROUP_CONSULTANT, GROUP_CONSULTANT_PARTTIME);
 				break;
 			case GROUP_SUYANG_D: //shooladmin只有查看本校区员工的权限
 				$group = array(GROUP_SUYANG);

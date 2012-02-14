@@ -62,7 +62,7 @@ class Staff extends Controller {
 			}
 			elseif($filter['subject_id'] == STUDENT_TEACHER_ZIXUN)
 			{
-				$filter['group_id'] = array(GROUP_CONSULTANT, GROUP_CONSULTANT_D);
+				$filter['group_id'] = array(GROUP_CONSULTANT, GROUP_CONSULTANT_D, GROUP_CONSULTANT_PARTTIME);
 				$filter['subject_id'] = false;
 			}
 		}
