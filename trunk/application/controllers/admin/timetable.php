@@ -338,13 +338,13 @@ class Timetable extends Controller {
 	function _get_teachers()
 	{
 		if($this->staff_info['group_id'] == GROUP_CONSULTANT_D)
-			$group = array(GROUP_CONSULTANT_D, GROUP_CONSULTANT);
+			$group = array(GROUP_CONSULTANT_D, GROUP_CONSULTANT, GROUP_CONSULTANT_PARTTIME);
 		elseif($this->staff_info['group_id'] == GROUP_SUYANG_D)
 			$group = array(GROUP_SUYANG_D, GROUP_SUYANG);
 		elseif($this->staff_info['group_id'] == GROUP_TEACHER_D)
 			$group = array(GROUP_TEACHER_D, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
 		else
-			$group = array(GROUP_CONSULTANT, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG, GROUP_TEACHER_D, GROUP_CONSULTANT_D, GROUP_SUYANG_D);
+			$group = array(GROUP_CONSULTANT, GROUP_CONSULTANT_PARTTIME, GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_SUYANG, GROUP_TEACHER_D, GROUP_CONSULTANT_D, GROUP_SUYANG_D);
 		
 		return $this->CRM_Staff_model->get_all_by_group($group);
 	}

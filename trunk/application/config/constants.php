@@ -56,6 +56,7 @@ define('STUDENT_STATUS_INACTIVE', 5); //注销
 define('GROUP_ADMIN', 1);				//管理员
 define('GROUP_SCHOOLADMIN', 2);			//校区管理员
 define('GROUP_CONSULTANT', 3);			//咨询师
+define('GROUP_CONSULTANT_PARTTIME', 15);//咨询师（兼职）
 define('GROUP_SUPERVISOR', 4);			//班主任
 define('GROUP_CS', 7);					//课程顾问
 define('GROUP_SUYANG', 8);				//素养课老师

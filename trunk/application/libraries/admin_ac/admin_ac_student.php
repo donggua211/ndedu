@@ -22,6 +22,8 @@ class Admin_Ac_Student extends Admin_Ac_Base
 			GROUP_CS_D => array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_SIGNUP),
 			//咨询师
 			GROUP_CONSULTANT => array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_LEARNING),	
+			//学科老师（兼职）
+			GROUP_CONSULTANT_PARTTIME => array(STUDENT_STATUS_LEARNING),
 			//咨询主管
 			GROUP_CONSULTANT_D => array(STUDENT_STATUS_NOT_APPOINTMENT, STUDENT_STATUS_HAS_APPOINTMENT, STUDENT_STATUS_SIGNUP, STUDENT_STATUS_LEARNING),
 			//素养课老师
@@ -78,6 +80,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 					STUDENT_STATUS_FINISHED,
 				),
 				'group' => array(
+					GROUP_CONSULTANT_PARTTIME => HISTORY_WR,
 					GROUP_TEACHER_PARTTIME => HISTORY_WR,
 					GROUP_TEACHER_FULL => HISTORY_WR,
 					GROUP_TEACHER_D => HISTORY_WR,
@@ -97,6 +100,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 				'group' => array(
 					GROUP_CONSULTANT => HISTORY_WR,
 					GROUP_CONSULTANT_D => HISTORY_WR,
+					GROUP_CONSULTANT_PARTTIME => HISTORY_WR,
 					GROUP_TEACHER_PARTTIME => HISTORY_R,
 					GROUP_TEACHER_FULL => HISTORY_R,
 					GROUP_TEACHER_D => HISTORY_R,
@@ -116,6 +120,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 					GROUP_SUYANG_D => HISTORY_WR,
 					GROUP_CONSULTANT => HISTORY_WR,
 					GROUP_CONSULTANT_D => HISTORY_WR,
+					GROUP_CONSULTANT_PARTTIME => HISTORY_R,
 					GROUP_TEACHER_PARTTIME => HISTORY_R,
 					GROUP_TEACHER_FULL => HISTORY_R,
 					GROUP_TEACHER_D => HISTORY_R,
@@ -132,6 +137,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 					GROUP_SUYANG_D => HISTORY_R,
 					GROUP_CONSULTANT => HISTORY_R,
 					GROUP_CONSULTANT_D => HISTORY_R,
+					GROUP_CONSULTANT_PARTTIME => HISTORY_R,
 					GROUP_TEACHER_PARTTIME => HISTORY_R,
 					GROUP_TEACHER_FULL => HISTORY_R,
 					GROUP_TEACHER_D => HISTORY_R,
@@ -191,6 +197,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 		//其他角色权限：
 		switch($this->group_id)
 		{
+			case GROUP_CONSULTANT_PARTTIME: //shooladmin只有查看本校区的, 自己添加的, 状态为未报名的学员的权限
 			case GROUP_CONSULTANT: //shooladmin只有查看本校区的, 自己添加的, 状态为未报名的学员的权限
 				$filter['consultant_id'] = $staff_info['staff_id'];
 				break;
@@ -276,6 +283,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 					return -1;
 				}
 				break;
+			case GROUP_CONSULTANT_PARTTIME:
 			case GROUP_CONSULTANT:
 				if($student_info['consultant_id'] != $staff_info['staff_id'])
 				{
@@ -591,7 +599,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 	function view_student_all_contact_history($student_status)
 	{
 		//联系历史开放给所有状态，所有角色. 2011-12-29, zhaoyuan
-		if(!in_array($this->group_id, array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL)))
+		if(!in_array($this->group_id, array(GROUP_TEACHER_PARTTIME, GROUP_CONSULTANT_PARTTIME, GROUP_TEACHER_FULL)))
 			return true;
 		
 		return false;
@@ -600,7 +608,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 	//student all, student one ，学员列表和详情页，显示学员的详细情况。
 	function view_student_all_student_detail()
 	{
-		$not_allowed_group_id = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
+		$not_allowed_group_id = array(GROUP_TEACHER_PARTTIME, GROUP_CONSULTANT_PARTTIME, GROUP_TEACHER_FULL);
 		
 		return !$this->_check_role($not_allowed_group_id);	
 	}

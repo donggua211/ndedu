@@ -25,7 +25,7 @@ class CRM_Student_model extends Model {
 		$data['cservice_id'] = $staff_info['staff_id'];
 		
 		//如果是咨询师添加的，则 $data['consultant_id'] 字段为该咨询师id
-		if($staff_info['group_id'] == GROUP_CONSULTANT || $staff_info['group_id'] == GROUP_CONSULTANT_D)
+		if($staff_info['group_id'] == GROUP_CONSULTANT || $staff_info['group_id'] == GROUP_CONSULTANT_D || $staff_info['group_id'] == GROUP_CONSULTANT_PARTTIME)
 			$data['consultant_id'] = $staff_info['staff_id'];
 		else
 			$data['consultant_id'] = 0;

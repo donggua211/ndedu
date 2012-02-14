@@ -14,7 +14,7 @@ class Admin_Ac_Ticket extends Admin_Ac_Base
 	
 	function view_ticket()
 	{
-		$not_allowed_group_id = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL);
+		$not_allowed_group_id = array(GROUP_TEACHER_PARTTIME, GROUP_CONSULTANT_PARTTIME, GROUP_TEACHER_FULL);
 		return (!$this->_check_role($not_allowed_group_id)) ? TRUE : FALSE;
 	}
 }
