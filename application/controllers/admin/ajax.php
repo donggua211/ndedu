@@ -332,6 +332,17 @@ class Ajax extends Controller {
 		else
 			echo 'NG';
 	}
+	
+	function get_subject_by_teacher()
+	{
+		$staff_id = $this->input->Post('staff_id');
+		
+		$result = $this->CRM_Staff_model->getOne($staff_id);
+		if(empty($result) || !isset($result['subject_id']))
+			echo '0';
+		else
+			echo $result['subject_id'];
+	}
 }
 
 /* End of file admin.php */
