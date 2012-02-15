@@ -122,5 +122,71 @@
 		$("#date").click(function(){
 			showCalendar('date', '%Y-%m-%d', false, false, 'date');
 		});
+		
+		//录课时，选择时间后，自动显示上课的时长
+		 $("select[name='start_hour']").change(function(){ update_hours()});
+		 $("select[name='start_mins']").change(function(){ update_hours()});
+		 $("select[name='end_hour']").change(function(){ update_hours()});
+		 $("select[name='end_mins']").change(function(){ update_hours()});
+		 
+		 //变更老师，显示科目
+		 $("select[name='teacher_id']").change(function(){
+			var teacher_id = parseInt($("select[name='teacher_id'] option:selected").val());
+			$.post(site_url+"admin/ajax/get_subject_by_teacher", { staff_id: teacher_id},
+			function (data, textStatus){
+					$("select[name='subject_id'] option[value="+data+"]").attr("selected", "selected");
+				
+			}, "text");
+		});
 	});
+	
+	function update_hours()
+	{
+		var start_mins = parseInt($("select[name='start_mins'] option:selected").val());
+		var end_mins = parseInt($("select[name='end_mins'] option:selected").val());
+		
+		var start_hour = $("select[name='start_hour'] option:selected").val();
+		var end_hour = $("select[name='end_hour'] option:selected").val();
+		if(start_hour.substring(0,1) == '0') {
+			start_hour = parseInt(start_hour.substring(1));
+		} else {
+			start_hour = parseInt(start_hour);
+		}
+		if(end_hour.substring(0,1) == '0') {
+			end_hour = parseInt(end_hour.substring(1));
+		} else {
+			end_hour = parseInt(end_hour);
+		}
+		
+		if(start_hour > end_hour)
+			return false;
+		
+		
+		if(start_mins > end_mins)
+		{
+			end_hour = end_hour - 1;
+			end_mins += 60;
+		}
+		
+		var hour = (end_hour - start_hour) + round((end_mins - start_mins) / 60, 2);
+		
+		$("input[name='finished_hours']").val(hour);
+	}
+	
+	function round(num,dec)
+	{ 
+		var sNum = num + ''; 
+		var idx = sNum.indexOf("."); 
+		if(idx<0)
+			return num; 
+
+		var n = sNum.length - idx -1; 
+		
+		if(dec < n){ 
+			var e = Math.pow(10,dec); 
+			return Math.round(num * e) / e; 
+		}else{ 
+			return num; 
+		} 
+	} 
 </script>
