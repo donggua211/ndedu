@@ -56,6 +56,13 @@
 					<th>课时</th>
 					<th>科目</th>
 					<th>时间</th>
+					<?php
+					//access control
+					$CI = & get_instance();
+					if($CI->admin_ac_contract->contract_finished_manage()):
+					?>
+					<th>时间</th>
+					<?php endif; ?>
 				</tr>
 				<?php 
 				$total_hour = 0;
@@ -75,6 +82,16 @@
 								echo $start_date.' '.$start_time.' 至 '.$end_date.' '.$end_time;
 						?>
 					</td>
+					<?php
+					//access control
+					$CI = & get_instance();
+					if($CI->admin_ac_contract->contract_finished_manage()):
+					?>
+					<td align="center">
+						<a href="<?php echo site_url('admin/contract/finished_edit/'.$finished['finished_id'].'/'.$student['student_id']); ?>">编辑</a>
+						<a onclick="return confirm('确定要删除?');" href="<?php echo site_url('admin/contract/finished_del/'.$finished['finished_id'].'/'.$student['student_id']); ?>">删除</a>
+					</td>
+					<?php endif; ?>
 				</tr>
 				<?php endforeach; ?>
 				

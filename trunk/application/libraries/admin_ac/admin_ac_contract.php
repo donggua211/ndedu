@@ -56,4 +56,11 @@ class Admin_Ac_Contract extends Admin_Ac_Base
 		
 		return $this->_check_role($allowed_group_id);
 	}
+	
+	function contract_finished_manage()
+	{
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
+		
+		return $this->_check_role($allowed_group_id);
+	}
 }

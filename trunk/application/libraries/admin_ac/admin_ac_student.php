@@ -347,7 +347,7 @@ class Admin_Ac_Student extends Admin_Ac_Base
 	//student contract 添加合同
 	function contract_add_ac()
 	{
-		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_CS_D);
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS, GROUP_CS_D, GROUP_JIAOWU, GROUP_JIAOWU_D);
 		
 		if(!$this->_check_role($allowed_group_id))
 		{
