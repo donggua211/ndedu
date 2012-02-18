@@ -169,6 +169,53 @@ class CRM_Contract_model extends Model {
 		}
 	}
 	
+	function get_one_finished($finished_id)
+	{
+		//获取合同列表信息
+		$sql = "SELECT finished.* FROM " . $this->db->dbprefix('crm_contract_finished') . " as finished
+				WHERE finished.finished_id = $finished_id
+				LIMIT 1";
+		
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0)
+		{
+			return $query->row_array();
+		}
+		else
+		{
+			return array();
+		}
+	}
+	
+	function finished_update($finished_id, $update_field = array())
+	{
+		if(empty($update_field))
+			return true;
+		
+		//更新student表
+		foreach($update_field as $key => $val)
+		{
+			if($val != 'consultant' || $val != 'supervisor')
+				$data[$key] = $val;
+		}
+		$data['update_time'] = date('Y-m-d H:i:s');
+		
+		$this->db->where('finished_id', $finished_id);
+		if(!$this->db->update('crm_contract_finished', $data))
+		{
+			return false;
+		}
+		
+		return true;
+	}
+	
+	function finished_delete($finished_id)
+	{
+		$this->db->where('finished_id', $finished_id);
+		$this->db->delete('crm_contract_finished'); 
+		return ($this->db->affected_rows() > 0 ) ? TRUE : FALSE;
+	}
+	
 	function get_one_all_finished($contract_id)
 	{
 		//获取合同列表信息
