@@ -89,6 +89,7 @@ class CRM_Contract_model extends Model {
 		$sql = "SELECT contract.*, staff.name FROM " . $this->db->dbprefix('crm_contract') . " as contract, " . $this->db->dbprefix('crm_staff') . " as staff
 				WHERE student_id = $student_id
 				AND contract.staff_id = staff.staff_id
+				AND contract.status = ".CONTRACT_STATUS_AVAILABLE."
 				ORDER BY add_time DESC";
 		
 		$query = $this->db->query($sql);
