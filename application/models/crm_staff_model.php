@@ -438,7 +438,7 @@ class CRM_Staff_model extends Model {
 	function login($staff)
 	{
 		$sql = "SELECT staff_id, username, group_id, branch_id FROM ".$this->db->dbprefix('crm_staff')." 
-				WHERE username='".$staff['username']."'
+				WHERE username=\"".$this->db->escape($staff['username'])."\"
 				AND password='".md5($staff['password'])."' 
 				AND is_active=1 
 				AND is_delete=0
