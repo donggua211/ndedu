@@ -98,8 +98,11 @@ class History extends Controller {
 					$history['history_learning_version'] = $this->input->post('history_learning_version');
 					break;
 				case 'consult':
+					$history['history_'.$type.'_target'] = $this->input->post('history_'.$type.'_target');
+					break;
 				case 'suyang':
 					$history['history_'.$type.'_target'] = $this->input->post('history_'.$type.'_target');
+					$history['history_'.$type.'_points'] = $this->input->post('points');
 					break;
 				case 'contact':
 					break;
