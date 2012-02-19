@@ -63,13 +63,18 @@
 				$count_diff_mins = 0;
 				$count_history_all = 0;
 				
+				$border_style = ' style="border-bottom:1px solid #99CCFF"';
+				
 				foreach($tt_res_arr as $staff_id => $one_teacher_tt)
 				{
-					echo '<tr><td rowspan="'.(count($one_teacher_tt)+1).'">'.$staff_info[$staff_id].'</td></tr>';
+					echo '<tr><td rowspan="'.(count($one_teacher_tt)+1).'" '.$border_style.'>'.$staff_info[$staff_id].'</td></tr>';
 					
+					$max = count($one_teacher_tt);
+					$index = 0;
 					foreach($one_teacher_tt as $student_id => $one_student_tt)
 					{
-						echo '<tr><td>'.(isset($student_info[$student_id]) ? $student_info[$student_id] : '').'</td>';
+						$index++;
+						echo '<tr><td'.($index == $max ? $border_style : '').'>'.(isset($student_info[$student_id]) ? $student_info[$student_id] : '').'</td>';
 						
 						//课程表数据
 						$tt_hour = 0;
@@ -144,11 +149,11 @@
 						$count_diff_hour += $diff_hour;
 						$count_diff_mins += $diff_mins;
 						
-						echo '<td><a href="javascript:void(0)" onclick="show_detail('.$staff_id.', '.$student_id.')">'.$tt_hour.'小时'.(($tt_mins > 0) ? $tt_mins.'分钟' : '').'</a></td>';
-						echo '<td><a href="javascript:void(0)" onclick="show_detail('.$staff_id.', '.$student_id.')">'.$cf_hour.'小时'.(($cf_mins > 0) ? $cf_mins.'分钟' : '').'</a></td>';
+						echo '<td'.($index == $max ? $border_style : '').'><a href="javascript:void(0)" onclick="show_detail('.$staff_id.', '.$student_id.')">'.$tt_hour.'小时'.(($tt_mins > 0) ? $tt_mins.'分钟' : '').'</a></td>';
+						echo '<td'.($index == $max ? $border_style : '').'><a href="javascript:void(0)" onclick="show_detail('.$staff_id.', '.$student_id.')">'.$cf_hour.'小时'.(($cf_mins > 0) ? $cf_mins.'分钟' : '').'</a></td>';
 						
-						echo '<td>'.$diff_hour.'小时'.(($diff_mins > 0) ? $diff_mins.'分钟' : '').'</td>';
-						echo '<td>'.$history_count.'次'.'</td>';
+						echo '<td'.($index == $max ? $border_style : '').'>'.$diff_hour.'小时'.(($diff_mins > 0) ? $diff_mins.'分钟' : '').'</td>';
+						echo '<td'.($index == $max ? $border_style : '').'>'.$history_count.'次'.'</td>';
 						
 						echo '</tr>'; 
 					}
