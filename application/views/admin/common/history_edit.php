@@ -27,11 +27,17 @@
 					<tr><td><b>教材版本：</b></td><td><input type="text" name="history_learning_version" value="<?php  echo (isset($history_info['history_learning_version']) ? $history_info['history_learning_version'] : '')?>"></td></tr>
 					<tr><td><span class="notice-star"> * </span><b>授课描述和总结：</b><br/><span style="color:#000">（上课的情况、<br/>发现的问题、<br/>感悟与反思等）</span></td><td><textarea name="history_learning" cols="80" rows="5"><?php echo (isset($history_info['history_learning']) ? $history_info['history_learning'] : '')?></textarea></td></tr>
 				</table>
-			<?php elseif(in_array($type, array('consult', 'suyang'))): ?>
+			<?php elseif($type == 'consult'):?>
 				<table>
 					<tr><td><span class="notice-star"> * </span><b>教学目标：</b></td><td><textarea name="history_<?php echo $type ?>_target" cols="80" rows="5"><?php  echo (isset($history_info['history_'.$type.'_target']) ? $history_info['history_'.$type.'_target'] : '')?></textarea></td></tr>
 					<tr><td><span class="notice-star"> * </span><b>教学内容：</b></td><td><textarea name="history_<?php echo $type?>" cols="80" rows="5"><?php  echo (isset($history_info['history_'.$type]) ? $history_info['history_'.$type] : '')?></textarea></td></tr>
 					<tr><td><b>添加附件：</b>（2M之内）</td><td><input type="file" name="upload"> </td></tr>
+				</table>	
+			<?php elseif($type == 'suyang'):?>
+				<table>
+					<tr><td><span class="notice-star"> * </span><b>教学目标：</b></td><td><textarea name="history_<?php echo $type ?>_target" cols="80" rows="5"><?php  echo (isset($history_info['history_'.$type.'_target']) ? $history_info['history_'.$type.'_target'] : '')?></textarea></td></tr>
+					<tr><td><span class="notice-star"> * </span><b>教学内容：</b></td><td><textarea name="history_<?php echo $type?>" cols="80" rows="5"><?php  echo (isset($history_info['history_'.$type]) ? $history_info['history_'.$type] : '')?></textarea></td></tr>
+					<tr><td><span class="notice-star"> * </span><b>回访重点：</b></td><td><textarea name="points" cols="80" rows="5"><?php  echo (isset($history_info['history_'.$type.'_points']) ? $history_info['history_'.$type.'_points'] : '')?></textarea></td></tr>
 				</table>	
 			<?php else: ?>
 				<textarea name="history_<?php echo $type?>" cols="80" rows="5"><?php  echo (isset($history_info['history_'.$type]) ? $history_info['history_'.$type] : '')?></textarea><br/>
