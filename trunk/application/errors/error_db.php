@@ -186,8 +186,8 @@ thisURL = '/';
 	<td align="left" style="padding-top:110" valign="top">
 		<table border="0" cellpadding="0" cellspacing="0" style="margin-top:110px;">
 		  <tr>
-			<td valign="center"><img src="http://www.ndedu.org/images/404_warning.gif" alt="404"></td>
-			<td valign="center"><span style="font-size:25px; padding-left:15px;font-weight:bold;">对不起, 您访问的页面有错，请稍后再尝试!</span></td>
+			<td valign="center"></td>
+			<td valign="center"><span style="font-size:25px; padding-left:15px;font-weight:bold;">对不起, 网站暂时打不开，会尽快为您回复服务的!</span></td>
 		  </tr>
 		</table>
 		<table border="0" cellpadding="0" cellspacing="0" style="margin-top:30px;">
