@@ -56,7 +56,7 @@ class Timetable extends Controller {
 			show_access_deny_page();
 		}
 		
-		$time_table = $this->CRM_Timetable_model->get_all_timetable();
+		$time_table = $this->CRM_Timetable_model->get_all_timetable(array('all' => 'all'));
 		
 		$all_time_table = array();
 		foreach($time_table as $day => $t_t)
