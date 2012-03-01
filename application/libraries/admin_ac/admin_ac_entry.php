@@ -86,4 +86,10 @@ class Admin_Ac_Entry extends Admin_Ac_Base
 		
 		return $this->_check_role($allowed_group_id);
 	}
+	
+	function munu_show_article()
+	{
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN);
+		return ($this->_check_role($allowed_group_id) || $this->staff_id == 35) ? TRUE : FALSE;
+	}
 }

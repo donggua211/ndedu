@@ -118,6 +118,9 @@
 					<li class="menu-item"><a href="<?php echo site_url("admin/guestbook/all"); ?>" target="main-frame">查看全部留言</a></li>
 				</ul>
 			</li>
+			<?php endif; ?>
+						
+			<?php if($CI->admin_ac_entry->munu_show_article() ): ?>
 			<li class="explode" key="05_articleCat" name="menu">
 				文章管理
 				<ul>
@@ -128,6 +131,9 @@
 					<li class="menu-item"><a href="<?php echo site_url("admin/articleCat/add"); ?>" target="main-frame">添加分类</a></li>
 				</ul>
 			</li>
+			<?php endif; ?>
+						
+			<?php if(is_admin()): //权限: 只有超级管理员可以管理网站内容?>
 			<li class="explode" key="06_tags" name="menu">
 				tag管理
 				<ul>
