@@ -3,7 +3,7 @@
 <head>
 <meta name="google-site-verification" content="CmIkFL0fe-8rD2sopBwU--rsiY6LpL7KEeL25jX73tY" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><?php echo (isset($meta_title) && !empty($meta_title)) ? $meta_title . ' - 尼德教育': '尼德教育，真正一对一个性化辅导，100%一线重点学校专职教师任教，100%个性化VIP小班设置，100%教育界资深人士管理。'; ?></title>
+<title><?php echo (isset($meta_title) && !empty($meta_title)) ? $meta_title . ' - 思而行教育': '思而行教育，真正一对一个性化辅导，100%一线重点学校专职教师任教，100%个性化VIP小班设置，100%教育界资深人士管理。'; ?></title>
 <meta name="keywords" content="<?php echo (isset($meta_keywords) && !empty($meta_keywords)) ? $meta_keywords : '尼德教育，真正一对一个性化辅导，100%一线重点学校专职教师任教，100%个性化VIP小班设置，100%教育界资深人士管理。'; ?>" />
 <meta name="description" content="<?php echo (isset($meta_description) && !empty($meta_description)) ? $meta_description : '尼德教育，真正一对一个性化辅导，100%一线重点学校专职教师任教，100%个性化VIP小班设置，100%教育界资深人士管理。'; ?>" />
 <meta name="subscrition " content="尼德教育，北京最好的一对一个性化辅导机构，100%一线重点学校专职教师任教，100%个性化VIP小班设置，100%教育界资深人士管理。" />

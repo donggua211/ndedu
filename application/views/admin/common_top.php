@@ -1,5 +1,5 @@
 <div id="header-div">
-  <div id="logo-div"><a href="<?php echo site_url('admin') ?>"  target="_top">尼德教育 -- 管理系统</a></div>
+  <div id="logo-div"><a href="<?php echo site_url('admin') ?>"  target="_top">思而行教育 -- 管理系统</a></div>
   <div id="submenu-div">
 	<ul>
 		<li><a href="<?php echo site_url('admin/admin/logout') ?>"  target="_top">退出</a></li>
