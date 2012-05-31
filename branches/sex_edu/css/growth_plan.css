@@ -1,0 +1,225 @@
+/* CSS Document */
+
+body{margin:0 auto;
+     font-size:14px;
+	 color:#333333;
+	 }
+.wrapper{
+	width:920px;
+	margin:0 auto;
+	}	 
+.header{
+	padding:0;
+	height:248px;
+	background-image:url(../images/growth_plan/header_bg.jpg);
+	background-repeat:no-repeat;
+	background-position:right;
+	}	 
+.header h2{
+	margin:0 0 0 35px;
+	padding:3px 5px 0 5px;
+	font-size:30px;
+	font-weight:bold;
+	height:40px;
+	position:absolute;
+	top:204px;
+	background:#FBD87C;
+	}
+.content{
+
+}
+.description{
+	width:565px;
+	padding:15px 0 15px 50px;
+	line-height:24px;
+	float:left;
+}
+.telephone_image{
+	margin-top:20px;
+	margin-right:18px;
+	float:right;
+}
+.main{
+	margin:0;
+	clear:both;
+	}
+.left_side{
+	width:565px;
+	float:left;
+	padding-left:50px
+	}
+.right_side{
+	float:right;
+	width:279px;
+	padding-right:18px; 
+	}
+.marquee{
+	padding:10px;
+}
+.right_image{
+	padding-right:15px;
+	float:right;
+	width:350px;
+	height:478px;
+	}
+.left_botton_image{
+	padding-top:10px;
+	clear:both;
+	height:80px;
+	}
+.guestbook{
+	margin:15px 0 15px 0;
+	border:2px solid #e9f0a9;
+}
+.footer{
+	height:50px;
+	margin-top:10px;
+	padding-top:10px;
+	background:#eeeeee;
+	clear:both;
+	text-align:center;
+}
+
+.gray_bg{background-color:#eee;}
+
+.float_left{float:left;}
+.float_right{float:right;}
+.font_12{font-size:12px;
+         line-height:22px;
+		 color:#333333;
+		 text-align:left
+		 }
+.font_12 li{ height:22px;
+			list-style:none;
+			background-image:url(../images/icon/icon_arrow_green.jpg);
+			background-repeat:no-repeat;
+			background-position:left;
+			padding-left:20px;
+			}
+
+.gray_border{background-color:#eee;
+             border-left:1px solid #c6c6c6;
+			 border-right:1px solid #c6c6c6;
+			 }
+li{list-style:inside}			 
+.font_gray{color:#999999}
+#book{width:279px;
+      height:338px;
+	  background-image:url(../images/bg_14.jpg);
+	  visibility:visible
+	  }
+.input1{ width:150px;
+         height:20px;
+		 background-color:#FFFFFF;
+		 border: 1px solid #d6d6d6;
+		 }
+.input2{ width:150px;
+         height:120px;
+		 background-color:#FFFFFF;
+		 border: 1px solid #d6d6d6;
+		 }	
+.input3{ width:60px;
+         height:20px;
+		 background-color:#FFFFFF;
+		 border: 1px solid #d6d6d6;
+		 }
+.copy{font-size:12px;
+      line-height:22px;
+	  color:#999999;
+	  text-align:center
+	  }
+.input4{ width:200px;
+         height:22px;
+		 background-color:#f0f0f0;
+		 border: 1px solid #d6d6d6;
+		 }
+.input5{ width:200px;
+         height:180px;
+		 background-color:#f0f0f0;
+		 border: 1px solid #d6d6d6;
+		 }	
+.input6{ width:60px;
+         height:22px;
+		 background-color:#f0f0f0;
+		 border: 1px solid #d6d6d6;
+		 }	
+.font_orange{font-weight:bold;
+             color:#FF6600;
+			 }
+#nav li{ width:125px;
+         height:54px;
+		 padding-top:10px;
+		 margin-left:5px;
+		 list-style:none;
+		 font-size:14px;
+		 color:#FFFFFF;
+		 line-height:18px;
+		 font-weight:bold;
+		 text-align:center;
+		 float:left;
+		 display:block
+		 }
+#nav li a{width:125px;
+          height:44px;
+		  padding-top:10px;
+		  background-image:url(../images/nav_08.jpg);
+		  background-position:bottom;
+		  background-repeat:no-repeat;
+		  font-size:14px;
+		  line-height:18px;
+		  color:#000000;
+		  text-align:center;
+		  text-decoration:none;
+		  display:block
+		  }
+#nav li a:hover{background-image:url(../images/nav_05.jpg);
+                text-decoration:none;
+				color:#FFFFFF;
+				}		  		 			 		   		 		 			 	 	  
+#nav li a.active{background-image:url(../images/nav_05.jpg);
+                 color:#FFFFFF
+				 }	  		
+.font_121 {font-size:12px;
+         color:#333333;
+		 line-height:24px;
+}
+.input {background-color:#EAEAEA;
+       border:1px solid #9E9E9E;
+	   font-size:12px;
+	   color:#000000;
+	   line-height:24px;
+	   height:18px;
+	   width:150px;
+}
+.input21 {background-color:#EAEAEA;
+       border:1px solid #9E9E9E;
+	   font-size:12px;
+	   color:#000000;
+	   line-height:24px;
+	   height:60px;
+	   width:180px;
+}
+.input31 {background-color:#EAEAEA;
+       border:1px solid #9E9E9E;
+	   font-size:12px;
+	   color:#000000;
+	   line-height:24px;
+	   height:18px;
+	   width:60px;
+}	
+
+
+/****** clearfix ******/
+.clearfix:after {
+content:".";
+display:block;
+height:0;
+clear:both;
+visibility:hidden;
+}
+.clearfix {
+display:inline-block;
+}
+/* Hide from IE Mac \*/
+.clearfix {display:block;}
+/* End hide from IE Mac */			 
