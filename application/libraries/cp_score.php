@@ -536,6 +536,6 @@ class cp_score
 		if(!is_array($this_score))
 			$this_score = array($this_score);
 		//return '<div style="text-align:center"><img src="'.site_url('cp_image/'.$function.'/'.implode('/',$this_score)).'"></div>';
-		return '<div style="text-align:center"><img src="http://www.donggua211.com/ndedu/index.php/cp_image/'.$function.'/'.implode('/',$this_score).'"></div>';
+		return '<div style="text-align:center"><img src="http://www.hzsk.org/ndedu/index.php/cp_image/'.$function.'/'.implode('/',$this_score).'"></div>';
 	}
 }
