@@ -152,7 +152,7 @@ class sms extends Controller {
 	 */
 	function _send($mobile, $content)
 	{
-		$url = "http://www.donggua211.com/ndedu/index.php/admin/sms_api/send";
+		$url = "http://www.hzsk.org/ndedu/index.php/admin/sms_api/send";
 		$post_data = array (
 			"mobile" => $mobile,
 			"content" => $content.'【尼德教育】',
