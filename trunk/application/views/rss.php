@@ -7,11 +7,11 @@
 	>
 ' ?>
 	<channel>
-		<title>尼德教育 - 尼德动态</title>
+		<title>你的教育 - 你的动态</title>
 		<link>http://www.ndedu.org/</link>
-		<description><![CDATA[尼德教育 - 尼德动态]]></description>
+		<description><![CDATA[你的教育 - 你的动态]]></description>
 		<pubDate><?php echo date('l dS \of F Y H:i:s A'); ?></pubDate>
-		<generator>尼德教育</generator>
+		<generator>你的教育</generator>
 
 		<?php foreach( $articles as $article): ?>
 		<item>

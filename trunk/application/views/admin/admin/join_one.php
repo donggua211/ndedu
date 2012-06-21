@@ -65,7 +65,7 @@
 
 <div id="nav">
 	<span class="action-span"><a href="<?php echo site_url('admin') ?>"  target="_top">管理系统</a></span>
-	<span class="action-span"> » <a href="<?php echo site_url('admin/join') ?>" target="main-frame">查看加入尼德列表</a></span>
+	<span class="action-span"> » <a href="<?php echo site_url('admin/join') ?>" target="main-frame">查看加入你的列表</a></span>
 	 » <?php echo $join_info['info']['name']; ?>
 </div>
 <div id="main">

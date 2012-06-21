@@ -613,6 +613,11 @@ DIV.quotes SPAN.disabled {
 	background-image:url(icon/selected.gif);
 	background-repeat: no-repeat;
 }
+.promo_image{
+	margin:0, auto;
+	padding-bottom:5px;
+	text-align:center;
+}
 #mini_nav{
 	margin:0, auto;
 	padding-right:80px;

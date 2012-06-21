@@ -5,7 +5,7 @@
 	</div>
 	<div class="order_notice">
 		<div class="font_red_12_bold">欢迎您购买<?php echo $category_info['cat_name'] ?><?php echo ($orderinfo['order_type'] == CP_ORDER_TYPE_NORMAL ) ? ' - '.get_cp_level_text($orderinfo['level']) : ''; ?>，请正确填写收货地址和联系方式，谢谢！</div>
-		<div class="font_gray_12_bold">您也可以在尼德教育淘宝店购买，<a href="http://ndedu.taobao.com" class="font_143_orange" target="_blank">购买链接>></a></div>
+		<div class="font_gray_12_bold">您也可以在你的教育淘宝店购买，<a href="http://ndedu.taobao.com" class="font_143_orange" target="_blank">购买链接>></a></div>
 	</div>
 	
 	<?php if(isset($notification) && !empty($notification)): ?>
@@ -20,7 +20,7 @@
 		户  名：庞有博 
 	</div>
 	
-	<div class="order_main_title">尼德教育购买</div>
+	<div class="order_main_title">你的教育购买</div>
 	<div class="order_sub_title">填写收货地址：</div>
 	<div class="order_block">
 		<div class="input">

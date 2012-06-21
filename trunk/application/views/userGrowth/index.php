@@ -15,7 +15,7 @@
 	<table width="460" border="0" cellspacing="0" cellpadding="0" style="margin-left:58px; margin-top:10px;">
       <tr>
         <td width="15"><img src="images/login_11.jpg" width="7" height="7" /></td>
-        <td width="438" class="font_14">您是否为尼德教育正式学员？</td>
+        <td width="438" class="font_14">您是否为你的教育正式学员？</td>
       </tr>
     </table>
 	<table width="460" border="0" cellspacing="0" cellpadding="0" style="margin-left:58px; margin-top:4px;">
@@ -26,12 +26,12 @@
 	<table width="460" border="0" cellspacing="0" cellpadding="0" style="margin-left:58px; margin-top:10px;">
       <tr>
         <td width="15"><img src="images/login_11.jpg" width="7" height="7" /></td>
-        <td width="438" class="font_14">学员是否在尼德教育接受服务满三月？</td>
+        <td width="438" class="font_14">学员是否在你的教育接受服务满三月？</td>
       </tr>
     </table>
 	<table width="460" border="0" cellspacing="0" cellpadding="0" style="margin-left:58px; margin-top:4px;">
       <tr>
-        <td class="font_12_24" style="padding-left:15px;">正式学员接受尼德教育服务满三个月，学员个性化成长档案正式开始备案。</td>
+        <td class="font_12_24" style="padding-left:15px;">正式学员接受你的教育服务满三个月，学员个性化成长档案正式开始备案。</td>
       </tr>
     </table>
 	<table width="460" border="0" cellspacing="0" cellpadding="0" style="margin-left:58px; margin-top:10px;">
@@ -42,7 +42,7 @@
     </table>
 	<table width="460" border="0" cellspacing="0" cellpadding="0" style="margin-left:58px; margin-top:4px;">
       <tr>
-        <td class="font_12_24" style="padding-left:15px;">学员个性化成长档案用来记录学员在尼德教育学习成长全过程，属于学员个人隐私，只允许学员本人、监护人、尼德教师查看。</td>
+        <td class="font_12_24" style="padding-left:15px;">学员个性化成长档案用来记录学员在你的教育学习成长全过程，属于学员个人隐私，只允许学员本人、监护人、你的教师查看。</td>
       </tr>
     </table>
 	<table width="460" border="0" cellspacing="0" cellpadding="0" style="margin-left:58px; margin-top:10px;">
@@ -53,7 +53,7 @@
     </table>
 	<table width="460" border="0" cellspacing="0" cellpadding="0" style="margin-left:58px; margin-top:4px;">
       <tr>
-        <td class="font_12_24" style="padding-left:15px;">学员在线个性化成长档案用户名和密码在学员与尼德教育签署服务合同三个月后由学员私人教育顾问统一发放，如果您忘记或者丢失请致电学员的私人学习顾问。</td>
+        <td class="font_12_24" style="padding-left:15px;">学员在线个性化成长档案用户名和密码在学员与你的教育签署服务合同三个月后由学员私人教育顾问统一发放，如果您忘记或者丢失请致电学员的私人学习顾问。</td>
       </tr>
     </table></td>
     <td>

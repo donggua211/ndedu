@@ -21,7 +21,7 @@
 			<table width="610" border="0" cellspacing="0" cellpadding="0" class="font_14">
 				<tr>
 					<td colspan="3" style="padding:10px;">
-						<a href="<?php echo site_url(); ?>">尼德教育</a>用户注册
+						<a href="<?php echo site_url(); ?>">你的教育</a>用户注册
 						<hr size="1" width="100%" color="#DDDDDD"></td>
 				</tr>
 				<tr id="tr_username" class="register_tr">
@@ -176,7 +176,7 @@
             </table>
             <table width="231" border="0" cellspacing="0" cellpadding="0" style="margin-top:8px;">
               <tr>
-                <td width="231" height="62" align="center" background="images/index2_35.jpg" class="font_12_red" style="padding-left:8px; padding-right:8px; padding-top:4px; font-size:12px; color:#333333; font-weight:bold">请放心，家长所留下的个人信息，尼德将恪守职业道德，为您保密。</td>
+                <td width="231" height="62" align="center" background="images/index2_35.jpg" class="font_12_red" style="padding-left:8px; padding-right:8px; padding-top:4px; font-size:12px; color:#333333; font-weight:bold">请放心，家长所留下的个人信息，你的将恪守职业道德，为您保密。</td>
               </tr>
             </table></td>
         </tr>

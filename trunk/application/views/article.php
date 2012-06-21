@@ -23,7 +23,7 @@
           </table>
             <table width="600" border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td align="center" class="font_12_24" style="border-bottom:1px dashed #c8c8c8"><?php echo $article['add_time'] ?>　来源：尼德教育教研组<?php //echo $article['source'] ?>　 作者：<?php $rand=$article['article_id']%6; $author=array('王老师', '赵老师', '庞老师', '查老师', '张老师', '李老师', '黄老师'); echo ( empty( $article['author'] ) ) ? $author[$rand] : $article['author'] ?> </td>
+                <td align="center" class="font_12_24" style="border-bottom:1px dashed #c8c8c8"><?php echo $article['add_time'] ?>　来源：你的教育教研组<?php //echo $article['source'] ?>　 作者：<?php $rand=$article['article_id']%6; $author=array('王老师', '赵老师', '庞老师', '查老师', '张老师', '李老师', '黄老师'); echo ( empty( $article['author'] ) ) ? $author[$rand] : $article['author'] ?> </td>
               </tr>
             </table>
             <table width="610" border="0" cellspacing="0" cellpadding="0">
@@ -43,7 +43,7 @@
 					<a href="http://apps.hi.baidu.com/share/?url=<?php echo urlencode(site_url('article/'.$article['article_id']))?>&title=<?php echo urlencode($article['title'])?>" target="_blank" title="百度空间"><img src="images/icon/baidu_kongjian.gif" alt="分享到百度空间" style="padding-left:5px;"></a>
 					<a href="http://www.douban.com/recommend/?url=<?php echo urlencode(site_url('article/'.$article['article_id']))?>&title=<?php echo urlencode($article['title'])?>" title="豆瓣" target="_blank"><img src="images/icon/douban.gif" alt="分享到豆瓣" style="padding-left:5px;"></a>
 					<a href="#" onclick="copyUrl();return false;" title="复制网址"><img src="images/icon/copy_url.gif" alt="复制网址" style="padding-left:5px;"></a>
-					<a href="mailto:?subject=在尼德教育网站发现一篇文章很不错&body=<?php echo $article['title']." ".site_url('article/'.$article['article_id'])?>" title="发送邮件" target="_blank"><img src="images/icon/mailto.gif" alt="发送邮件" style="padding-left:5px;"></a>
+					<a href="mailto:?subject=在你的教育网站发现一篇文章很不错&body=<?php echo $article['title']." ".site_url('article/'.$article['article_id'])?>" title="发送邮件" target="_blank"><img src="images/icon/mailto.gif" alt="发送邮件" style="padding-left:5px;"></a>
 				</td>
               </tr>
             </table></td>
@@ -155,7 +155,7 @@
             </table>
             <table width="231" border="0" cellspacing="0" cellpadding="0" style="margin-top:8px;">
               <tr>
-                <td width="231" height="62" align="center" background="images/index2_35.jpg" class="font_12_red" style="padding-left:8px; padding-right:8px; padding-top:4px; font-size:12px; color:#333333; font-weight:bold">请放心，家长所留下的个人信息，尼德将恪守职业道德，为您保密。</td>
+                <td width="231" height="62" align="center" background="images/index2_35.jpg" class="font_12_red" style="padding-left:8px; padding-right:8px; padding-top:4px; font-size:12px; color:#333333; font-weight:bold">请放心，家长所留下的个人信息，你的将恪守职业道德，为您保密。</td>
               </tr>
             </table></td>
         </tr>

@@ -126,7 +126,7 @@
 					<tr><td align="center"><label><input type="image" name="submit" align="bottom" src="images/right_19.jpg"></label></td></tr>
 				</table>
 				<table width="231" border="0" cellspacing="0" cellpadding="0" style="margin-top:8px;">
-					<tr><td width="231" height="62" align="center" background="images/index2_35.jpg" class="font_12_red" style="padding-left:8px; padding-right:8px; padding-top:4px; font-size:12px; color:#333333; font-weight:bold">请放心，家长所留下的个人信息，尼德将恪守职业道德，为您保密。</td></tr>
+					<tr><td width="231" height="62" align="center" background="images/index2_35.jpg" class="font_12_red" style="padding-left:8px; padding-right:8px; padding-top:4px; font-size:12px; color:#333333; font-weight:bold">请放心，家长所留下的个人信息，你的将恪守职业道德，为您保密。</td></tr>
 				</table>
 			</td></tr>
 		</form>	
@@ -290,10 +290,10 @@
 						</ul>
 						</div>
 					<?php elseif( $cat_info['cat_id'] == 4 ): ?>
-						<div class="detail_sub_title">1、什么是尼德高考状态测评？</div>
-						<div class="detail_text">尼德高考状态测评从高中学生学业规划的角度出发，以帮助高中学生积极调整高考状态超常发挥考试水平为目标，针对高中学生高考前经常遇到的复习考试问题进行科学、全面、精准的测试，然后依据分析结果给出当前学生个性化复习考试报告。</div>
+						<div class="detail_sub_title">1、什么是你的高考状态测评？</div>
+						<div class="detail_text">你的高考状态测评从高中学生学业规划的角度出发，以帮助高中学生积极调整高考状态超常发挥考试水平为目标，针对高中学生高考前经常遇到的复习考试问题进行科学、全面、精准的测试，然后依据分析结果给出当前学生个性化复习考试报告。</div>
 						
-						<div class="detail_sub_title">2、为什么要进行尼德高考状态测评？</div>
+						<div class="detail_sub_title">2、为什么要进行你的高考状态测评？</div>
 						<div class="detail_text">
 						<ul>
 							<li>帮助学生正确了解自己个性特点，认识自己，调整自己。</li>
@@ -318,10 +318,10 @@
 						</ul>
 						</div>
 					<?php elseif( $cat_info['cat_id'] == 5 ): ?>
-						<div class="detail_sub_title">1、什么是尼德高考专业选择测评？</div>
-						<div class="detail_text">尼德高考专业选择测评从高中学生学业规划的角度出发，以帮助高中学生合理选择大学专业为目标，针对学生个性特点、兴趣方向进行科学、全面、精准的测试，然后依据分析结果给出当前学生大学专业选择报告。</div>
+						<div class="detail_sub_title">1、什么是你的高考专业选择测评？</div>
+						<div class="detail_text">你的高考专业选择测评从高中学生学业规划的角度出发，以帮助高中学生合理选择大学专业为目标，针对学生个性特点、兴趣方向进行科学、全面、精准的测试，然后依据分析结果给出当前学生大学专业选择报告。</div>
 						
-						<div class="detail_sub_title">2、为什么要进行尼德高考专业选择测评？</div>
+						<div class="detail_sub_title">2、为什么要进行你的高考专业选择测评？</div>
 						<div class="detail_text">
 						<ul>
 							<li>帮助学生正确了解自己个性特点，熟悉大学的不同专业。</li>
@@ -347,9 +347,9 @@
 					<div class="detail_text3">
 						<ul>
 							<li>豪华版在高级版基础上增加全面、专业、个性化的学习成长指导方案，方案具体包括：各子测评概念解释、学员测评结果解释、具体针对性解决方法，该方案具有很强的操作性和使用性。</li>
-							<li>豪华版包含尼德教育专业咨询老师单独针对测评学员的一对一课程，两节共计90分钟，外地学员通过电话或者网络平台进行授课，北京学员来尼德教育学习中心面对面授课。</li>
+							<li>豪华版包含你的教育专业咨询老师单独针对测评学员的一对一课程，两节共计90分钟，外地学员通过电话或者网络平台进行授课，北京学员来你的教育学习中心面对面授课。</li>
 							<li>一对一课程内容分为两部分，一部分是专业教育咨询老师就学员个性化报告不明白不理解的地方做全面、系统地解释；另一部分是针对学员当前的学习成长和家庭期望，为学员制定一个长期、有效、科学的学习成长规划。</li>
-							<li>豪华版学员平时可以通过尼德教育咨询QQ优先免费咨询平时学习成长、学习规划执行过程中遇到的零散的、无法解决的问题。（该服务免费提供一年，从学员购买豪华版测评之日起计）。</li>
+							<li>豪华版学员平时可以通过你的教育咨询QQ优先免费咨询平时学习成长、学习规划执行过程中遇到的零散的、无法解决的问题。（该服务免费提供一年，从学员购买豪华版测评之日起计）。</li>
 						</ul>
 					</div>
 					<div>
@@ -363,7 +363,7 @@
 								<a href="http://apps.hi.baidu.com/share/?url=<?php echo urlencode(site_url('cp/detail/'.$cat_info['cat_id']))?>&title=<?php echo urlencode($cat_info['cat_name'])?>" target="_blank" title="百度空间"><img src="images/icon/baidu_kongjian.gif" alt="分享到百度空间" style="padding-left:5px;"></a>
 								<a href="http://www.douban.com/recommend/?url=<?php echo urlencode(site_url('cp/detail/'.$cat_info['cat_id']))?>&title=<?php echo urlencode($cat_info['cat_name'])?>" title="豆瓣" target="_blank"><img src="images/icon/douban.gif" alt="分享到豆瓣" style="padding-left:5px;"></a>
 								<a href="#" onclick="copyUrl();return false;" title="复制网址"><img src="images/icon/copy_url.gif" alt="复制网址" style="padding-left:5px;"></a>
-								<a href="mailto:?subject=在尼德教育网站发现一篇文章很不错&body=<?php echo $cat_info['cat_name']." ".site_url('cp/detail/'.$cat_info['cat_id'])?>" title="发送邮件" target="_blank"><img src="images/icon/mailto.gif" alt="发送邮件" style="padding-left:5px;"></a>
+								<a href="mailto:?subject=在你的教育网站发现一篇文章很不错&body=<?php echo $cat_info['cat_name']." ".site_url('cp/detail/'.$cat_info['cat_id'])?>" title="发送邮件" target="_blank"><img src="images/icon/mailto.gif" alt="发送邮件" style="padding-left:5px;"></a>
 							</td>
 						  </tr>
 						</table>
@@ -414,7 +414,7 @@
 							<tr>
 								<td colspan="2">
 									<div class="comment_reply">
-										<p style="text-align: left; max-width: 100%;"><span style="color:red">【尼德教育 回复说】：</span> <?php echo nl2br($comment['reply']) ?></p>
+										<p style="text-align: left; max-width: 100%;"><span style="color:red">【你的教育 回复说】：</span> <?php echo nl2br($comment['reply']) ?></p>
 										<span>[<?php echo $comment['reply_time'] ?>]</span>
 									</div>
 								</td>
@@ -508,7 +508,7 @@
 					<div class="detail_text">进入测评展示页面-> 选择合适版本  ->点击立即购买 -> 填写订单信息  ->选择付款方式 ->购买成功  ->2～5个工作日内收到测评卡。</div>
 					
 					<div class="detail_sub_title">2、购买后必须等拿到测评卡才能测试吗？</div>
-					<div class="detail_text">不用，测评卡片只是尼德教育测评的一种产品形式，如果您不需要卡片，付款成功后，请直接联系尼德教育客服老师（010-59790750）或者通过尼德教育咨询QQ（378138800）直接取得对应测评帐号和密码马上开始您的测评之旅。</div>
+					<div class="detail_text">不用，测评卡片只是你的教育测评的一种产品形式，如果您不需要卡片，付款成功后，请直接联系你的教育客服老师（010-59790750）或者通过你的教育咨询QQ（378138800）直接取得对应测评帐号和密码马上开始您的测评之旅。</div>
 					
 					<div class="detail_sub_title">3、测评优惠卷针对所有测评系统吗？</div>
 					<div class="detail_text">是的，选择付款方式之前，页面会提示您输入优惠卷密码，您直接输入就可以立即减去您优惠卷面额，但是要注意优惠卷的使用期限哦。</div>
@@ -529,15 +529,15 @@
 					<div class="detail_text">测试所有题目都必须按照测试人的真实情况填写，也许您儿子在您面前不愿意填写对他不利的数据，所以您需要和孩子充分沟通并注意平日教育孩子的方式。</div>
 					
 					<div class="detail_sub_title">9、完成测试后，就可以完全按照测试报告教育孩子并保证孩子学习优异素质全面发展吗？</div>
-					<div class="detail_text">无法保证，孩子学习成长是一个很复杂的系统工程，没有任何一家教育机构或者学校可以做此保证，尼德全方位测评是一个非常权威和科学的学习成长工具，主要辅助学生更加了解自己优劣，从而正确认识自己，更好的提升自己；家长更加了解孩子学习成长特点，从而更加合理教育指导孩子。</div>
+					<div class="detail_text">无法保证，孩子学习成长是一个很复杂的系统工程，没有任何一家教育机构或者学校可以做此保证，你的全方位测评是一个非常权威和科学的学习成长工具，主要辅助学生更加了解自己优劣，从而正确认识自己，更好的提升自己；家长更加了解孩子学习成长特点，从而更加合理教育指导孩子。</div>
 					
 					<div class="detail_sub_title">10、对报告有疑问怎么办？</div>
-					<div class="detail_text">任何疑问均可以在工作时间（早上9：00～下午5：00，周六日除外）随时拨打尼德教育客服电话（010-59790750）进行咨询。</div>
+					<div class="detail_text">任何疑问均可以在工作时间（早上9：00～下午5：00，周六日除外）随时拨打你的教育客服电话（010-59790750）进行咨询。</div>
 				</div>
 				<!-- 如何使用 -->
 				<div id="con_one_4" class="cat_content_common" style="display:none;">
 					<div class="detail_title">如何使用：</div>
-					<div class="detail_text2">1. 拿到卡片之后，请您首先核对卡片名称和版本与您购买订单名称和版本是否一致，如果不一致请您致电010-59790750找尼德教育客服老师咨询，或者在线IM咨询，如下图所示：</div>
+					<div class="detail_text2">1. 拿到卡片之后，请您首先核对卡片名称和版本与您购买订单名称和版本是否一致，如果不一致请您致电010-59790750找你的教育客服老师咨询，或者在线IM咨询，如下图所示：</div>
 					<div style="text-align:center; margin-bottom:10px;margin-top:10px"><img src="images/cp/cp_card_<?php echo $cat_info['cat_id']; ?>.gif"/></div>
 					<div class="detail_text2">2. 核对不误后，请您刮开测评卡背面封条处密码，密码共六位，由数字和大写字母组成。</div>
 					<div class="detail_text2">3. 将帐号和密码输入到测评登录页面，注意阅读提示语言。</div>

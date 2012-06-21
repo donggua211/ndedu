@@ -63,6 +63,15 @@ class StaticPage extends Controller {
 		$this->load->view('footer');
 	}
 	
+	function robot()
+	{
+		$data_header['meta_title'] = '金脑瓜 -- 数字机器人暑期课程！';
+		$data_header['no_header'] = TRUE;
+		$this->load->view('header', $data_header);
+		$this->load->view('robot');
+		$this->load->view('footer');
+	}
+	
 	function _load_viewer($template)
 	{
 		$template_arr = array('header', $template, 'footer');

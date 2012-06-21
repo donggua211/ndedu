@@ -3,10 +3,10 @@
 <head>
 <meta name="google-site-verification" content="CmIkFL0fe-8rD2sopBwU--rsiY6LpL7KEeL25jX73tY" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><?php echo (isset($meta_title) && !empty($meta_title)) ? $meta_title . ' - 尼德教育': '尼德教育，真正一对一个性化辅导，100%一线重点学校专职教师任教，100%个性化VIP小班设置，100%教育界资深人士管理。'; ?></title>
-<meta name="keywords" content="<?php echo (isset($meta_keywords) && !empty($meta_keywords)) ? $meta_keywords : '尼德教育，真正一对一个性化辅导，100%一线重点学校专职教师任教，100%个性化VIP小班设置，100%教育界资深人士管理。'; ?>" />
-<meta name="description" content="<?php echo (isset($meta_description) && !empty($meta_description)) ? $meta_description : '尼德教育，真正一对一个性化辅导，100%一线重点学校专职教师任教，100%个性化VIP小班设置，100%教育界资深人士管理。'; ?>" />
-<meta name="subscrition " content="尼德教育，北京最好的一对一个性化辅导机构，100%一线重点学校专职教师任教，100%个性化VIP小班设置，100%教育界资深人士管理。" />
+<title><?php echo (isset($meta_title) && !empty($meta_title)) ? $meta_title . ' - 你的教育': '你的教育，真正一对一个性化辅导，100%一线重点学校专职教师任教，100%个性化VIP小班设置，100%教育界资深人士管理。'; ?></title>
+<meta name="keywords" content="<?php echo (isset($meta_keywords) && !empty($meta_keywords)) ? $meta_keywords : '你的教育，真正一对一个性化辅导，100%一线重点学校专职教师任教，100%个性化VIP小班设置，100%教育界资深人士管理。'; ?>" />
+<meta name="description" content="<?php echo (isset($meta_description) && !empty($meta_description)) ? $meta_description : '你的教育，真正一对一个性化辅导，100%一线重点学校专职教师任教，100%个性化VIP小班设置，100%教育界资深人士管理。'; ?>" />
+<meta name="subscrition " content="你的教育，北京最好的一对一个性化辅导机构，100%一线重点学校专职教师任教，100%个性化VIP小班设置，100%教育界资深人士管理。" />
 <link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo site_url('rss');?>" />
 <base href="<?php echo base_url() ?>" />
 <link rel="shortcut icon" href="<?php echo base_url(); ?>images/favicon.ico" type="image/x-icon"/>
@@ -54,7 +54,7 @@ function initialize() {
 	var marker = new google.maps.Marker({ 
       position: latlng,  
       map: map,  
-      title:"尼德教育" 
+      title:"你的教育" 
 	});
 }
 
@@ -89,10 +89,13 @@ endif;
 </head>
 <body>
 <?php if( !(isset($no_header) && $no_header)): ?>
+<div class="promo_image">
+	<a href="<?php echo site_url('robot') ?>" target="_blank"><img src="images/adc.jpg" width="930" height="120" alt="<?php echo SITE_NAME; ?>" /></a>
+</div>
 <div id="mini_nav">
 	<div class="font_12_18">
 		<a href="javascript:void(0);" onclick="SetHome(this,window.location)" style="CURSOR: hand">设为首页</a>
-		<a href="<?php echo site_url('children') ?>" target="_blank">尼德早教</a>
+		<a href="<?php echo site_url('children') ?>" target="_blank">你的早教</a>
 		<a href="<?php echo site_url('userGrowth') ?>" target="_blank">学习成长档案</a>
 		<a href="<?php echo site_url('topGrowth') ?>" target="_blank">精英成长计划</a>
 	</div>
@@ -135,9 +138,9 @@ endif;
 	<div id="line"></div>
 	<h4 class="<?php echo ($nav_menu_id == 9) ? 'menuOn' : 'menuNo'; ?>" id="mod9" onmouseover="switchmodTag('mod','slidingList','9');this.blur();"><a href="<?php echo site_url('teacher') ?>">名师风采</a></h4>
 	<div id="line"></div>
-	<h4 class="<?php echo ($nav_menu_id == 6) ? 'menuOn' : 'menuNo'; ?>" id="mod6" onmouseover="switchmodTag('mod','slidingList','6');this.blur();"><a href="<?php echo site_url('school') ?>">尼德学堂</a></h4>
+	<h4 class="<?php echo ($nav_menu_id == 6) ? 'menuOn' : 'menuNo'; ?>" id="mod6" onmouseover="switchmodTag('mod','slidingList','6');this.blur();"><a href="<?php echo site_url('school') ?>">你的学堂</a></h4>
 	<div id="line"></div>
-	<h4 class="<?php echo ($nav_menu_id == 7) ? 'menuOn' : 'menuNo'; ?>" id="mod7" onmouseover="switchmodTag('mod','slidingList','7');this.blur();"><a href="<?php echo site_url('aboutUs') ?>">关于尼德</a></a></h4>
+	<h4 class="<?php echo ($nav_menu_id == 7) ? 'menuOn' : 'menuNo'; ?>" id="mod7" onmouseover="switchmodTag('mod','slidingList','7');this.blur();"><a href="<?php echo site_url('aboutUs') ?>">关于你的</a></a></h4>
 	<div id="line"></div>
 </div>
 <div class="<?php echo ($nav_menu_id == 1) ? 'slidingList' : 'slidingList_none'; ?>" id="slidingList1">
@@ -194,7 +197,7 @@ endif;
 <ul>
 <li style="margin-left:580px;"> <a href="<?php echo site_url('teacher') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'teacher') ? 'slidingBlock_hover' : '';?>">师资团队</font></a></li>
 <li > <a href="<?php echo site_url('team') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'team') ? 'slidingBlock_hover' : '';?>">师资来源</font></a></li>
-<li > <a href="<?php echo site_url('gallery') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'gallery') ? 'slidingBlock_hover' : '';?>">尼德图集</font></a></li>
+<li > <a href="<?php echo site_url('gallery') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'gallery') ? 'slidingBlock_hover' : '';?>">你的图集</font></a></li>
 </ul>
 </div>
 <div class="<?php echo ($nav_menu_id == 6) ? 'slidingList' : 'slidingList_none'; ?>" id="slidingList6">
@@ -207,8 +210,8 @@ endif;
 </div>
 <div class="<?php echo ($nav_menu_id == 7) ? 'slidingList' : 'slidingList_none'; ?>" id="slidingList7">
 <ul>
-<li style="margin-left:670px;"> <a href="<?php echo site_url('aboutUs') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'aboutUs') ? 'slidingBlock_hover' : '';?>">尼德简介</font></a></li>
-<li> <a href="<?php echo site_url('advantage') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'advantage') ? 'slidingBlock_hover' : '';?>">尼德优势</font></a></li>
+<li style="margin-left:670px;"> <a href="<?php echo site_url('aboutUs') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'aboutUs') ? 'slidingBlock_hover' : '';?>">你的简介</font></a></li>
+<li> <a href="<?php echo site_url('advantage') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'advantage') ? 'slidingBlock_hover' : '';?>">你的优势</font></a></li>
 <li> <a href="<?php echo site_url('jobs') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'jobs') ? 'slidingBlock_hover' : '';?>">招贤纳士</font></a></li>
 <li> <a href="<?php echo site_url('contactUs') ?>"><font class="<?php echo ($CI->uri->segment(1) == 'contactUs') ? 'slidingBlock_hover' : '';?>">联系我们</font></a></li>
 </ul>

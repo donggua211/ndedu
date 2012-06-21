@@ -1,6 +1,6 @@
 <div id="nav">
 	<span class="action-span"><a href="<?php echo site_url('admin') ?>"  target="_top">管理系统</a></span>
-	 » 查看加入尼德列表
+	 » 查看加入你的列表
 	<div style="clear:both"></div>
 </div>
 <div id="main">

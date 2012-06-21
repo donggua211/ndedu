@@ -208,7 +208,7 @@
   <tr>
     <td width="231" align="left"><a href="<?php echo site_url('specialModule') ?>"><img src="images/zhuanti.jpg" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
     <td class="font_12_20" valign="top"><span class="red_title">专题模块</span><br />
-      <a href="<?php echo site_url('specialModule') ?>">每一个学科都有重点、难点知识模块，而每一个重、难点又都贯穿该学科始终，如数学的函数模块、语文的作文、物理的力学、外语的单词记忆法，这些模块知识的掌握对该学科知识的掌握至关重要，尼德专题模块课程就是帮助理清、掌握学科重难点知识模块结构，灵活应用知识点，建立学科思维框架，轻松通过考试。<br />
+      <a href="<?php echo site_url('specialModule') ?>">每一个学科都有重点、难点知识模块，而每一个重、难点又都贯穿该学科始终，如数学的函数模块、语文的作文、物理的力学、外语的单词记忆法，这些模块知识的掌握对该学科知识的掌握至关重要，你的专题模块课程就是帮助理清、掌握学科重难点知识模块结构，灵活应用知识点，建立学科思维框架，轻松通过考试。<br />
 课程目标：帮助理清、掌握学科重难点知识模块结构，灵活应用知识点，牢固掌握知识结构，轻松通过考试。</a></td>
   </tr>
 </table></div>
@@ -216,7 +216,7 @@
   <tr>
     <td width="231" align="left"><a href="<?php echo site_url('valueGrowth') ?>"><img src="images/chengzhang.jpg" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
     <td class="font_12_20" valign="top"><span class="red_title">成长增值</span><br />
-      <a href="<?php echo site_url('valueGrowth') ?>">以培养儿童成功核心素质为导向。尼德教育认为，儿童成功核心素质与学业成功是相辅相成的，有了良好的注意力、观察力、想象力、思维力、学习能力，自我管理能力、交往能力，学习成绩的优异是必然的产物。<br />
+      <a href="<?php echo site_url('valueGrowth') ?>">以培养儿童成功核心素质为导向。你的教育认为，儿童成功核心素质与学业成功是相辅相成的，有了良好的注意力、观察力、想象力、思维力、学习能力，自我管理能力、交往能力，学习成绩的优异是必然的产物。<br />
 课程目标：精准、科学、系统的核心能力与习惯培养体系，为孩子学业成功奠定坚实的基础。</a></td>
   </tr>
 </table></div>
@@ -241,7 +241,7 @@
   <tr>
     <td width="231" align="left"><a href="<?php echo site_url('internationalTrusteeship') ?>"><img src="images/index_74.jpg" width="209" height="150" border="0" class="img_border"  alt="<?php echo SITE_NAME; ?>"/></a></td>
     <td class="font_12_20" valign="top"><span class="red_title">学后国际化托管</span><br />
-      <a href="<?php echo site_url('internationalTrusteeship') ?>">学后国际化托管是尼德多元化N对一学科辅导基础组成部分，以家庭作业辅导为载体，以私人成长顾问形式为主导，培养学员基本的学习能力、个性发展、行为品格、人际交往，提升学员综合素质。</a><br />
+      <a href="<?php echo site_url('internationalTrusteeship') ?>">学后国际化托管是你的多元化N对一学科辅导基础组成部分，以家庭作业辅导为载体，以私人成长顾问形式为主导，培养学员基本的学习能力、个性发展、行为品格、人际交往，提升学员综合素质。</a><br />
 
 </td>
   </tr>
@@ -250,7 +250,7 @@
   <tr>
     <td width="231" align="left"><a href="<?php echo site_url('studyGroup') ?>"><img src="images/tuanti.jpg" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
     <td class="font_12_20" valign="top"><span class="red_title">团体研究性学习</span><br />
-      <a href="<?php echo site_url('studyGroup') ?>">团队互动式学习是尼德多元化N对一学科辅导重要组成部分之一，通过知识分享、营地活动等形式，以让学员正确认识读书学习、成功体验所学知识、有效应用所学知识为主要目标。</a><br />
+      <a href="<?php echo site_url('studyGroup') ?>">团队互动式学习是你的多元化N对一学科辅导重要组成部分之一，通过知识分享、营地活动等形式，以让学员正确认识读书学习、成功体验所学知识、有效应用所学知识为主要目标。</a><br />
 
 </td>
   </tr>
@@ -259,7 +259,7 @@
   <tr>
     <td width="231" align="left"><a href="<?php echo site_url('nv1Tutorial') ?>"><img src="images/1d1.jpg" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
     <td class="font_12_20" valign="top"><span class="red_title">多对一学科辅导</span><br />
-      <a href="<?php echo site_url('nv1Tutorial') ?>">多对一纯学科辅导是尼德多元化学科辅导主要组成部分，学生为主体，学科知识学习为主要内容，彻底颠覆填鸭式教学，师生双向互动，针对性辅导,每个学生都能体验到学习的高峰，以提高学习成绩、轻松应对考试、成功完成学业为主要目标。</a><br />
+      <a href="<?php echo site_url('nv1Tutorial') ?>">多对一纯学科辅导是你的多元化学科辅导主要组成部分，学生为主体，学科知识学习为主要内容，彻底颠覆填鸭式教学，师生双向互动，针对性辅导,每个学生都能体验到学习的高峰，以提高学习成绩、轻松应对考试、成功完成学业为主要目标。</a><br />
 </td>
   </tr>
 </table></div>
@@ -327,7 +327,7 @@
                               <td width="85" height="86" align="center"><a href="<?php echo site_url('successfulMembers') ?>"><img src="images/ll.jpg" width="65" height="65" border="0" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
                               <td><span class="red_title">李蕾</span><br />
                                 小一 <br />
-                                尼德教育3A级学员</td>
+                                你的教育3A级学员</td>
                             </tr>
                         </table></td>
                       <td align="left"><table width="211" border="0" cellpadding="0" cellspacing="0" bgcolor="#f5f5f5" class="font_12_20">
@@ -335,7 +335,7 @@
                             <td width="85" height="86" align="center"><a href="<?php echo site_url('successfulMembers') ?>"><img src="images/lzh.jpg" width="65" height="65" border="0" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
                             <td><span class="red_title">吕志浩</span><br />
                               小四 <br />
-                              尼德教育2A级学员</td>
+                              你的教育2A级学员</td>
                           </tr>
                       </table></td>
                       <td align="left"><table width="211" border="0" cellpadding="0" cellspacing="0" bgcolor="#f5f5f5" class="font_12_20">
@@ -343,7 +343,7 @@
                             <td width="85" height="86" align="center"><a href="<?php echo site_url('successfulMembers') ?>"><img src="images/hxd.jpg" width="65" height="65" border="0" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
                             <td><span class="red_title">胡晓丹</span><br />
                               小六 <br />
-                              尼德教育A级学员</td>
+                              你的教育A级学员</td>
                           </tr>
                       </table></td>
                     </tr>
@@ -355,7 +355,7 @@
                             <td width="85" height="86" align="center"><a href="<?php echo site_url('successfulMembers') ?>"><img src="images/jjw.jpg" width="65" height="65" border="0" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
                             <td><span class="red_title">贾静雯</span><br />
                               初二 <br />
-                              尼德教育A级学员</td>
+                              你的教育A级学员</td>
                           </tr>
                       </table></td>
                         <td align="left"><table width="211" border="0" cellpadding="0" cellspacing="0" bgcolor="#f5f5f5" class="font_12_20">
@@ -363,7 +363,7 @@
                               <td width="85" height="86" align="center"><a href="<?php echo site_url('successfulMembers') ?>"><img src="images/index_79.jpg" width="65" height="66" border="0" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
                               <td><span class="red_title">聂媛媛</span><br />
                                 初三 <br />
-                                尼德教育A级学员</td>
+                                你的教育A级学员</td>
                             </tr>
                         </table></td>
                         <td align="left"><table width="211" border="0" cellpadding="0" cellspacing="0" bgcolor="#f5f5f5" class="font_12_20">
@@ -371,7 +371,7 @@
                               <td width="85" height="86" align="center"><a href="<?php echo site_url('successfulMembers') ?>"><img src="images/zk.jpg" width="65" height="65" border="0" class="img_border" alt="<?php echo SITE_NAME; ?>" /></a></td>
                               <td><span class="red_title">张坤</span><br />
                                 高三 <br />
-                                尼德教育A级学员</td>
+                                你的教育A级学员</td>
                             </tr>
                         </table></td>
                       </tr>
@@ -407,7 +407,7 @@
                     <table width="660" border="0" cellpadding="0" cellspacing="0" class="font_14">
                       <tr>
                         <td width="165" align="center"><a href="<?php echo site_url('gallery') ?>">集体照</a></td>
-                        <td width="165" align="center"><a href="<?php echo site_url('gallery') ?>">尼德前台</a></td>
+                        <td width="165" align="center"><a href="<?php echo site_url('gallery') ?>">你的前台</a></td>
                         <td width="166" align="center"><a href="<?php echo site_url('gallery') ?>">师生合影</a></td>
                         <td align="center"><a href="<?php echo site_url('gallery') ?>">建造科学模型</a></td>
                       </tr>
@@ -514,7 +514,7 @@
             </table>
             <table width="231" border="0" cellspacing="0" cellpadding="0" style="margin-top:8px;">
               <tr>
-                <td width="231" height="62" align="center" background="images/index2_35.jpg" class="font_12_red" style="padding-left:8px; padding-right:8px; padding-top:4px; font-size:12px; color:#333333; font-weight:bold">请放心，家长所留下的个人信息，尼德将恪守职业道德，为您保密。</td>
+                <td width="231" height="62" align="center" background="images/index2_35.jpg" class="font_12_red" style="padding-left:8px; padding-right:8px; padding-top:4px; font-size:12px; color:#333333; font-weight:bold">请放心，家长所留下的个人信息，你的将恪守职业道德，为您保密。</td>
               </tr>
             </table>
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -539,7 +539,7 @@
         <tr>
           <td height="165" align="center" background="images/index_55.jpg"><table width="220" border="0" cellspacing="0" cellpadding="0">
             <tr>
-              <td height="140" align="left" valign="top" class="font_12_20"><a href="<?php echo site_url('aboutUs') ?>"><img src="images/right_07.jpg" width="60" height="60" border="0" class="img_border"  style="float:left; margin-right:8px;" alt="<?php echo SITE_NAME; ?>"/>尼德教育配合黄金学习规划系统，反思当前课外辅导机构辅导方式对学员成长的弊端，正式提出尼德多元化学科辅导体系，该体系以黄金学习规划系统工具为基础，以学后国际化托管、团体研究性学习、纯学科一对一辅导...</a></td>
+              <td height="140" align="left" valign="top" class="font_12_20"><a href="<?php echo site_url('aboutUs') ?>"><img src="images/right_07.jpg" width="60" height="60" border="0" class="img_border"  style="float:left; margin-right:8px;" alt="<?php echo SITE_NAME; ?>"/>你的教育配合黄金学习规划系统，反思当前课外辅导机构辅导方式对学员成长的弊端，正式提出你的多元化学科辅导体系，该体系以黄金学习规划系统工具为基础，以学后国际化托管、团体研究性学习、纯学科一对一辅导...</a></td>
               </tr>
           </table></td>
         </tr>
@@ -590,7 +590,7 @@
             <table width="220" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="65" height="48"><a href="<?php echo site_url('gallery') ?>"><img src="images/index7_11.jpg" width="49" height="33" border="0" class="img_border" /></a></td>
-                <td align="left"><a href="<?php echo site_url('gallery') ?>" title="2008年尼德黄金学习规划系统获得国家级优秀教育产品奖">2008年尼德黄金学习规划...</a></td>
+                <td align="left"><a href="<?php echo site_url('gallery') ?>" title="2008年你的黄金学习规划系统获得国家级优秀教育产品奖">2008年你的黄金学习规划...</a></td>
               </tr>
             </table>
             <table width="220" border="0" cellspacing="0" cellpadding="0">
