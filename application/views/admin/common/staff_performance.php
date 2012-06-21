@@ -20,7 +20,7 @@
 			<!-- 校区 -->
 			<?php if(is_admin()): //权限: 只有超级管理员可以按校区搜索?>
 			<select name="branch_id">
-				<option value='0'>尼德教育所有校区</option>
+				<option value='0'>你的教育所有校区</option>
 				<?php
 					foreach($branches['branch'] as $branch)
 						echo '<option value="'.$branch['branch_id'].'">'.$branch['branch_name'].'</option>';

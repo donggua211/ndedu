@@ -94,7 +94,7 @@
 		<span id="provide_peaple_warning"></span>
 	</div>
 	<div class="input">
-		<label>尼德教育加盟省份：</label>
+		<label>你的教育加盟省份：</label>
 		<select name="join_provice" id="join_provice" onchange="region.changed(this, 2, 'join_city');">
 			<option value='0' selected>省</option>
 			<?php 
@@ -105,7 +105,7 @@
 		<span id="join_provice_warning"></span>
 	</div>
 	<div class="input">
-		<label>尼德教育加盟城市：</label>
+		<label>你的教育加盟城市：</label>
 		<select name="join_city" id="join_city">
 			<option value="0" selected>市/地区</option>
 			<?php 

@@ -9,7 +9,7 @@
 				<table width="340" height="44" border="0" align="center" cellpadding="0" cellspacing="0" background="images/evaluate/login_banner_top.gif" style="background-repeat:no-repeat; background-position:top">
 					<tr>
 						<td width="57" align="center"><img src="images/evaluate/login_site_icon.gif"></td>
-						<td width="200" align="left" class="font_16_bold" style="padding-top:5px">尼德教育全方位测试系统</td>
+						<td width="200" align="left" class="font_16_bold" style="padding-top:5px">你的教育全方位测试系统</td>
 						<td width="83" align="left"><img src="images/evaluate/beta1.0.gif"></td>
 					</tr>
 				</table>

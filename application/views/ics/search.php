@@ -1,6 +1,6 @@
 <div id="nav">
 	<div id="nav_left">
-		<span class="action-span"><a href="<?php echo site_url('ics') ?>"  target="_top">尼德内部咨询系统</a></span>
+		<span class="action-span"><a href="<?php echo site_url('ics') ?>"  target="_top">你的内部咨询系统</a></span>
 		» 搜索
 		» <?php echo $keyword; ?>
 	</div>

@@ -7,12 +7,12 @@
               <td height="36" align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;">
 				<b>训练营课程背景</b><br/>
 
-				基于各年龄段的儿童发展规律和特点，根据哈佛大学发展心理学家霍华德 · 加德纳教授的多元智能理论，参考福禄贝尔、蒙特梭利等人自然主义教育思想、教学方法以及教学用具，综合尼德教育自我创新，从而形成了一套独特、全面有效的儿童成长发展课程体系。<br/><br/>
+				基于各年龄段的儿童发展规律和特点，根据哈佛大学发展心理学家霍华德 · 加德纳教授的多元智能理论，参考福禄贝尔、蒙特梭利等人自然主义教育思想、教学方法以及教学用具，综合你的教育自我创新，从而形成了一套独特、全面有效的儿童成长发展课程体系。<br/><br/>
 
 				<b>训练营课程理念</b><br/>
 
 				以儿童为中心，通过儿童内在力量引导儿童自然、快乐地学习实践，培养未来的成功者。<br/><br/>
-				您好，感谢您对尼德教育的支持！如有任何问题或需要任何帮助，请联系我们，我们将热诚为您服务！</td>
+				您好，感谢您对你的教育的支持！如有任何问题或需要任何帮助，请联系我们，我们将热诚为您服务！</td>
             </tr>
           </table>
           <table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
@@ -104,7 +104,7 @@
                   <table width="540" border="0" cellspacing="0" cellpadding="0" style="margin-top:8px; margin-bottom:8px;">
                     <tr>
                       <td width="107" height="36" align="right"><label><input type="image" name="submit" align="bottom" src="images/right_19.jpg"></label></td>
-                      <td width="433" align="center" class="font_14"  style="padding-left:8px;">请放心，家长所留下的个人信息，尼德将恪守职业道德，为您保密。</td>
+                      <td width="433" align="center" class="font_14"  style="padding-left:8px;">请放心，家长所留下的个人信息，你的将恪守职业道德，为您保密。</td>
                     </tr>
                   </table></td>
               </tr></form>

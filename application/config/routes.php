@@ -139,6 +139,7 @@ $route['teacher'] = "staticPage/teacher";
 $route['contactUs'] = "staticPage/contactus";
 $route['siteMap'] = "staticPage/siteMap";
 $route['oo1'] = "staticPage/oo1";
+$route['robot'] = "staticPage/robot";
 
 $route['school'] = "school/article/9/0-0/1";
 $route['school/article/(:any)/(:any)'] = "school/article/9/$1/$2";

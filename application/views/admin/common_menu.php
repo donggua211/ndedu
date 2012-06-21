@@ -196,9 +196,9 @@
 				</ul>
 			</li>
 			<li class="explode" key="14_join" name="menu">
-				加入尼德
+				加入你的
 				<ul>
-					<li class="menu-item"><a href="<?php echo site_url("admin/join"); ?>" target="main-frame">加入尼德列表</a></li>
+					<li class="menu-item"><a href="<?php echo site_url("admin/join"); ?>" target="main-frame">加入你的列表</a></li>
 					<li class="menu-item"><a href="<?php echo site_url("admin/join/clear"); ?>" target="main-frame">清除</a></li>
 				</ul>
 			</li>

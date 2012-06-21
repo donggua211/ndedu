@@ -3,7 +3,7 @@
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="border-top:1px solid #dbdbdb">
   <tr>
     <td height="67" align="center" valign="top" background="images/hjxxgh_56.jpg" class="font_gray" style="padding-top:8px; background-position:top; background-repeat:repeat-x">
-		<a href="<?php echo site_url('children') ?>" target="_blank">尼德早教</a> &nbsp;|&nbsp; 
+		<a href="<?php echo site_url('children') ?>" target="_blank">你的早教</a> &nbsp;|&nbsp; 
 		<a href="<?php echo site_url('userGrowth') ?>" target="_blank">学习成长档案</a> &nbsp;|&nbsp; 
 		<a href="<?php echo site_url('topGrowth') ?>" target="_blank">精英成长计划</a> &nbsp;|&nbsp; 
 		<a href="<?php echo site_url('aboutUs') ?>" target="_blank">关于我们</a>  &nbsp;|&nbsp; 
@@ -11,7 +11,7 @@
 		<a href="<?php echo site_url('join') ?>" target="_blank">加盟合作</a> &nbsp;|&nbsp; 
 		<a href="<?php echo site_url('siteMap') ?>" target="_blank">网站地图</a><br/>
 		Copyright 2006-2010  www.ndedu.org All Right Reserved<br/>
-		版权所有：北京尼德成长教育科技有限公司  <a href="http://www.miibeian.gov.cn/">京ICP备 10053869号</a>
+		版权所有：北京你的成长教育科技有限公司  <a href="http://www.miibeian.gov.cn/">京ICP备 10053869号</a>
 	</td>
   </tr>
 </table>

@@ -1,6 +1,6 @@
 <table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
-    <td height="30" background="images/hjxxgh_10.jpg" class="mianbao">您所在位置： <a href="<?php echo site_url()?>">首页</a> &gt; <a href="<?php echo site_url('school')?>">尼德学堂</a> &gt;
+    <td height="30" background="images/hjxxgh_10.jpg" class="mianbao">您所在位置： <a href="<?php echo site_url()?>">首页</a> &gt; <a href="<?php echo site_url('school')?>">你的学堂</a> &gt;
 	<?php
 		switch($cat_id)
 		{
@@ -89,7 +89,7 @@
 				<tr><td><img src="images/school/recommend_top_banner.gif" width="507" height="12" /></td></tr>
 			</table>
 			<table width="507" border="0" cellspacing="0" cellpadding="0" background="images/school/recommend_bg.gif" style="border-left:1px solid #EBEBEB;border-right:1px solid #EBEBEB">
-			<tr align="left"><td colspan="3"><img src="images/icon/good.gif" width="11" height="13" style="padding-left:10px"/><span class="font_13" style="padding-left:10px">尼德推荐图书</td></tr>
+			<tr align="left"><td colspan="3"><img src="images/icon/good.gif" width="11" height="13" style="padding-left:10px"/><span class="font_13" style="padding-left:10px">你的推荐图书</td></tr>
 		<?php 
 			$i = 1;
 			$totle = count($recommand);
@@ -187,7 +187,7 @@
     </table>
 	  <table width="247" border="0" cellspacing="0" cellpadding="0" height="30" style="margin-top:10px; background-image:url(images/hjxxgh_18.jpg);">
         <tr>
-          <td class="font_14white" style="padding-left:35px;">尼德学堂推荐</td>
+          <td class="font_14white" style="padding-left:35px;">你的学堂推荐</td>
         </tr>
       </table>
       <table width="247" border="0" cellpadding="0" cellspacing="0" class="gray_box">
@@ -219,7 +219,7 @@
       </table>
       <table width="247" border="0" cellspacing="0" cellpadding="0" height="30" style="margin-top:10px; background-image:url(images/hjxxgh_18.jpg);">
         <tr>
-          <td class="font_14white" style="padding-left:35px;">尼德学堂热点</td>
+          <td class="font_14white" style="padding-left:35px;">你的学堂热点</td>
         </tr>
       </table>
       <table width="247" border="0" cellpadding="0" cellspacing="0" class="gray_box">
@@ -318,7 +318,7 @@
             </table>
             <table width="231" border="0" cellspacing="0" cellpadding="0" style="margin-top:8px;">
               <tr>
-                <td width="231" height="62" align="center" background="images/index2_35.jpg" class="font_12_red" style="padding-left:8px; padding-right:8px; padding-top:4px; font-size:12px; color:#333333; font-weight:bold">请放心，家长所留下的个人信息，尼德将恪守职业道德，为您保密。</td>
+                <td width="231" height="62" align="center" background="images/index2_35.jpg" class="font_12_red" style="padding-left:8px; padding-right:8px; padding-top:4px; font-size:12px; color:#333333; font-weight:bold">请放心，家长所留下的个人信息，你的将恪守职业道德，为您保密。</td>
               </tr>
             </table></td>
         </tr>

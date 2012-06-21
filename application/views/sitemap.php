@@ -4,7 +4,7 @@
         <td align="right" valign="top" background="images/top_03.jpg" style="background-position:left; background-repeat:no-repeat">
 		  <table width="270" border="0" cellpadding="0" cellspacing="0" class="font_gray" style="margin-top:6px; margin-right:6px;">
           <tr>
-            <td align="right"><img src="images/index7_07.jpg" width="10" height="9" alt="<?php echo SITE_NAME; ?>" /> <span style="CURSOR: hand" onClick="window.external.addFavorite('http://www.ndedu.org','尼德教育')" title="尼德教育">加入收藏</span></td>
+            <td align="right"><img src="images/index7_07.jpg" width="10" height="9" alt="<?php echo SITE_NAME; ?>" /> <span style="CURSOR: hand" onClick="window.external.addFavorite('http://www.ndedu.org','你的教育')" title="你的教育">加入收藏</span></td>
             <td align="right"><img src="images/index7_07.jpg" width="10" height="9" alt="<?php echo SITE_NAME; ?>" /> <span onclick="var strHref=window.location.href;this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.ndedu.org');" style="CURSOR: hand">设为首页</span></td>
 			<td align="right"><img src="images/index7_07.jpg" width="10" height="9" alt="<?php echo SITE_NAME; ?>" /> <a href="<?php echo site_url('user/login') ?>">学习成长档案</a></td>
 			<td align="right"><img src="images/index7_07.jpg" width="10" height="9" alt="<?php echo SITE_NAME; ?>" /> <a href="<?php echo site_url('topGrowth') ?>">精英成长计划</a></td>
@@ -91,14 +91,14 @@
 </table>
 <table width="920" border="0" align="center" cellpadding="0" cellspacing="0" style="margin-top:9px; border:1px solid #c8c8c8; ">
   <tr>
-    <td class="font_14" style="padding:3px; padding-left:10px">&gt;&gt;<a href="<?php echo site_url('aboutUs') ?>" target="_parent" class="font_14_orange"> 关于尼德</a></td>
+    <td class="font_14" style="padding:3px; padding-left:10px">&gt;&gt;<a href="<?php echo site_url('aboutUs') ?>" target="_parent" class="font_14_orange"> 关于你的</a></td>
   </tr>
   <tr>
     <td class="font_12_24" style="padding-bottom:4px;"><ul>
-      <li><a href="<?php echo site_url('aboutUs') ?>" target="_parent">尼德简介</a></li>
-      <li><a href="<?php echo site_url('advantage') ?>" target="_parent">尼德优势</a></li>
+      <li><a href="<?php echo site_url('aboutUs') ?>" target="_parent">你的简介</a></li>
+      <li><a href="<?php echo site_url('advantage') ?>" target="_parent">你的优势</a></li>
       <li><a href="<?php echo site_url('team') ?>" target="_parent">师资团队</a></li>
-      <li><a href="<?php echo site_url('gallery') ?>" target="_parent">尼德图集</a></li>
+      <li><a href="<?php echo site_url('gallery') ?>" target="_parent">你的图集</a></li>
       <li><a href="<?php echo site_url('jobs') ?>" target="_parent">招贤纳士</a></li>
     </ul>
     </td>

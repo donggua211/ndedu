@@ -1,7 +1,7 @@
 <table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="30" background="images/hjxxgh_10.jpg" class="mianbao">
-	您所在位置：<a href="<?php echo site_url('') ?>">首页</a> &gt; <a href="<?php echo site_url('evaluate') ?>">尼德测评</a> &gt; 我的测评
+	您所在位置：<a href="<?php echo site_url('') ?>">首页</a> &gt; <a href="<?php echo site_url('evaluate') ?>">你的测评</a> &gt; 我的测评
 	</td>
   </tr>
 </table>
@@ -107,7 +107,7 @@
 			</table>
 			<table width="231" border="0" cellspacing="0" cellpadding="0" style="margin-top:8px;">
 			  <tr>
-				<td width="231" height="62" align="center" background="images/index2_35.jpg" class="font_12_red" style="padding-left:8px; padding-right:8px; padding-top:4px; font-size:12px; color:#333333; font-weight:bold">请放心，家长所留下的个人信息，尼德将恪守职业道德，为您保密。</td>
+				<td width="231" height="62" align="center" background="images/index2_35.jpg" class="font_12_red" style="padding-left:8px; padding-right:8px; padding-top:4px; font-size:12px; color:#333333; font-weight:bold">请放心，家长所留下的个人信息，你的将恪守职业道德，为您保密。</td>
 			  </tr>
 			</table></td>
 		</tr>

@@ -8,7 +8,7 @@
     <td height="88" align="left" background="images/1_55.jpg">
 	<table width="800" border="0" align="left" cellpadding="0" cellspacing="0" class="title">
       <tr>
-        <td>学习成绩的根本问题与诸多学习因素有关，尼德教育经过3年、20多位教授、600多名教师、20000个小、初、高学生综合配合研究，开发出关联学员108方面、1058个学习因素的测评问卷，从而更加客观准确地发现学员成绩深层次问题，更好的解决问题。<span class="font_12_2"><a href="#"></a></span></td>
+        <td>学习成绩的根本问题与诸多学习因素有关，你的教育经过3年、20多位教授、600多名教师、20000个小、初、高学生综合配合研究，开发出关联学员108方面、1058个学习因素的测评问卷，从而更加客观准确地发现学员成绩深层次问题，更好的解决问题。<span class="font_12_2"><a href="#"></a></span></td>
         </tr>
     </table></td>
   </tr>
@@ -110,7 +110,7 @@ function collapse_change(menucount) {
   <tr>
     <td height="93" background="images/yxfd_18.jpg"><table width="800" border="0" cellpadding="0" cellspacing="0" class="title">
       <tr>
-        <td>尼德师资来源于以北师大、华东师范大学为首的高等师范院校，近300名一线特、高级教师，以本科、硕士学历为主，也有部分博士教授作为师资顾问；以学科教育专业为主，以儿童发展心理学为辅，其中近多一半教师从事过中小学教育，平均5年以上教学经验，少数教师从事过中、高考命题研究工作，每位教师都经过了严格的把关和层层选拔.<span class="font_12_2"><a onclick="collapse_change(2)" href="javascript:void(0)">折叠详情&gt;&gt;</a></span></td>
+        <td>你的师资来源于以北师大、华东师范大学为首的高等师范院校，近300名一线特、高级教师，以本科、硕士学历为主，也有部分博士教授作为师资顾问；以学科教育专业为主，以儿童发展心理学为辅，其中近多一半教师从事过中小学教育，平均5年以上教学经验，少数教师从事过中、高考命题研究工作，每位教师都经过了严格的把关和层层选拔.<span class="font_12_2"><a onclick="collapse_change(2)" href="javascript:void(0)">折叠详情&gt;&gt;</a></span></td>
         </tr>
     </table></td>
   </tr>
@@ -139,7 +139,7 @@ function collapse_change(menucount) {
   <tr>
     <td height="88" background="images/5_55.jpg"><table width="800" border="0" cellpadding="0" cellspacing="0" class="title">
       <tr>
-        <td>	研究表明，学生在轻松、愉快、安静、主动、积极状态下学习效率提升500%。尼德教育摒弃单调、枯燥、效率一般的一对一纯知识学科辅导方式，提出多元化学科辅导模式，保证学员积极的学习状态、轻松的学习环境，从而保障有效提高学习成绩，成功规划学业。<span class="font_12_2"><a onclick="collapse_change(4)" href="javascript:void(0)">折叠详情&gt;&gt;</a></span></td>
+        <td>	研究表明，学生在轻松、愉快、安静、主动、积极状态下学习效率提升500%。你的教育摒弃单调、枯燥、效率一般的一对一纯知识学科辅导方式，提出多元化学科辅导模式，保证学员积极的学习状态、轻松的学习环境，从而保障有效提高学习成绩，成功规划学业。<span class="font_12_2"><a onclick="collapse_change(4)" href="javascript:void(0)">折叠详情&gt;&gt;</a></span></td>
         </tr>
     </table></td>
   </tr>
@@ -154,7 +154,7 @@ function collapse_change(menucount) {
   <tr>
     <td height="88" background="images/6_55.jpg"><table width="800" border="0" cellpadding="0" cellspacing="0" class="title">
       <tr>
-        <td>	尼德教育广泛集结来自全国教育科学规划领导小组"十一五"规划项目组、国家教育部重点课题素质教育辅导课题组、北京师范大学心理学研究所、北京大学心理研究中心等专家学者的多年研究成果，开发出荣获多项奖状的黄金学习规划，要求长远地、系统地、发展地眼光看待学员学习成绩问题，强调未雨绸缪，强调科学规划。<span class="font_12_2"><a onclick="collapse_change(5)" href="javascript:void(0)">折叠详情&gt;&gt;</a></span></td>
+        <td>	你的教育广泛集结来自全国教育科学规划领导小组"十一五"规划项目组、国家教育部重点课题素质教育辅导课题组、北京师范大学心理学研究所、北京大学心理研究中心等专家学者的多年研究成果，开发出荣获多项奖状的黄金学习规划，要求长远地、系统地、发展地眼光看待学员学习成绩问题，强调未雨绸缪，强调科学规划。<span class="font_12_2"><a onclick="collapse_change(5)" href="javascript:void(0)">折叠详情&gt;&gt;</a></span></td>
         </tr>
     </table></td>
   </tr>
@@ -168,7 +168,7 @@ function collapse_change(menucount) {
   <tr>
     <td height="88" background="images/yxfd_55.jpg"><table width="800" border="0" cellpadding="0" cellspacing="0" class="title">
       <tr>
-        <td>	尼德有成长之星会员QQ群，会员分布在全国各地！欢迎大家加入。因为真诚服务、成绩有保障、规划有成效，才敢做QQ群。QQ群里早已聚集了不少忠诚的会员，大家一起讨论孩子教育、一起分享有价值的教育内容。服务不好，怎么可能随便用QQ群呢？<span class="font_12_2"><a onclick="collapse_change(6)" href="javascript:void(0)">折叠详情&gt;&gt;</a></span></td>
+        <td>	你的有成长之星会员QQ群，会员分布在全国各地！欢迎大家加入。因为真诚服务、成绩有保障、规划有成效，才敢做QQ群。QQ群里早已聚集了不少忠诚的会员，大家一起讨论孩子教育、一起分享有价值的教育内容。服务不好，怎么可能随便用QQ群呢？<span class="font_12_2"><a onclick="collapse_change(6)" href="javascript:void(0)">折叠详情&gt;&gt;</a></span></td>
         </tr>
     </table></td>
   </tr>
@@ -182,7 +182,7 @@ function collapse_change(menucount) {
   <tr>
     <td height="67" background="images/yxfd_61.jpg"><table width="800" border="0" cellpadding="0" cellspacing="0" class="title">
       <tr>
-        <td>尼德教育目前除去主动劝退的学员外，退费率为0，请理解我们为了我们的学员能够提高成绩、成功学业的良苦用心，以下是一些家长、学员给我们的评价和祝福，谢谢各位～～<span class="font_12_2"><a onclick="collapse_change(7)" href="javascript:void(0)">折叠详情&gt;&gt;</a></span></td>
+        <td>你的教育目前除去主动劝退的学员外，退费率为0，请理解我们为了我们的学员能够提高成绩、成功学业的良苦用心，以下是一些家长、学员给我们的评价和祝福，谢谢各位～～<span class="font_12_2"><a onclick="collapse_change(7)" href="javascript:void(0)">折叠详情&gt;&gt;</a></span></td>
         </tr>
     </table></td>
   </tr>
@@ -194,8 +194,8 @@ function collapse_change(menucount) {
       <tr>
         <td height="155" colspan="2" valign="top" background="images/yxfd_64.jpg"><table width="300" border="0" align="center" cellpadding="0" cellspacing="0">
           <tr>
-            <td class="font_12" style="padding-top:6px;">感谢尼德教育让我的孩子对学习有了新的认知，并逐渐开始主动学习。之前我与儿子因为学习经常对立，尼德父母课堂让我认识到家庭教育的问题，对孩子在学习上的严格要求，在物质上的过渡溺爱，想说的有很多……<br />
-              再次感谢尼德教育，祝愿越办越好！ <br /></td>
+            <td class="font_12" style="padding-top:6px;">感谢你的教育让我的孩子对学习有了新的认知，并逐渐开始主动学习。之前我与儿子因为学习经常对立，你的父母课堂让我认识到家庭教育的问题，对孩子在学习上的严格要求，在物质上的过渡溺爱，想说的有很多……<br />
+              再次感谢你的教育，祝愿越办越好！ <br /></td>
           </tr>
         </table></td>
       </tr>
@@ -210,9 +210,9 @@ function collapse_change(menucount) {
           <tr>
             <td class="font_12" style="padding-top:8px;">现在还清楚地记得那句让我印象深刻的那些话。经过系统的测评和分别的访谈之后，咨询老师对我说：“由于您爱人经常出差，所以您在情感上有些依赖孩子，无法在孩子面前建立起威信，以至于您的说教不但不起作用，反而让孩子越来越皮。建议您，说教不必多，但说了就一定要坚决执行，比如……”<br />
               这几句话让我有些恍然大悟的感觉，从开始的不愿意接受到越想越觉得有道理再到写这封感谢信…….<br />
-              现在儿子仍然在尼德教育上课，并且他的教育顾问也帮他做了黄金学习规划，我也经常过去参加他们组织的尼德父母课堂…….<br />
+              现在儿子仍然在你的教育上课，并且他的教育顾问也帮他做了黄金学习规划，我也经常过去参加他们组织的你的父母课堂…….<br />
               庆幸的是，儿子现在成绩稳步提升，良好的生活和学习习惯也慢慢的建立起来，我也逐渐的感觉到儿子开始明事理、讲道理。<br />
-              希望这些话对其他的家长选择教育机构时有帮助，同时希望尼德教育越办越好。</td>
+              希望这些话对其他的家长选择教育机构时有帮助，同时希望你的教育越办越好。</td>
           </tr>
         </table></td>
       </tr>
@@ -227,13 +227,13 @@ function collapse_change(menucount) {
   <tr>
     <td height="260" colspan="2" align="center" valign="top" background="images/yxfd_71.jpg"><table width="842" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td align="left" class="font_12" style="padding-top:8px;">记得当初我爸带我上辅导班，我就很反对，开始几个辅导学校都没上，后来尼德教育的咨询老师吸引了我，再后来尼德教育的学科老师、素质老师让我成绩越来越好，而且越学越有劲，越来越有兴趣，所以我主动些这封信感谢尼德教育。<br />
+        <td align="left" class="font_12" style="padding-top:8px;">记得当初我爸带我上辅导班，我就很反对，开始几个辅导学校都没上，后来你的教育的咨询老师吸引了我，再后来你的教育的学科老师、素质老师让我成绩越来越好，而且越学越有劲，越来越有兴趣，所以我主动些这封信感谢你的教育。<br />
           我爸自己开了一个小饭店，整天都比较忙，平时很少和他交流，但是他对我学习却格外在意，每次写作业、考试，凡是和学习有关的都要问。<br />
           上初一后，我还是按照以前那样学习，但是我觉得我很费力，成绩也开始下降，我把挺着急，开始指导和监督我的学习……<br />
           那天，他突然走进我的房间，把我正在偷看的一本课外书（和同学借的）抢了过来，当场撕碎，他的脾气让我很害怕，我都不知道后来时间怎么过去的。<br />
-          我不知道尼德教育的咨询老师怎么知道的这件事情，而且当着这位老师面，我爸爸居然给我道歉说“他那天不应该撕我的书，他错了。”我当时简直不敢相信。<br />
-          也就是这件事情让我决定在尼德教育学习，不知为什么，我就觉得那里老师特别好，他们似乎很明白我心里怎么想的似的，我感到非常开心，而且我的学习成绩也开始越来越好，父母对我的态度也越来越好，他们开始和我谈我的同学、聊我的学校……<br />
-          马上就要升初三了，我决定继续在尼德教育学习，我希望尼德教育能让我考生重点高中，所以我感谢尼德教育，感谢所有给我上课的教师。<br /></td>
+          我不知道你的教育的咨询老师怎么知道的这件事情，而且当着这位老师面，我爸爸居然给我道歉说“他那天不应该撕我的书，他错了。”我当时简直不敢相信。<br />
+          也就是这件事情让我决定在你的教育学习，不知为什么，我就觉得那里老师特别好，他们似乎很明白我心里怎么想的似的，我感到非常开心，而且我的学习成绩也开始越来越好，父母对我的态度也越来越好，他们开始和我谈我的同学、聊我的学校……<br />
+          马上就要升初三了，我决定继续在你的教育学习，我希望你的教育能让我考生重点高中，所以我感谢你的教育，感谢所有给我上课的教师。<br /></td>
       </tr>
     </table></td>
   </tr>
@@ -252,7 +252,7 @@ function collapse_change(menucount) {
   <tr>
     <td height="67" background="images/yxfd_77.jpg"><table width="800" border="0" cellpadding="0" cellspacing="0" class="title">
       <tr>
-        <td>最后，尼德教育再说一些真心话。<span class="font_12_2"><a onclick="collapse_change(8)" href="javascript:void(0)">折叠详情&gt;&gt;</a></span></td>
+        <td>最后，你的教育再说一些真心话。<span class="font_12_2"><a onclick="collapse_change(8)" href="javascript:void(0)">折叠详情&gt;&gt;</a></span></td>
         </tr>
     </table></td>
   </tr>
@@ -261,6 +261,6 @@ function collapse_change(menucount) {
   <tr>
     <td class="font_14" style="padding-top:8px; padding-bottom:8px;">如果说牛奶要喝到肚子里，化妆品要涂在脸上，其质量来不得半点马虎的话；那么黄金期的教育者和教育内容的质量则更加重要，因为其决定一个孩子的成长过程以及其成年之后的社会生活。<br />
       亲爱的家长、会员们，我们理解你们的担心，更理解孩子们的需求，所以请相信我们。如果您有担心，请一定把您的担心告诉我们，我们会耐心细心的给您解释。我们有QQ群、我们有独立域名的网站、我们有专用的投诉邮箱。我们一直会证明给您看，请放心。<br />
-    最后，希望家长送孩子来尼德教育学习，学员的成绩、学员的变化、学员的快乐将会是尼德最好的说明。</td>
+    最后，希望家长送孩子来你的教育学习，学员的成绩、学员的变化、学员的快乐将会是你的最好的说明。</td>
   </tr>
 </table>

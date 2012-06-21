@@ -14,12 +14,12 @@
         <tr>
           <td height="736" align="center" valign="top"><table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
             <tr>
-              <td height="36" align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;">　　您好，感谢您对尼德教育的支持！如有任何问题或需要任何帮助，请联系我们，我们将热诚为您服务！</td>
+              <td height="36" align="left" class="font_14" style="background-repeat:no-repeat; background-position:left center; padding-left:15px;">　　您好，感谢您对你的教育的支持！如有任何问题或需要任何帮助，请联系我们，我们将热诚为您服务！</td>
             </tr>
           </table>
 		  <table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
               <tr>
-                <td height="32" align="left" class="font_16_orange" style="padding-left:15px;">北京尼德成长教育科技有限公司联系方式：</td>
+                <td height="32" align="left" class="font_16_orange" style="padding-left:15px;">北京你的成长教育科技有限公司联系方式：</td>
               </tr>
             </table>
           <table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
@@ -32,7 +32,7 @@
             </table>
 	        <table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
               <tr>
-                <td height="32" align="left" class="font_16_orange" style="padding-left:15px;">尼德教育校区分布与乘车路线</td>
+                <td height="32" align="left" class="font_16_orange" style="padding-left:15px;">你的教育校区分布与乘车路线</td>
               </tr>
             </table>
 			
@@ -170,7 +170,7 @@
                   <table width="540" border="0" cellspacing="0" cellpadding="0" style="margin-top:8px; margin-bottom:8px;">
                     <tr>
                       <td width="107" height="36" align="right"><label><input type="image" name="submit" align="bottom" src="images/right_19.jpg"></label></td>
-                      <td width="433" align="center" class="font_14"  style="padding-left:8px;">请放心，家长所留下的个人信息，尼德将恪守职业道德，为您保密。</td>
+                      <td width="433" align="center" class="font_14"  style="padding-left:8px;">请放心，家长所留下的个人信息，你的将恪守职业道德，为您保密。</td>
                     </tr>
                   </table></td>
               </tr></form>
@@ -184,19 +184,19 @@
     </table>
       <table width="247" border="0" cellspacing="0" cellpadding="0" height="30" style="margin-top:10px; background-image:url(images/hjxxgh_18.jpg);">
         <tr>
-          <td class="font_14white" style="padding-left:35px;">关于尼德</td>
+          <td class="font_14white" style="padding-left:35px;">关于你的</td>
         </tr>
       </table>
       <table width="247" border="0" cellpadding="0" cellspacing="0" class="gray_box">
         <tr>
           <td height="200" align="center" valign="top"><table width="220" border="0" cellspacing="0" cellpadding="0" style="margin-top:8px;">
             <tr>
-              <td align="left" background="images/ndys_11.jpg" class="font_14" style="background-position:left; background-repeat:no-repeat; padding-left:30px;"><a href="<?php echo site_url('aboutUs') ?>">尼德简介</a></td>
+              <td align="left" background="images/ndys_11.jpg" class="font_14" style="background-position:left; background-repeat:no-repeat; padding-left:30px;"><a href="<?php echo site_url('aboutUs') ?>">你的简介</a></td>
             </tr>
           </table>
 		    <table width="200" border="0" cellpadding="0" cellspacing="0" class="font_right_content" style="margin-left:20px;">
               <tr>
-                <td align="left"><a href="<?php echo site_url('aboutUs') ?>">尼德教育前身是北师大儿童心理学教授为中小学生学习规划科研项目，开始于2003年，当时国家正大力提倡素质教育， 2005年，又一批关心中国基础教育的教授、归国学者...</a></td>
+                <td align="left"><a href="<?php echo site_url('aboutUs') ?>">你的教育前身是北师大儿童心理学教授为中小学生学习规划科研项目，开始于2003年，当时国家正大力提倡素质教育， 2005年，又一批关心中国基础教育的教授、归国学者...</a></td>
               </tr>
             </table>
 		    <table width="245" border="0" cellspacing="0" cellpadding="0">
@@ -206,7 +206,7 @@
           </table>
 		    <table width="220" border="0" cellspacing="0" cellpadding="0" >
               <tr>
-                <td align="left" background="images/ndjj_07.jpg" class="font_14" style="background-position:left; background-repeat:no-repeat; padding-left:30px;"><a href="<?php echo site_url('advantage') ?>">尼德优势</a></td>
+                <td align="left" background="images/ndjj_07.jpg" class="font_14" style="background-position:left; background-repeat:no-repeat; padding-left:30px;"><a href="<?php echo site_url('advantage') ?>">你的优势</a></td>
               </tr>
             </table>
 		    <table width="200" border="0" cellpadding="0" cellspacing="0" class="font_right_content" style="margin-left:20px;">
@@ -308,7 +308,7 @@
             </table>
             <table width="231" border="0" cellspacing="0" cellpadding="0" style="margin-top:8px;">
               <tr>
-                <td width="231" height="62" align="center" background="images/index2_35.jpg" class="font_12_red" style="padding-left:8px; padding-right:8px; padding-top:4px; font-size:12px; color:#333333; font-weight:bold">请放心，家长所留下的个人信息，尼德将恪守职业道德，为您保密。</td>
+                <td width="231" height="62" align="center" background="images/index2_35.jpg" class="font_12_red" style="padding-left:8px; padding-right:8px; padding-top:4px; font-size:12px; color:#333333; font-weight:bold">请放心，家长所留下的个人信息，你的将恪守职业道德，为您保密。</td>
               </tr>
             </table></td>
         </tr>

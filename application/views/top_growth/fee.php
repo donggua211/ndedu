@@ -10,7 +10,7 @@
             <td width="100" bgcolor="#FFFFCC"><strong>黄金学习规划</strong></td>
             <td width="100" bgcolor="#FFFFCC"><strong>一对一访谈课程</strong></td>
             <td width="100" bgcolor="#FFFFCC"><strong>学习成长指导方案</strong></td>
-            <td width="160" bgcolor="#FFFFCC"><strong>寒暑假尼德教育多元学习成长训练营</strong></td>
+            <td width="160" bgcolor="#FFFFCC"><strong>寒暑假你的教育多元学习成长训练营</strong></td>
             <td width="100" bgcolor="#FFFFCC"><strong>价格（单位 元/年）</strong></td>
           </tr>
           <tr align="center">
@@ -74,7 +74,7 @@
 		</table>
 		</p>
 		
-		<span class="font_orange">尼德假期多元学习成长训练营详细说明：</span><br />
+		<span class="font_orange">你的假期多元学习成长训练营详细说明：</span><br />
 		<table width="860" border="1" cellpadding="0" cellspacing="0" bordercolor="#c6c6c6" style="border-collapse:collapse;">
           <tr>
             <td width="400" bgcolor="#FFFFCC" align="center"><strong>主题 </strong></td>
@@ -140,7 +140,7 @@
 		<strong>银行汇款 </strong><br />
 		开户行：中国民生银行北京苏州街支行 <br />
 		帐&nbsp;&nbsp;&nbsp;号：0125 0141 7001 8507 <br />
-		户&nbsp;&nbsp;&nbsp;名：北京尼德成长教育科技有限公司   <br />
+		户&nbsp;&nbsp;&nbsp;名：北京你的成长教育科技有限公司   <br />
 		开户行：中国建设银行北京市清华园支行 <br />
 		帐&nbsp;&nbsp;&nbsp;号：6227 0000 1497 0202 051 <br />
 		户&nbsp;&nbsp;&nbsp;名：李月萍   <br />
