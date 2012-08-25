@@ -8,6 +8,8 @@ class Ajax extends Controller {
 	function Ajax()
 	{
 		parent::Controller();
+		$this->load->library('session');
+		
 		$this->load->model('CRM_contract_model');
 		$this->load->model('CRM_Region_model');
 		$this->load->model('CRM_Staff_model');
@@ -18,9 +20,11 @@ class Ajax extends Controller {
 		$this->load->model('CRM_History_model');
 		$this->load->model('CRM_Timetable_model');
 		$this->load->model('CRM_Staff_Schedule_model');
+		$this->load->model('CRM_Classroom_model');
 		$this->load->model('HR_model');
 		
 		$this->load->library('Services_JSON');
+		$this->load->helper('admin');
 	}
 	
 	function region($parent, $type, $target)
@@ -28,6 +32,23 @@ class Ajax extends Controller {
 		$arr['regions'] = $this->CRM_Region_model->get_regions($type, $parent);
 		$arr['type']    = $type;
 		$arr['target']  = htmlspecialchars($target);
+		echo $this->services_json->encode($arr);
+		//print_r($this->services_json->decode($arr, 1));
+	}
+	
+	function get_staff_by_subject()
+	{
+		$subject_id = $this->input->Post('subject_id');
+		$staff = $this->CRM_Staff_model->get_all_by_subject($subject_id);
+		
+		$arr = array();
+		foreach($staff as $key => $val)
+		{
+			$arr[] = array(
+				'staff_id' => $val['staff_id'],
+				'name' => $val['name'],
+			);		
+		}
 		echo $this->services_json->encode($arr);
 		//print_r($this->services_json->decode($arr, 1));
 	}
@@ -324,6 +345,25 @@ class Ajax extends Controller {
 			$result = $this->CRM_Student_model->delete_student_teacher($student_id, $staff_id, $type);
 		elseif($action == 'add')
 			$result = $this->CRM_Student_model->insert_student_teacher($student_id, $staff_id, $type);
+		else
+			$result = false;
+		
+		if($result)
+			echo 'OK';
+		else
+			echo 'NG';
+	}
+	
+	function update_classroom_student()
+	{
+		$student_id = $this->input->Post('student_id');
+		$classroom_id = $this->input->Post('classroom_id');
+		$action = $this->input->Post('action');
+		
+		if($action == 'del')
+			$result = $this->CRM_Classroom_model->delete_classroom_student($student_id, $classroom_id);
+		elseif($action == 'add')
+			$result = $this->CRM_Classroom_model->insert_classroom_student($student_id, $classroom_id);
 		else
 			$result = false;
 		

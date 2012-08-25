@@ -31,6 +31,12 @@ class Admin_Ac_Entry extends Admin_Ac_Base
 		return ($this->_check_role($allowed_group_id)) ? TRUE : FALSE;
 	}
 
+	function munu_show_classroom_list()
+	{
+		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS_D, GROUP_TEACHER_D, GROUP_SUYANG_D, GROUP_CONSULTANT_D, GROUP_JIAOWU, GROUP_JIAOWU_D);
+		return ($this->_check_role($allowed_group_id)) ? TRUE : FALSE;
+	}
+
 	function munu_show_staff_list()
 	{
 		$allowed_group_id = array(GROUP_ADMIN, GROUP_SCHOOLADMIN, GROUP_CS_D, GROUP_TEACHER_D, GROUP_SUYANG_D, GROUP_CONSULTANT_D, GROUP_JIAOWU, GROUP_JIAOWU_D);

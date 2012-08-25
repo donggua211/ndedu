@@ -517,7 +517,7 @@
 					
 					if(result)
 					{
-						$("#select_list").append("<option value='"+$(this).val()+"'>"+$(this).text()+"</option");
+						$("#select_list").append("<option value='"+$(this).val()+"'>"+$(this).text()+"</option>");
 						$(this).remove();
 					}
 					else
@@ -570,7 +570,7 @@
 					
 					if(result)
 					{
-						$("#fb_list").append("<option value='"+$(this).val()+"'>"+$(this).text()+"</option");
+						$("#fb_list").append("<option value='"+$(this).val()+"'>"+$(this).text()+"</option>");
 						$(this).remove();
 					}
 					else

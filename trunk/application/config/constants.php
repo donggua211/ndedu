@@ -40,6 +40,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
  * Constans for Admin Panel
  */
 define('STUDENT_PER_PAGE', 15); //每页显示15个学员
+define('CLASSROOM_PER_PAGE', 20); //每页显示15个学员
 define('STAFF_PER_PAGE', 15); //每页显示15个员工
 define('DOCUMENT_PER_PAGE', 10); //每页显示15个学员
 

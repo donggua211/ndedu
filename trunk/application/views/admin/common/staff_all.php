@@ -40,9 +40,6 @@
 				<?php
 					foreach($subjects as $subject)
 					{
-						if($subject['subject_id'] == SUBJECT_XUEKE)
-							continue;
-						
 						echo '<option value="'.$subject['subject_id'].'" '. (($subject['subject_id'] == $filter['subject_id']) ? 'SELECTED' : '' ) .'>'.$subject['subject_name'].'</option>';
 					}
 				?>
