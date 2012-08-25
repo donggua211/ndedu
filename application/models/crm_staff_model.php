@@ -41,7 +41,7 @@ class CRM_Staff_model extends Model {
             $where .= " AND staff.grade_id = {$filter['grade_id']} ";
         }
 		//所在组
-		if ($filter['group_id'])
+		if (isset($filter['group_id']) && $filter['group_id'])
         {
 			if(is_array($filter['group_id']))
 			{
@@ -72,7 +72,7 @@ class CRM_Staff_model extends Model {
 		//按照学科
 		if (isset($filter['subject_id']) && $filter['subject_id'])
         {
-            $where .= " AND subject.subject_id = " . $filter['subject_id'];
+            $where .= " AND (subject.subject_id = " . $filter['subject_id'] . ' OR subject.parrent_id = "' . $filter['subject_id'] . '")';
         }
 		
 		//student基本信息
@@ -339,6 +339,12 @@ class CRM_Staff_model extends Model {
 	function get_all_by_group($group_id = 0)
 	{
 		$filter['group_id'] = $group_id;
+		return $this->getAll($filter, 0,0, $order_by = 'username');
+	}
+	
+	function get_all_by_subject($subject_id = 0)
+	{
+		$filter['subject_id'] = $subject_id;
 		return $this->getAll($filter, 0,0, $order_by = 'username');
 	}
 	

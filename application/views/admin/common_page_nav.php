@@ -1,4 +1,4 @@
-<table width="100%" cellspacing="0">
+<table width="100%" cellspacing="0" style="margin-top:10px">
   <tr>
 	<td align="right" nowrap="true">
 		总计  <span id="totalRecords"><?php echo $total ?></span>个记录, 

@@ -46,6 +46,17 @@
 					<?php endif; ?>
 				</ul>
 			</li>
+			<?php if($CI->admin_ac_entry->munu_show_classroom_list() ): ?>
+			<li class="explode" key="02_staff" name="menu">
+				班级管理
+				<ul>
+					<li class="menu-item"><a href="<?php echo site_url("admin/classroom/add"); ?>" target="main-frame">添加班级</a></li>
+					
+					<li class="menu-item"><a href="<?php echo site_url("admin/classroom"); ?>" target="main-frame">班级列表</a></li>
+				</ul>
+			</li>
+			<?php endif; ?>
+			
 			<?php if($CI->admin_ac_entry->munu_show_staff_list() ): ?>
 			<li class="explode" key="02_staff" name="menu">
 				员工管理

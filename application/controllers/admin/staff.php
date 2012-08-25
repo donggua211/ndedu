@@ -53,6 +53,7 @@ class Staff extends Controller {
 	
 		$filter = $this->_parse_filter($filter_string, $filter);
 		
+		/* Block out at 2012-08-23. Can not remember what this part of code used for. 
 		if($filter['subject_id'])
 		{
 			if($filter['subject_id'] == STUDENT_TEACHER_SUYANG)
@@ -65,7 +66,13 @@ class Staff extends Controller {
 				$filter['group_id'] = array(GROUP_CONSULTANT, GROUP_CONSULTANT_D, GROUP_CONSULTANT_PARTTIME);
 				$filter['subject_id'] = false;
 			}
+			elseif($filter['subject_id'] == STUDENT_TEACHER_XUEKE)
+			{
+				$filter['group_id'] = array(GROUP_TEACHER_PARTTIME, GROUP_TEACHER_FULL, GROUP_TEACHER_D);
+				$filter['subject_id'] = false;
+			}
 		}
+		*/
 		
 		//access control
 		$filter_ac = $this->admin_ac_staff->staff_index_ac();
@@ -99,7 +106,7 @@ class Staff extends Controller {
 		$data['main']['staffs'] = $staffs;
 		$data['main']['branches'] = $this->_get_branch();
 		$data['main']['grades'] = $this->_get_grade();
-		$data['main']['subjects'] = $this->_get_subjects();
+		$data['main']['subjects'] = $this->_get_subjects_parrent();
 		$data['main']['filter'] = $filter;
 		_load_viewer($this->staff_info['group_id'], 'staff_all', $data);
 	}
@@ -706,6 +713,18 @@ class Staff extends Controller {
 			$parrent_id = SUBJECT_XUEKE;
 		
 		return $this->CRM_Subject_model->getAll($parrent_id);
+	}
+	
+	function _get_subjects_parrent($parrent_id = 0)
+	{
+		if($this->staff_info['group_id'] == GROUP_CONSULTANT_D)
+			$parrent_id = SUBJECT_ZIXUN;
+		elseif($this->staff_info['group_id'] == GROUP_SUYANG_D)
+			$parrent_id = SUBJECT_SUYANG;
+		elseif($this->staff_info['group_id'] == GROUP_TEACHER_D)
+			$parrent_id = SUBJECT_XUEKE;
+		
+		return $this->CRM_Subject_model->getAll_parrent($parrent_id);
 	}
 	
 	function _parse_filter($filter_string, $filter)
