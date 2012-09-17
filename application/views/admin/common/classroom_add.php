@@ -63,14 +63,14 @@
 			<tr>
 				<td class="label" valign="top"><span class="notice-star"> * </span>添加学员: </td>
 				<td>
-					<b>未报名学员:</b><br/>
+					<b>未报名学员:</b> [ <a href="javascript:void(0);" onclick="mark_all('signup')">全选</a> / <a href="javascript:void(0);" onclick="unmark_all('signup')">全不选</a> ] <br/>
 					<?php foreach($student_signup as $one): ?>
-						<input type="checkbox" name="student_id[]" value="<?php echo $one['student_id'] ?>" checked="checked"><?php echo $one['name'] ?>
+						<input type="checkbox" name="student_id[]" id="signup_<?php echo $one['student_id'] ?>" value="<?php echo $one['student_id'] ?>"  checked="checked"><label for="signup_<?php echo $one['student_id'] ?>"><?php echo $one['name'] ?></label>
 					<?php endforeach;?>
 					<hr/>
-					<b>已报名学员:</b><br/>
+					<b>已报名学员:</b> [ <a href="javascript:void(0);" onclick="mark_all('learning')">全选</a> / <a href="javascript:void(0);" onclick="unmark_all('learning')">全不选</a> ] <br/>
 					<?php foreach($student_learning as $one): ?>
-						<input type="checkbox" name="student_id[]" value="<?php echo $one['student_id'] ?>" checked="checked"><?php echo $one['name'] ?>
+						<input type="checkbox" name="student_id[]" id="learning_<?php echo $one['student_id'] ?>" value="<?php echo $one['student_id'] ?>" checked="checked"><label for="learning_<?php echo $one['student_id'] ?>"><?php echo $one['name'] ?></label>
 					<?php endforeach;?>
 				</td>
 			</tr>
@@ -102,8 +102,15 @@
 					});
 				}
 			});
-				
 		})
 	})
+	
+	function mark_all(type) {
+		$("input[id^='" + type + "_']").attr("checked",true);
+	}
+
+	function unmark_all(type) {
+		$("input[id^='" + type + "_']").attr("checked",false);
+	}
 	
 </script>
