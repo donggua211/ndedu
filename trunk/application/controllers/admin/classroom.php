@@ -205,8 +205,8 @@ class Classroom extends Controller {
 		$data['footer']['js_file'] = '../calendar.js';
 		$data['main']['subjects'] = $this->_get_subjects_parrent();
 		$data['main']['teachers'] = $this->CRM_Staff_model->get_all_by_subject(SUBJECT_SUYANG);
-		$data['main']['student_signup'] = $this->CRM_Student_model->getAll(array('status' => STUDENT_STATUS_SIGNUP));
-		$data['main']['student_learning'] = $this->CRM_Student_model->getAll(array('status' => STUDENT_STATUS_LEARNING));
+		$data['main']['student_signup'] = $this->CRM_Student_model->getAll(array('status' => STUDENT_STATUS_SIGNUP), 0, 0, 'name');
+		$data['main']['student_learning'] = $this->CRM_Student_model->getAll(array('status' => STUDENT_STATUS_LEARNING), 0, 0, 'name');
 		$data['main']['class'] = $class;
 		$data['main']['notification'] = $notify;
 		$this->_load_view('classroom_add', $data);
@@ -219,7 +219,7 @@ class Classroom extends Controller {
 		$data['footer']['js_file'] = '../calendar.js';
 		$data['main']['subjects'] = $this->_get_subjects_parrent();
 		$data['main']['teachers'] = $this->CRM_Staff_model->get_all_by_subject($class['subject_id']);
-		$data['main']['student'] = $this->CRM_Student_model->getAll(array('status' => array(STUDENT_STATUS_SIGNUP, STUDENT_STATUS_LEARNING)));
+		$data['main']['student'] = $this->CRM_Student_model->getAll(array('status' => array(STUDENT_STATUS_SIGNUP, STUDENT_STATUS_LEARNING)), 0, 0, 'name');
 		$data['main']['class'] = $class;
 		$data['main']['notification'] = $notify;
 		$this->_load_view('classroom_edit', $data);
