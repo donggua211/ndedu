@@ -4,10 +4,10 @@
 		<img src="images/top.jpg"/>
 		<div class="products">
 			<ul id="prod_ul">
-				<li onmouseover="switch_tag('prod_ul', 0)"><img src="images/product1.jpg"><br/><span>恒正尚康-苦芥茶</span></li>
-				<li onmouseover="switch_tag('prod_ul', 1)"><img src="images/product1.jpg"><br/><span>恒正尚康-苦芥茶</span></li>
-				<li onmouseover="switch_tag('prod_ul', 2)"><img src="images/product1.jpg"><br/><span>恒正尚康-苦芥茶</span></li>
-				<li onmouseover="switch_tag('prod_ul', 3)"><img src="images/product1.jpg"><br/><span>恒正尚康-苦芥茶</span></li>
+				<li onmouseover="switch_tag('prod_ul', 0)"><a href="http://item.taobao.com/item.htm?spm=a1z10.1.w28.14.0Jyycq&id=20820444669" target="_blank"><img src="images/product1.jpg"></a><br/><a href="http://item.taobao.com/item.htm?spm=a1z10.1.w28.14.0Jyycq&id=20820444669" target="_blank"><span>恒正尚康-瓜子片</span></a></li>
+				<li onmouseover="switch_tag('prod_ul', 1)"><a href="http://item.taobao.com/item.htm?spm=a1z10.1.w28.14.0Jyycq&id=20802352954" target="_blank"><img src="images/product2.jpg"></a><br/><a href="http://item.taobao.com/item.htm?spm=a1z10.1.w28.14.0Jyycq&id=20802352954" target="_blank"><span>恒正尚康-官儿正北芪</span></a></li>
+				<li onmouseover="switch_tag('prod_ul', 2)"><a href="http://item.taobao.com/item.htm?spm=a1z10.1.w28.14.0Jyycq&id=20823620832" target="_blank"><img src="images/product3.jpg"></a><br/><a href="http://item.taobao.com/item.htm?spm=a1z10.1.w28.14.0Jyycq&id=20823620832" target="_blank"><span>恒正尚康-官儿正北芪</span></a></li>
+				<li onmouseover="switch_tag('prod_ul', 3)"><a href="http://item.taobao.com/item.htm?spm=a1z10.1.w28.14.0Jyycq&id=19920920609" target="_blank"><img src="images/product4.jpg"></a><br/><a href="http://item.taobao.com/item.htm?spm=a1z10.1.w28.14.0Jyycq&id=19920920609" target="_blank"><span>恒正尚康-官儿正北芪</span></a></li>
 			</ul>
 		</div>
 		<div class="clearfix"></div>
@@ -25,7 +25,7 @@
 		<div class="index_news">
 			<div class="head">
 				<span>最新资讯 <font>Newest</font></span>
-				<a href="<?php echo site_url('media') ?>" target="_blank">更多>></a>
+				<a href="<?php echo site_url('article/cat/1') ?>" target="_blank">更多>></a>
 			</div>
 			<div class="content">
 				<?php foreach($sidebar1 as $key => $article): ?>

@@ -37,9 +37,8 @@ thisURL = '<?php echo $_SERVER['REQUEST_URI'];?>';
 			<?php if(!isset($nav_menu_id) || empty($nav_menu_id)) $nav_menu_id = 1; ?>
 			<li <?php echo ($nav_menu_id == 1) ? 'class="cover"' : ''; ?> onmouseover="switch_tag('nav_ul', 0)"><a href="<?php echo site_url(); ?>">首页</a></li>
 			<li <?php echo ($nav_menu_id == 2) ? 'class="cover"' : ''; ?> onmouseover="switch_tag('nav_ul', 1)"><a href="<?php echo site_url('product'); ?>">产品与服务</a></li>
-			<li <?php echo ($nav_menu_id == 3) ? 'class="cover"' : ''; ?> onmouseover="switch_tag('nav_ul', 2)"><a href="<?php echo site_url(); ?>">在线商城</a></li>
-			<li <?php echo ($nav_menu_id == 4) ? 'class="cover"' : ''; ?> onmouseover="switch_tag('nav_ul', 3)"><a href="<?php echo site_url('aboutus'); ?>">关于我们</a></li>
-			<li <?php echo ($nav_menu_id == 5) ? 'class="cover"' : ''; ?> onmouseover="switch_tag('nav_ul', 4)"><a href="<?php echo site_url('contactus'); ?>">联系我们</a></li>
+			<li <?php echo ($nav_menu_id == 4) ? 'class="cover"' : ''; ?> onmouseover="switch_tag('nav_ul', 2)"><a href="<?php echo site_url('aboutus'); ?>">关于我们</a></li>
+			<li <?php echo ($nav_menu_id == 5) ? 'class="cover"' : ''; ?> onmouseover="switch_tag('nav_ul', 3)"><a href="<?php echo site_url('contactus'); ?>">联系我们</a></li>
 		</ul>
 		<div class="fav">
 			<img src="images/icon/star.gif"> 
@@ -76,7 +75,7 @@ s1.addParam("wmode", "transparent");
 s1.addParam("AllowscriptAccess", "sameDomain");
 s1.addVariable("bigSrc", "images/banner_1.jpg|images/banner_2.jpg|images/banner_3.jpg");
 s1.addVariable("smallSrc", "");
-s1.addVariable("href", "<?php echo site_url('children') ?>|<?php echo site_url('children/advantage') ?>|<?php echo site_url('children/parrent') ?>");
+s1.addVariable("href", "http://shangkang.taobao.com/?spm=2013.1.7369382-297338411.1.W0hi89|http://shangkang.taobao.com/?spm=2013.1.7369382-297338411.1.W0hi89|http://shangkang.taobao.com/?spm=2013.1.7369382-297338411.1.W0hi89");
 s1.addVariable("txt", "1|2|3");
 s1.addVariable("width", "955");
 s1.addVariable("height", "272");
