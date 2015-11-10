@@ -89,6 +89,9 @@ endif;
 </head>
 <body>
 <?php if( !(isset($no_header) && $no_header)): ?>
+<div class="promo_image">
+	<a href="<?php echo site_url('robot') ?>" target="_blank"><img src="images/adc.jpg" width="930" height="120" alt="<?php echo SITE_NAME; ?>" /></a>
+</div>
 <div id="mini_nav">
 	<div class="font_12_18">
 		<a href="javascript:void(0);" onclick="SetHome(this,window.location)" style="CURSOR: hand">设为首页</a>
