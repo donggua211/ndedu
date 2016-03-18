@@ -44,7 +44,7 @@ $config['index_page'] = "";
 */
 
 //fix url query string problem.
-$config['uri_protocol']	= "PATH_INFO";
+$config['uri_protocol']	= "AUTO";
 //$config['uri_protocol']	= "ORIG_PATH_INFO"; for ONline env
 
 /*
