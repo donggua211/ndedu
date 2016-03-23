@@ -6,18 +6,6 @@
 				echo '» '.$path['category_name'];
 		?>
 	</div>
-	<div id="nav_right">
-		<form action="<?php echo site_url('ics/ics/search')?>" method="POST" name="searchForm">
-			<select name="category_id">
-				<option value="0">请选择分类</option>
-					<?php 
-					print_r($categories);
-					show_category_options($categories, 0); ?>
-			</select>
-			<input type="text" name="keyword" size="15" />
-			<input type="submit" value=" 搜索 " class="button" />
-		</form>
-	</div>
 	
 	
 </div>
