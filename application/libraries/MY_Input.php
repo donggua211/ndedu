@@ -1,1 +1,1 @@
-<?phpclass MY_Input extends CI_Input {		function MY_Input()    {        parent::CI_Input();    }		function myPost($index = '', $xss_clean = FALSE)	{		return trim($this->post($index, $xss_clean));	}}?>
+<?phpclass MY_Input extends CI_Input {		function __construct() {        parent::__construct();    }		function myPost($index = '', $xss_clean = FALSE)	{		return trim($this->post($index, $xss_clean));	}}?>
